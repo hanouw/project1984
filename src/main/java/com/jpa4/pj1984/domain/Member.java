@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Member extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "user_no")
     private Long user_no;
     @Column(nullable = false, unique = true)
     private String user_id;
@@ -32,6 +32,8 @@ public class Member extends TimeEntity{
     private Status user_status;
     @Column(updatable = false)
     private LocalDateTime regDate;
+    @OneToOne(mappedBy = "store_id")
+    private Store store;
 
 
 }
