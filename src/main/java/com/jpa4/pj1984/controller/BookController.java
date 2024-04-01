@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/crm")
+@RequestMapping("/book")
 @Slf4j
 public class BookController {
     //상품리스트
-    @GetMapping("booklist")
+    @GetMapping("/booklist")
     public String booklist(){
-        log.info("--booklist");
+        return "book/list";
     }
 }
