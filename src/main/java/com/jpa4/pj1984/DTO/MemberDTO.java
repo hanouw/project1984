@@ -25,7 +25,6 @@ public class MemberDTO {
     private LocalDateTime createDate;
 
 
-
     // DTO -> Entity
     public Member toEntity(){
         Member member = new Member();
