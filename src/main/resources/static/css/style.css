@@ -11,34 +11,36 @@
 .main_logo{
     width: 80px;
     height: 80px;
-    margin: 20px;
+    margin: 40px;
+    margin-bottom: 20px;
     background-image: url(../img/main_logo.svg);
     background-position: 100%;
 }
 /* login */
 .login_form{
-    width: 400px;
+    width: 440px;
     height: 100vh;
     background-color: var(--mainblack);
     color: var(--mainwhite);
+    overflow-y: scroll;
 }
 .login_form_wrap > p{
     font-size: 28px;
-    padding: 20px;
+    padding: 20px 40px;
     line-height: 34px;
 }
 .login_form_wrap > hr{
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
     margin-bottom: 40px;
 }
 .login_form_wrap > h2{
-    width: calc(100% - 40px);
-    margin-left: 20px;
+    width: calc(100% - 80px);
+    margin-left: 40px;
     font-size: 28px;
 }
 .input_form{
-    width: calc(100% - 40px);
-    margin-left: 20px;
+    width: calc(100% - 80px);
+    margin-left: 40px;
     margin-top: 34px;
 }
 .input_form > span{
@@ -54,8 +56,8 @@
     border: 1px solid #dcdcdc;
 }
 .check_box{
-    width: calc(100% - 20px);
-    margin-left: 20px;
+    width: calc(100% - 40px);
+    margin-left: 40px;
 }
 #auto_login{
     width: 20px;
@@ -69,10 +71,10 @@
     transform: translateY(-5px);
 }
 .btn_login{
-    width:calc(100% - 40px);
+    width:calc(100% - 80px);
     height: 52px;
     margin-top: 40px;
-    margin-left: 20px;
+    margin-left: 40px;
     background-color: var(--mainblack);
     color: #fff;
     font-size: 18px;
@@ -88,7 +90,7 @@
     border: 3px solid var(--pointcolor);
     color:var(--mainblack);
 }
-a.link_signup{
+a.link_signup, a.link_login{
     display: block;
     width: 100%;
     margin-top: 14px;
@@ -96,16 +98,17 @@ a.link_signup{
     text-align: center;
     text-decoration: underline;
 }
-.login_copyright{
+span.login_copyright, span.signup_copyright{
     display: block;
     font-size: 11px;
-    margin-top: 40px;
+    margin-top: 80px;
+    padding-bottom:80px;
     width: 100%;
     text-align: center;
 }
 /* login_page_img */
 .login_img{
-    width: calc(100% - 400px);
+    width: calc(100% - 440px);
     height: 100vh;
     background-image: url("https://source.unsplash.com/random");
     background-position: center;
