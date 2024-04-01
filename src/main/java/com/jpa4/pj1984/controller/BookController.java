@@ -10,8 +10,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class BookController {
     //상품리스트
-    @GetMapping("booklist")
-    public String booklist(){
-        log.info("--booklist");
-    }
 }
