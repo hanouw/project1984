@@ -158,12 +158,12 @@ div.side_menu{
 }
 div.content{
     width: calc(100% - 320px);
-    background-color: #dcdcdc;
+    background-color: #fff;
 }
 li.menu_list > a span{
     font-size: 24px;
     line-height: 29px;
-    color: var(--mainwhite);
+    color:var(--mainwhite);
 }
 li.menu_list > a:hover span{
     color: var(--pointcolor);
@@ -171,4 +171,87 @@ li.menu_list > a:hover span{
 li.menu_list > a:hover div{
     color: var(--pointcolor);
     background-image: url("../img/icon_arrow_up.svg");
+}
+div.top_st_bar{
+    width: calc(100% - 40px);
+    margin: 20px;
+    height:80px;
+    border-radius: 4px;
+    border: 1px solid #dcdcdc;
+    text-align: right;
+}
+div.top_st_bar > p{
+    width: calc(100% - 20px);
+    margin-top:20px;
+    font-size: 18px;
+}
+div.top_st_bar > span{
+    width: calc(100% - 20px);
+    margin-top:6px;
+    font-size: 14px;
+    display: block;
+}
+
+/*search_bar*/
+.search_bar_wrap{
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    margin-bottom: 28px;
+}
+.search_bar_wrap > hr{
+    border: 1px solid #dcdcdc;
+}
+.search_date_wrap, .search_text_wrap{
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_date_wrap > .item > h2{
+    font-size: 28px;
+    height:44px;
+    line-height: 44px;
+}
+.search_date_wrap > .item > button{
+    padding: 14px 22px;
+    background-color: var(--maingrey);
+    border: 1px solid var(--maingrey);
+    border-radius: 4px;
+    color: var(--mainwhite);
+}
+.search_date_wrap > .item > input{
+    padding: 12px;
+    border: 1px solid var(--maingrey);
+    border-radius: 4px;
+}
+
+.search_text_wrap > .item > button{
+    padding: 14px 22px;
+    background-color: var(--mainblack);
+    border: 1px solid var(--mainblack);
+    border-radius: 4px;
+    color: var(--mainwhite);
+}
+.search_text_wrap > .item > input{
+    padding: 13px;
+    border: 1px solid var(--maingrey);
+    border-radius: 4px;
+}
+.search_text_wrap > .item > select{
+    padding: 12px 22px 12px 20px;
+    border: 1px solid var(--maingrey);
+    border-radius: 4px;
+}
+
+/*list_table*/
+.list_table_wrap{
+    width: 100%;
+    margin-top: 20px;
+}
+.list_table{
+    width: 100%;
+    text-align: center;
+}
+.list_table tr{
+    border-bottom: 1px solid #dcdcdc;
+    line-height: 52px;
 }
