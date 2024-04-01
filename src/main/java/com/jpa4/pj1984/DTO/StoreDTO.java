@@ -36,31 +36,7 @@ public class StoreDTO {
     private String bank_name;
     private String store_account;
 
-    // DTO -> Entity
-    public Store toEntity() {
-        Store store = new Store();
-        store.setStore_id(store_id);
-        store.setStore_title(store_title);
-        store.setMember(store.getMember());
-        store.setStore_crn(store_crn);
-        store.setStore_email(store_email);
-        store.setStore_phone_num(store_phone_num);
-        store.setStore_image_name(store_image_name);
-        store.setStore_image_id(store_image_id);
-        store.setStore_inside_image_name01(store_inside_image_name01);
-        store.setStore_inside_image_id01(store_inside_image_id01);
-        store.setStore_inside_image_name01(store_inside_image_name02);
-        store.setStore_inside_image_id01(store_inside_image_id02);
-        store.setStore_inside_image_name01(store_inside_image_name03);
-        store.setStore_inside_image_id01(store_inside_image_id03);
-        store.setStore_address(store_address);
-        store.setBank_id(bank_id);
-        store.setStore_status(storeStatus);
-        store.setStore_operate_time(store_operate_time);
-        store.setStore_tag(store_tag);
-        store.setBank_name(bank_name);
-        store.setStore_account(store_account);
-        return store;
-    }
+    // sampleDTO 생성자의 매개변수는 entity
+
 
 }

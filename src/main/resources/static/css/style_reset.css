@@ -53,6 +53,7 @@ table {
 /* --컬러-- */
 :root{
     --mainblack : #1b1b1b;
+    --maingrey : #6a6a6a;
     --mainwhite : #ffffff;
     --pointcolor : #EE6F2E;
 }

@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequestMapping("/order")
 
-public class OrderController {
+public class PaymentController {
 }
