@@ -34,8 +34,8 @@ public class MemberDTO {
         member.setUser_name(user_name);
         member.setUser_email(user_email);
         member.setUser_phone_num(user_phone_num);
-        member.setUser_role(user_role);
-        member.setUser_status(user_status);
+        member.setUser_role(Role.USER);
+        member.setUser_status(Status.USER);
         return member;
     }
 }
