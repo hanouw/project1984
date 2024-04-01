@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MemberDTO {
 
-    private Long user_no;
-    private String user_id;
-    private String user_password;
-    private String user_name;
-    private String user_email;
-    private String user_phone_num;
-    private Role user_role;
-    private Status user_status;
+    private Long userNo;
+    private String userId;
+    private String userPassword;
+    private String userName;
+    private String userEmail;
+    private String userPhoneNum;
+    private Role userRole;
+    private Status userStatus;
     private LocalDateTime createDate;
 
 
@@ -29,13 +29,13 @@ public class MemberDTO {
     // DTO -> Entity
     public Member toEntity(){
         Member member = new Member();
-        member.setUser_id(user_id);
-        member.setUser_password(user_password);
-        member.setUser_name(user_name);
-        member.setUser_email(user_email);
-        member.setUser_phone_num(user_phone_num);
-        member.setUser_role(Role.USER);
-        member.setUser_status(Status.USER);
+        member.setUserId(userId);
+        member.setUserPassword(userPassword);
+        member.setUserName(userName);
+        member.setUserEmail(userEmail);
+        member.setUserPhoneNum(userPhoneNum);
+        member.setUserRole(Role.USER);
+        member.setUserStatus(Status.USER);
         return member;
     }
 }
