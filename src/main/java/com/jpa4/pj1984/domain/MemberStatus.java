@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
-public enum Status {
+public enum MemberStatus {
     USER("STATUS_USER"), QUIT("STATUS_QUIT"), BANNED("STATUS_BANNED") ;
     private final String value;
 }

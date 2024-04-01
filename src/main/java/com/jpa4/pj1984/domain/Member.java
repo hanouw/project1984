@@ -25,10 +25,10 @@ public class Member extends TimeEntity{
     private String userPhoneNum;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role userRole;
+    private MemberRole userMemberRole;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status userStatus;
+    private MemberStatus userMemberStatus;
     @Column(updatable = false)
     private LocalDateTime regDate;
     @OneToOne(mappedBy = "member")

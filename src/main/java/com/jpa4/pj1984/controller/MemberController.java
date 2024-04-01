@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.controller;
 
 import com.jpa4.pj1984.DTO.MemberDTO;
+import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class MemberController {
     @PostMapping("/signup")
     public String signupPro(MemberDTO memberDTO){
         log.info("******* MemberController signupPro");
-        memberService.save(memberDTO);
-        return "redirect:home";
+        Member member = memberService.save(memberDTO);
+        return "redirect:/";
     }
 
     @GetMapping("/login")
@@ -40,6 +41,6 @@ public class MemberController {
     public String loginPro(MemberDTO memberDTO, HttpSession httpSession){
         log.info("******* MemberController loginPro");
         memberService.login(memberDTO);
-        return "redirect:home";
+        return "redirect:/";
     }
 }

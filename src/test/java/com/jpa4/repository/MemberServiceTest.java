@@ -1,9 +1,5 @@
 package com.jpa4.repository;
 
-import com.jpa4.pj1984.DTO.MemberDTO;
-import com.jpa4.pj1984.domain.Member;
-import com.jpa4.pj1984.domain.Role;
-import com.jpa4.pj1984.domain.Status;
 import com.jpa4.pj1984.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
