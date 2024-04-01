@@ -1,4 +1,4 @@
-package com.jpa4.controller;
+package com.jpa4.pj1984.controller;
 
 <<<<<<< HEAD
 
