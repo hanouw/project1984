@@ -58,7 +58,7 @@ table {
 }
 
 /* 스크롤 ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
-.scroll::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
 }
 .scroll {
