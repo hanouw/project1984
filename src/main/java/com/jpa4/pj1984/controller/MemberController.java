@@ -28,13 +28,13 @@ public class MemberController {
         return "redirect:home";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/cms/login")
     public String loginForm(){
         log.info("******* MemberController loginForm");
-        return "member/login";
+        return "backend/member/cmslogin";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/cms/login")
     public String loginPro(){
         log.info("******* MemberController loginPro");
         return "redirect:home";
