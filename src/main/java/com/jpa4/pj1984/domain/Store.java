@@ -15,7 +15,7 @@ public class Store extends TimeEntity{
     @Column(nullable = false, unique = true, length = 100)
     private String store_title;
     @OneToOne
-    @JoinColumn(name = "user_no")
+    @JoinColumn(name = "userNo")
     private Member member;
     @Column(nullable = false, unique = true, length = 20)
     private String store_crn;

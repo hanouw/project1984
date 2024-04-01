@@ -22,9 +22,9 @@ public class MemberService {
     }
 
     public MemberDTO login(MemberDTO memberDTO){
-        Optional<Member> dbMember = memberRepository.findById(memberDTO.getUser_no());
+        Optional<Member> dbMember = memberRepository.findById(memberDTO.getUserNo());
         if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
-            if(dbMember.get().getUser_password().equals(memberDTO.getUser_password())){
+            if(dbMember.get().getUserPassword().equals(memberDTO.getUserPassword())){
                 return memberDTO;
             }
         }
