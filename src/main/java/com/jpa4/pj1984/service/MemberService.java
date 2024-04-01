@@ -22,11 +22,15 @@ public class MemberService {
     }
 
     public MemberDTO login(MemberDTO memberDTO){
-//        Optional<Member> dbMember = memberRepository.findById(memberDTO.getUser_no());
-        Member dbMember = memberRepository.findById(memberDTO.getUser_no()).orElse(null);
-//        if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
-////            Member member = findMember.filter(m -> m.getPassword().equals(memberDTO.getPassword())).orElse(null);
-//            dbMember.getUser_password().equals(memberDTO.getUser_password())
+        Optional<Member> dbMember = memberRepository.findById(memberDTO.getUserNo());
+        if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
+            if(dbMember.get().getUserPassword().equals(memberDTO.getUserPassword())){
+                return memberDTO;
+            }
+        }
+//        Member member = memberRepository.findById(memberDTO.getUser_no()).orElse(null);
+//        if(member.getUser_password().equals(memberDTO.getUser_password())){
+//            return memberDTO;
 //        }
         return null;
     }

@@ -12,24 +12,25 @@ import java.time.LocalDateTime;
 public class Member extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_no")
-    private Long user_no;
+    private Long userNo;
     @Column(nullable = false, unique = true)
-    private String user_id;
+    private String userId;
     @Column(nullable = false)
-    private String user_password;
+    private String userPassword;
     @Column(nullable = false)
-    private String user_name;
+    private String userName;
     @Column(nullable = false)
-    private String user_email;
+    private String userEmail;
     @Column(nullable = false)
-    private String user_phone_num;
+    private String userPhoneNum;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role user_role;
+    private Role userRole;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status user_status;
+    private Status userStatus;
     @Column(updatable = false)
     private LocalDateTime regDate;
+    @OneToOne(mappedBy = "member")
+    private Store store;
 }
