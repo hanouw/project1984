@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <script>
+    let IMP = window.IMP;
+    IMP.init("imp20085076");
+
+    function requestPay() {
+      IMP.request_pay(
+              {
+                pg: "kakaopay",
+                pay_method: "card",
+                merchant_uid: "20240401" + new Date().getTime(),
+                name: "카카오페이 테스트결제",
+                amount: 10,
+                buyer_email: 'test@naver.com',
+                buyer_name: '효진쓰',
+                buyer_tel: '010-1234-5678',
+                buyer_addr: '서울특별시',
+                buyer_postcode: '123-456',
+              },
+              function (rsp) {
+                console.log(rsp);
+                $.ajax({
+                  type: 'POST',
+                  url: '/verifyIamport/' + rsp.imp_uid
+                }).done(function(data) {
+                  if(rsp.paid_amount === data.response.amount){
+                    alert("결제 성공");
+                    // location.href = "결제 완료 후 이동할 페이지 url"
+                  } else {
+                    let msg = '결제에 실패하였습니다.';
+                    msg += '에러내용 : ' + rsp.error_msg;
+                    alert(msg);
+                  }
+                });
+              });
+    }
+  </script>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Sample Payment</title>
 </head>
 <body>
-
+<button onclick="requestPay()">결제하기</button>
 </body>
 </html>
