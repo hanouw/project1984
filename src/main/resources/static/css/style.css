@@ -54,6 +54,7 @@
     height: 48px;
     border-radius: 4px;
     border: 1px solid #dcdcdc;
+    color: var(--mainblack);
 }
 .check_box{
     width: calc(100% - 40px);
