@@ -13,6 +13,6 @@ public class BookController {
     @GetMapping("booklist")
     public String booklist(){
         log.info("--booklist");
-        return "";
+        return "backend/book/list";
     }
 }
