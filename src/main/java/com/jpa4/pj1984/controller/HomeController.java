@@ -1,4 +1,4 @@
-package com.jpa4.controller;
+package com.jpa4.pj1984.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
