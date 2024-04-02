@@ -29,6 +29,5 @@ public class Member extends TimeEntity{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MemberStatus userMemberStatus;
-    @OneToOne(mappedBy = "member")
-    private Store store;
+
 }
