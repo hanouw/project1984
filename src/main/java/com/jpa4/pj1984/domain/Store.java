@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -11,49 +13,50 @@ public class Store extends TimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long store_id;
+    private Long storeId;
     @Column(nullable = false, unique = true, length = 100)
-    private String store_title;
-    @OneToOne
-    @JoinColumn(name = "userNo")
-    private Member member;
+    private String storeTitle;
+    @Column(nullable = false, length = 20)
+    private String storeOwner;
     @Column(nullable = false, unique = true, length = 20)
-    private String store_crn;
+    private String storeCrn;
     @Column(nullable = false, unique = true, length = 100)
-    private String store_email;
-    @Column(nullable = false, unique = true)
-    private Long store_phone_num;
+    private String storeText;
+    @Column(nullable = false, unique = true, length = 400)
+    private Long storePhoneNum;
     @Column(nullable = false, length = 50)
-    private String store_image_name;
+    private String storeImageName;
     @Column(nullable = false, length = 100)
-    private String store_image_id;
+    private String storeImageId;
     @Column(nullable = false, length = 50)
-    private String store_inside_image_name01;
+    private String storeInsideImageName01;
     @Column(nullable = false, length = 100)
-    private String store_inside_image_id01;
+    private String storeInsideImageId01;
     @Column(nullable = false, length = 50)
-    private String store_inside_image_name02;
+    private String storeInsideImageName02;
     @Column(nullable = false, length = 100)
-    private String store_inside_image_id02;
+    private String storeInsideImageId02;
     @Column(nullable = false, length = 50)
-    private String store_inside_image_name03;
+    private String storeInsideImageName03;
     @Column(nullable = false, length = 100)
-    private String store_inside_image_id03;
+    private String storeInsideImageId03;
     @Column(nullable = false, length = 100)
-    private String store_address;
-    @Column
-    private Long bank_id;
+    private String storeAddress;
+    @Column(nullable = false, length = 100)
+    private String storeOneReview;
+    @Column(nullable = false, length = 100)
+    private String storeReview;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StoreStatus store_status;
+    private StoreStatus storeStatus;
     @Column(length = 100)
-    private String store_operate_time;
+    private String storeOperateTime;
     @Column(length = 400)
-    private String store_tag;
+    private String storeTag;
     @Column(length = 30)
-    private String bank_name;
+    private String storeBankName;
     @Column(length = 30)
-    private String store_account;
+    private String storeAccount;
 
 
 }
