@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.DTO.MemberDTO;
+import com.jpa4.pj1984.DTO.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,12 @@ public class MemberService {
         return memberSaved;
     }
 
-    public MemberDTO login(MemberDTO memberDTO){
-        Optional<Member> dbMember = memberRepository.findById(memberDTO.getUserNo());
-        if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
-            if(dbMember.get().getUserPassword().equals(memberDTO.getUserPassword())){
-                return memberDTO;
+    public String login(MemberLoginDTO memberLoginDTO){
+        Member dbMember = memberRepository.findByUserId(memberLoginDTO.getUserId());
+//        if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
+        if(dbMember != null){
+            if(dbMember.getUserPassword().equals(memberLoginDTO.getUserPassword())){
+                return memberLoginDTO.getUserId();
             }
         }
 //        Member member = memberRepository.findById(memberDTO.getUser_no()).orElse(null);
