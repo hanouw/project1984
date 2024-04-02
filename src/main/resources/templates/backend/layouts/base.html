@@ -5,26 +5,26 @@
     <th:block th:replace="~{backend/layouts/header :: headerFrg}"></th:block>
 
     <body>
-<!--        <section class="page_wrap">-->
+        <section class="page_wrap">
 
-<!--            &lt;!&ndash; 사이드바  &ndash;&gt;-->
-<!--            <th:block th:replace="~{/layouts/sidemenu :: sidemenuFrg}"></th:block>-->
+            <!-- 사이드바  -->
+            <th:block th:replace="~{backend/layouts/sidemenu :: sidemenuFrg}"></th:block>
 
-<!--            &lt;!&ndash; 상단바 &ndash;&gt;-->
-<!--            <div class="content item">-->
-<!--                <div class="top_st_bar">-->
-<!--                    <p>USER_00</p>-->
-<!--                    <span>ADMIN</span>-->
-<!--                </div>-->
+            <!-- 상단바 -->
+            <div class="content item">
+                <div class="top_st_bar">
+                    <p>USER_00</p>
+                    <span>ADMIN</span>
+                </div>
 
-<!--                &lt;!&ndash; 컨텐츠 &ndash;&gt;-->
-<!--                <th:block th:replace="${content}"></th:block>-->
+                <!-- 컨텐츠 -->
+                <th:block th:replace="${content}"></th:block>
 
-<!--            </div>-->
-<!--        </section>-->
+            </div>
+        </section>
 
-<!--        &lt;!&ndash; 자바스크립트 &ndash;&gt;-->
-<!--        <th:block th:replace="${script}"></th:block>-->
+        <!-- 자바스크립트 -->
+        <th:block th:replace="${script}"></th:block>
     </body>
 <!--</th:block>-->
 </html>
