@@ -3,6 +3,7 @@ package com.jpa4.pj1984.service;
 import com.jpa4.pj1984.DTO.MemberDTO;
 import com.jpa4.pj1984.DTO.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
+import com.jpa4.pj1984.domain.MemberStatus;
 import com.jpa4.pj1984.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,18 +23,17 @@ public class MemberService {
         return memberSaved;
     }
 
-    public String login(MemberLoginDTO memberLoginDTO){
+    public MemberLoginDTO login(MemberLoginDTO memberLoginDTO){
         Member dbMember = memberRepository.findByUserId(memberLoginDTO.getUserId());
 //        if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
         if(dbMember != null){
-            if(dbMember.getUserPassword().equals(memberLoginDTO.getUserPassword())){
-                return memberLoginDTO.getUserId();
+            MemberStatus memberStatus = dbMember.getUserMemberStatus();
+            if(dbMember.getUserPassword().equals(memberLoginDTO.getUserPassword()) && memberStatus == MemberStatus.USER){
+                memberLoginDTO.setUserMemberRole(dbMember.getUserMemberRole());
+                memberLoginDTO.setUserMemberStatus(memberStatus);
+                return memberLoginDTO;
             }
         }
-//        Member member = memberRepository.findById(memberDTO.getUser_no()).orElse(null);
-//        if(member.getUser_password().equals(memberDTO.getUser_password())){
-//            return memberDTO;
-//        }
         return null;
     }
 }

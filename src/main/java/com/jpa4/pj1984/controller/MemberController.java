@@ -3,6 +3,8 @@ package com.jpa4.pj1984.controller;
 import com.jpa4.pj1984.DTO.MemberDTO;
 import com.jpa4.pj1984.DTO.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
+import com.jpa4.pj1984.domain.MemberRole;
+import com.jpa4.pj1984.domain.MemberStatus;
 import com.jpa4.pj1984.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -42,11 +44,15 @@ public class MemberController {
     @PostMapping("/login")
     public String loginPro(MemberLoginDTO memberLoginDTO, HttpSession session, Model model){
         log.info("******* MemberController loginPro");
-        String loginId = memberService.login(memberLoginDTO);
-        if(loginId == null){
+        MemberLoginDTO memberLoginDTOGiven = memberService.login(memberLoginDTO);
+        if(memberLoginDTOGiven == null){
             return "redirect:/login";
         }
-        session.setAttribute("loginId", loginId);
-        return "redirect:/";
+        session.setAttribute("memberLoginDTOGiven", memberLoginDTOGiven);
+        if(memberLoginDTOGiven.getUserMemberRole() == MemberRole.USER){
+            return "frontend/home/main"; // 유저 홈 페이지
+        }else{
+            return "backend/home/home"; // 판매자 홈(현재 주소 X)
+        }
     }
 }
