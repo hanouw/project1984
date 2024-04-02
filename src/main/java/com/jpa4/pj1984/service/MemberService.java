@@ -1,15 +1,13 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.DTO.MemberDTO;
-import com.jpa4.pj1984.DTO.MemberLoginDTO;
+import com.jpa4.pj1984.dto.MemberDTO;
+import com.jpa4.pj1984.dto.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.domain.MemberStatus;
 import com.jpa4.pj1984.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j

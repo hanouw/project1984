@@ -1,8 +1,7 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.DTO.MemberDTO;
+import com.jpa4.pj1984.dto.MemberDTO;
 import com.jpa4.pj1984.service.CmsService;
-import com.jpa4.pj1984.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +43,12 @@ public class CMSController {
         log.info("******* MemberController loginPro");
         cmsService.login(memberDTO);
         return "redirect:backend/home/home";
+    }
+
+    @GetMapping("/userList")
+    public String userList(HttpSession session){
+        log.info("******* CMSController userList 호출");
+        return "backend/member/memberList";
     }
 }
 

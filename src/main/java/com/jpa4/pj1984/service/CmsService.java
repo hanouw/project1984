@@ -1,6 +1,6 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.DTO.MemberDTO;
+import com.jpa4.pj1984.dto.MemberDTO;
 import org.springframework.stereotype.Service;
 
 @Service
