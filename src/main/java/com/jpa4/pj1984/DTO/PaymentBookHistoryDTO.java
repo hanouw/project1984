@@ -16,7 +16,7 @@ public class PaymentBookHistoryDTO {
     // Entity -> DTO
     public PaymentBookHistoryDTO(PaymentBookHistory paymentBookHistory) {
         this.orderBookHistoryId = paymentBookHistory.getOrderBookHistoryId();
-
-
+        this.isbn = paymentBookHistory.getBook().getIsbn();
+        this.orderBookId = paymentBookHistory.getPayment().getOrderBookId();
     }
 }

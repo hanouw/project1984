@@ -43,33 +43,30 @@ public class PaymentController {
                                                   // @AuthenticationPrincipal CustomMember customMember
     ) throws IOException {
 
-        // orderBookId, userNo, orderBookMethod, paymentBookStatus, createDate, selectedBooks
-
+        // paymentDTO : orderBookId, userNo, orderBookMethod, paymentBookStatus, createDate, selectedBooks
+        Long userNo = paymentDTO.getUserNo();
         // PaymentBookHistoryDTO 를 만들고,
 
-        // PaymentDTO 에 주입?
+        // PaymentEntity 에 주입?
+
+        // paymentService 시켜서 저장하고
+
+        // 주문내역아이디 리턴
+
+        // 화면에 주문내역 뿌리기
 
         // String orderNumber = String.valueOf(paymentDTO.get(0).getOrderNumber());
-        //try {
         // Long userNo = customMember.getUserNo();
-        // paymentService.saveOrder(userNo, paymentDTO);
+        paymentService.saveOrder(userNo, paymentDTO);
         // log.info("결제 성공 : 주문 번호 {}", orderNumber);
         return ResponseEntity.ok().build();
         }
-//        catch (RuntimeException e) {
-//            log.info("주문 상품 환불 진행 : 주문 번호 {}", orderNumber);
-//            String token = refundService.getToken(apiKey, secretKey);
-//            refundService.refundWithToken(token, orderNumber, e.getMessage());
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
 
-
-//    @PostMapping("/book/validation/{imp_uid}")
-//    @ResponseBody
-//    public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IOException {
-//        return iamportClient.paymentByImpUid(imp_uid);
-//    }
+    @PostMapping("/book/validation/{imp_uid}")
+    @ResponseBody
+    public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IOException {
+        return iamportClient.paymentByImpUid(imp_uid);
+    }
 
 }
