@@ -10,54 +10,57 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class StoreForm {
-    private Long store_id;
-    private String store_title;
-    private String user_no;
-    private String store_crn;
-    private String store_email;
-    private Long store_phone_num;
-    private String store_image_name;
-    private String store_image_id;
-    private String store_inside_image_name01;
-    private String store_inside_image_id01;
-    private String store_inside_image_name02;
-    private String store_inside_image_id02;
-    private String store_inside_image_name03;
-    private String store_inside_image_id03;
-    private String store_address;
-    private Long bank_id;
+    private Long storeId;
+    private String storeTitle;
+    private String storeOwner;
+    private String storeCrn;
+    private String storeText;
+    private Long storePhoneNum;
+    private String storeImageName;
+    private String storeImageId;
+    private String storeInsideImageName01;
+    private String storeInsideImageId01;
+    private String storeInsideImageName02;
+    private String storeInsideImageId02;
+    private String storeInsideImageName03;
+    private String storeInsideImageId03;
+    private String storeAddress;
+    private String storeOneReview;
+    private String storeReview;
     private StoreStatus storeStatus;
-    private String store_operate_time;
-    private String store_tag;
+    private String storeOperateTime;
+    private String storeTag;
     private LocalDateTime createDate;
-    private String bank_name;
-    private String store_account;
+    private LocalDateTime lastModifiedDate;
+    private String storeBankName;
+    private String storeAccount;
 
-    // DTO -> Entity
+    // Form -> Entity
     public Store toEntity() {
         Store store = new Store();
-        store.setStore_id(store_id);
-        store.setStore_title(store_title);
-        store.setStore_crn(store_crn);
-        store.setStore_email(store_email);
-        store.setStore_phone_num(store_phone_num);
-        store.setStore_image_name(store_image_name);
-        store.setStore_image_id(store_image_id);
-        store.setStore_inside_image_name01(store_inside_image_name01);
-        store.setStore_inside_image_id01(store_inside_image_id01);
-        store.setStore_inside_image_name01(store_inside_image_name02);
-        store.setStore_inside_image_id01(store_inside_image_id02);
-        store.setStore_inside_image_name01(store_inside_image_name03);
-        store.setStore_inside_image_id01(store_inside_image_id03);
-        store.setStore_address(store_address);
-        store.setStore_status(storeStatus);
-        store.setStore_operate_time(store_operate_time);
-        store.setStore_tag(store_tag);
-        store.setBank_name(bank_name);
-        store.setStore_account(store_account);
+        store.setStoreId(storeId);
+        store.setStoreTitle(storeTitle);
+        store.setStoreOwner(storeOwner);
+        store.setStoreCrn(storeCrn);
+        store.setStoreText(storeText );
+        store.setStorePhoneNum(storePhoneNum);
+        store.setStoreImageName(storeImageName);
+        store.setStoreImageId(storeImageId);
+        store.setStoreInsideImageName01(storeInsideImageName01);
+        store.setStoreInsideImageId01(storeInsideImageId01);
+        store.setStoreInsideImageName02(storeInsideImageName02);
+        store.setStoreInsideImageId02(storeInsideImageId02);
+        store.setStoreInsideImageName03(storeInsideImageName03);
+        store.setStoreInsideImageId03(storeInsideImageId03);
+        store.setStoreAddress(storeAddress);
+        store.setStoreOneReview(storeOneReview);
+        store.setStoreReview(storeReview);
+        store.setStoreStatus(storeStatus);
+        store.setStoreOperateTime(storeOperateTime);
+        store.setStoreTag(storeTag);
+        store.setStoreBankName(storeBankName);
+        store.setStoreAccount(storeAccount);
         return store;
     }
 

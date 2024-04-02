@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum OrderBookStatus {
+public enum PaymentBookStatus {
     COMPLETE("ORDER_COMPLETE"), CANCEL("ORDER_CANCEL");
     private final String value;
 }

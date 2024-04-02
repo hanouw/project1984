@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Order extends TimeEntity{
+public class Payment extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderBookId;
     @OneToOne
@@ -18,8 +18,8 @@ public class Order extends TimeEntity{
     private String orderBookMethod;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderBookStatus orderBookStatus;
+    private PaymentBookStatus paymentBookStatus;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_book_history")
-    private List<OrderBookHistory> orderBookHistories;
+    private List<PaymentBookHistory> orderBookHistories;
 }
