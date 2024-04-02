@@ -25,8 +25,5 @@ public class Member extends TimeEntity{
     private String userPhoneNum;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MemberRole userMemberRole;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private MemberStatus userMemberStatus;
 }

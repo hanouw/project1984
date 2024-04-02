@@ -20,31 +20,31 @@ public class Store extends TimeEntity{
     private String storeOwner;
     @Column(nullable = false, unique = true, length = 20)
     private String storeCrn;
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(unique = true, length = 100)
     private String storeText;
     @Column(nullable = false, unique = true, length = 400)
     private Long storePhoneNum;
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String storeImageName;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeImageId;
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String storeInsideImageName01;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeInsideImageId01;
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String storeInsideImageName02;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeInsideImageId02;
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String storeInsideImageName03;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeInsideImageId03;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeAddress;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeOneReview;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String storeReview;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

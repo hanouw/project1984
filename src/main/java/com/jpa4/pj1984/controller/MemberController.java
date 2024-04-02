@@ -3,7 +3,6 @@ package com.jpa4.pj1984.controller;
 import com.jpa4.pj1984.dto.MemberDTO;
 import com.jpa4.pj1984.dto.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
-import com.jpa4.pj1984.domain.MemberRole;
 import com.jpa4.pj1984.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -48,10 +47,6 @@ public class MemberController {
             return "redirect:/login";
         }
         session.setAttribute("memberLoginDTOGiven", memberLoginDTOGiven);
-        if(memberLoginDTOGiven.getUserMemberRole() == MemberRole.USER){
-            return "frontend/home/main"; // 유저 홈 페이지
-        }else{
-            return "backend/home/home"; // 판매자 홈(현재 주소 X)
-        }
+        return "frontend/home/main"; // 유저 홈 페이지
     }
 }

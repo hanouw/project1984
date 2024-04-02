@@ -27,7 +27,6 @@ public class MemberService {
         if(dbMember != null){
             MemberStatus memberStatus = dbMember.getUserMemberStatus();
             if(dbMember.getUserPassword().equals(memberLoginDTO.getUserPassword()) && memberStatus == MemberStatus.USER){
-                memberLoginDTO.setUserMemberRole(dbMember.getUserMemberRole());
                 memberLoginDTO.setUserMemberStatus(memberStatus);
                 return memberLoginDTO;
             }
