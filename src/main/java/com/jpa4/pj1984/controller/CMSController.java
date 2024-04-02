@@ -2,6 +2,8 @@ package com.jpa4.pj1984.controller;
 
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.MemberDTO;
+import com.jpa4.pj1984.dto.StoreDTO;
+import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.service.CmsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,28 +23,29 @@ public class CMSController {
     private final CmsService cmsService;
 
     @GetMapping("/signup")
-    public String signupForm(@ModelAttribute MemberDTO memberDTO){ // 빈 객체를 전달하여 여기에 입력할 것이라는 것을 알려주는 역할
+    public String signupForm(@ModelAttribute StoreForm storeForm){ // 빈 객체를 전달하여 여기에 입력할 것이라는 것을 알려주는 역할
         log.info("******* CMSController signupForm");
         return "backend/member/signup";
     }
 
     @PostMapping("/signup")
-    public String signupPro(MemberDTO memberDTO){
+    public String signupPro(StoreForm storeForm){
         log.info("******* CMSController signupPro");
-//        Store store = cmsService.save(storeDTO);
-        return "redirect:backend/home/home";
+        cmsService.save(storeForm);
+        return "redirect:/cms/home";
     }
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute MemberDTO memberDTO){
+    public String loginForm(@ModelAttribute StoreForm storeForm){
         log.info("******* CMSController loginForm");
-        return "backend/member/login";
+        return "backend/home/home";
+//        return "backend/member/login";
     }
 
     @PostMapping("/login")
-    public String loginPro(MemberDTO memberDTO, HttpSession httpSession){
+    public String loginPro(StoreForm storeForm, HttpSession httpSession){
         log.info("******* CMSController loginPro");
-        cmsService.login(memberDTO);
+        cmsService.login(storeForm);
         return "redirect:backend/home/home";
     }
 
