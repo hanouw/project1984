@@ -1,4 +1,4 @@
-package com.jpa4.pj1984.DTO;
+package com.jpa4.pj1984.dto;
 
 import com.jpa4.pj1984.domain.MemberRole;
 import com.jpa4.pj1984.domain.MemberStatus;

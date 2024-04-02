@@ -1,6 +1,5 @@
 package com.jpa4.pj1984.service;
-import com.jpa4.pj1984.DTO.StoreDTO;
-import com.jpa4.pj1984.DTO.StoreForm;
+import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.repository.MemberRepository;
