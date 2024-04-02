@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-public class StoreForm {
+public class StoreForm { // 뿌려주는
     private Long storeId;
     private String storeLoginId;
     private String storePassword;

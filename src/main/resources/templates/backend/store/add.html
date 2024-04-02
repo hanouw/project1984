@@ -87,7 +87,7 @@
       <span>ADMIN</span>
     </div>
     <div class="search_bar_wrap">
-      <form action="" th:actoin="@{/store/modify}" method="post">
+      <form action="" th:action="@{/store/add}" method="post">
         <div class="search_date_wrap">
           <div class="item">
             <h2>서점상세</h2>
@@ -101,7 +101,7 @@
           <div class="add_input_wrap">
             <p>서점 썸네일 </p>
             <div draggable="true" class="drag_img_form"></div>
-            <input type="text">
+            <input type="text" placeholder="이미지를 첨부해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>서점명</p>
