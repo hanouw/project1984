@@ -1,11 +1,8 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.dto.BookCategoryDTO;
-import com.jpa4.pj1984.dto.BookDTO;
 import com.jpa4.pj1984.repository.BookCategoryRepository;
-import com.jpa4.pj1984.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,13 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class BookService {
+public class BookCategoryService {
+    private final BookCategoryRepository bookCategoryRepository;
 
-    private final BookRepository bookRepository;
-
-    public Book save(BookDTO bookDTO){
-        Book bookSaved = bookRepository.save(bookDTO.toEntity());
-        return bookSaved;
+    public BookCategory save(BookCategoryDTO bookCategoryDTO){
+        BookCategory bookCategorySaved = bookCategoryRepository.save(bookCategoryDTO.toEntity());
+        return bookCategorySaved;
     }
 
 }

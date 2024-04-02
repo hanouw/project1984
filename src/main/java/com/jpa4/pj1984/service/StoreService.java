@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StoreService {
 
-    private final StoreRepository storeRepository;
-    private final MemberRepository memberRepository;
+    // private final StoreRepository storeRepository;
 
-    public Store save(StoreForm storeForm, String userId){
-        Member member = memberRepository.findByUserId(userId);
-        Store entity = storeForm.toEntity();
-        entity.setMember(member);
-        Store storeSaved = storeRepository.save(entity);
-        return storeSaved;
-    }
+//    public Store save(StoreForm storeForm, String storeId){
+//
+//        Store entity = storeForm.toEntity();
+//        Store storeSaved = storeRepository.save(entity);
+//        return storeSaved;
+//    }
 }
+
+
