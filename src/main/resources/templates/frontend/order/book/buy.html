@@ -27,7 +27,7 @@
                 console.log(rsp);
                 $.ajax({
                   type: 'POST',
-                  url: '/verifyIamport/' + rsp.imp_uid
+                  url: '/book/validation/' + rsp.imp_uid
                 }).done(function(data) {
                   if(rsp.paid_amount === data.response.amount){
                     alert("결제 성공");
