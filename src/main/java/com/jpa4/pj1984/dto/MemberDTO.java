@@ -1,7 +1,6 @@
 package com.jpa4.pj1984.dto;
 
 import com.jpa4.pj1984.domain.Member;
-import com.jpa4.pj1984.domain.MemberRole;
 import com.jpa4.pj1984.domain.MemberStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +19,6 @@ public class MemberDTO {
     private String userName;
     private String userEmail;
     private String userPhoneNum;
-    private MemberRole userMemberRole;
     private MemberStatus userMemberStatus;
     private LocalDateTime createDate;
 
@@ -33,7 +31,6 @@ public class MemberDTO {
         member.setUserName(userName);
         member.setUserEmail(userEmail);
         member.setUserPhoneNum(userPhoneNum);
-        member.setUserMemberRole(MemberRole.USER);
         member.setUserMemberStatus(MemberStatus.USER);
         return member;
     }
