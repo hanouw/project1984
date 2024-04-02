@@ -1,4 +1,8 @@
-
+/*BODY*/
+body{
+    width:100%;
+    height:100%;
+}
 /* section */
 .page_wrap{
     width: 100%;
@@ -21,13 +25,13 @@
     width: 440px;
     height: 100vh;
     background-color: var(--mainblack);
-    color: var(--mainwhite);
     overflow-y: scroll;
 }
 .login_form_wrap > p{
     font-size: 28px;
     padding: 20px 40px;
     line-height: 34px;
+    color: var(--mainwhite);
 }
 .login_form_wrap > hr{
     width: calc(100% - 80px);
@@ -37,6 +41,7 @@
     width: calc(100% - 80px);
     margin-left: 40px;
     font-size: 28px;
+    color: var(--mainwhite);
 }
 .input_form{
     width: calc(100% - 80px);
@@ -47,13 +52,14 @@
     font-size: 18px;
     display: block;
     margin-bottom: 8px;
+    color: var(--mainwhite);
 }
 .input_form > input{
     width:calc(100% - 10px);
     padding-left: 10px;
     height: 48px;
     border-radius: 4px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--maingr00);
     color: var(--mainblack);
 }
 .check_box{
@@ -70,6 +76,7 @@
     font-size: 14px;
     display: inline-block;
     transform: translateY(-5px);
+    color: var(--mainwhite);
 }
 .btn_login{
     width:calc(100% - 80px);
@@ -85,6 +92,7 @@
     display: block;
     transition: 0.3s;
     cursor: pointer;
+    color: var(--mainwhite);
 }
 .btn_login:hover{
     background-color: var(--pointcolor);
@@ -98,6 +106,7 @@ a.link_signup, a.link_login{
     font-size: 14px;
     text-align: center;
     text-decoration: underline;
+    color: var(--mainwhite);
 }
 span.login_copyright, span.signup_copyright{
     display: block;
@@ -106,6 +115,8 @@ span.login_copyright, span.signup_copyright{
     padding-bottom:80px;
     width: 100%;
     text-align: center;
+    color: var(--mainwhite);
+    opacity:0.8;
 }
 /* login_page_img */
 .login_img{
@@ -115,7 +126,7 @@ span.login_copyright, span.signup_copyright{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #dcdcdc;
+    background-color: var(--maingr00);
 }
 
 
@@ -133,6 +144,9 @@ div.side_menu{
     height: 100vh;
     background-color: var(--mainblack);
     color: var(--mainwhite);
+    position:fixed;
+    top:0;
+    left:0;
 }
 .menu_wrap{
     width:calc(100% - 40px);
@@ -158,7 +172,10 @@ div.side_menu{
 }
 div.content{
     width: calc(100% - 320px);
-    background-color: #fff;
+    margin-left:320px;
+    height: 100vh;
+    background-color: #fcfcfc;
+    overflow-y: scroll;
 }
 li.menu_list > a span{
     font-size: 24px;
@@ -177,7 +194,8 @@ div.top_st_bar{
     margin: 20px;
     height:80px;
     border-radius: 4px;
-    border: 1px solid #dcdcdc;
+    border: 0.5px solid var(--maingr00);
+    background-color:#fff;
     text-align: right;
 }
 div.top_st_bar > p{
@@ -199,7 +217,7 @@ div.top_st_bar > span{
     margin-bottom: 28px;
 }
 .search_bar_wrap > hr{
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--maingr00);
 }
 .search_date_wrap, .search_text_wrap{
     display: flex;
@@ -211,34 +229,20 @@ div.top_st_bar > span{
     height:44px;
     line-height: 44px;
 }
-.search_date_wrap > .item > button{
-    padding: 14px 22px;
-    background-color: var(--maingrey);
-    border: 1px solid var(--maingrey);
-    border-radius: 4px;
-    color: var(--mainwhite);
-}
 .search_date_wrap > .item > input{
     padding: 12px;
-    border: 1px solid var(--maingrey);
+    border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
 
-.search_text_wrap > .item > button{
-    padding: 14px 22px;
-    background-color: var(--mainblack);
-    border: 1px solid var(--mainblack);
-    border-radius: 4px;
-    color: var(--mainwhite);
-}
 .search_text_wrap > .item > input{
     padding: 13px;
-    border: 1px solid var(--maingrey);
+    border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
 .search_text_wrap > .item > select{
     padding: 12px 22px 12px 20px;
-    border: 1px solid var(--maingrey);
+    border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
 
@@ -252,6 +256,74 @@ div.top_st_bar > span{
     text-align: center;
 }
 .list_table tr{
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1px solid var(--maingr00);
     line-height: 52px;
+}
+/*add_from*/
+.add_form_wrap{
+    border: 0.5px solid var(--maingr00);
+    border-radius:4px;
+    margin-top:20px;
+    padding-bottom:60px;
+    background-color:#fff;
+}
+.add_input_wrap,
+.add_checkbox_wrap{
+    margin:40px;
+}
+.add_input_wrap > p,
+.add_checkbox_wrap > p{
+    font-size:24px;
+    margin-bottom:14px;
+}
+.add_input_wrap > input,
+.add_input_wrap > textarea{
+    min-width:calc(50% - 40px);
+    padding: 13px 20px;
+    border: 1px solid var(--maingr01);
+    border-radius: 4px;
+}
+.add_input_wrap > select{
+    min-width:50%;
+    padding: 13px 20px;
+    border: 1px solid var(--maingr01);
+    border-radius: 4px;
+}
+.drag_img_form{
+    max-width:780px;
+    width:50%;
+    height:260px;
+    border:1px dashed var(--maingr00);
+    border-radius:4px;
+    background-color:#fafafa;
+    background-image:url("../img/img_drag.png");
+    background-position:center;
+    background-repeat:no-repeat;
+    margin-bottom:14px;
+}
+
+/*BUTTON*/
+button.grey_btn{
+    padding: 14px 22px;
+    background-color: var(--maingr01);
+    border: 1px solid var(--maingr01);
+    border-radius: 4px;
+    color: var(--mainwhite);
+}
+button.grey_btn:hover{
+    background-color: var(--maingr02);
+    border: 1px solid var(--maingr02);
+    color: var(--pointcolor);
+}
+button.black_btn{
+    padding: 14px 22px;
+    background-color: var(--mainblack);
+    border: 1px solid var(--mainblack);
+    border-radius: 4px;
+    color: var(--mainwhite);
+}
+button.black_btn:hover{
+    background-color: var(--black);
+    border: 1px solid var(--black);
+    color: var(--pointcolor);
 }

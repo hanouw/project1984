@@ -92,12 +92,12 @@
           <h2>상품관리</h2>
         </div>
         <div class="item">
-          <button>오늘</button>
-          <button>일주일</button>
-          <button>한달</button>
+          <button class="grey_btn">오늘</button>
+          <button class="grey_btn">일주일</button>
+          <button class="grey_btn">한달</button>
           <input type="date" />
           <input type="date" />
-          <button>조회</button>
+          <button class="black_btn">조회</button>
         </div>
       </div>
       <hr />
@@ -111,15 +111,15 @@
             <option value="">만화</option>
           </select>
           <input type="text" />
-          <button>검색</button>
+          <button class="black_btn">검색</button>
         </div>
         <div class="item">
           <select name="" id="">
             <option value="">최신순</option>
             <option value="">이전순</option>
           </select>
-          <button>카테고리관리</button>
-          <button onclick="/book/add">추가</button>
+          <button class="black_btn">카테고리관리</button>
+          <button class="black_btn" onclick="bookAdd()">추가</button>
         </div>
       </div>
       <div class="list_table_wrap">
@@ -137,21 +137,28 @@
             <th>등록일</th>
           </tr>
           <tr>
-            <td>9999</td>
-            <td>인문</td>
-            <td>호랑나비</td>
-            <td>111122223333</td>
-            <td>15,000원</td>
-            <td>빵빵이와 친구들</td>
-            <td>이주용</td>
-            <td>한빛미디어</td>
-            <td>2024-03-25</td>
-            <td>2024-04-25</td>
+            <a href="">
+              <td>9999</td>
+              <td>인문</td>
+              <td>호랑나비</td>
+              <td>111122223333</td>
+              <td>15,000원</td>
+              <td>빵빵이와 친구들</td>
+              <td>이주용</td>
+              <td>한빛미디어</td>
+              <td>2024-03-25</td>
+              <td>2024-04-25</td>
+            </a>
           </tr>
         </table>
       </div>
     </div>
   </div>
 </section>
+<script>
+  const bookAdd = () => {
+    location.href = "/cms/book/add"
+  }
+</script>
 </body>
 </html>

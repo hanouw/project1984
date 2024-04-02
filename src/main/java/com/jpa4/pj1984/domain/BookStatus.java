@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum MemberStatus {
-    USER("STATUS_USER"), QUIT("STATUS_QUIT"), BANNED("STATUS_BANNED") ;
+public enum BookStatus {
+    ON("STATUS_ON"), OFF("STATUS_OFF");
     private final String value;
 }
-
-
