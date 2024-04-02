@@ -12,7 +12,10 @@ import java.time.LocalDateTime;
 @Data
 public class StoreForm {
     private Long storeId;
+    private String storeLoginId;
+    private String storePassword;
     private String storeTitle;
+    private String storeEmail;
     private String storeOwner;
     private String storeCrn;
     private String storeText;
@@ -40,10 +43,13 @@ public class StoreForm {
     public Store toEntity() {
         Store store = new Store();
         store.setStoreId(storeId);
+        store.setStoreLoginId(storeLoginId);
+        store.setStorePassword(storePassword);
         store.setStoreTitle(storeTitle);
         store.setStoreOwner(storeOwner);
         store.setStoreCrn(storeCrn);
-        store.setStoreText(storeText );
+        store.setStoreEmail(storeEmail);
+        store.setStoreText(storeText);
         store.setStorePhoneNum(storePhoneNum);
         store.setStoreImageName(storeImageName);
         store.setStoreImageId(storeImageId);
@@ -63,5 +69,17 @@ public class StoreForm {
         store.setStoreAccount(storeAccount);
         return store;
     }
-
+    public Store toSignupEntity() {
+        Store storeSignup = new Store();
+        storeSignup.setStoreLoginId(storeLoginId);
+        storeSignup.setStorePassword(storePassword);
+        storeSignup.setStoreTitle(storeTitle);
+        storeSignup.setStoreOwner(storeOwner);
+        storeSignup.setStoreCrn(storeCrn);
+        storeSignup.setStoreEmail(storeEmail);
+        storeSignup.setStorePhoneNum(storePhoneNum);
+        storeSignup.setStoreStatus(storeStatus);
+        storeSignup.setStoreStatus(StoreStatus.STORE);
+        return storeSignup;
+    }
 }

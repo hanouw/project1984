@@ -21,4 +21,9 @@ public class HomeController {
     public String bookOrder() { // 임시
         return "frontend/order/book/buy";
     }
+
+    @GetMapping("/cms/home")
+    public String cmsHome(){
+        return "backend/home/home";
+    }
 }

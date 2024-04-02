@@ -15,6 +15,12 @@ public class Store extends TimeEntity{
     @Column
     private Long storeId;
     @Column(nullable = false, unique = true, length = 100)
+    private String storeLoginId;
+    @Column(nullable = false, unique = true, length = 100)
+    private String storePassword;
+    @Column(nullable = false, unique = true, length = 200)
+    private String storeEmail;
+    @Column(nullable = false, unique = true, length = 100)
     private String storeTitle;
     @Column(nullable = false, length = 20)
     private String storeOwner;
