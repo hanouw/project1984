@@ -29,6 +29,10 @@ public class BookController {
         return "redirect:/book";
     }
 
-    //상품
+    //상품카테고리리스트
+
+    //상품카테고리추가폼
+
+    //상품카테고리추가
 
 }
