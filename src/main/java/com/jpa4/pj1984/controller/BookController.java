@@ -10,9 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequestMapping("/cms")
 public class BookController {
+    //base 테스트
+    @GetMapping("/base")
+    public String base(){
+
+        return "backend/layouts/base";
+    }
+
     //상품리스트
     @GetMapping("/book")
-    public String booklist(){
+    public String bookList(){
         log.info("--CMS--Book--List--Request--");
         return "backend/book/list";
     }
@@ -30,9 +37,17 @@ public class BookController {
     }
 
     //상품카테고리리스트
-
+    @GetMapping("/bookCategory")
+    public String bookCategoryList(){
+        log.info("--CMS--Book--Category--List--Request--");
+        return "backend/bookcategory/list";
+    }
     //상품카테고리추가폼
-
+    @GetMapping("/bookCategory/add")
+    public String bookCategoryAddForm(){
+        log.info("--CMS--Book--Category--AddForm--Request--");
+        return "backend/bookcategory/add";
+    }
     //상품카테고리추가
 
 }

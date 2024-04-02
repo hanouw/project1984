@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookAdd</title>
+    <link rel="stylesheet" href="../../css/style_reset.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+<section class="page_wrap">
+    <div class="side_menu item">
+        <h1 class="side_logo"></h1>
+        <ul class="menu_wrap">
+            <li class="menu_list">
+                <a href="">
+                    <span>대시보드</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>주문관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>구독관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>상품관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>문의관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>리뷰관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>배너관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>전시관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>서점관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>회원관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a href="">
+                    <span>로그아웃</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+        </ul>
+        <span class="signup_copyright">ⓒ 2024. 1984 All rights reserved.</span>
+    </div>
+    <div class="content item">
+        <div class="top_st_bar">
+            <p>USER_00</p>
+            <span>ADMIN</span>
+        </div>
+        <div class="search_bar_wrap">
+            <form action="post">
+                <div class="search_date_wrap">
+                    <div class="item">
+                        <h2>상품등록</h2>
+                    </div>
+                    <div class="item">
+                        <button class="grey_btn">취소</button>
+                        <button class="black_btn">저장</button>
+                    </div>
+                </div>
+                <div class="add_form_wrap">
+                    <div class="add_input_wrap">
+                        <p>카테고리</p>
+                        <select name="" id="">
+                            <option value="">인문</option>
+                        </select>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>ISBN</p>
+                        <input type="text" placeholder="ISBN을 입력해주세요.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>도서표지</p>
+                        <div draggable="true" class="drag_img_form"></div>
+                        <input type="text" placeholder="이미지를 첨부해주세요.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>도서명</p>
+                        <input type="text" placeholder="도서명을 입력해주세요.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>목차</p>
+                        <textarea placeholder="목차를 입력해주세요."></textarea>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>도서소개</p>
+                        <textarea placeholder="도서소개를 입력해주세요."></textarea>
+                    </div>
+                    <br>
+                    <div class="add_input_wrap">
+                        <p>저자</p>
+                        <input type="text" placeholder="저자를 입력해주세요.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>저자소개</p>
+                        <textarea placeholder="저자소개를 입력해주세요."></textarea>
+                    </div>
+                    <br>
+                    <div class="add_input_wrap">
+                        <p>출판사</p>
+                        <input type="text" placeholder="출판사를 입력해주세요.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>서점명</p>
+                        <textarea placeholder="서점명을 입력해주세요."></textarea>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>독립서점 리뷰</p>
+                        <textarea placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
+                    </div>
+                    <br>
+                    <div class="add_input_wrap">
+                        <p>책파일</p>
+                        <input type="text" placeholder="*PDF 파일만 첨부가 가능합니다.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>전자도서 판매가</p>
+                        <input type="text" placeholder="전자도서 판매가를 입력해주세요.">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>일반도서 판매가</p>
+                        <input type="text" placeholder="일반도서 판매가를 입력해주세요.">
+                    </div>
+                    <div class="add_checkbox_wrap">
+                        <p>활성화</p>
+                        <input id="on_status" type="checkbox">
+                        <label for="on_status">활성화</label>
+                        <input id="off_status" type="checkbox">
+                        <label for="off_status">비활성화</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

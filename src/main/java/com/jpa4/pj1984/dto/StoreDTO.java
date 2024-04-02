@@ -1,6 +1,5 @@
 package com.jpa4.pj1984.dto;
 
-
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
 import lombok.AllArgsConstructor;
