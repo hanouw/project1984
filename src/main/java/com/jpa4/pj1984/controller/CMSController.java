@@ -4,6 +4,7 @@ import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.MemberDTO;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
+import com.jpa4.pj1984.dto.StoreLoginForm;
 import com.jpa4.pj1984.service.CmsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -29,24 +30,23 @@ public class CMSController {
     }
 
     @PostMapping("/signup")
-    public String signupPro(StoreForm storeForm){
+    public String signupPro(StoreLoginForm storeLoginForm){
         log.info("******* CMSController signupPro");
-        cmsService.save(storeForm);
-        return "redirect:/cms/home";
+        cmsService.login(storeLoginForm);
+        return "redirect:/cms/login";
     }
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute StoreForm storeForm){
+    public String loginForm(@ModelAttribute StoreLoginForm storeLoginForm){
         log.info("******* CMSController loginForm");
-        return "backend/home/home";
-//        return "backend/member/login";
+        return "backend/member/login";
     }
 
     @PostMapping("/login")
-    public String loginPro(StoreForm storeForm, HttpSession httpSession){
+    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
         log.info("******* CMSController loginPro");
-        cmsService.login(storeForm);
-        return "redirect:backend/home/home";
+        cmsService.login(storeLoginForm);
+        return "redirect:/cms/home";
     }
 
     @GetMapping("/userList")
