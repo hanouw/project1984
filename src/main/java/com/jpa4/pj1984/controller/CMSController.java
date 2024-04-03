@@ -56,10 +56,10 @@ public class CMSController {
     }
 
     // 주문내역 목록 조회 + 페이징
-    @GetMapping("/orderList")
-    public String orderList() {
-
-    }
+//    @GetMapping("/orderList")
+//    public String orderList() {
+//
+//    }
     // 주문내역 한건 조회
 }
 
