@@ -3,7 +3,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
-      <form action="" th:action th:object="${book}" method="post">
+      <form action="" th:action th:object="${bookForm}" method="post">
         <div class="search_date_wrap">
           <div class="item">
             <h2>상품등록</h2>
@@ -35,46 +35,46 @@
           </div>
           <div class="add_input_wrap">
             <p>목차</p>
-            <textarea th:field="*{}" placeholder="목차를 입력해주세요."></textarea>
+            <textarea th:field="*{bookIndex}" placeholder="목차를 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>도서소개</p>
-            <textarea th:field="*{}" placeholder="도서소개를 입력해주세요."></textarea>
+            <textarea th:field="*{bookIntro}" placeholder="도서소개를 입력해주세요."></textarea>
           </div>
           <br>
           <div class="add_input_wrap">
             <p>저자</p>
-            <input type="text" th:field="*{}" placeholder="저자를 입력해주세요.">
+            <input type="text" th:field="*{bookWriter}" placeholder="저자를 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>저자소개</p>
-            <textarea th:field="*{}" placeholder="저자소개를 입력해주세요."></textarea>
+            <textarea th:field="*{bookWriterProfile}" placeholder="저자소개를 입력해주세요."></textarea>
           </div>
           <br>
           <div class="add_input_wrap">
             <p>출판사</p>
-            <input type="text" th:field="*{}" placeholder="출판사를 입력해주세요.">
+            <input type="text" th:field="*{bookPub}" placeholder="출판사를 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>서점명</p>
-            <textarea th:field="*{}" placeholder="서점명을 입력해주세요."></textarea>
+            <textarea th:field="*{getStoreId}" placeholder="서점명을 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>독립서점 리뷰</p>
-            <textarea th:field="*{}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
+            <textarea th:field="*{bookReview}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
           </div>
           <br>
           <div class="add_input_wrap">
             <p>책파일</p>
-            <input type="file" th:field="*{}" placeholder="*PDF 파일만 첨부가 가능합니다.">
+            <input type="file" th:field="*{bookFile}" placeholder="*PDF 파일만 첨부가 가능합니다.">
           </div>
           <div class="add_input_wrap">
             <p>전자도서 판매가</p>
-            <input type="text" th:field="*{}" placeholder="전자도서 판매가를 입력해주세요.">
+            <input type="text" th:field="*{bookEbookPrice}" placeholder="전자도서 판매가를 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>일반도서 판매가</p>
-            <input type="text" th:field="*{}" placeholder="일반도서 판매가를 입력해주세요.">
+            <input type="text" th:field="*{bookPaperPrice}" placeholder="일반도서 판매가를 입력해주세요.">
           </div>
           <div class="add_checkbox_wrap">
             <p>활성화</p>

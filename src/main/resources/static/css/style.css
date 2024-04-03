@@ -255,7 +255,7 @@ div.top_st_bar > span{
     text-align: center;
 }
 .list_table tr{
-    border-bottom: 1px solid var(--maingr00);
+    border-bottom: 1px solid #dcdcdc;
     line-height: 52px;
 }
 /*add_from*/

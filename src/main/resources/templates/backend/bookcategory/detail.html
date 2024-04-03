@@ -11,27 +11,26 @@
                     </div>
                     <div class="item">
                         <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
-                        <button th:onclick="#" class="black_btn">수정</button>
+                        <button th:onclick="|location.href='@{/cms/bookCategory/{id}/modify(id=${bookCategory.bookCategoryId})}'|" class="black_btn">수정</button>
                     </div>
                 </div>
                 <div class="add_form_wrap">
                     <div class="add_input_wrap">
                         <p>카테고리명</p>
-                        <input type="text" th:field="${bookCategoryDTO.bookCategoryName}" id="bookCategoryName" readonly>
+                        <input type="text" th:field="${bookCategory.bookCategoryName}" id="bookCategoryName" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>수정일</p>
-                        <input type="text" th:field="${bookCategoryDTO.lastModifiedDate}" id="lastModifiedDate" readonly>
+                        <input type="text" th:field="${bookCategory.lastModifiedDate}" id="lastModifiedDate" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>등록일</p>
-                        <input type="text" th:field="${bookCategoryDTO.createDate}" id="createDate" readonly>
+                        <input type="text" th:field="${bookCategory.createDate}" id="createDate" readonly>
                     </div>
                 </div>
 
         </div>
     </th:block>
 </th:block>
-<script></script>
 </body>
 </html>
