@@ -1,7 +1,7 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.DTO.PaymentBookHistoryDTO;
-import com.jpa4.pj1984.DTO.PaymentDTO;
+import com.jpa4.pj1984.dto.PaymentBookHistoryDTO;
+import com.jpa4.pj1984.dto.PaymentDTO;
 import com.jpa4.pj1984.domain.Payment;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.PaymentBookStatus;
