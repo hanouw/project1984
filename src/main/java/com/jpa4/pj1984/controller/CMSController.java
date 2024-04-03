@@ -24,42 +24,35 @@ public class CMSController {
     private final CmsService cmsService;
 
     @GetMapping("/signup")
-    public String signupForm(@ModelAttribute StoreForm storeForm) { // 빈 객체를 전달하여 여기에 입력할 것이라는 것을 알려주는 역할
+    public String signupForm(@ModelAttribute StoreForm storeForm){ // 빈 객체를 전달하여 여기에 입력할 것이라는 것을 알려주는 역할
         log.info("******* CMSController signupForm");
         return "backend/member/signup";
     }
 
     @PostMapping("/signup")
-    public String signupPro(StoreLoginForm storeLoginForm) {
+    public String signupPro(StoreForm storeForm){
         log.info("******* CMSController signupPro");
-        cmsService.login(storeLoginForm);
+        cmsService.save(storeForm);
         return "redirect:/cms/login";
     }
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute StoreLoginForm storeLoginForm) {
+    public String loginForm(@ModelAttribute StoreLoginForm storeLoginForm){
         log.info("******* CMSController loginForm");
         return "backend/member/login";
     }
 
     @PostMapping("/login")
-    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession) {
+    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
         log.info("******* CMSController loginPro");
         cmsService.login(storeLoginForm);
         return "redirect:/cms/home";
     }
 
     @GetMapping("/userList")
-    public String userList(HttpSession session) {
+    public String userList(HttpSession session){
         log.info("******* CMSController userList 호출");
         return "backend/member/memberList";
     }
-
-    // 주문내역 목록 조회 + 페이징
-//    @GetMapping("/orderList")
-//    public String orderList() {
-//
-//    }
-    // 주문내역 한건 조회
 }
 

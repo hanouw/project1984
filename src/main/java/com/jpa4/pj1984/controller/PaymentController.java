@@ -36,8 +36,7 @@ public class PaymentController {
     }
 
     @PostMapping("/book")
-    public ResponseEntity<String> paymentComplete(@RequestBody PaymentDTO paymentDTO
-                                                  // @AuthenticationPrincipal CustomMember customMember
+    public ResponseEntity<String> paymentComplete(@RequestBody PaymentDTO paymentDTO// @AuthenticationPrincipal CustomMember customMember
     ) throws IOException {
 
         Long userNo = paymentDTO.getUserNo(); // TODO 추후 수정
