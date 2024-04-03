@@ -1,7 +1,5 @@
-package com.jpa4.pj1984.DTO;
+package com.jpa4.pj1984.dto;
 
-import com.jpa4.pj1984.domain.Payment;
-import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.PaymentBookStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +19,9 @@ public class PaymentDTO {
     private PaymentBookStatus paymentBookStatus;
     private LocalDateTime createDate;
     private List<String> selectedBooks;
+
+
+
 
 //    // DTO -> Entity
 //    public Payment toEntity() {

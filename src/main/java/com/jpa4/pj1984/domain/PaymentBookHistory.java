@@ -16,4 +16,9 @@ public class PaymentBookHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_book_id")
     private Payment payment;
+
+    public void setPayment(Payment payment){
+        this.payment = payment;
+        this.payment.getOrderBookHistories().add(this);
+    }
 }
