@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDTO {
+public class MemberForm {
 
     private Long userNo;
     private String userId;

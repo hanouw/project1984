@@ -46,7 +46,6 @@ public class StoreService {
         findStore.setStoreInsideImageId03(storeForm.getStoreInsideImageId03());
         findStore.setStoreAddress(storeForm.getStoreAddress());
         findStore.setStoreOperateTime(storeForm.getStoreOperateTime());
-        findStore.setStoreBankName(storeForm.getStoreBankName());
         findStore.setStoreAccount(storeForm.getStoreAccount());
     }
 

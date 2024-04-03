@@ -36,7 +36,6 @@ public class StoreForm { // 뿌려주는
     private String storeTag;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
-    private String storeBankName;
     private String storeAccount;
 
     // Form -> Entity
@@ -65,7 +64,6 @@ public class StoreForm { // 뿌려주는
         store.setStoreStatus(storeStatus);
         store.setStoreOperateTime(storeOperateTime);
         store.setStoreTag(storeTag);
-        store.setStoreBankName(storeBankName);
         store.setStoreAccount(storeAccount);
         return store;
     }

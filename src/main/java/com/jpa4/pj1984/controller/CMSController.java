@@ -1,8 +1,5 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.domain.Store;
-import com.jpa4.pj1984.dto.MemberDTO;
-import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.dto.StoreLoginForm;
 import com.jpa4.pj1984.service.CmsService;
