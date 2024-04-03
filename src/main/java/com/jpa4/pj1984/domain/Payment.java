@@ -10,6 +10,8 @@ import java.util.List;
 @Getter @Setter
 public class Payment extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderBookNo;
+    @Column(nullable = false)
     private Long orderBookId;
     @OneToOne
     @JoinColumn(name = "userNo")
