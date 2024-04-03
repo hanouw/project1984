@@ -35,6 +35,7 @@ public class PaymentController {
         this.iamportClient = new IamportClient(restApiKey, restApiSecret);
     }
 
+    // 책 주문 처리 요청
     @PostMapping("/book")
     public ResponseEntity<String> paymentComplete(@RequestBody PaymentDTO paymentDTO// @AuthenticationPrincipal CustomMember customMember
     ) throws IOException {
@@ -45,7 +46,7 @@ public class PaymentController {
         return ResponseEntity.ok().build();
         }
 
-
+    // 결제 시도 시 검증 처리 요청
     @PostMapping("/book/validation/{imp_uid}")
     @ResponseBody
     public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IOException {

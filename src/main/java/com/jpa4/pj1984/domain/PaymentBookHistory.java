@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 public class PaymentBookHistory {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long OrderBookHistoryId;
+    private Long orderBookHistoryId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "isbn")
     private Book book;

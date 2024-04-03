@@ -28,6 +28,7 @@ public class PaymentService {
     private final BookRepository bookRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
 
+    // 책 주문 등록
     public void saveOrder(Long userNo, PaymentDTO paymentDTO) {
 
         Payment order = new Payment();
@@ -37,6 +38,7 @@ public class PaymentService {
         order.setPaymentBookStatus(PaymentBookStatus.COMPLETE);
         paymentRepository.save(order);
 
+        // 책 주문 내역 등록
         List<PaymentBookHistory> histories = new ArrayList<>();
         for (String bookList : paymentDTO.getSelectedBooks()) {
             PaymentBookHistory history = new PaymentBookHistory();

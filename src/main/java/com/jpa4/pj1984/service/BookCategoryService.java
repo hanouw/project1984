@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class BookCategoryService {
     private final BookCategoryRepository bookCategoryRepository;
 
+    // 카테고리 등록
     public BookCategory save(BookCategoryDTO bookCategoryDTO){
         BookCategory bookCategorySaved = bookCategoryRepository.save(bookCategoryDTO.toEntity());
         return bookCategorySaved;
