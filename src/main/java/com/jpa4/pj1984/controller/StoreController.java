@@ -3,6 +3,7 @@ package com.jpa4.pj1984.controller;
 
 
 import com.jpa4.pj1984.domain.Store;
+import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.service.StoreService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,47 @@ public class StoreController {
     }
 
     // 서점 상세
+    @GetMapping("/{storeId}")
+    public String detail(@PathVariable("storeId") Long storeId, Model model) {
+        log.info("******* StoreController detail");
+        StoreDTO store = new StoreDTO(storeService.getOneStore(storeId));
+        model.addAttribute("store", store);
+        return "store/detail";
+    }
+
+    // 서점 상세 수정
+    @PostMapping("/{storeId}/modify")
+    public String modifyPro(StoreForm storeForm) {
+        log.info("******* StoreController modifyPro");
+
+        storeService.updateOneBoard(storeForm);
+        return "redirect:/store/list";
+    }
+
+}
+
+
+
+    /*
+    // 글 수정
+    @GetMapping("/{id}/modify")
+    // @PreAuthorize("isAuthenticated()")
+    public String modifyForm(@PathVariable("id") Long id, Model model) {
+        log.info("**** BoardController GET /boards/:id/modify - id : {}", id);
+        BoardDTO board = boardService.getOneBoard(id);
+        model.addAttribute("board", board);
+        return "board/modify";
+    }
+    @PostMapping("/{id}/modify")
+    // @PreAuthorize("principal.username == #boardForm.writer")
+    public String modifyPro(@PathVariable("id") Long id, BoardForm boardForm) {
+        log.info("**** BoardController GET /boards/:id/modify - id : {}", id);
+        log.info("**** BoardController GET /boards/:id/modify - boardForm : {}", boardForm);
+        boardService.updateOneBoard(boardForm);
+        return "redirect:/boards/{id}";
+    }
+    /*
+    // 서점 상세
     @GetMapping("/detail")
     public String detailForm(@ModelAttribute("store") StoreForm storeForm, Model model) {
         log.info("******* StoreController");
@@ -39,25 +81,6 @@ public class StoreController {
             return "backend/store/detail";
         }
     }
-
-    // 서점 신규 등록
-    @PostMapping("/add")
-    public String addPro(StoreForm storeForm) {
-        log.info("******* StoreController addPro");
-
-        // storeService.save(storeForm, "java01");
-        return "redirect:/store/list";
-    }
-
-    // 서점 상세 수정
-    @PostMapping("/modify")
-    public String modifyPro(StoreForm storeForm) {
-        log.info("******* StoreController addPro");
-
-        // storeService.save(storeForm, "java01");
-        return "redirect:/store/list";
-    }
-
 
 }
 /*

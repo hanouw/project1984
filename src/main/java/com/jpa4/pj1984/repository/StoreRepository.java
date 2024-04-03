@@ -2,6 +2,7 @@ package com.jpa4.pj1984.repository;
 
 
 import com.jpa4.pj1984.domain.Store;
+import com.jpa4.pj1984.dto.StoreDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

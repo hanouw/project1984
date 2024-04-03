@@ -22,7 +22,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final MemberRepository memberRepository;
 
-    public Long saveOrder(Long userNo, PaymentDTO paymentDTO) {
+    public void saveOrder(Long userNo, PaymentDTO paymentDTO) {
 
         PaymentBookHistory orders = new PaymentBookHistory();
         // orders.setPayment();
@@ -32,7 +32,7 @@ public class PaymentService {
         order.setMember(memberRepository.findByUserId("")); // TODO 추후 수정 필요
         order.setOrderBookMethod(paymentDTO.getOrderBookMethod());
         order.setPaymentBookStatus(PaymentBookStatus.COMPLETE);
-        order.setOrderBookHistories();
+//        order.setOrderBookHistories();
 
         // paymentDTO : orderBookId, userNo, orderBookMethod, paymentBookStatus, createDate, selectedBooks
 //        PaymentBookHistoryDTO orders = new PaymentBookHistoryDTO();

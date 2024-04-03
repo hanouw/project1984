@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.Store;
+import com.jpa4.pj1984.domain.StoreStatus;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.repository.StoreRepository;
@@ -17,13 +18,6 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
 
-//    public Store save(StoreForm storeForm, String storeId){
-//
-//        Store entity = storeForm.toEntity();
-//        Store storeSaved = storeRepository.save(entity);
-//        return storeSaved;
-//    }
-
     // 서점 상세 조회 (한개 조회)
     public Store getOneStore(Long storeId) {
 
@@ -32,36 +26,34 @@ public class StoreService {
         if (byId.isPresent()) { // null =false or true
             return new StoreDTO(byId);
         }*/
-
         return store;
     }
     
     // 서점 상세 수정
     public void updateOneBoard(StoreForm storeForm) { // 사용자가 수정한 값이 StoreForm 으로 넘어옴
         Store findStore = storeRepository.findById(storeForm.getStoreId()).orElse(null);// DB에서 조회 (수정전상태)
-
-//        Store modifyStore = new Store(storeForm.getStoreImageName(),storeForm.getStoreImageId(),storeForm.getStoreTitle(),
-//                storeForm.getStoreText(),storeForm.getStoreOneReview(),storeForm.getStoreReview(),storeForm.getStoreTag(),
-//                storeForm.getStoreInsideImageName01(),storeForm.getStoreInsideImageId01(),storeForm.getStoreInsideImageName02(),
-//                storeForm.getStoreInsideImageId02(),storeForm.getStoreInsideImageName03(),storeForm.getStoreInsideImageId03(),
-//                storeForm.getStoreAddress(),storeForm.getStorePhoneNum(),storeForm.getStoreOperateTime(),storeForm.getStoreOwner(),
-//                storeForm.getStoreBankName(),storeForm.getStoreAccount(),storeForm.getStoreCrn());
-//        findStore.setStore(modifyStore);
-        /*
-        Board findBoard = boardRepository.findById(boardForm.getId()).orElse(null); // DB에서 조회 (수정전상태)
-        findBoard.setTitle(boardForm.getTitle());
-        findBoard.setContent(boardForm.getContent()); // dirty checking
-        */
-        // 회원 정보 수정
-        /*
-        public void updateMember(MemberUpdateDTO updateDTO) {
-            Member findMember = memberRepository.findById(updateDTO.getId()).orElse(null);
-            findMember.setEmail(updateDTO.getEmail());
-            Address modifyAddr = new Address(updateDTO.getCity(), updateDTO.getStreet(), updateDTO.getZipcode());
-            findMember.setAddress(modifyAddr);
-        }
-        */
+        findStore.setStoreImageName(storeForm.getStoreImageName());
+        findStore.setStoreImageId(storeForm.getStoreImageId());
+        findStore.setStoreText(storeForm.getStoreText());
+        findStore.setStoreOneReview(storeForm.getStoreOneReview());
+        findStore.setStoreReview(storeForm.getStoreReview());
+        findStore.setStoreTag(storeForm.getStoreTag());
+        findStore.setStoreInsideImageName01(storeForm.getStoreInsideImageName01());
+        findStore.setStoreInsideImageName02(storeForm.getStoreInsideImageName02());
+        findStore.setStoreInsideImageName03(storeForm.getStoreInsideImageName03());
+        findStore.setStoreInsideImageId01(storeForm.getStoreInsideImageId01());
+        findStore.setStoreInsideImageId02(storeForm.getStoreInsideImageId02());
+        findStore.setStoreInsideImageId03(storeForm.getStoreInsideImageId03());
+        findStore.setStoreAddress(storeForm.getStoreAddress());
+        findStore.setStoreOperateTime(storeForm.getStoreOperateTime());
+        findStore.setStoreBankName(storeForm.getStoreBankName());
+        findStore.setStoreAccount(storeForm.getStoreAccount());
     }
+
+
+
+
+
 }
 
 /*
