@@ -1,6 +1,6 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.dto.MemberDTO;
+import com.jpa4.pj1984.dto.MemberForm;
 import com.jpa4.pj1984.dto.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.domain.MemberStatus;
@@ -16,8 +16,8 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Member save(MemberDTO memberDTO){
-        Member memberSaved = memberRepository.save(memberDTO.toEntity());
+    public Member save(MemberForm memberForm){
+        Member memberSaved = memberRepository.save(memberForm.toEntity());
         return memberSaved;
     }
 

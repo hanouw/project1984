@@ -1,6 +1,6 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.dto.MemberDTO;
+import com.jpa4.pj1984.dto.MemberForm;
 import com.jpa4.pj1984.dto.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.service.MemberService;
@@ -21,15 +21,15 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/signup")
-    public String signupForm(@ModelAttribute MemberDTO memberDTO){ // 빈 객체를 전달하여 여기에 입력할 것이라는 것을 알려주는 역할
+    public String signupForm(@ModelAttribute MemberForm memberForm){ // 빈 객체를 전달하여 여기에 입력할 것이라는 것을 알려주는 역할
         log.info("******* MemberController signupForm");
         return "frontend/member/signup";
     }
 
     @PostMapping("/signup")
-    public String signupPro(MemberDTO memberDTO){
+    public String signupPro(MemberForm memberForm){
         log.info("******* MemberController signupPro");
-        Member member = memberService.save(memberDTO);
+        Member member = memberService.save(memberForm);
         return "redirect:/";
     }
 
