@@ -30,9 +30,9 @@ public class CMSController {
     }
 
     @PostMapping("/signup")
-    public String signupPro(StoreLoginForm storeLoginForm){
+    public String signupPro(StoreForm storeForm){
         log.info("******* CMSController signupPro");
-        cmsService.login(storeLoginForm);
+        cmsService.save(storeForm);
         return "redirect:/cms/login";
     }
 
