@@ -18,13 +18,14 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
     text-decoration: none;
+    color: var(--mainblack);
 }
 /* a태그,btn태그 */
 a, button{
     cursor: pointer;
 }
 a:link{text-decoration: none;}
-a:visited,:active{color: var(--mainwhite);}
+a:visited,:active{color: var(--mainblack);}
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -68,4 +69,18 @@ table {
 .scroll {
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
+}
+
+/*플레이스홀더*/
+select option[value="placeholder"][disabled] {
+	display: none;
+}
+
+/*input*/
+input{
+    border: 1px solid var(--maingr01);
+}
+input:read-only{
+    background-color: #fafafa;
+    border: 1px solid var(--maingr00);
 }

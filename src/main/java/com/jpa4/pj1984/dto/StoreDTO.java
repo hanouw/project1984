@@ -32,7 +32,6 @@ public class StoreDTO { // 가져오는
     private String storeTag;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
-    private String storeBankName;
     private String storeAccount;
 
     // sampleDTO 생성자의 매개변수는 entity
@@ -60,7 +59,6 @@ public class StoreDTO { // 가져오는
         this.storeTag = store.getStoreTag();
         this.createDate = store.getCreateDate();
         this.lastModifiedDate = store.getLastModifiedDate();
-        this.storeBankName = store.getStoreBankName();
         this.storeAccount = store.getStoreAccount();
 
     }

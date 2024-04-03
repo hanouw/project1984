@@ -2,10 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="sidemenuFrg">
         <div class="side_menu item">
-            <h1 class="side_logo"></h1>
+            <a th:href="@{/}">
+                <h1 class="side_logo"></h1>
+            </a>
             <ul class="menu_wrap">
                 <li class="menu_list">
-                    <a href="">
+                    <a th:href="@{/}">
                         <span>대시보드</span>
                         <div class="menu_arrow_icon"></div>
                     </a>
@@ -23,7 +25,7 @@
                     </a>
                 </li>
                 <li class="menu_list">
-                    <a href="">
+                    <a th:href="@{/cms/book}">
                         <span>상품관리</span>
                         <div class="menu_arrow_icon"></div>
                     </a>
