@@ -33,7 +33,7 @@ public class PaymentService {
 
         Payment order = new Payment();
         order.setOrderBookId(paymentDTO.getOrderBookId());
-        order.setMember(memberRepository.findByUserId("")); // TODO 추후 수정 필요
+        order.setMember(memberRepository.findByUserId("")); // 추후 수정 필요
         order.setOrderBookMethod(paymentDTO.getOrderBookMethod());
         order.setPaymentBookStatus(PaymentBookStatus.COMPLETE);
         paymentRepository.save(order);

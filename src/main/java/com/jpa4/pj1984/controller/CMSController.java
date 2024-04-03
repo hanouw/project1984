@@ -1,9 +1,6 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.dto.PageRequestDTO;
-import com.jpa4.pj1984.dto.PaymentBookHistoryDTO;
-import com.jpa4.pj1984.dto.StoreForm;
-import com.jpa4.pj1984.dto.StoreLoginForm;
+import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.CmsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -77,10 +74,8 @@ public class CMSController {
         log.info("******* CMSController orderList 호출");
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1111L;
-        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
+        List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
-        // TODO 화면에 정보 뿌려주기 위해서 payment 도 불러와야함
-
         return "backend/order/list";
     }
 
