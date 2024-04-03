@@ -178,15 +178,15 @@ div.content{
     overflow-y: scroll;
     color: var(--mainblack);
 }
-li.menu_list > a span{
+li.menu_list > a > span{
     font-size: 24px;
     line-height: 29px;
     color:var(--mainwhite);
 }
-li.menu_list > a:hover span{
+li.menu_list > a:hover > span{
     color: var(--pointcolor);
 }
-li.menu_list > a:hover div{
+li.menu_list > a:hover > div{
     color: var(--pointcolor);
     background-image: url("../img/icon_arrow_up.svg");
 }

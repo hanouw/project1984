@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface BookCategoryRepository extends JpaRepository<BookCategory, Long> {
-//    Page<BookCategoryDTO> findAll(Pageable pageable);
+    List<BookCategory> findAll();
+
 }

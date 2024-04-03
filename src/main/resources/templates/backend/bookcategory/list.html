@@ -48,7 +48,7 @@
                         <th>수정일</th>
                         <th>등록일</th>
                     </tr>
-                    <tr th:each="bookcategory : ${categorylist}">
+                    <tr th:each="bookcategory : ${list}">
                         <td th:text="${bookcategory.bookCategoryId}"></td>
                         <td th:text="${bookcategory.bookCategoryName}"></td>
                         <td th:text="${bookcategory.bookCategoryStatus}"></td>
