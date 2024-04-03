@@ -12,17 +12,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookCategoryDTO {
+
     private Long bookCategoryId;
     private String bookCategoryName;
     private BookCategoryStatus bookCategoryStatus;
+    private LocalDateTime lastModifiedDate;
     private LocalDateTime createDate;
 
     //DTO -> Entity
     public BookCategory toEntity(){
         BookCategory bookCategory = new BookCategory();
+
         bookCategory.setBookCategoryId(bookCategoryId);
         bookCategory.setBookCategoryName(bookCategoryName);
-        bookCategory.setBookCategoryStatus(bookCategoryStatus);
+        bookCategory.setBookCategoryStatus(BookCategoryStatus.ON);
         return bookCategory;
     }
 }
