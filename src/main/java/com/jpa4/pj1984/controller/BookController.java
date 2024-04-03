@@ -59,13 +59,14 @@ public class BookController {
         List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll();
         log.info(bookCategoryDTOList.toString());
         model.addAttribute("bookCategoryList", bookCategoryDTOList);
+        log.info(bookCategoryDTOList.toString());
         return "backend/bookcategory/list";
     }
 
 
     //상품카테고리추가폼
     @GetMapping("/bookCategory/add")
-    public String bookCategoryAddForm(@ModelAttribute BookCategoryForm bookCategoryForm){
+    public String bookCategoryAddForm(@ModelAttribute BookCategoryForm bookCategoryForm, Model model){
         log.info("--CMS--Book--Category--AddForm--Request--");
         return "backend/bookcategory/add";
     }
@@ -75,18 +76,18 @@ public class BookController {
     @PostMapping("/bookCategory/add")
     public String bookCategoryAdd(BookCategoryForm bookCategoryForm){
         log.info("--CMS--Book--Category--Add--Request--");
-        BookCategory bookCategory = bookCategoryService.save(bookCategoryForm);
+        BookCategory save = bookCategoryService.save(bookCategoryForm);
         return "redirect:/cms/bookCategory";
     }
 
 
     //상품카테고리상세
-//    @GetMapping("/bookCategory/{bookCategoryId}")
-//    public String detail(@PathVariable("bookCategoryId") Long bookCategoryId, Model model){
-//        BookCategoryDTO bookCategoryDTO = bookCategoryService.getOneCategory(bookCategoryId);
-//        model.addAttribute("bookCategoryDTO", bookCategoryDTO);
-//        return "backend/bookcategory/detail";
-//    }
+    @GetMapping("/bookCategory/{bookCategoryId}")
+    public String detail(@PathVariable("bookCategoryId") Long bookCategoryId, Model model){
+        BookCategoryDTO bookCategoryDTO = bookCategoryService.findOne(bookCategoryId);
+        model.addAttribute("bookCategoryDTO", bookCategoryDTO);
+        return "backend/bookcategory/detail";
+    }
 
 
     //상품카테고리수정

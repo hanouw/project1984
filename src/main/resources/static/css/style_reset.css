@@ -75,3 +75,12 @@ table {
 select option[value="placeholder"][disabled] {
 	display: none;
 }
+
+/*input*/
+input{
+    border: 1px solid var(--maingr01);
+}
+input:read-only{
+    background-color: #fafafa;
+    border: 1px solid var(--maingr00);
+}

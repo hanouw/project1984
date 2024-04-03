@@ -53,8 +53,8 @@
             <th>수정일</th>
             <th>등록일</th>
           </tr>
-          <tr>
-              <td>9999</td>
+          <tr th:each="bookCategory : ${list}">
+              <td th:text="${book}">9999</td>
               <td>인문</td>
               <td>호랑나비</td>
               <td>111122223333</td>

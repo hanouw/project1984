@@ -4,7 +4,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
-            <form action="" th:action th:object="${bookCategoryDTO}" method="post">
+            <form action="" th:action th:object="${bookCategoryForm}" method="post">
                 <div class="search_date_wrap">
                     <div class="item">
                         <h2>카테고리등록</h2>

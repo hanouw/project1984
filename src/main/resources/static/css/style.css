@@ -59,7 +59,6 @@ body{
     padding-left: 10px;
     height: 48px;
     border-radius: 4px;
-    border: 1px solid var(--maingr00);
     color: var(--mainblack);
 }
 .check_box{
@@ -238,7 +237,6 @@ div.top_st_bar > span{
 
 .search_text_wrap > .item > input{
     padding: 13px;
-    border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
 .search_text_wrap > .item > select{
@@ -281,13 +279,11 @@ div.top_st_bar > span{
 .add_input_wrap > textarea{
     min-width:calc(50% - 40px);
     padding: 13px 20px;
-    border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
 .add_input_wrap > select{
     min-width:50%;
     padding: 13px 20px;
-    border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
 .drag_img_form{

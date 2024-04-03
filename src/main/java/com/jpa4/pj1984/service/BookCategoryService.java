@@ -23,10 +23,15 @@ public class BookCategoryService {
         List<BookCategoryDTO> list = all.stream()
                 .map(b -> new BookCategoryDTO(b))
                 .collect(Collectors.toList());
+        System.out.println("list = " + list);
         return list;
     }
 
-    //조회
+    //조회(1개)
+    public BookCategoryDTO findOne(Long bookCategoryId) {
+        BookCategory bookCategory = bookCategoryRepository.findById(bookCategoryId).orElse(null);
+        return new BookCategoryDTO(bookCategory);
+    }
 
     //저장
     public BookCategory save(BookCategoryForm bookCategoryForm){
