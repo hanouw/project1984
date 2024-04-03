@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreDTO {
-    private Long storeId;
+public class StoreDTO { // 가져오는
     private String storeTitle;
     private String storeOwner;
     private String storeCrn;
@@ -40,7 +39,6 @@ public class StoreDTO {
     // Entity -> DTO
 
     public StoreDTO(Store store) {
-        this.storeId = store.getStoreId();
         this.storeTitle = store.getStoreTitle();
         this.storeOwner = store.getStoreOwner();
         this.storeCrn = store.getStoreCrn();

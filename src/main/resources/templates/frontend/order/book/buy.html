@@ -10,68 +10,49 @@
 </head>
 <body>
 
-<h3 class="isbn">1111222233333</h3>
-<h3 class="orderProductPrice">1000원</h3>
+<h2>선택된 상품</h2>
 
-<h3 class="isbn">1111222244444</h3>
-<h3 class="orderProductPrice">3000원</h3>
-
-
-<button id="kakaoPay">결제하기</button>
-
+<form id="orderForm" th:action="@{/order}" method="post">
+  <div th:each="book : ${selectedBooks}">
+    <input type="checkbox" class="selectedBookCheckbox" name="selectedBook" th:value="${book.isbn}">
+    <input type="hidden" name="isbn" th:value="${book.isbn}">
+    <label th:text="${book.bookTitle}"></label>
+    <label th:text="${book.bookEbookPrice}"></label>
+    <br>
+  </div>
+  <button type="button" id="orderButton">주문하기</button>
+</form>
 
 <script th:inline="javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
+
     let IMP = window.IMP;
     IMP.init("imp20085076");
 
-    let pg = "";
-    let payMethod = "";
-    let orders = [];
-    let orderNumber = createOrderNum();
+    $('#orderButton').click(function () {
 
-    $('#kakaoPay').on("click", function() { // 결제버튼 누르면
-      pg = "kakaopay";
-      payMethod = "card";
-      createOrderList(); // 주문 목록 만드는 함수 호출
-      requestPay();
-    });
-
-    function createOrderList() {
-
-      $('.orderProductPrice').each(function(i, e) {
-        let order = {};
-
-        let price = parseInt($(e).text().replace(/[^0-9]/g, ''));
-
-        if (!discountRate) {
-          discountRate = 0;
-        }
-
-        order.productId = $(".td_wrap").eq(i).data("order-product-id");
-        order.orderPrice = price - (price * (discountRate / 100));
-        order.orderCount = parseInt($('.orderProductCount').eq(i).text().replace(/[^0-9]/g, ''));
-        order.receiverName = $("#name").val();
-        order.phoneNumber = $("#phone1").val();
-        order.orderNumber = orderNumber;
-        order.zipcode = parseInt($("#add").val());
-        order.address = $("#add2").val();
-        order.orderRequired = $("#ask").val();
-        order.paymentMethod = payMethod;
-        orders.push(order);
+      let merchantUid = createMerchantUid();
+      let selectedBooks = [];
+      $('.selectedBookCheckbox:checked').each(function () {
+        selectedBooks.push($(this).val());
       });
 
-      let order = {};
-      let price = parseInt($(e).text().replace(/[^0-9]/g, ''));
+      let data = {
+        orderBookId: merchantUid,
+        selectedBooks: selectedBooks,
+        orderBookMethod: "card"
+      };
 
-    }
+      if (selectedBooks.length === 0) {
+        alert('상품을 선택해주세요.');
+        return;
+      }
 
-    function requestPay() {
       IMP.request_pay(
               {
-                pg: "pg",
+                pg: "kakaopay",
                 pay_method: "card",
-                merchant_uid: "20240401" + new Date().getTime(),
+                merchant_uid: merchantUid,
                 name: "카카오페이 테스트결제",
                 amount: 10,
                 buyer_email: 'test@naver.com',
@@ -82,38 +63,65 @@
               },
               function (rsp) {
                 console.log(rsp);
-                $.ajax({
-                  type: 'POST',
-                  url: '/book/validation/' + rsp.imp_uid
-                }).done(function (data) {
-                  if (rsp.paid_amount === data.response.amount) {
-                    alert("결제 성공");
-                    // location.href = "결제 완료 후 이동할 페이지 url"
-                  } else {
-                    let msg = '결제에 실패하였습니다.';
-                    msg += '에러내용 : ' + rsp.error_msg;
-                    alert(msg);
-                  }
-                });
-              });
-    }
+                if (rsp.success) {
+                  $.ajax({
+                    type: 'POST',
+                    url: '/book/validation/' + rsp.imp_uid
+                  }).done(function (data) { // PaymentController 에서 IamportResponse<Payment> 넘겨줌
+                    if (rsp.paid_amount === data.response.amount) {
+                      $.ajax({
+                        type: 'POST',
+                        url: '/order/book',
+                        data: JSON.stringify(data),
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (response) {
+                          // 장바구니에서 결제된 상품 지우기
 
+                          // 결제완료 창 띄우기
+                          let msg = '결제가 완료되었습니다.';
+                          msg += '고유ID : ' + rsp.imp_uid;
+                          msg += '상점 거래ID : ' + rsp.merchant_uid;
+                          msg += '결제 금액 : ' + rsp.paid_amount;
+                          msg += '카드 승인번호 : ' + rsp.apply_num;
+                          alert(msg);
+
+                          // location.href 로 결제 완료 후 완료 페이지 이동
+                        },
+                        error: function () {
+                          let msg = '결제에 실패하였습니다.';
+                          msg += '에러내용 : ' + rsp.error_msg;
+                          alert(msg);
+                        }
+                      });
+                    } else {
+                      alert("결제 실패");
+                    }
+                  });
+
+                }
+              });
+
+
+
+
+    });
 
     // 주문번호 생성 함수
-    function createOrderNum() {
+    function createMerchantUid() {
       const date = new Date();
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
 
-      let orderNum = year + month + day;
+      let merchantUid = year + month + day;
       for (let i = 0; i < 5; i++) {
-        orderNum += Math.floor(Math.random() * 8);
+        merchantUid += Math.floor(Math.random() * 8);
       }
-      return parseInt(orderNum);
+      return parseInt(merchantUid);
     }
 
-  })
+  });
+
 </script>
 </body>
 </html>
