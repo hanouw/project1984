@@ -5,7 +5,6 @@ import com.jpa4.pj1984.domain.Payment;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.PaymentBookStatus;
 import com.jpa4.pj1984.repository.BookRepository;
-import com.jpa4.pj1984.repository.BookRepository;
 import com.jpa4.pj1984.repository.MemberRepository;
 import com.jpa4.pj1984.repository.PaymentBookHistoryRepository;
 import com.jpa4.pj1984.repository.PaymentRepository;
