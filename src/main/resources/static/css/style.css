@@ -176,6 +176,7 @@ div.content{
     height: 100vh;
     background-color: #fcfcfc;
     overflow-y: scroll;
+    color:var(--mainblack);
 }
 li.menu_list > a span{
     font-size: 24px;
