@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
 <section class="page_wrap">
     <div class="login_form item">
         <a href=""><h1 class="main_logo"><</h1></a>
-        <form action="post">
+        <form action="" th:action th:object="${storeLoginForm}" method="post">
             <div class="login_form_wrap">
                 <p>
                     책은 문화의 <br />
@@ -21,12 +21,12 @@
                 <h2>관리자 로그인</h2>
                 <div class="input_form">
                     <span>아이디</span>
-                    <input type="text" placeholder="아이디를 입력해주세요." />
+                    <input type="text" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>비밀번호</span>
-                    <input type="password" placeholder="비밀번호를 입력해주세요." />
+                    <input type="password" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
                     <span></span>
                 </div>
                 <div class="check_box">
