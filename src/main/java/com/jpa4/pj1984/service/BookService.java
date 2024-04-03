@@ -15,6 +15,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
+    //저장
     public Book save(BookDTO bookDTO){
         Book bookSaved = bookRepository.save(bookDTO.toEntity());
         return bookSaved;

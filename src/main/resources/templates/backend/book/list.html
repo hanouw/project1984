@@ -9,12 +9,12 @@
           <h2>상품관리</h2>
         </div>
         <div class="item">
-          <button class="grey_btn">오늘</button>
-          <button class="grey_btn">일주일</button>
-          <button class="grey_btn">한달</button>
+          <button type="button" class="grey_btn">오늘</button>
+          <button type="button" class="grey_btn">일주일</button>
+          <button type="button" class="grey_btn">한달</button>
           <input type="date" />
           <input type="date" />
-          <button class="black_btn">조회</button>
+          <button type="button" class="black_btn">조회</button>
         </div>
       </div>
       <hr />
@@ -28,15 +28,15 @@
             <option value="">만화</option>
           </select>
           <input type="text" />
-          <button class="black_btn">검색</button>
+          <button type="button" class="black_btn">검색</button>
         </div>
         <div class="item">
           <select name="" id="">
             <option value="">최신순</option>
             <option value="">이전순</option>
           </select>
-          <button class="black_btn">카테고리관리</button>
-          <button class="black_btn" onclick="bookAdd()">추가</button>
+          <button type="button" class="black_btn" onclick="bookCategory()">카테고리관리</button>
+          <button type="button" class="black_btn" onclick="bookAdd()">추가</button>
         </div>
       </div>
       <div class="list_table_wrap">
@@ -54,7 +54,6 @@
             <th>등록일</th>
           </tr>
           <tr>
-            <a href="">
               <td>9999</td>
               <td>인문</td>
               <td>호랑나비</td>
@@ -65,7 +64,6 @@
               <td>한빛미디어</td>
               <td>2024-03-25</td>
               <td>2024-04-25</td>
-            </a>
           </tr>
         </table>
       </div>
@@ -73,6 +71,9 @@
   </th:block>
 </th:block>
 <script>
+  const bookCategory = () => {
+      location.href = "/cms/bookCategory"
+  }
   const bookAdd = () => {
       location.href = "/cms/book/add"
   }
