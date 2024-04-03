@@ -3,10 +3,7 @@ package com.jpa4.pj1984.service;
 import com.jpa4.pj1984.domain.Payment;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.Store;
-import com.jpa4.pj1984.dto.PageRequestDTO;
-import com.jpa4.pj1984.dto.PaymentBookHistoryDTO;
-import com.jpa4.pj1984.dto.StoreForm;
-import com.jpa4.pj1984.dto.StoreLoginForm;
+import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,12 +47,29 @@ public class CmsService {
         return null;
     }
 
-    // 주문 목록 조회 판매자 ver
-    public List<PaymentBookHistoryDTO> findHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
+    // 주문관리 - 주문 목록 조회 판매자 ver
+    public List<PaymentResponseDTO> findHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
         List<PaymentBookHistory> historyEntityList = paymentBookHistoryCustomRepository.findListByStoreId(storeId, pageRequestDTO);
-        List<PaymentBookHistoryDTO> list = new ArrayList<>();
-        for (PaymentBookHistory p : historyEntityList) {
-            list.add(new PaymentBookHistoryDTO(p));
+//        List<PaymentBookHistoryDTO> list = new ArrayList<>();
+//        for (PaymentBookHistory p : historyEntityList) {
+//            list.add(new PaymentBookHistoryDTO(p));
+//        }
+        List<PaymentResponseDTO> list = new ArrayList<>();
+        for (PaymentBookHistory orderList : historyEntityList) {
+            PaymentResponseDTO paymentResponseDTO = new PaymentResponseDTO();
+            paymentResponseDTO.setOrderBookNo(orderList.getPayment().getOrderBookNo());
+            paymentResponseDTO.setOrderBookId(orderList.getPayment().getOrderBookId());
+            paymentResponseDTO.setUserId(orderList.getPayment().getMember().getUserId());
+            paymentResponseDTO.setUserName(orderList.getPayment().getMember().getUserName());
+            paymentResponseDTO.setIsbn(orderList.getBook().getIsbn());
+            paymentResponseDTO.setBookTitle(orderList.getBook().getBookTitle());
+            //paymentResponseDTO.setStoreTitle(orderList.getBook().getS);
+            paymentResponseDTO.setPaymentBookStatus(orderList.getPayment().getPaymentBookStatus());
+            paymentResponseDTO.setOrderBookMethod(orderList.getPayment().getOrderBookMethod());
+            paymentResponseDTO.setCreateDate(orderList.getPayment().getCreateDate());
+            paymentResponseDTO.setBookPub(orderList.getBook().getBookPub());
+            paymentResponseDTO.setBookEbookPrice(orderList.getBook().getBookEbookPrice());
+            list.add(paymentResponseDTO);
         }
         return list;
     }
