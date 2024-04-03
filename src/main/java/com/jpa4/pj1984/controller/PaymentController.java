@@ -1,7 +1,7 @@
 package com.jpa4.pj1984.controller;
 
 
-import com.jpa4.pj1984.DTO.PaymentDTO;
+import com.jpa4.pj1984.dto.PaymentDTO;
 import com.jpa4.pj1984.service.PaymentService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
