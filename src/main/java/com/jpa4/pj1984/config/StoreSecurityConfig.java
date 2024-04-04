@@ -56,7 +56,7 @@ public class StoreSecurityConfig extends ConfigForExtend{
                                 request.requestMatchers("/", "/cms/signup", "/cms/login", "/cms/logout").permitAll()
                                 .requestMatchers("/cms/**").hasAnyAuthority("STATUS_STORE") // authenticated는 사용자 정보를 기반으로 사용자가 인증되었는지 확인 //hasAnyRole을 할 경우에는 앞에 ROLE_~~ 로 시작해야함
 //                                .requestMatchers("/main/**").hasAnyAuthority("STATUS_STORE")
-//                                .anyRequest().authenticated()
+                                .anyRequest().authenticated()
                 );
 
 
