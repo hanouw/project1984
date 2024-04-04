@@ -1,8 +1,5 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.domain.Store;
-import com.jpa4.pj1984.dto.MemberDTO;
-import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.dto.StoreLoginForm;
 import com.jpa4.pj1984.service.CmsService;
@@ -42,12 +39,12 @@ public class CMSController {
         return "backend/member/login";
     }
 
-    @PostMapping("/login")
-    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
-        log.info("******* CMSController loginPro");
-        cmsService.login(storeLoginForm);
-        return "redirect:/cms/home";
-    }
+//    @PostMapping("/login")
+//    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
+//        log.info("******* CMSController loginPro");
+//        cmsService.login(storeLoginForm);
+//        return "redirect:/cms/home";
+//    }
 
     @GetMapping("/userList")
     public String userList(HttpSession session){

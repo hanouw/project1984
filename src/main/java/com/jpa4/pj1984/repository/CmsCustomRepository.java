@@ -5,5 +5,5 @@ import com.jpa4.pj1984.dto.StoreLoginForm;
 import org.springframework.stereotype.Repository;
 
 public interface CmsCustomRepository {
-    public Store findByStoreLoginId(String storeLoginId);
+    Store findByStoreLoginId(String storeLoginId);
 }

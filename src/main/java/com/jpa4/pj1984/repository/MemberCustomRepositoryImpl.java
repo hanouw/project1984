@@ -1,7 +1,6 @@
 package com.jpa4.pj1984.repository;
 
-import com.jpa4.pj1984.domain.Store;
-import com.jpa4.pj1984.dto.StoreLoginForm;
+import com.jpa4.pj1984.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Slf4j
 @Repository
-public class CmsCustomRepositoryImpl implements CmsCustomRepository{
+public class MemberCustomRepositoryImpl implements MemberCustomRepository{
 
 //    JPA (Java Persistence API)에서 EntityManager 객체를 주입하는 데 사용
 //    EntityManager는 영속성 컨텍스트를 관리하고 데이터베이스 작업을 수행하는 데 사용
@@ -17,12 +16,12 @@ public class CmsCustomRepositoryImpl implements CmsCustomRepository{
     private EntityManager em;
 
     @Override
-    public Store findByStoreLoginId(String storeLoginId) {
-        Store store = em.createQuery("select s from Store s where s.storeLoginId = :storeLoginId", Store.class) // 마지막에 , 뒷부분 = 이름.타입) 형태로
-                .setParameter("storeLoginId", storeLoginId)
+    public Member findByUserId(String userId) {
+        Member member = em.createQuery("select m from Member m where m.userId = :userId", Member.class) // 마지막에 , 뒷부분 = 이름.타입) 형태로
+                .setParameter("userId", userId)
                 .getSingleResult();
-        log.info("******* CmsCustomRepository : store = {}", store);
-        return store;
+        log.info("******* MemberCustomRepository : member = {}", member);
+        return member;
     }
 
 }
