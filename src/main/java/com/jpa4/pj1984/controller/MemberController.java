@@ -1,15 +1,13 @@
 package com.jpa4.pj1984.controller;
 
 import com.jpa4.pj1984.dto.MemberDTO;
-import com.jpa4.pj1984.dto.MemberForm;
 import com.jpa4.pj1984.dto.MemberLoginDTO;
+import com.jpa4.pj1984.dto.MemberForm;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
