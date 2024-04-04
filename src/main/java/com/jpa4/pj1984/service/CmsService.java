@@ -74,4 +74,9 @@ public class CmsService {
         return list;
     }
 
+    // 주문관리 - 검색된 주문 개수 조회 판매자 ver
+//    public Long countHistoryList(PageRequestDTO pageRequestDTO) {
+//        paymentBookHistoryCustomRepository.countHistoryList(pageRequestDTO);
+//    }
+
 }

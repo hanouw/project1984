@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 // 화면에 글 목록 응답할때 함께 보내주는 페이징 처리 정보 보낼 용도
 // 직접 모두 계산하는 버전
 @Getter
-public class PageResponseDTO {
+public class PageResponseDTO { // 구 PageDTO
     private PageRequestDTO pageRequestDTO; // 페이지 요청 정보 (page, size)
     private Long totalCount; // 전체 글의 개수
     private int startPage, endPage; // 화면상 페이지 시작 번호, 페이지 끝 번호

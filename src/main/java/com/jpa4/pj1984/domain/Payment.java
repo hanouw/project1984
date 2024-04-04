@@ -21,7 +21,6 @@ public class Payment extends TimeEntity{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentBookStatus paymentBookStatus;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_book_history")
+    @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
     private List<PaymentBookHistory> orderBookHistories;
 }

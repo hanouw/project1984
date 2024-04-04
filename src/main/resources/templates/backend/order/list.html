@@ -9,9 +9,9 @@
                     <h2>주문관리</h2>
                 </div>
                 <div class="item">
-                    <button class="grey_btn">오늘</button>
-                    <button class="grey_btn">일주일</button>
-                    <button class="grey_btn">한달</button>
+                    <button id="todayBtn" class="grey_btn">오늘</button>
+                    <button id="oneWeekBtn" class="grey_btn">일주일</button>
+                    <button id="oneMonthBtn" class="grey_btn">한달</button>
                     <input type="date" />
                     <input type="date" />
                     <button class="black_btn">조회</button>
@@ -19,21 +19,25 @@
             </div>
             <hr />
             <div class="search_text_wrap">
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">전체</option>
-                        <option value="">No</option>
-                        <option value="">회원ID</option>
-                        <option value="">회원명</option>
-                        <option value="">ISBN</option>
-                        <option value="">도서명</option>
-                        <option value="">서점명</option>
-                        <option value="">주문상태</option>
-                        <option value="">결제방법</option>
-                    </select>
-                    <input type="text" />
-                    <button class="black_btn">검색</button>
-                </div>
+                <form th:action="@{/cms/orderList}" method="get">
+                    <div class="item">
+                        <input type="hidden" name="page" th:value="${pageResponseDTO.pageRequestDTO.page}"/>
+                        <input type="hidden" name="size" th:value="${pageResponseDTO.pageRequestDTO.size}"/>
+                        <select name="searchType" >
+                            <option value="all" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'all'}">전체</option>
+                            <option value="orderNo" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'orderNo'}">No</option>
+                            <option value="userId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userId'}">회원ID</option>
+                            <option value="userName" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userName'}">회원명</option>
+                            <option value="isbn" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'isbn'}">ISBN</option>
+                            <option value="bookTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'bookTitle'}">도서명</option>
+                            <option value="storeTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeTitle'}">서점명</option>
+                            <option value="status" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'status'}">주문상태</option>
+                            <option value="method" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'method'}">결제방법</option>
+                        </select>
+                        <input type="text" name="keyword" th:value="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
+                        <button class="black_btn" type="submit">검색</button>
+                    </div>
+                </form>
                 <div class="item">
                     <select name="" id="">
                         <option value="">최신순</option>
@@ -55,16 +59,17 @@
                         <th>결제방법</th>
                         <th>구매일</th>
                     </tr>
-                    <tr>
-                        <td>01</td>
-                        <td>20240403000000</td>
-                        <td>pika</td>
-                        <td>1111222233333</td>
-                        <td>호랑나비</td>
-                        <td>홍익문고</td>
-                        <td>결제완료</td>
-                        <td>카드</td>
-                        <td>2024-03-25</td>
+                    <tr th:each="list : ${orderList}">
+                        <td th:text="*{list.orderBookNo}"></td>
+                        <td th:text="*{list.orderBookId}"></td>
+                        <td th:text="*{list.userId}"></td>
+                        <td th:text="*{list.userName}"></td>
+                        <td th:text="*{list.isbn}"></td>
+                        <td th:text="*{list.bookTitle}"></td>
+                        <td th:text="*{list.storeTitle}"></td>
+                        <td th:text="*{list.paymentBookStatus}"></td>
+                        <td th:text="*{list.orderBookMethod}"></td>
+                        <td th:text="*{list.createDate}"></td>
                     </tr>
                 </table>
             </div>

@@ -74,8 +74,11 @@ public class CMSController {
         log.info("******* CMSController orderList 호출");
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1111L;
+        // 페이징  + 검색 (list 뷰로 보내기)
         List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
+        // TODO 검색된 글 개수 조회 (pageResponseDTO 뷰로 보내기)
+        // cmsService.countHistoryList(pageRequestDTO);
         return "backend/order/list";
     }
 
@@ -85,5 +88,6 @@ public class CMSController {
         log.info("******* CMSController orderDetail 호출");
         return "backend/order/detail";
     }
+
 }
 
