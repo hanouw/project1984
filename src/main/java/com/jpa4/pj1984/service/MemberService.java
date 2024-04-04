@@ -18,12 +18,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder storePasswordEncoder;
 
+    // 회원 등록
     public Member save(MemberForm memberForm){
         memberForm.setUserPassword(storePasswordEncoder.encode(memberForm.getUserPassword()));
         Member memberSaved = memberRepository.save(memberForm.toEntity());
         return memberSaved;
     }
 
+    // 로그인
 //    public MemberLoginDTO login(MemberLoginDTO memberLoginDTO){
 //        Member dbMember = memberRepository.findByUserId(memberLoginDTO.getUserId());
 ////        if(dbMember.isPresent()) { // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴

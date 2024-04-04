@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
 
+                <div class="search_date_wrap">
+                    <div class="item">
+                        <h2>카테고리 상세</h2>
+                    </div>
+                    <div class="item">
+                        <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
+                        <button th:onclick="|location.href='@{/cms/bookCategory/{id}/modify(id=${bookCategory.bookCategoryId})}'|" class="black_btn">수정</button>
+                    </div>
+                </div>
+                <div class="add_form_wrap">
+                    <div class="add_input_wrap">
+                        <p>카테고리명</p>
+                        <input type="text" th:field="${bookCategory.bookCategoryName}" id="bookCategoryName" readonly>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>수정일</p>
+                        <input type="text" th:field="${bookCategory.lastModifiedDate}" id="lastModifiedDate" readonly>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>등록일</p>
+                        <input type="text" th:field="${bookCategory.createDate}" id="createDate" readonly>
+                    </div>
+                </div>
+
+        </div>
+    </th:block>
+</th:block>
 </body>
 </html>

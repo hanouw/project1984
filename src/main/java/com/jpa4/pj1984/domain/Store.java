@@ -60,8 +60,6 @@ public class Store extends TimeEntity{
     @Column(length = 400)
     private String storeTag;
     @Column(length = 30)
-    private String storeBankName;
-    @Column(length = 30)
     private String storeAccount;
 
 

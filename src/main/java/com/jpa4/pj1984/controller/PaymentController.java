@@ -35,17 +35,18 @@ public class PaymentController {
         this.iamportClient = new IamportClient(restApiKey, restApiSecret);
     }
 
+    // 책 주문 처리 요청
     @PostMapping("/book")
     public ResponseEntity<String> paymentComplete(@RequestBody PaymentDTO paymentDTO// @AuthenticationPrincipal CustomMember customMember
     ) throws IOException {
 
-        Long userNo = paymentDTO.getUserNo(); // TODO 추후 수정
+        Long userNo = paymentDTO.getUserNo(); // 추후 수정
         paymentService.saveOrder(userNo, paymentDTO);
         // log.info("결제 성공 : 주문 번호 {}", orderNumber);
         return ResponseEntity.ok().build();
         }
 
-
+    // 결제 시도 시 검증 처리 요청
     @PostMapping("/book/validation/{imp_uid}")
     @ResponseBody
     public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IOException {

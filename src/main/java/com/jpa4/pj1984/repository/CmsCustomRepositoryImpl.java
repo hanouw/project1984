@@ -16,6 +16,7 @@ public class CmsCustomRepositoryImpl implements CmsCustomRepository{
     @PersistenceContext
     private EntityManager em;
 
+    // 서점 로그인 아이디로 서점 한개 조회
     @Override
     public Store findByStoreLoginId(String storeLoginId) {
         Store store = em.createQuery("select s from Store s where s.storeLoginId = :storeLoginId", Store.class) // 마지막에 , 뒷부분 = 이름.타입) 형태로
