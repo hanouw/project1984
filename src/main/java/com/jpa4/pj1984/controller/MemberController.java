@@ -30,7 +30,6 @@ public class MemberController {
     @PostMapping("/signup")
     public String signupPro(MemberForm memberForm){
         log.info("******* MemberController signupPro");
-        Member member = memberService.save(memberForm);
         MemberDTO memberDTO = new MemberDTO(memberService.save(memberForm));
         return "redirect:/";
     }
