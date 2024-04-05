@@ -21,7 +21,6 @@ public class BookCategoryForm {
     //DTO -> Entity
     public BookCategory toEntity(){
         BookCategory bookCategory = new BookCategory();
-
         bookCategory.setBookCategoryId(bookCategoryId);
         bookCategory.setBookCategoryName(bookCategoryName);
         bookCategory.setBookCategoryStatus(BookCategoryStatus.ON);

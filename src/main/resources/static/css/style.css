@@ -33,6 +33,12 @@ body{
     line-height: 34px;
     color: var(--mainwhite);
 }
+.login_form_wrap > p > span{
+    font-size: 28px;
+    line-height: 34px;
+    color: var(--mainwhite);
+}
+
 .login_form_wrap > hr{
     width: calc(100% - 80px);
     margin-bottom: 40px;
@@ -255,7 +261,7 @@ div.top_st_bar > span{
     text-align: center;
 }
 .list_table tr{
-    border-bottom: 1px solid var(--maingr00);
+    border-bottom: 1px solid #dcdcdc;
     line-height: 52px;
 }
 /*add_from*/

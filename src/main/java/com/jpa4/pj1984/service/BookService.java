@@ -3,6 +3,7 @@ package com.jpa4.pj1984.service;
 import com.jpa4.pj1984.domain.Book;
 
 import com.jpa4.pj1984.dto.BookDTO;
+import com.jpa4.pj1984.dto.BookForm;
 import com.jpa4.pj1984.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +17,9 @@ public class BookService {
     private final BookRepository bookRepository;
 
     //저장
-    public Book save(BookDTO bookDTO){
-        Book bookSaved = bookRepository.save(bookDTO.toEntity());
-        return bookSaved;
+    public Long save(BookForm bookForm){
+        Book bookSaved = bookRepository.save(bookForm.toEntity());
+        return bookSaved.getIsbn();
     }
 
 }

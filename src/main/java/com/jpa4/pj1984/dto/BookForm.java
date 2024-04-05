@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDTO {
+public class BookForm {
     private Long isbn;
     private String bookImg;
     private String bookFile;
@@ -31,23 +31,26 @@ public class BookDTO {
     private LocalDateTime createDate;
 
     //DTO -> Entity
-    public BookDTO(Book book){
-        this.isbn = book.getIsbn();
-        this.bookImg = book.getBookImg();
-        this.bookFile = book.getBookFile();
-        this.bookTitle = book.getBookTitle();
-        this.bookWriter = book.getBookWriter();
-        this.storeId = book.getStoreId();
-        this.bookPub = book.getBookPub();
-        this.bookPubDate = book.getBookPubDate();
-        this.bookPaperPrice = book.getBookPaperPrice();
-        this.bookEbookPrice = book.getBookEbookPrice();
-        this.categoryId = book.getCategoryId();
-        this.bookIntro = book.getBookIntro();
-        this.bookIndex = book.getBookIndex();
-        this.bookReview = book.getBookReview();
-        this.bookWriterProfile = book.getBookWriterProfile();
-        this.bookStatus = book.getBookStatus();
+    public Book toEntity(){
+        Book book = new Book();
+        book.setIsbn(isbn);
+        book.setBookImg(bookImg);
+        book.setBookFile(bookFile);
+        book.setBookTitle(bookTitle);
+        book.setBookWriter(bookWriter);
+        book.setStoreId(storeId);
+        book.setBookPub(bookPub);
+        book.setBookPubDate(bookPubDate);
+        book.setBookPaperPrice(bookPaperPrice);
+        book.setBookEbookPrice(bookEbookPrice);
+        book.setCategoryId(categoryId);
+        book.setBookIntro(bookIntro);
+        book.setBookIndex(bookIndex);
+        book.setBookReview(bookReview);
+        book.setBookWriterProfile(bookWriterProfile);
+        book.setBookStatus(bookStatus);
+        return book;
     }
 
 }
+
