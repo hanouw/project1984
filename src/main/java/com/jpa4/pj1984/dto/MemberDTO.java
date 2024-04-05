@@ -25,11 +25,13 @@ public class MemberDTO {
 
     // Entity -> DTO
     public MemberDTO(Member member){
-        this.userNo = getUserNo();
-        this.userPassword = getUserPassword();
-        this.userName = getUserName();
-        this.userEmail = getUserEmail();
-        this.userPhoneNum = getUserPhoneNum();
-        this.userStatus = getUserStatus();
+        this.userNo = member.getUserNo();
+        this.userId = member.getUserId();
+        this.userPassword = member.getUserPassword();
+        this.userName = member.getUserName();
+        this.userEmail = member.getUserEmail();
+        this.userPhoneNum = member.getUserPhoneNum();
+        this.createDate = member.getCreateDate();
+        this.userStatus = member.getUserStatus();
     }
 }

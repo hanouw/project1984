@@ -82,9 +82,15 @@ public class CmsService {
             paymentResponseDTO.setCreateDate(orderList.getPayment().getCreateDate());
             paymentResponseDTO.setBookPub(orderList.getBook().getBookPub());
             paymentResponseDTO.setBookEbookPrice(orderList.getBook().getBookEbookPrice());
+            paymentResponseDTO.setCreateDate(orderList.getCreateDate());
             list.add(paymentResponseDTO);
         }
         return list;
+    }
+
+    // 주문관리 - 검색된 주문 개수 조회 판매자 ver
+    public Long countHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
+        return paymentBookHistoryCustomRepository.countHistoryListByStoreId(storeId, pageRequestDTO);
     }
 
 }
