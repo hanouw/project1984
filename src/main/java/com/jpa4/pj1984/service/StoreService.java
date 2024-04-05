@@ -1,8 +1,10 @@
 package com.jpa4.pj1984.service;
 
+import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
+import com.jpa4.pj1984.dto.BookCategoryDTO;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.repository.StoreRepository;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,6 +27,17 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final FileUploadService fileUploadService;
+
+    // 서점 목록 조회
+    public List<StoreDTO> findAll() {
+        List<Store> all = storeRepository.findAll();
+        System.out.println("all = " + all);//all까지는 불러옴
+        List<StoreDTO> list = all.stream()
+                .map(b -> new StoreDTO(b))
+                .collect(Collectors.toList());
+        System.out.println("list = " + list);
+        return list;
+    }
 
     // 서점 상세 조회 (한개 조회)
     public Store getOneStore(Long storeId) {

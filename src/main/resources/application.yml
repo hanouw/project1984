@@ -1,9 +1,9 @@
 # DB setting
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
-    username: root
-    password: 1234
+    url: jdbc:mysql://192.168.100.49:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
+    username: pj1984
+    password: pj1984!!
   servlet:
     multipart:
       max-file-size: 1MB
@@ -12,7 +12,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -36,4 +36,4 @@ iamport:
   secret: BIbJ0zJL1smO9Kdbjmmf7epKUC6F0sM1swDVgzjfpJdwYXugBcgAjhE7LGZ976K14ZxK9tVY2cZx1PRv
 
 file:
-  dir: c:/thejoeun/pj1984/
+  dir: \\192.168.100.49/pj1984/images/
