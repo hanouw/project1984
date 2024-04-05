@@ -304,6 +304,9 @@ div.top_st_bar > span{
     background-repeat:no-repeat;
     margin-bottom:14px;
 }
+.active{
+    background-color:#fff;
+}
 
 /*BUTTON*/
 button.grey_btn{

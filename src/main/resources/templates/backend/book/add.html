@@ -1,9 +1,53 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script>
+  <!--  const dragItem = document.querySelector(".drag_img_form");-->
+  <!--  const fileInput = document.querySelector(".image-input-form");-->
+  <!--  const imagePreview = document.getElementById("image-preview");-->
+
+  const $drop = document.querySelector(".drag_img_form");
+  const $title = document.querySelector(".image-input-form");
+
+  // 드래그한 파일 객체가 해당 영역에 놓였을 때
+  $drop.ondrop = (e) => {
+    e.preventDefault();
+    // $drop.className = "dropBox";
+
+    // 파일 리스트
+    const file = e.dateTransfer.files[0].name;
+    input_
+    console.log(files);
+  <!--  $title.value = files.name;-->
+  <!--  console.log($title.value);-->
+  }
+
+  // ondragover 이벤트가 없으면 onDrop 이벤트가 실행되지 않습니다.
+  $drop.ondragover = (e) => {
+    e.preventDefault();
+  }
+
+  // 드래그한 파일이 최초로 진입했을 때
+  $drop.ondragenter = (e) => {
+    e.preventDefault();
+
+    $drop.classList.add("active");
+  }
+
+  // 드래그한 파일이 영역을 벗어났을 때
+  $drop.ondragleave = (e) => {
+    e.preventDefault();
+
+    $drop.classList.remove("active");
+  }
+
+
+
+
+</script>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
-      <form action="" th:action th:object="${bookForm}" method="post">
+      <form action="" th:action th:object="${bookForm}" method="post" enctype="multipart/form-data">
         <div class="search_date_wrap">
           <div class="item">
             <h2>상품등록</h2>
@@ -20,10 +64,11 @@
             <p>카테고리</p>
             <select name="bookCategory" th:field="*{bookCategory}">
               <option
-                      th:each="list : ${bookCategoryDTOList}"
+                      th:each="list : ${categoryLists}"
                       th:value="${list.bookCategoryId}"
                       th:utext="${list.bookCategoryName}"
               ></option>
+              <option value="문학">문학</option>
             </select>
           </div>
           
@@ -31,11 +76,15 @@
             <p>ISBN</p>
             <input type="text" th:field="*{isbn}" placeholder="ISBN을 입력해주세요.">
           </div>
+
           <div class="add_input_wrap">
             <p>도서표지</p>
-            <div draggable="true" class="drag_img_form"></div>
-            <input type="file" th:field="*{bookImg}" placeholder="이미지를 첨부해주세요.">
+            <div draggable="true" class="drag_img_form">
+              <img id="image-preview" src="" alt="">
+            </div>
+            <input type="text" class="image-input-form" placeholder="이미지를 첨부해주세요.">
           </div>
+
           <div class="add_input_wrap">
             <p>도서명</p>
             <input type="text" th:field="*{bookTitle}" placeholder="도서명을 입력해주세요.">
