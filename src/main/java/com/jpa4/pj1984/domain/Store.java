@@ -28,24 +28,9 @@ public class Store extends TimeEntity{
     private String storeCrn;
     @Column(unique = true, length = 100)
     private String storeText;
+
     @Column(nullable = false, unique = true, length = 400)
-    private Long storePhoneNum;
-    @Column(length = 50)
-    private String storeImageName;
-    @Column(length = 100)
-    private String storeImageId;
-    @Column(length = 50)
-    private String storeInsideImageName01;
-    @Column(length = 100)
-    private String storeInsideImageId01;
-    @Column(length = 50)
-    private String storeInsideImageName02;
-    @Column(length = 100)
-    private String storeInsideImageId02;
-    @Column(length = 50)
-    private String storeInsideImageName03;
-    @Column(length = 100)
-    private String storeInsideImageId03;
+    private String storePhoneNum;
     @Column(length = 100)
     private String storeAddress;
     @Column(length = 100)
@@ -61,6 +46,26 @@ public class Store extends TimeEntity{
     private String storeTag;
     @Column(length = 30)
     private String storeAccount;
+    @Column(length = 30)
+    private String storeBankName;
+    // 찢어야 함 String
+    @Column(length = 50)
+    private String storeImageOrigin;
+    @Column
+    private String storeImageStored;
+    @Column(length = 50)
+    private String storeImageOrigin01;
+    @Column
+    private String storeImageStored01;
+    @Column(length = 50)
+    private String storeImageOrigin02;
+    @Column
+    private String storeImageStored02;
+    @Column(length = 50)
+    private String storeImageOrigin03;
+    @Column
+    private String storeImageStored03;
+
 
 
 }

@@ -4,11 +4,15 @@ spring:
     url: jdbc:mysql://localhost:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
     username: root
     password: 1234
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB
 
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -30,3 +34,6 @@ server:
 iamport:
   key: 1438164817253007
   secret: BIbJ0zJL1smO9Kdbjmmf7epKUC6F0sM1swDVgzjfpJdwYXugBcgAjhE7LGZ976K14ZxK9tVY2cZx1PRv
+
+file:
+  dir: c:/thejoeun/pj1984/
