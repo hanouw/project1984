@@ -48,16 +48,6 @@ public class CmsService {
         }
     }
 
-    // 회원 목록 조회하기
-    public List<StoreDTO> findAllStore(){
-        List<Store> storeList = cmsRepository.findAll();
-        List<StoreDTO> storeDTOList = null;
-        for(Store val : storeList){
-            storeDTOList.add(new StoreDTO(val));
-        }
-        return storeDTOList;
-    }
-
     // 판매자 로그인
 //    public StoreLoginForm login(StoreLoginForm storeloginForm){
 //        Store store = cmsCustomRepository.findByStoreLoginId(storeloginForm.getStoreLoginId());
