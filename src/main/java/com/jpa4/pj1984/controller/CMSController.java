@@ -55,8 +55,9 @@ public class CMSController {
 
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
-    public String userList() {
+    public String userList(@ModelAttribute Model model) {
         log.info("******* CMSController userList 호출");
+        List<StoreDTO> allStore = cmsService.findAllStore();
         return "backend/member/memberList";
     }
 

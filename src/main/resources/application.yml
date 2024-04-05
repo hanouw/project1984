@@ -1,12 +1,12 @@
 # DB setting
 spring:
   datasource:
-    url: jdbc:mysql://192.168.100.49:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
-#    url: jdbc:mysql://localhost:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
-#    username: root
-    username: pj1984
-#    password: 1234
-    password: pj1984!!
+#    url: jdbc:mysql://192.168.100.49:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
+    url: jdbc:mysql://localhost:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
+    username: root
+#    username: pj1984
+    password: 1234
+#    password: pj1984!!
   servlet:
     multipart:
       max-file-size: 1MB
@@ -15,7 +15,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
