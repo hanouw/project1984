@@ -17,9 +17,9 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/order/book")
+    @GetMapping("/orderDetail")
     public String bookOrder() { // 임시
-        return "frontend/order/book/buy";
+        return "backend/order/detail";
     }
 
     @GetMapping("/cms/home")

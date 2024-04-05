@@ -244,6 +244,15 @@ div.top_st_bar > span{
     border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
+.search_text_wrap > form > .item > input{
+    padding: 13px;
+    border-radius: 4px;
+}
+.search_text_wrap > form> .item > select{
+    padding: 12px 22px 12px 20px;
+    border: 1px solid var(--maingr01);
+    border-radius: 4px;
+}
 
 /*list_table*/
 .list_table_wrap{
@@ -297,6 +306,38 @@ div.top_st_bar > span{
     background-position:center;
     background-repeat:no-repeat;
     margin-bottom:14px;
+}
+.book_img_form{
+    width:200px;
+    height:260px;
+    border-radius:4px;
+    background-color:#6b6b6b;
+    background-image:url("../img/img_drag.png");
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.book_order_wrap {
+    display: flex;
+    border: 0.5px solid var(--maingr00);
+    width:50%;
+    border-radius: 4px;
+    background-color: #fafafa;
+    justify-content: flex-start;
+}
+.book_order_text_wrap {
+    margin: 24px;
+}
+.book_order_text_wrap > p{
+    font-size: 28px;
+    margin: 4px 0px;
+}
+.book_title_writer_wrap {
+    margin-bottom: 50px;
+}
+.book_store, .book_price {
+    display: flex;
+    justify-content: flex-start;
+
 }
 
 /*BUTTON*/

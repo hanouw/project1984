@@ -5,14 +5,14 @@ import com.jpa4.pj1984.service.CmsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -68,18 +68,38 @@ public class CMSController {
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
     @GetMapping("/orderList")
-    public String orderList(Model model, PageRequestDTO pageRequestDTO
+    public String orderList(Model model
+                            , PageRequestDTO pageRequestDTO
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
-        log.info("******* CMSController orderList 호출");
+        log.info("----CmsService pageRequestDTO : {}", pageRequestDTO);
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
-        Long garaId = 1111L;
-        // 페이징  + 검색 (list 뷰로 보내기)
+        Long garaId = 1L;
+        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
+            pageRequestDTO.setDateOrder("desc");
+        }
         List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
-        // TODO 검색된 글 개수 조회 (pageResponseDTO 뷰로 보내기)
-        // cmsService.countHistoryList(pageRequestDTO);
+        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
+        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
+        log.info("**************CmsControlle orderList:{}", orderList);
         return "backend/order/list";
+    }
+
+    @GetMapping("/orderList/ajax")
+    public ResponseEntity<PageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
+        log.info("----CmsService orderListAjax pageRequestDTO : {}", pageRequestDTO);
+        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
+        Long garaId = 1L;
+        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
+            pageRequestDTO.setDateOrder("desc");
+        }
+        List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
+        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
+        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count, orderList);
+        log.info("----CmsService orderListAjax pageResponseDTO : {}", pageResponseDTO);
+        return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
     }
 
     // 주문관리 - 주문 상세 조회

@@ -13,7 +13,7 @@ public class Payment extends TimeEntity{
     private Long orderBookNo;
     @Column(nullable = false)
     private Long orderBookId;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "userNo")
     private Member member;
     @Column(nullable = false)
