@@ -3,6 +3,7 @@ package com.jpa4.pj1984.controller;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.CmsService;
+import com.jpa4.pj1984.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import java.util.List;
 public class CMSController {
 
     private final CmsService cmsService;
+    private final MemberService memberService;
 
     // 서점 등록 폼 요청
     @GetMapping("/signup")
@@ -55,8 +57,10 @@ public class CMSController {
 
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
-    public String userList() {
+    public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
         log.info("******* CMSController userList 호출");
+        List<MemberDTO> allMember = memberService.findAllMember();
+        model.addAttribute(allMember);
         return "backend/member/memberList";
     }
 

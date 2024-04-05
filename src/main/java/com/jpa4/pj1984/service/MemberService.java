@@ -1,14 +1,16 @@
 package com.jpa4.pj1984.service;
 
+import com.jpa4.pj1984.dto.MemberDTO;
 import com.jpa4.pj1984.dto.MemberForm;
-import com.jpa4.pj1984.dto.MemberLoginDTO;
 import com.jpa4.pj1984.domain.Member;
-import com.jpa4.pj1984.domain.MemberStatus;
 import com.jpa4.pj1984.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -16,13 +18,26 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder storePasswordEncoder;
+    private final PasswordEncoder PasswordEncoder;
 
     // 회원 등록
     public Member save(MemberForm memberForm){
-        memberForm.setUserPassword(storePasswordEncoder.encode(memberForm.getUserPassword()));
+        memberForm.setUserPassword(PasswordEncoder.encode(memberForm.getUserPassword()));
         Member memberSaved = memberRepository.save(memberForm.toEntity());
         return memberSaved;
+    }
+
+    // 회원 목록 조회하기
+    public List<MemberDTO> findAllMember(){
+        List<Member> memberList = memberRepository.findAll();
+        log.info("******* memberList size = {}", memberList.size());
+        log.info("******* memberList = {}", memberList.get(0).getUserNo());
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (Member val : memberList) {
+            log.info("******* val = {}", val);
+            memberDTOList.add(new MemberDTO(val));
+        }
+        return memberDTOList;
     }
 
     // 로그인
