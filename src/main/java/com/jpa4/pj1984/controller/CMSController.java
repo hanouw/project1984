@@ -1,17 +1,18 @@
 package com.jpa4.pj1984.controller;
 
+import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.CmsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -83,6 +84,23 @@ public class CMSController {
     public String orderDetail() {
         log.info("******* CMSController orderDetail 호출");
         return "backend/order/detail";
+    }
+
+    // ajax : 관리자 회원가입 중복 확인
+    @PostMapping("/ajaxUsernameAvail")
+    public ResponseEntity<String> ajaxUsernameAvail(String storeLoginId) {
+        log.info("Controller /ajaxUsernameAvail - storeId : {}", storeLoginId);
+        // username 사용 가능한지 DB 가서 체크
+        String result = "이미 사용 중 입니다.";
+        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
+        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
+            result = "사용 가능합니다.";
+        }
+        // 헤더정보 포함해서 응답 한글깨짐 방지
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
+
+        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
     }
 }
 

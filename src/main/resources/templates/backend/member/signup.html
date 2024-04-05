@@ -6,12 +6,13 @@
     <title>Store signup</title>
     <link rel="stylesheet" href="/css/style_reset.css" />
     <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <section class="page_wrap">
     <div class="login_form item">
         <h1 class="main_logo"></h1>
-        <form action="" th:action th:object="${storeForm}" method="post">
+        <form class="form" action="" th:action th:object="${storeForm}" method="post">
             <div class="login_form_wrap">
                 <p>
                     책은 문화의 <br />
@@ -21,17 +22,19 @@
                 <h2>관리자 회원가입</h2>
                 <div class="input_form">
                     <span>아이디</span>
-                    <input type="text" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
+                    <input type="text" id="storeLoginId" name="storeLoginId" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
+                    <label for="availResult">사용가능여부</label>
+                    <input class="avail" type="text" id="availResult" name="alreadyUsed" disabled />
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>비밀번호</span>
-                    <input type="password" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
+                    <input type="password" id="storePassword" name="storePassword" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>비밀번호 확인</span>
-                    <input type="password" placeholder="비밀번호를 입력해주세요." />
+                    <input type="password" id="storePasswordCh" name="storePasswordCh" placeholder="비밀번호를 입력해주세요." />
                     <span></span>
                 </div>
                 <br />
@@ -42,7 +45,7 @@
                 </div>
                 <div class="input_form">
                     <span>사업자등록번호</span>
-                    <input type="text" placeholder="사업자등록번호를 입력해주세요." th:field="*{storeCrn}"/>
+                    <input type="text" id="storeCrn" placeholder="사업자등록번호를 입력해주세요." th:field="*{storeCrn}"/>
                     <span></span>
                 </div>
                 <br />
@@ -53,12 +56,12 @@
                 </div>
                 <div class="input_form">
                     <span>이메일</span>
-                    <input type="text" placeholder="이메일을 입력해주세요." th:field="*{storeEmail}"/>
+                    <input type="text" id="storeEmail" placeholder="이메일을 입력해주세요." th:field="*{storeEmail}"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>연락처</span>
-                    <input type="text" placeholder="연락처를 입력해주세요." th:field="*{storePhoneNum}"/>
+                    <input type="text" id="storePhoneNum" placeholder="연락처를 입력해주세요." th:field="*{storePhoneNum}"/>
                     <span></span>
                 </div>
                 <button class="btn_login" type="submit">회원가입</button>
@@ -69,5 +72,129 @@
     </div>
     <div class="login_img item"></div>
 </section>
+<script> // src="/js/storeSignup.js">
+    document.querySelector(".form").addEventListener("submit", function (event) {
+        event.preventDefault(); // 기본 제출 동작 막기
+
+        // 필드 값 가져오기
+        let idInput = document.querySelector('input[name="storeLoginId"]');
+        let passwordInput = document.querySelector('input[name="storePassword"]');
+        let confirmPasswordInput = document.querySelector('input[name="storePasswordCh"]');
+        let emailInput = document.querySelector('input[name="storeEmail"]');
+        let alreadyUsed = document.querySelector('input[name="alreadyUsed"]')
+        let phoneNumInput = document.querySelector('input[name="storePhoneNum"]')
+        let ownerInput = document.querySelector('input[name="storeOwner"]')
+        let crnInput = document.querySelector('input[name="storeCrn"]')
+        let titleInput = document.querySelector('input[name="storeTitle"]')
+
+        // 오류 메시지 초기화
+        // let errorMessage = "";
+
+        // 이름 필드 유효성 검사
+        if (idInput.value.trim() === "") {
+            // errorMessage += "닉네임을 입력하세요.\n\n";
+            alert("닉네임을 입력하세요.");
+            return false;
+        }
+
+        // 이름 필드 유효성 검사 - 이미 사용중인가?
+        if(alreadyUsed.value.trim() === "이미 사용 중 입니다."){
+            alert("이미 사용중입니다!!!!");
+            return false;
+        }
+
+        // 이메일 필드 유효성 검사
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+            // errorMessage += "유효한 이메일을 입력하세요.\n\n";
+            alert("유효한 이메일을 입력하세요.");
+            return false;
+        }
+
+        // 비밀번호 필드 유효성 검사 01
+        if (passwordInput.value.trim() === "") {
+            // errorMessage += "비밀번호를 입력하세요.\n\n";
+            alert("비밀번호를 입력하세요.");
+            return false;
+        }
+
+        // 비밀번호 필드 유효성 검사 02
+        if (passwordInput.value.length < 8) {
+            // errorMessage += "비밀번호는 8자 이상이여야 합니다.\n\n";
+            alert("비밀번호는 8자 이상이여야 합니다.");
+            return false;
+        }
+
+        // 비밀번호 확인 필드 유효성 검사
+        if (confirmPasswordInput.value.trim() === "") {
+            // errorMessage += "비밀번호 확인을 입력하세요.\n\n";
+            alert("비밀번호 확인을 입력하세요.");
+            return false;
+        }
+
+        // 비밀번호 일치 여부 확인
+        if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
+            // errorMessage += "비밀번호가 일치하지 않습니다.\n\n";
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+
+        // 전화번호 유효성 검사
+        if (phoneNumInput.value.trim() === "") {
+            // errorMessage += "비밀번호 확인을 입력하세요.\n\n";
+            alert("전화번호를 입력하세요.");
+            return false;
+        }
+        // let ownerInput = document.querySelector('input[name="storeOwner"]')
+        if (ownerInput.value.trim() === "") {
+            alert("대표자명을 입력하세요.");
+            return false;
+        }
+        // let crnInput = document.querySelector('input[name="storeCrn"]')
+        if (crnInput.value.trim() === "") {
+            alert("사업자등록번호를 입력하세요.");
+            return false;
+        }
+        // let titleInput = document.querySelector('input[name="storeTitle"]')
+        if (titleInput.value.trim() === "") {
+            alert("서점명을 입력하세요.");
+            return false;
+        }
+
+        // 오류가 발생하면 오류 메시지를 콘솔에 출력하고 제출을 막음
+        // if (errorMessage !== "") {
+        //     console.log(errorMessage);
+        //     alert(errorMessage);
+        //     return false;
+        // }
+
+        // 유효성 검사 통과 시 회원가입 폼 제출
+        event.target.submit();
+    });
+
+    $(document).ready(function(){
+        // id속성값이 username인 input태그에 change이벤트 등록
+        $("#storeLoginId").change(function(){
+            // 사용자가 작성한 값(username)이 DB에 존재하는지 확인
+            let storeLoginId = $(this).val(); // 사용자가 작성한 값 꺼내기
+            console.log("storeLoginId : " + storeLoginId);
+            $.ajax({
+                type: "post",
+                url: "/cms/ajaxUsernameAvail",
+                data: {storeLoginId: storeLoginId},
+                success: function(result){
+                    console.log("성공!");
+                    console.log(result);
+                    // availResult input태그에 결과 메세지 띄우기
+                    $("#availResult").val(result);
+                },
+                error: function(e) {
+                    console.log("실패...");
+                    console.log(e);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
