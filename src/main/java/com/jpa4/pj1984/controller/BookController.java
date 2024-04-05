@@ -25,10 +25,18 @@ import java.util.List;
 @RequestMapping("/cms")
 @RequiredArgsConstructor
 public class BookController {
-    //--상품관리-----------------------------------------------------//
-
+    //--공통사용-----------------------------------------------------//
     private final BookService bookService;
-
+    private final BookCategoryService bookCategoryService;
+    
+//    @ModelAttribute("categoryLists")
+//    public List<BookCategory> categoryLists(){
+//        List<BookCategory> categoryLists = new ArrayList<>();
+//        System.out.println("categoryLists = " + categoryLists);
+//    }
+    
+    //--상품관리-----------------------------------------------------//
+    
     //상품리스트
     @GetMapping("/book")
     public String bookList(){
@@ -39,6 +47,9 @@ public class BookController {
     @GetMapping("/book/add")
     public String bookAddForm(@ModelAttribute BookForm bookForm, Model model){
         log.info("--CMS--Book--AddForm--Request--");
+        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll();
+        System.out.println("bookCategoryDTOList = " + bookCategoryDTOList);
+        System.out.println("bookForm = " + bookForm + ", model = " + model);
         return "backend/book/add";
     }
     //상품추가
@@ -46,13 +57,11 @@ public class BookController {
     public String bookAddPro(BookForm bookForm){
         log.info("--CMS--Book-Add--Request--");
         Long save = bookService.save(bookForm);
-        return "redirect:/book";
+        return "redirect:/cms/book";
     }
 
 //--상품카테고리관리-----------------------------------------------------//
-
-    private final BookCategoryService bookCategoryService;
-
+    
     //상품카테고리추가폼
     @GetMapping("/bookCategory/add")
     public String bookCategoryAddForm(@ModelAttribute BookCategoryForm bookCategoryForm, Model model){
@@ -74,7 +83,6 @@ public class BookController {
         log.info("--CMS--Book--Category--List--Request--");
          //DB에서 전체 게시글 데이터를 가져와서 bookCategoryList에 담아서 list.html로 전달
         List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll();
-//        log.info(bookCategoryDTOList.toString());
         model.addAttribute("bookCategoryList", bookCategoryDTOList);
         System.out.println("bookCategoryDTOList = " + bookCategoryDTOList);
         return "backend/bookcategory/list";
