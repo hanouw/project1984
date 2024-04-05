@@ -17,6 +17,7 @@ public class BookCategory extends TimeEntity{
     private Long bookCategoryId;
     @Column(nullable = false)
     private String bookCategoryName;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookCategoryStatus BookCategoryStatus;

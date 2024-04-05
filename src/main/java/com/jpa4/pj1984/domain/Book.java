@@ -21,8 +21,12 @@ public class Book extends TimeEntity{
     private String bookTitle;
     @Column(nullable = false)
     private String bookWriter;
-    @Column(nullable = false)
-    private Long storeId;
+
+//    @Column(nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "store_id")
+//    private Store store;
+
     @Column(nullable = false)
     private String bookPub;
     @Column(nullable = false)
@@ -31,8 +35,11 @@ public class Book extends TimeEntity{
     private String bookPaperPrice;
     @Column(nullable = false)
     private String bookEbookPrice;
-    @Column(nullable = false)
-    private Long categoryId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_category_id")
+    private BookCategory bookCategory;
+
     @Column
     private String bookIntro;
     @Column
@@ -41,9 +48,11 @@ public class Book extends TimeEntity{
     private String bookReview;
     @Column
     private String bookWriterProfile;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookStatus bookStatus;
+
     @Column(updatable = false)
     private LocalDateTime regDate;
 }

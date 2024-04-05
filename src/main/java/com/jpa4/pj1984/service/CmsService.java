@@ -38,6 +38,16 @@ public class CmsService {
         return null;
     }
 
+    // 서점 아이디로 전체 찾아오기
+    public StoreDTO findStoreById(String storeLoginId){
+        try {
+            Store store = cmsCustomRepository.findByStoreLoginId(storeLoginId);
+            return(new StoreDTO(store));
+        } catch (Exception e){
+            return null;
+        }
+    }
+
     // 판매자 로그인
 //    public StoreLoginForm login(StoreLoginForm storeloginForm){
 //        Store store = cmsCustomRepository.findByStoreLoginId(storeloginForm.getStoreLoginId());

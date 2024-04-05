@@ -24,6 +24,7 @@ public class CmsCustomRepositoryImpl implements CmsCustomRepository{
                 .getSingleResult();
         log.info("******* CmsCustomRepository : store = {}", store);
         return store;
+
     }
 
 }
