@@ -4,12 +4,12 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
       <div class="search_bar_wrap">
-        <form action="post">
-          <div class="search_date_wrap">
+        <div class="search_date_wrap">
             <div class="item">
               <h2>서점상세</h2>
             </div>
             <div class="item">
+              <!-- 버튼에 주소 걸어주기 -->
               <button class="grey_btn">목록</button>
               <button class="black_btn">수정</button>
             </div>
@@ -17,90 +17,111 @@
           <div class="add_form_wrap">
             <div class="add_input_wrap">
               <p>서점 썸네일 </p>
-              <div draggable="true" class="drag_img_form"></div>
-              <input type="text" readonly>
+              <div th:if="${store.storeImageStored != null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" src="" th:src="|/store/images/${store.getStoreImageStored()}|" alt="" width="40%"/>
+                <input type="text" th:value="${store.getStoreImageOrigin()}">
+              </div>
+              <div th:if="${store.storeImageOrigin == null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" src="" th:src="|/store/images/default.jpg|" width="40%" alt=""/>
+              </div>
             </div>
             <div class="add_input_wrap">
               <p>서점명</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storeTitle}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>설명</p>
-              <textarea readonly></textarea>
+              <textarea th:text="${store.storeText}" readonly></textarea>
             </div>
             <div class="add_input_wrap">
               <p>서점한줄평</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storeOneReview}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>서점택태그</p>
-              <textarea readonly></textarea>
+              <textarea th:text="${store.storeTag}" readonly></textarea>
             </div>
             <div class="add_input_wrap">
               <p>서점 이미지</p>
-              <div draggable="true" class="drag_img_form"></div>
-              <div draggable="true" class="drag_img_form"></div>
-              <div draggable="true" class="drag_img_form"></div>
+              <div th:if="${store.storeImageStored01 != null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" th:src="|/store/images/${store.getStoreImageStored01()}|" width="40%" />
+                <input type="text" th:value="${store.getStoreImageOrigin01()}">
+              </div>
+              <div th:if="${store.storeImageOrigin01 == null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" src="" th:src="|/store/images/default.jpg|" width="40%" alt=""/>
+              </div>
               <p>이미지 1</p>
-              <input type="text" readonly>
+
+              <div th:if="${store.storeImageStored02 != null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" th:src="|/store/images/${store.getStoreImageStored02()}|" width="40%" />
+                <input type="text" th:name="newStoreImage2" th:value="${store.getStoreImageOrigin02()}">
+              </div>
+              <div th:if="${store.storeImageOrigin02 == null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" src="" th:src="|/store/images/default.jpg|" width="40%" alt=""/>
               <p>이미지 2</p>
-              <input type="text" readonly>
+
+              </div>
+              <div th:if="${store.storeImageStored03 != null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" th:src="|/store/images/${store.getStoreImageStored03()}|" width="40%" />
+                <input type="text" th:name="newStoreImage3" th:value="${store.getStoreImageOrigin03()}">
+              </div>
+              <div th:if="${store.storeImageOrigin03 == null}" draggable="true" class="drag_img_form">
+                <img class="rounded mx-auto d-block mb-2" src="" th:src="|/store/images/default.jpg|" width="40%" alt=""/>
+              </div>
               <p>이미지 3</p>
-              <input type="text" readonly>
             </div>
             <div class="add_input_wrap">
               <p>1984의 서점리뷰</p>
-              <textarea readonly></textarea>
+              <textarea th:text="${store.storeReview}" readonly></textarea>
             </div>
             <div class="add_input_wrap">
               <p>주소</p>
-              <textarea readonly></textarea>
+              <textarea th:text="${store.storeAddress}" readonly></textarea>
             </div>
             <div class="add_input_wrap">
               <p>연락처</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storePhoneNum}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>운영시간</p>
-              <textarea readonly></textarea>
+              <textarea th:text="${store.storeOperateTime}" readonly></textarea>
             </div>
             <div class="add_input_wrap">
               <p>대표자명</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storeOwner}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>아이디</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storeLoginId}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>계좌번호</p>
-              <select name="" id="">
-                <option value="">은행명</option>
-                <option value="">우체국은행</option>
+              <!-- select, checkbox, radio를 사용하면서 입력도 차단하고 값도 유지하고 싶으면 JavaScript로 값을 저장하는 방법등을 통해 우회하는 수 밖에 없다. -->
+              <select th:value="${store.storeBankName}" disabled>
+                <option th:each="bank : ${bankList}" th:value="${bank}" th:text="${bank}"></option>
               </select>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storeAccount}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>사업자 등록번호</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.storeCrn}" readonly>
             </div>
+
+            <!-- 등록일 수정일 날짜형식 수정폼과 동일하게 변경 해야 함 -->
             <div class="add_input_wrap">
               <p>등록일</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.createDate}" readonly>
             </div>
             <div class="add_input_wrap">
               <p>수정일</p>
-              <input type="text" readonly>
+              <input type="text" th:value="${store.lastModifiedDate}" readonly>
             </div>
             <div class="add_checkbox_wrap">
               <p>활성화</p>
-              <input id="on_status" type="checkbox">
-              <label for="on_status">활성화</label>
-              <input id="off_status" type="checkbox">
-              <label for="off_status">비활성화</label>
+              <input name="status" th:name="storeStatus" value="STORE" type="radio" th:checked="${store.storeStatus == T(com.jpa4.pj1984.domain.StoreStatus).STORE}" >활성화
+              <input name="status" th:name="storeStatus" value="QUIT" type="radio" th:checked="${store.storeStatus == T(com.jpa4.pj1984.domain.StoreStatus).QUIT}" >비활성화
             </div>
           </div>
-        </form>
       </div>
   </th:block>
 </th:block>

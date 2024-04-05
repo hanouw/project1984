@@ -1,11 +1,13 @@
 package com.jpa4.pj1984.dto;
 
 
+import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -19,15 +21,7 @@ public class StoreForm { // 뿌려주는
     private String storeOwner;
     private String storeCrn;
     private String storeText;
-    private Long storePhoneNum;
-    private String storeImageName;
-    private String storeImageId;
-    private String storeInsideImageName01;
-    private String storeInsideImageId01;
-    private String storeInsideImageName02;
-    private String storeInsideImageId02;
-    private String storeInsideImageName03;
-    private String storeInsideImageId03;
+    private String storePhoneNum;
     private String storeAddress;
     private String storeOneReview;
     private String storeReview;
@@ -37,6 +31,13 @@ public class StoreForm { // 뿌려주는
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
     private String storeAccount;
+    private String storeBankName;
+    // 새로 등록 or 수정
+    private MultipartFile newStoreImage;
+    private MultipartFile newStoreImage01;
+    private MultipartFile newStoreImage02;
+    private MultipartFile newStoreImage03;
+
 
     // Form -> Entity
     public Store toEntity() {
@@ -50,14 +51,6 @@ public class StoreForm { // 뿌려주는
         store.setStoreEmail(storeEmail);
         store.setStoreText(storeText);
         store.setStorePhoneNum(storePhoneNum);
-        store.setStoreImageName(storeImageName);
-        store.setStoreImageId(storeImageId);
-        store.setStoreInsideImageName01(storeInsideImageName01);
-        store.setStoreInsideImageId01(storeInsideImageId01);
-        store.setStoreInsideImageName02(storeInsideImageName02);
-        store.setStoreInsideImageId02(storeInsideImageId02);
-        store.setStoreInsideImageName03(storeInsideImageName03);
-        store.setStoreInsideImageId03(storeInsideImageId03);
         store.setStoreAddress(storeAddress);
         store.setStoreOneReview(storeOneReview);
         store.setStoreReview(storeReview);
@@ -65,6 +58,7 @@ public class StoreForm { // 뿌려주는
         store.setStoreOperateTime(storeOperateTime);
         store.setStoreTag(storeTag);
         store.setStoreAccount(storeAccount);
+        store.setStoreBankName(storeBankName);
         return store;
     }
     public Store toSignupEntity() {
