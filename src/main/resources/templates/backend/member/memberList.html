@@ -43,30 +43,32 @@
             </div>
             <div class="list_table_wrap">
                 <table class="list_table">
-                    <tr>
-                        <th>NO</th>
-                        <th>회원ID</th>
-                        <th>회원명</th>
-                        <th>전화번호</th>
-                        <th>이메일</th>
-                        <th>주문수</th>
-                        <th>구독수</th>
-                        <th>상태</th>
-                        <th>가입일</th>
-                    </tr>
-                    <tr>
-                        <a href="">
-                            <td>01</td>
-                            <td>pikachu</td>
-                            <td>전효진</td>
-                            <td>010-1111-2222</td>
-                            <td>kkk@test.com</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>가입</td>
-                            <td>2024-03-25</td>
-                        </a>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>회원ID</th>
+                            <th>회원명</th>
+                            <th>전화번호</th>
+                            <th>이메일</th>
+                            <th>주문수</th>
+                            <th>구독수</th>
+                            <th>상태</th>
+                            <th>가입일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${allMember}">
+                            <td><a th:href="@{/cms/userDetail/{userNo}(id=${user.userNo})}" th:text="*{user.userNo}"></a></td>
+                            <td><a th:href="@{/cms/userDetail/{userNo}(id=${user.userNo})}" th:text="*{user.userId}"></a></td>
+                            <td th:text="*{user.userName}"></td>
+                            <td th:text="*{user.userPhoneNum}"></td>
+                            <td th:text="*{user.userEmail}"></td>
+                            <td th:text="*{user.userNo}"></td>
+                            <td th:text="*{user.userNo}"></td>
+                            <td th:text="*{user.userStatus}"></td>
+                            <td th:text="*{#temporals.format(user.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

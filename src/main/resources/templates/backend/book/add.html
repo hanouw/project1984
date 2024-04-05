@@ -14,12 +14,19 @@
           </div>
         </div>
         <div class="add_form_wrap">
+
+          <!--TODO select로 변경-->
           <div class="add_input_wrap">
             <p>카테고리</p>
-            <select name="categoryId" th:field="*{categoryId}">
-              <option value="인문">인문</option>
+            <select name="bookCategory" th:field="*{bookCategory}">
+              <option
+                      th:each="list : ${bookCategoryDTOList}"
+                      th:value="${list.bookCategoryId}"
+                      th:utext="${list.bookCategoryName}"
+              ></option>
             </select>
           </div>
+          
           <div class="add_input_wrap">
             <p>ISBN</p>
             <input type="text" th:field="*{isbn}" placeholder="ISBN을 입력해주세요.">
@@ -55,10 +62,16 @@
             <p>출판사</p>
             <input type="text" th:field="*{bookPub}" placeholder="출판사를 입력해주세요.">
           </div>
-          <div class="add_input_wrap">
-            <p>서점명</p>
-            <textarea th:field="*{getStoreId}" placeholder="서점명을 입력해주세요."></textarea>
-          </div>
+
+          <!--TODO select로 변경-->
+<!--          <div class="add_input_wrap">-->
+<!--            <p>서점명</p>-->
+<!--            <select name="" id="">-->
+<!--              <option value=""></option>-->
+<!--            </select>-->
+<!--            <input th:field="*{StoreId}" placeholder="서점명을 입력해주세요."></input>-->
+<!--          </div>-->
+
           <div class="add_input_wrap">
             <p>독립서점 리뷰</p>
             <textarea th:field="*{bookReview}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>

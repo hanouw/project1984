@@ -11,16 +11,22 @@ import java.util.List;
 public class Payment extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderBookNo;
+
     @Column(nullable = false)
     private Long orderBookId;
-    @ManyToOne
+
+    @OneToOne
     @JoinColumn(name = "userNo")
     private Member member;
+
     @Column(nullable = false)
     private String orderBookMethod;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentBookStatus paymentBookStatus;
-    @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_book_history")
     private List<PaymentBookHistory> orderBookHistories;
 }

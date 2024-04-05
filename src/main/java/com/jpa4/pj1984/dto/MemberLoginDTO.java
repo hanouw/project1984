@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class MemberLoginDTO {
     private String userId;
     private String userPassword;
-    private MemberStatus userMemberStatus = MemberStatus.USER;
+    private MemberStatus userStatus = MemberStatus.USER;
 }

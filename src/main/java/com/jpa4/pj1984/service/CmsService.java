@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,26 +27,38 @@ public class CmsService {
     private final CmsRepository cmsRepository;
     private final CmsCustomRepositoryImpl cmsCustomRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
+    private final PasswordEncoder storePasswordEncoder;
     private final PaymentCustomRepository paymentCustomRepository;
     private final PaymentBookHistoryCustomRepositoryImpl paymentBookHistoryCustomRepository;
 
     // 서점관리 - 서점 정보 등록
     public String save(StoreForm storeForm){
+        storeForm.setStorePassword(storePasswordEncoder.encode(storeForm.getStorePassword()));
         cmsRepository.save(storeForm.toSignupEntity());
         return null;
     }
 
-    // 판매자 로그인
-    public StoreLoginForm login(StoreLoginForm storeloginForm){
-        Store store = cmsCustomRepository.findByStoreLoginId(storeloginForm.getStoreLoginId());
-        log.info("******* CmsService = {}", store);
-        if(store != null){ // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
-            if(storeloginForm.getStorePassword().equals(store.getStorePassword())){
-                return storeloginForm;
-            }
+    // 서점 아이디로 전체 찾아오기
+    public StoreDTO findStoreById(String storeLoginId){
+        try {
+            Store store = cmsCustomRepository.findByStoreLoginId(storeLoginId);
+            return(new StoreDTO(store));
+        } catch (Exception e){
+            return null;
         }
-        return null;
     }
+
+    // 판매자 로그인
+//    public StoreLoginForm login(StoreLoginForm storeloginForm){
+//        Store store = cmsCustomRepository.findByStoreLoginId(storeloginForm.getStoreLoginId());
+//        log.info("******* CmsService = {}", store);
+//        if(store != null){ // Optional 객체가 값을 가지고 있다면 true, 값이 없다면 false 리턴
+//            if(storeloginForm.getStorePassword().equals(store.getStorePassword())){
+//                return storeloginForm;
+//            }
+//        }
+//        return null;
+//    }
 
     // 주문관리 - 주문 목록 조회 판매자 ver
     public List<PaymentResponseDTO> findHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {

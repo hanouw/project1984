@@ -1,10 +1,13 @@
 package com.jpa4.pj1984.controller;
 
+import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.CmsService;
+import com.jpa4.pj1984.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,6 +24,7 @@ import java.util.List;
 public class CMSController {
 
     private final CmsService cmsService;
+    private final MemberService memberService;
 
     // 서점 등록 폼 요청
     @GetMapping("/signup")
@@ -45,61 +48,39 @@ public class CMSController {
         return "backend/member/login";
     }
 
-    // 서점 로그인 처리 요청
-    @PostMapping("/login")
-    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession) {
-        log.info("******* CMSController loginPro");
-        cmsService.login(storeLoginForm);
-        return "redirect:/cms/home";
-    }
+//    @PostMapping("/login")
+//    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
+//        log.info("******* CMSController loginPro");
+//        cmsService.login(storeLoginForm);
+//        return "redirect:/cms/home";
+//    }
 
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
-    public String userList() {
+    public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
         log.info("******* CMSController userList 호출");
+        List<MemberDTO> allMember = memberService.findAllMember();
+        model.addAttribute("allMember", allMember);
         return "backend/member/memberList";
     }
 
     // 회원관리 - 회원 상세 정보 조회
-    @GetMapping("/userDetail")
+    @GetMapping("/userDetail/{userNo}")
     public String userDetail() {
         return "backend/member/memberDetail";
     }
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
     @GetMapping("/orderList")
-    public String orderList(Model model
-                            , PageRequestDTO pageRequestDTO
+    public String orderList(Model model, PageRequestDTO pageRequestDTO
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
-        log.info("----CmsService pageRequestDTO : {}", pageRequestDTO);
+        log.info("******* CMSController orderList 호출");
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
-        Long garaId = 1L;
-        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
-            pageRequestDTO.setDateOrder("desc");
-        }
+        Long garaId = 1111L;
         List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
-        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
-        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
-        model.addAttribute("pageResponseDTO", pageResponseDTO);
-        log.info("**************CmsControlle orderList:{}", orderList);
         return "backend/order/list";
-    }
-
-    @GetMapping("/orderList/ajax")
-    public ResponseEntity<PageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
-        log.info("----CmsService orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
-        Long garaId = 1L;
-        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
-            pageRequestDTO.setDateOrder("desc");
-        }
-        List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
-        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
-        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count, orderList);
-        log.info("----CmsService orderListAjax pageResponseDTO : {}", pageResponseDTO);
-        return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
     }
 
     // 주문관리 - 주문 상세 조회
@@ -109,5 +90,21 @@ public class CMSController {
         return "backend/order/detail";
     }
 
+    // ajax : 관리자 회원가입 중복 확인
+    @PostMapping("/ajaxUsernameAvail")
+    public ResponseEntity<String> ajaxUsernameAvail(String storeLoginId) {
+        log.info("Controller /ajaxUsernameAvail - storeId : {}", storeLoginId);
+        // username 사용 가능한지 DB 가서 체크
+        String result = "이미 사용 중 입니다.";
+        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
+        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
+            result = "사용 가능합니다.";
+        }
+        // 헤더정보 포함해서 응답 한글깨짐 방지
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
+
+        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
+    }
 }
 

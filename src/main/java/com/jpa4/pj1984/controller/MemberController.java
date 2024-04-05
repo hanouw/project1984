@@ -1,14 +1,13 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.dto.MemberForm;
+import com.jpa4.pj1984.dto.MemberDTO;
 import com.jpa4.pj1984.dto.MemberLoginDTO;
+import com.jpa4.pj1984.dto.MemberForm;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +30,7 @@ public class MemberController {
     @PostMapping("/signup")
     public String signupPro(MemberForm memberForm){
         log.info("******* MemberController signupPro");
-        Member member = memberService.save(memberForm);
+        MemberDTO memberDTO = new MemberDTO(memberService.save(memberForm));
         return "redirect:/";
     }
 
@@ -43,14 +42,14 @@ public class MemberController {
     }
 
     // 로그인 처리 요청
-    @PostMapping("/login")
-    public String loginPro(MemberLoginDTO memberLoginDTO, HttpSession session, Model model){
-        log.info("******* MemberController loginPro");
-        MemberLoginDTO memberLoginDTOGiven = memberService.login(memberLoginDTO);
-        if(memberLoginDTOGiven == null){
-            return "redirect:/login";
-        }
-        session.setAttribute("memberLoginDTOGiven", memberLoginDTOGiven);
-        return "frontend/home/main"; // 유저 홈 페이지
-    }
+//    @PostMapping("/login")
+//    public String loginPro(MemberLoginDTO memberLoginDTO, HttpSession session, Model model){
+//        log.info("******* MemberController loginPro");
+//        MemberLoginDTO memberLoginDTOGiven = memberService.login(memberLoginDTO);
+//        if(memberLoginDTOGiven == null){
+//            return "redirect:/";
+//        }
+//        session.setAttribute("memberLoginDTOGiven", memberLoginDTOGiven);
+//        return "frontend/home/main"; // 유저 홈 페이지
+//    }
 }

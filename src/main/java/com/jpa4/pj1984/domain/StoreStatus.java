@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum StoreStatus {
-    STORE("STATUS_STORE"), NOTAPPROVE("STATUS_NOTAPPROVE"), QUIT("STATUS_QUIT"), BANNED("STATUS_BANNED") ;
+    STORE("STATUS_STORE"), QUIT("STATUS_QUIT") ;
     private final String value;
 }
 

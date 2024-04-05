@@ -28,11 +28,9 @@ public class BookCategoryService {
     //목록조회
     public List<BookCategoryDTO> findAll() {
         List<BookCategory> all = bookCategoryRepository.findAll();
-        System.out.println("all = " + all);//all까지는 불러옴
         List<BookCategoryDTO> list = all.stream()
                 .map(b -> new BookCategoryDTO(b))
                 .collect(Collectors.toList());
-        System.out.println("list = " + list);
         return list;
     }
 
@@ -50,6 +48,13 @@ public class BookCategoryService {
     public void updateOne(BookCategoryForm bookCategoryForm){
         BookCategory bookCategory = bookCategoryRepository.findById(bookCategoryForm.getBookCategoryId()).orElse(null);
         bookCategory.setBookCategoryName(bookCategoryForm.getBookCategoryName());
+    }
+
+    //VIEW 목록 조회용
+    public List<BookCategoryDTO> findCategoryAllList() {
+        List<BookCategory> all = bookCategoryRepository.findAll();
+        System.out.println("all = " + all);
+        return null;
     }
 
 

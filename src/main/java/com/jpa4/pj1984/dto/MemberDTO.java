@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberForm {
+public class MemberDTO {
 
     private Long userNo;
     private String userId;
@@ -23,15 +23,15 @@ public class MemberForm {
     private LocalDateTime createDate;
 
 
-    // DTO -> Entity
-    public Member toEntity(){
-        Member member = new Member();
-        member.setUserId(userId);
-        member.setUserPassword(userPassword);
-        member.setUserName(userName);
-        member.setUserEmail(userEmail);
-        member.setUserPhoneNum(userPhoneNum);
-        member.setUserStatus(MemberStatus.USER);
-        return member;
+    // Entity -> DTO
+    public MemberDTO(Member member){
+        this.userNo = member.getUserNo();
+        this.userId = member.getUserId();
+        this.userPassword = member.getUserPassword();
+        this.userName = member.getUserName();
+        this.userEmail = member.getUserEmail();
+        this.userPhoneNum = member.getUserPhoneNum();
+        this.createDate = member.getCreateDate();
+        this.userStatus = member.getUserStatus();
     }
 }
