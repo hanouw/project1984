@@ -53,6 +53,8 @@ public class BookCategoryService {
     //VIEW 목록 조회용
     public List<BookCategoryDTO> findCategoryAllList() {
         List<BookCategory> all = bookCategoryRepository.findAll();
+        System.out.println("all = " + all);
+        return null;
     }
 
 
