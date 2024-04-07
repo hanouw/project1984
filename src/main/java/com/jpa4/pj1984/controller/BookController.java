@@ -3,13 +3,11 @@ package com.jpa4.pj1984.controller;
 import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.BookCategoryStatus;
-import com.jpa4.pj1984.dto.BookCategoryDTO;
-import com.jpa4.pj1984.dto.BookCategoryForm;
-import com.jpa4.pj1984.dto.BookDTO;
-import com.jpa4.pj1984.dto.BookForm;
+import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.BookCategoryService;
 import com.jpa4.pj1984.service.BookService;
 import com.jpa4.pj1984.service.FileUploadService;
+import com.jpa4.pj1984.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -33,16 +31,28 @@ public class BookController {
     //--공통사용-----------------------------------------------------//
     private final BookService bookService;
     private final BookCategoryService bookCategoryService;
+    private final StoreService storeService;
     private final FileUploadService fileUploadService;
-    
-    @ModelAttribute("categoryLists")
-    public List<BookCategory> categoryLists(){
-//        List<BookCategoryDTO> categoryDTOLists = bookCategoryService.findAll();
-//        List<BookCategory> categoryLists = new ArrayList<>();
-//        categoryLists.add()
-        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findCategoryAllList();
 
-        return null;
+    @ModelAttribute("categoryLists")
+    public List<BookCategoryDTO> categoryLists(){
+        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findCategoryAllList();
+        log.info("****BookController bookCategoryDTOList :{} ", bookCategoryDTOList.size());
+        return bookCategoryDTOList;
+    }
+
+    @ModelAttribute("BookLists")
+    public List<BookDTO> bookLists(){
+        List<BookDTO> bookDTOList = bookService.findAllList();
+        log.info("****BookController bookCategoryDTOList :{} ", bookDTOList.size());
+        return bookDTOList;
+    }
+
+    @ModelAttribute("StoreLists")
+    public List<StoreDTO> storeLists(){
+        List<StoreDTO> storeDTOList = storeService.findStoreAllList();
+        System.out.println("storeDTOList = " + storeDTOList);
+        return storeDTOList;
     }
 
     @ResponseBody

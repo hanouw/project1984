@@ -3,6 +3,7 @@ package com.jpa4.pj1984.dto;
 import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.BookStatus;
+import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.service.BookCategoryService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,12 +21,16 @@ public class BookForm {
     private String bookFile;
     private String bookTitle;
     private String bookWriter;
-//    private Long storeId;
+
+    private Store store;
+
     private String bookPub;
     private String bookPubDate;
     private String bookPaperPrice;
     private String bookEbookPrice;
+
     private BookCategory bookCategory;
+
     private String bookIntro;
     private String bookIndex;
     private String bookReview;
@@ -41,8 +46,7 @@ public class BookForm {
         book.setBookFile(bookFile);
         book.setBookTitle(bookTitle);
         book.setBookWriter(bookWriter);
-
-//        book.setStore(storeId);
+        book.setStore(store);
 
         book.setBookPub(bookPub);
         book.setBookPubDate(bookPubDate);

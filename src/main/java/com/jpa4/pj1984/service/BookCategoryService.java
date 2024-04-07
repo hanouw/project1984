@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,8 +54,11 @@ public class BookCategoryService {
     //VIEW 목록 조회용
     public List<BookCategoryDTO> findCategoryAllList() {
         List<BookCategory> all = bookCategoryRepository.findAll();
-        System.out.println("all = " + all);
-        return null;
+        List<BookCategoryDTO> bookCategoryDTOList = new ArrayList<>();
+        for(BookCategory list : all) {
+            bookCategoryDTOList.add(new BookCategoryDTO(list));
+        }
+        return bookCategoryDTOList;
     }
 
 
