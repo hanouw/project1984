@@ -72,22 +72,38 @@ public class CMSController {
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
     @GetMapping("/orderList")
-    public String orderList(Model model, PageRequestDTO pageRequestDTO
+    public String orderList(Model model
+            , PageRequestDTO pageRequestDTO
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
-        log.info("******* CMSController orderList 호출");
+        log.info("----CmsService pageRequestDTO : {}", pageRequestDTO);
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
-        Long garaId = 1111L;
+        Long garaId = 1L;
+        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
+            pageRequestDTO.setDateOrder("desc");
+        }
         List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
+        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
+        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
+        log.info("**************CmsControlle orderList:{}", orderList);
         return "backend/order/list";
     }
 
-    // 주문관리 - 주문 상세 조회
-    @GetMapping("/orderDetail")
-    public String orderDetail() {
-        log.info("******* CMSController orderDetail 호출");
-        return "backend/order/detail";
+    @GetMapping("/orderList/ajax")
+    public ResponseEntity<PageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
+        log.info("----CmsService orderListAjax pageRequestDTO : {}", pageRequestDTO);
+        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
+        Long garaId = 1L;
+        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
+            pageRequestDTO.setDateOrder("desc");
+        }
+        List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
+        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
+        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count, orderList);
+        log.info("----CmsService orderListAjax pageResponseDTO : {}", pageResponseDTO);
+        return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
     }
 
     // ajax : 관리자 회원가입 중복 확인

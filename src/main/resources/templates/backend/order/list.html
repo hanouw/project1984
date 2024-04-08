@@ -9,9 +9,9 @@
                     <h2>주문관리</h2>
                 </div>
                 <div class="item">
-                    <button id="todayBtn" class="grey_btn">오늘</button>
-                    <button id="oneWeekBtn" class="grey_btn">일주일</button>
-                    <button id="oneMonthBtn" class="grey_btn">한달</button>
+                    <button id="todayBtn" class="grey_btn dateBtn" th:value="today">오늘</button>
+                    <button id="oneWeekBtn" class="grey_btn dateBtn" th:value="oneWeek">일주일</button>
+                    <button id="oneMonthBtn" class="grey_btn dateBtn" th:value="oneMonth">한달</button>
                     <input type="date" />
                     <input type="date" />
                     <button class="black_btn">조회</button>
@@ -38,12 +38,12 @@
                         <button class="black_btn" type="submit">검색</button>
                     </div>
                 </form>
-                    <div class="item">
-                        <select name="dateOrder" id="dateOrder">
-                            <option value="desc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'desc'}">최신순</option>
-                            <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
-                        </select>
-                    </div>
+                <div class="item">
+                    <select name="dateOrder" id="dateOrder">
+                        <option value="desc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'desc'}">최신순</option>
+                        <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
+                    </select>
+                </div>
 
             </div>
             <div class="list_table_wrap">
@@ -60,7 +60,6 @@
                         <th>결제방법</th>
                         <th>구매일</th>
                     </tr>
-                    <div id = "orderListTr">
                     <tr th:each="list : ${orderList}">
                         <td th:text="*{list.orderBookNo}"></td>
                         <td th:text="*{list.orderBookId}"></td>
@@ -73,7 +72,6 @@
                         <td th:text="*{list.orderBookMethod}"></td>
                         <td th:text="*{list.createDate}"></td>
                     </tr>
-                    </div>
                 </table>
             </div>
         </div>
@@ -84,33 +82,25 @@
     $(document).ready(function () {
         let keyword = $("#keyword").val();
         let searchType = $("#searchType").val();
-        let selectedOption = $("#dateOrder").val();
-        let orderListDiv = $("#orderListTr");
+        let dateOrderSelected = $("#dateOrder").val();
+
+        let orderListDiv = $(".list_table_wrap");
 
         $("#dateOrder").change(function () {
-            selectedOption = $(this).val();
-            console.log(selectedOption);
+            dateOrderSelected = $(this).val();
+            console.log(dateOrderSelected);
             $.ajax({
                 type: "GET",
                 url: "/cms/orderList/ajax",
                 data: {
-                    dateOrder: selectedOption,
+                    dateOrder: dateOrderSelected,
                     keyword: keyword,
                     searchType: searchType
                 },
                 success: function(response){
                     console.log("요청 성공");
                     console.log(response.orderList);
-                    let html = '';
-                    for (let i = 0; i < response.orderList.length; i++) {
-                        console.log(response.orderList[i]);
-                        html += '<tr> <td th:text="*{response.orderList[i].orderBookNo}"></td> <td th:text="*response.orderList[i].orderBookId}"></td>';
-                        html += '<td th:text="*{response.orderList[i].userId}"></td><td th:text="*{response.orderList[i].userName}"></td>'
-                        html += '<td th:text="*{response.orderList[i].isbn}"></td><td th:text="*{response.orderList[i].bookTitle}"></td>';
-                        html += '<td th:text="*{response.orderList[i].storeTitle}"></td><td th:text="*{response.orderList[i].paymentBookStatus}"></td>';
-                        html += '<td th:text="*{response.orderList[i].orderBookMethod}"></td><td th:text="*{response.orderList[i].createDate}"></td></tr>';
-                    }
-                    orderListDiv.html(html);
+                    printList(response);
                 },
                 error: function(e){
                     console.error("요청 실패");
@@ -118,6 +108,52 @@
                 }
             });
         });
+
+        $(".dateBtn").on("click", function (e) {
+            let datePeriodSelected = $(this).val();
+            console.log(datePeriodSelected);
+            $.ajax({
+                type: "GET",
+                url: "/cms/orderList/ajax",
+                data: {
+                    dateOrder: dateOrderSelected,
+                    keyword: keyword,
+                    searchType: searchType
+                },
+                success: function(response){
+                    console.log("요청 성공");
+                    console.log(response.orderList);
+                    printList(response);
+                },
+                error: function(e){
+                    console.error("요청 실패");
+                    console.log(e);
+                }
+            });
+        });
+
+
+        function printList(response) {
+            let html = '';
+            html += '<table class="list_table">';
+            html += '<tr><th>NO</th><th>주문번호</th><th>회원ID</th><th>회원명</th>';
+            html += '<th>ISBN</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
+            html += '<th>결제방법</th><th>구매일</th></tr>';
+            $.each(response.orderList, function(index, item) {
+                html += '<tr></tr><td>' + item.orderBookNo + '</td>';
+                html += '<td>' + item.orderBookId + '</td>';
+                html += '<td>' + item.userId + '</td>';
+                html += '<td>' + item.userName + '</td>';
+                html += '<td>' + item.isbn + '</td>';
+                html += '<td>' + item.bookTitle + '</td>';
+                html += '<td>' + item.storeTitle + '</td>';
+                html += '<td>' + item.paymentBookStatus + '</td>';
+                html += '<td>' + item.orderBookMethod + '</td>';
+                html += '<td>' + item.createDate + '</td></tr>';
+            });
+            html += '</table>';
+            orderListDiv.html(html);
+        };
     });
 
 </script>

@@ -57,7 +57,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         int offset = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
         if (pageRequestDTO.getSearchType() == null || pageRequestDTO.getSearchType().equals("all")) {
             Long result = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
-                            "where p.book.storeId = :storeId ")
+                            "where p.book.store = :storeId ")
                     .setParameter("storeId", storeId)
                     .setFirstResult(offset)
                     .setMaxResults(pageRequestDTO.getSize())
@@ -68,7 +68,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
             String s = method(pageRequestDTO);
             String keyword = pageRequestDTO.getKeyword();
             Long searchResult = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
-                            "where p.book.storeId = :storeId and " + s + " like concat('%', :keyword, '%')")
+                            "where p.book.store = :storeId and " + s + " like concat('%', :keyword, '%')")
                     .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setFirstResult(offset)
