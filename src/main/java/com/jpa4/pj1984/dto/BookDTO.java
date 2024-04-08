@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class BookDTO {
-    private Long isbn;
+    private Long bookId;
+    private String isbn;
     private String bookImg;
     private String bookFile;
     private String bookTitle;
@@ -19,7 +20,6 @@ public class BookDTO {
     private Store store;
 
     private String bookPub;
-    private String bookPubDate;
     private String bookPaperPrice;
     private String bookEbookPrice;
 
@@ -31,9 +31,11 @@ public class BookDTO {
     private String bookWriterProfile;
     private BookStatus bookStatus;
     private LocalDateTime createDate;
+    private LocalDateTime lastModifiedDate;
 
     //Entity -> DTO
     public BookDTO(Book book){
+        this.bookId = book.getBookId();
         this.isbn = book.getIsbn();
         this.bookImg = book.getBookImg();
         this.bookFile = book.getBookFile();
@@ -43,7 +45,6 @@ public class BookDTO {
         this.store = book.getStore();
 
         this.bookPub = book.getBookPub();
-        this.bookPubDate = book.getBookPubDate();
         this.bookPaperPrice = book.getBookPaperPrice();
         this.bookEbookPrice = book.getBookEbookPrice();
 
@@ -54,6 +55,8 @@ public class BookDTO {
         this.bookReview = book.getBookReview();
         this.bookWriterProfile = book.getBookWriterProfile();
         this.bookStatus = book.getBookStatus();
+        this.createDate = book.getCreateDate();
+        this.lastModifiedDate = book.getLastModifiedDate();
     }
 
 }

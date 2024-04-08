@@ -1,10 +1,169 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+  <th:block th:fragment="content">
+    <div class="search_bar_wrap">
+      <form action="" th:action th:object="${book}" method="post" enctype="multipart/form-data">
+        <div class="search_date_wrap">
+          <div class="item">
+            <h2>상품 수정</h2>
+          </div>
+          <div class="item">
+            <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
+            <button type="submit" class="black_btn">저장</button>
+          </div>
+        </div>
+        <div class="add_form_wrap">
+          <div class="add_input_wrap" style="display:none;">
+            <p>상품아이디</p>
+            <input type="text" th:field="*{bookId}" readonly>
+          </div>
 
-</body>
+          <div class="add_input_wrap">
+            <p>카테고리명</p>
+            <select th:field="*{bookCategory}">
+              <option
+                      th:each="ctlist : ${categoryLists}"
+                      th:value="${ctlist.bookCategoryId}"
+                      th:utext="${ctlist.bookCategoryName}"
+              ></option>
+            </select>
+          </div>
+
+          <div class="add_input_wrap">
+            <p>ISBN</p>
+            <input type="text" th:field="*{isbn}" placeholder="ISBN을 입력해주세요.">
+          </div>
+
+          <div class="add_input_wrap">
+            <p>도서표지</p>
+            <div id="drop_zone" class="drag_img_form">
+              <img id="image-preview" alt="">
+              <!--              <img id="image-preview" thth:src="|/cms/book/images/${book.getBookImg()}|" alt="">-->
+            </div>
+            <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+            <!--            <button type="button"></button>-->
+          </div>
+
+          <div class="add_input_wrap">
+            <p>도서명</p>
+            <input type="text" th:field="*{bookTitle}" placeholder="도서명을 입력해주세요.">
+          </div>
+          <div class="add_input_wrap">
+            <p>목차</p>
+            <textarea th:field="*{bookIndex}" placeholder="목차를 입력해주세요."></textarea>
+          </div>
+          <div class="add_input_wrap">
+            <p>도서소개</p>
+            <textarea th:field="*{bookIntro}" placeholder="도서소개를 입력해주세요."></textarea>
+          </div>
+          <br>
+          <div class="add_input_wrap">
+            <p>저자</p>
+            <input type="text" th:field="*{bookWriter}" placeholder="저자를 입력해주세요.">
+          </div>
+          <div class="add_input_wrap">
+            <p>저자소개</p>
+            <textarea th:field="*{bookWriterProfile}" placeholder="저자소개를 입력해주세요."></textarea>
+          </div>
+          <br>
+          <div class="add_input_wrap">
+            <p>출판사</p>
+            <input type="text" th:field="*{bookPub}" placeholder="출판사를 입력해주세요.">
+          </div>
+
+          <div class="add_input_wrap">
+            <p>서점명</p>
+            <select th:field="*{store}">
+              <option
+                      th:each="stlist : ${storeLists}"
+                      th:value="${stlist.storeId}"
+                      th:utext="${stlist.storeTitle}"
+              ></option>
+            </select>
+          </div>
+
+          <div class="add_input_wrap">
+            <p>독립서점 리뷰</p>
+            <textarea th:field="*{bookReview}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
+          </div>
+          <br>
+          <div class="add_input_wrap">
+            <p>책파일</p>
+            <input type="file" th:field="*{bookFile}" placeholder="*PDF 파일만 첨부가 가능합니다.">
+          </div>
+          <div class="add_input_wrap">
+            <p>전자도서 판매가</p>
+            <input type="text" th:field="*{bookEbookPrice}" placeholder="전자도서 판매가를 입력해주세요.">
+          </div>
+          <div class="add_input_wrap">
+            <p>일반도서 판매가</p>
+            <input type="text" th:field="*{bookPaperPrice}" placeholder="일반도서 판매가를 입력해주세요.">
+          </div>
+
+          <div class="add_input_wrap">
+            <p>수정일</p>
+            <input type="text" th:field="*{lastModifiedDate}" id="lastModifiedDate" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>등록일</p>
+            <input type="text" th:field="*{createDate}" id="createDate" readonly>
+          </div>
+          <div class="add_checkbox_wrap">
+            <p>활성화</p>
+            <input type="radio" th:field="*{bookStatus}" value="ON">활성화
+            <input type="radio" th:field="*{bookStatus}" value="OFF">비활성화
+          </div>
+        </div>
+      </form>
+    </div>
+  </th:block>
+</th:block>
+<script>
+  // Prevent default drag behaviors
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, preventDefaults, false)
+  });
+
+  function preventDefaults (e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  // Highlight drop area when item is dragged over it
+  ['dragenter', 'dragover'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, highlight, false)
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, unhighlight, false)
+  });
+
+  function highlight(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
+  }
+
+  function unhighlight(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
+  }
+
+  // Handle dropped files
+  document.getElementById('drop_zone').addEventListener('drop', handleDrop, false);
+
+  function handleDrop(e) {
+    let dt = e.dataTransfer;
+    let files = dt.files;
+
+    handleFiles(files);
+  }
+
+  function handleFiles(files) {
+    ([...files]).forEach(uploadFile);
+  }
+
+  function uploadFile(file) {
+    document.getElementById('bookImg').value = file.name;
+  }
+</script>
 </html>

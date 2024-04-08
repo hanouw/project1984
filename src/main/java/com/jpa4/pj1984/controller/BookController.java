@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class BookController {
     private final StoreService storeService;
     private final FileUploadService fileUploadService;
 
+    // 도서 카테고리 리스트 요청
     @ModelAttribute("categoryLists")
     public List<BookCategoryDTO> categoryLists(){
         List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findCategoryAllList();
@@ -41,6 +43,7 @@ public class BookController {
         return bookCategoryDTOList;
     }
 
+    // 도서 리스트 요청
     @ModelAttribute("BookLists")
     public List<BookDTO> bookLists(){
         List<BookDTO> bookDTOList = bookService.findAllList();
@@ -48,13 +51,15 @@ public class BookController {
         return bookDTOList;
     }
 
-    @ModelAttribute("StoreLists")
+    // 스토어 리스트 요청
+    @ModelAttribute("storeLists")
     public List<StoreDTO> storeLists(){
         List<StoreDTO> storeDTOList = storeService.findStoreAllList();
         System.out.println("storeDTOList = " + storeDTOList);
         return storeDTOList;
     }
 
+    // 이미지 데이터 요청
     @ResponseBody
     @GetMapping("/images/{fileName}")
     public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
@@ -62,7 +67,21 @@ public class BookController {
     }
     
     //--상품관리-----------------------------------------------------//
-    
+
+    //상품추가폼
+    @GetMapping("/book/add")
+    public String bookAddForm(@ModelAttribute BookForm bookForm, Model model){
+        log.info("--CMS--Book--AddForm--Request--");
+        return "backend/book/add";
+    }
+    //상품추가
+    @PostMapping("/book/add")
+    public String bookAddPro(BookForm bookForm, MultipartFile bookFile) throws Exception{
+        log.info("--CMS--Book-Add--Request--");
+        bookService.save(bookForm);
+        return "redirect:/cms/book";
+    }
+
     //상품리스트
     @GetMapping("/book")
     public String bookList(Model model){
@@ -72,18 +91,27 @@ public class BookController {
         System.out.println("bookDTOList = " + bookDTOList);
         return "backend/book/list";
     }
-    //상품추가폼
-    @GetMapping("/book/add")
-    public String bookAddForm(@ModelAttribute BookForm bookForm, Model model){
-        log.info("--CMS--Book--AddForm--Request--");
-        return "backend/book/add";
+
+    //상품상세
+    @GetMapping("/book/{id}")
+    public String bookDetail(@PathVariable("id") Long id, Model model){
+        BookDTO book = bookService.findOne(id);
+        System.out.println("book = " + book);
+        model.addAttribute("book", book);
+        return "backend/book/detail";
     }
-    //상품추가
-    @PostMapping("/book/add")
-    public String bookAddPro(BookForm bookForm, MultipartFile file){
-        log.info("--CMS--Book-Add--Request--");
-        Long save = bookService.save(bookForm, file);
-        return "redirect:/cms/book";
+
+    //상품수정
+    @GetMapping("/book/{id}/modify")
+    public String bookModifyForm(@PathVariable("id") Long id, Model model){
+        BookDTO book = bookService.findOne(id);
+        model.addAttribute("book", book);
+        return "backend/book/modify";
+    }
+    @PostMapping("/book/{id}/modify")
+    public String bookModifyPro(@PathVariable("id") Long id, BookForm bookForm, MultipartFile file) throws Exception{
+        bookService.updateOne(bookForm, file);
+        return "redirect:/cms/book/{id}";
     }
 
 //--상품카테고리관리-----------------------------------------------------//

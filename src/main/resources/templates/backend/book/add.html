@@ -1,49 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<script>
-    const dragItem = document.querySelector(".drag_img_form");
-    const fileInput = document.querySelector(".image-input-form");
-    const imagePreview = document.getElementById("image-preview");
-
-  const $drop = document.querySelector(".drag_img_form");
-  const $title = document.querySelector(".image-input-form");
-
-  // 드래그한 파일 객체가 해당 영역에 놓였을 때
-  $drop.ondrop = (e) => {
-    e.preventDefault();
-    // $drop.className = "dropBox";
-
-    // 파일 리스트
-    const file = e.dateTransfer.files[0].name;
-    input_
-    console.log(files);
-  <!--  $title.value = files.name;-->
-  <!--  console.log($title.value);-->
-  }
-
-  // ondragover 이벤트가 없으면 onDrop 이벤트가 실행되지 않습니다.
-  $drop.ondragover = (e) => {
-    e.preventDefault();
-  }
-
-  // 드래그한 파일이 최초로 진입했을 때
-  $drop.ondragenter = (e) => {
-    e.preventDefault();
-
-    $drop.classList.add("active");
-  }
-
-  // 드래그한 파일이 영역을 벗어났을 때
-  $drop.ondragleave = (e) => {
-    e.preventDefault();
-
-    $drop.classList.remove("active");
-  }
-
-
-
-
-</script>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
@@ -61,7 +17,7 @@
 
           <!--TODO select로 변경-->
           <div class="add_input_wrap">
-            <p>카테고리</p>
+            <p>카테고리명</p>
             <select th:field="*{bookCategory}">
               <option
                       th:each="ctlist : ${categoryLists}"
@@ -79,9 +35,11 @@
           <div class="add_input_wrap">
             <p>도서표지</p>
             <div id="drop_zone" class="drag_img_form">
-              <img id="image-preview" src="" alt="">
+              <img id="image-preview" alt="">
+<!--              <img id="image-preview" thth:src="|/cms/book/images/${book.getBookImg()}|" alt="">-->
             </div>
-            <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요.">
+            <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+<!--            <button type="button"></button>-->
           </div>
 
           <div class="add_input_wrap">
@@ -170,11 +128,11 @@
   });
 
   function highlight(e) {
-    document.getElementById('drop_zone').style.backgroundColor = 'purple';
+    document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
   }
 
   function unhighlight(e) {
-    document.getElementById('drop_zone').style.backgroundColor = 'white';
+    document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
   }
 
   // Handle dropped files

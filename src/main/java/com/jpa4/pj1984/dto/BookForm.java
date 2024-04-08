@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -16,16 +17,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookForm {
-    private Long isbn;
+    private Long bookId;
+    private String isbn;
     private String bookImg;
-    private String bookFile;
+    private MultipartFile bookFile;
     private String bookTitle;
     private String bookWriter;
 
     private Store store;
 
     private String bookPub;
-    private String bookPubDate;
     private String bookPaperPrice;
     private String bookEbookPrice;
 
@@ -41,15 +42,15 @@ public class BookForm {
     //DTO -> Entity
     public Book toEntity(){
         Book book = new Book();
+        book.setBookId(bookId);
         book.setIsbn(isbn);
         book.setBookImg(bookImg);
-        book.setBookFile(bookFile);
+        book.setBookFile(bookFile.getName());
         book.setBookTitle(bookTitle);
         book.setBookWriter(bookWriter);
         book.setStore(store);
 
         book.setBookPub(bookPub);
-        book.setBookPubDate(bookPubDate);
         book.setBookPaperPrice(bookPaperPrice);
         book.setBookEbookPrice(bookEbookPrice);
 
