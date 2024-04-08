@@ -312,6 +312,13 @@ div.top_st_bar > span{
     background-position:center;
     background-repeat:no-repeat;
     margin-bottom:14px;
+    display:flex;
+    justify-content:flex-start;
+}
+#image-preview{
+    margin:20px;
+
+    height:calc(100% - 40px);
 }
 
 /*BUTTON*/
@@ -338,6 +345,18 @@ button.black_btn:hover{
     background-color: var(--black);
     border: 1px solid var(--black);
     color: var(--pointcolor);
+}
+button.img_delete_btn{
+    width:24px;
+    height:24px;
+    background-image:url("../img/deletebtn_back.png");
+    background-position:center;
+    background-repeat:no-repeat;
+    background-color: var(--mainblack);
+    border: 1px solid var(--mainblack);
+    border-radius: 24px;
+    display:none;
+    transform: translate(-30px, 10px);
 }
 
 

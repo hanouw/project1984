@@ -1,108 +1,79 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">]
-<body>
-<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
-    <th:block th:fragment="content">
-        <div class="search_bar_wrap">
-            <form action="post">
+    <!DOCTYPE html>
+    <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body>
+    <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+        <th:block th:fragment="content">
+            <div class="search_bar_wrap">
                 <div class="search_date_wrap">
                     <div class="item">
                         <h2>회원상세</h2>
                     </div>
                     <div class="item">
-                        <button class="grey_btn">목록</button>
-                        <button class="black_btn">수정</button>
+                        <form method="get">
+                            <button class="grey_btn" type="button" id="memberList" onclick="toList()">목록</button>
+
+                            <button class="black_btn" type="button" th:href="@{/user/detail/{id}(id=${memberDTO.userNo})}">수정</button>
+                            <button class="black_btn" th:href="@{/user/detail/{id}(id=${memberDTO.userNo})}">수정</button>
+
+
+
+                            <button class="black_btn" type="submit" th:text="${memberDTO.userNo}" th:onclick="|location.href='@{/userDetail/' + ${memberDTO.userNo} + '/modify}'|">수정</button>
+                            <button class="black_btn" type="submit" th:onclick="toModify(${memberDTO.userNo})">수정</button>
+                            <button class="black_btn" type="submit" onclick="toModify(${userNo})">수정</button>
+                            <button class="black_btn" type="submit" th:onclick="|location.href = '@{/userDetail/{memberDTO.userNo}/modify}'|">수정</button>
+                        </form>
                     </div>
                 </div>
-                <div class="add_form_wrap">
-                    <div class="add_input_wrap">
-                        <p>서점 썸네일 </p>
-                        <div draggable="true" class="drag_img_form"></div>
-                        <input type="text" readonly>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>서점명</p>
-                        <input type="text" readonly>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>설명</p>
-                        <textarea readonly></textarea>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>서점한줄평</p>
-                        <input type="text" readonly>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>서점택태그</p>
-                        <textarea readonly></textarea>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>서점 이미지</p>
-                        <div draggable="true" class="drag_img_form"></div>
-                        <div draggable="true" class="drag_img_form"></div>
-                        <div draggable="true" class="drag_img_form"></div>
-                        <p>이미지 1</p>
-                        <input type="text" readonly>
-                        <p>이미지 2</p>
-                        <input type="text" readonly>
-                        <p>이미지 3</p>
-                        <input type="text" readonly>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>1984의 서점리뷰</p>
-                        <textarea readonly></textarea>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>주소</p>
-                        <textarea readonly></textarea>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>연락처</p>
-                        <input type="text" readonly>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>운영시간</p>
-                        <textarea readonly></textarea>
-                    </div>
-                    <div class="add_input_wrap">
-                        <p>대표자명</p>
-                        <input type="text" readonly>
-                    </div>
+                <div class="add_form_wrap" th:object="${memberDTO}">
                     <div class="add_input_wrap">
                         <p>아이디</p>
-                        <input type="text" readonly>
+                        <input type="text" id="userId" th:field="*{userId}" readonly>
                     </div>
                     <div class="add_input_wrap">
-                        <p>계좌번호</p>
-                        <select name="" id="">
-                            <option value="">은행명</option>
-                            <option value="">우체국은행</option>
-                        </select>
-                        <input type="text" readonly>
+                        <p>이름</p>
+                        <input type="text" th:field="*{userName}" readonly>
                     </div>
                     <div class="add_input_wrap">
-                        <p>사업자 등록번호</p>
-                        <input type="text" readonly>
+                        <p>전화번호</p>
+                        <input type="text" th:field="*{userPhoneNum}" readonly>
                     </div>
                     <div class="add_input_wrap">
-                        <p>등록일</p>
-                        <input type="text" readonly>
+                        <p>이메일</p>
+                        <input type="text" th:field="*{userEmail}" readonly>
                     </div>
                     <div class="add_input_wrap">
-                        <p>수정일</p>
-                        <input type="text" readonly>
+                        <p>회원가입일</p>
+                        <input type="text" th:field="*{createDate}" readonly>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>회원정보수정일</p>
+                        <input type="text" th:field="*{lastModifiedDate}" readonly>
                     </div>
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>
-                        <input id="on_status" type="checkbox">
-                        <label for="on_status">활성화</label>
-                        <input id="off_status" type="checkbox">
-                        <label for="off_status">비활성화</label>
+                        <input id="on_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_USER'}" onclick="return false">
+                        <label for="on_status" >일반회원</label>
+                        <input id="off_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_BANNED'}" onclick="return false">
+                        <label for="off_status">정지</label>
+                        <input id="quit_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_QUIT'}" onclick="return false">
+                        <label for="quit_status">탈퇴</label>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </th:block>
     </th:block>
-</th:block>
-</body>
-</html>
+    <script>
+        // 목록으로 돌아가기
+        const toList = () =>{
+            location.href = "/cms/userList"
+        }
+
+        // modify 으로 넘어가기
+        function toModify(userNo){
+            console.log(userNo)
+            location.href="/userDetail/" + userNo + "/modify"
+
+        }
+    </script>
+    </body>
+    </html>

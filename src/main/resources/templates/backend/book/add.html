@@ -36,10 +36,10 @@
             <p>도서표지</p>
             <div id="drop_zone" class="drag_img_form">
               <img id="image-preview" alt="">
-<!--              <img id="image-preview" thth:src="|/cms/book/images/${book.getBookImg()}|" alt="">-->
+              <button type="button" class="img_delete_btn"></button>
             </div>
             <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
-<!--            <button type="button"></button>-->
+
           </div>
 
           <div class="add_input_wrap">
@@ -132,7 +132,7 @@
   }
 
   function unhighlight(e) {
-    document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
+    document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
   }
 
   // Handle dropped files
@@ -151,6 +151,18 @@
 
   function uploadFile(file) {
     document.getElementById('bookImg').value = file.name;
+
+      // 이미지 미리보기
+    let reader = new FileReader();
+    reader.onloadend = function() {
+      let img = document.getElementById('image-preview');
+      let deleteBtn = document.querySelector('.img_delete_btn');
+      img.src = reader.result;
+      deleteBtn.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
   }
+
+
 </script>
 </html>

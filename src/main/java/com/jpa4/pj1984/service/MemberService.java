@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -30,25 +31,23 @@ public class MemberService {
     // 회원 목록 조회하기
     public List<MemberDTO> findAllMember(){
         List<Member> memberList = memberRepository.findAll();
-        log.info("******* memberList size = {}", memberList.size());
-        log.info("******* memberList = {}", memberList.get(0).getUserNo());
-        log.info("******* memberList = {}", memberList.get(0).getUserName());
-        log.info("******* memberList = {}", memberList.get(0).getUserEmail());
-        log.info("******* memberList = {}", memberList.get(0).getUserStatus());
-        log.info("******* memberList = {}", memberList.get(0).getUserPhoneNum());
-        log.info("******* memberList = {}", memberList.get(0).getCreateDate());
         List<MemberDTO> memberDTOList = new ArrayList<>();
         for (Member val : memberList) {
-            log.info("******* val = {}", val.toString());
             memberDTOList.add(new MemberDTO(val));
         }
-        log.info("******* 안에 값 개수 = {}", memberDTOList.size());
-        log.info("******* memberList = {}", memberDTOList.get(0).getUserNo());
-        log.info("******* memberList = {}", memberDTOList.get(0).getUserName());
-        log.info("******* memberList = {}", memberDTOList.get(0).getUserEmail());
-        log.info("******* memberList = {}", memberDTOList.get(0).getUserStatus());
-        log.info("******* memberList = {}", memberDTOList.get(0).getCreateDate());
         return memberDTOList;
+    }
+
+    // No로 회원 하나 데이터 찾기
+    public MemberDTO findMemberById(Long userNo){
+        Optional<Member> member = memberRepository.findById(userNo);
+        log.info("******* member = {}", member.orElse(null).getUserStatus().getValue());
+        return member.map(MemberDTO::new).orElse(null);
+//        위 방법이 더 쉽고 깔끔, 그걸 풀면 아래코드와 동일함
+//        if(member.isPresent()){
+//            return new MemberDTO(member.get());
+//        }
+//        return null;
     }
 
     // 로그인

@@ -55,6 +55,7 @@ public class CMSController {
 //        return "redirect:/cms/home";
 //    }
 
+    //----------------------------------------------------------------------------------- 회원(이용자)
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
     public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
@@ -66,8 +67,19 @@ public class CMSController {
 
     // 회원관리 - 회원 상세 정보 조회
     @GetMapping("/userDetail/{userNo}")
-    public String userDetail() {
+    public String userDetail(@PathVariable Long userNo, Model model) {
+        log.info("******* CMSController /userDetail/userNo = {}", userNo);
+        MemberDTO memberDTO = memberService.findMemberById(userNo);
+        model.addAttribute("memberDTO", memberDTO);
         return "backend/member/memberDetail";
+    }
+
+    @GetMapping("/userDetail/{userNo}/modify")
+    public String userModify(@PathVariable Long userNo, Model model){
+        log.info("******* CMSController /userDetail/userNo/modify = {}", userNo);
+        MemberDTO memberDTO = memberService.findMemberById(userNo);
+        model.addAttribute("memberDTO", memberDTO);
+        return "backend/member/memberModify";
     }
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
