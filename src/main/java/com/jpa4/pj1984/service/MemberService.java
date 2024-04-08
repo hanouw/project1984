@@ -32,11 +32,22 @@ public class MemberService {
         List<Member> memberList = memberRepository.findAll();
         log.info("******* memberList size = {}", memberList.size());
         log.info("******* memberList = {}", memberList.get(0).getUserNo());
+        log.info("******* memberList = {}", memberList.get(0).getUserName());
+        log.info("******* memberList = {}", memberList.get(0).getUserEmail());
+        log.info("******* memberList = {}", memberList.get(0).getUserStatus());
+        log.info("******* memberList = {}", memberList.get(0).getUserPhoneNum());
+        log.info("******* memberList = {}", memberList.get(0).getCreateDate());
         List<MemberDTO> memberDTOList = new ArrayList<>();
         for (Member val : memberList) {
-            log.info("******* val = {}", val);
+            log.info("******* val = {}", val.toString());
             memberDTOList.add(new MemberDTO(val));
         }
+        log.info("******* 안에 값 개수 = {}", memberDTOList.size());
+        log.info("******* memberList = {}", memberDTOList.get(0).getUserNo());
+        log.info("******* memberList = {}", memberDTOList.get(0).getUserName());
+        log.info("******* memberList = {}", memberDTOList.get(0).getUserEmail());
+        log.info("******* memberList = {}", memberDTOList.get(0).getUserStatus());
+        log.info("******* memberList = {}", memberDTOList.get(0).getCreateDate());
         return memberDTOList;
     }
 

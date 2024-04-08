@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">]
 <body>
-
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+            <div class="search_date_wrap">
+                <div class="item">
+                    <h2>주문상세</h2>
+                </div>
+                <div class="item">
+                    <button class="grey_btn">목록</button>
+                </div>
+            </div>
+            <div class="add_form_wrap">
+                <div class="add_input_wrap">
+                    <p>주문번호</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>구매일</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>주문상태</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>주문도서</p>
+                    <div class="book_order_wrap">
+                        <div class="book_img_form"></div>
+                        <div class="book_order_text_wrap">
+                            <p>호랑나비</p>
+                            <div class="book_title_writer_wrap">
+                                <span>김흥국</span>
+                                <span>어쩌구출판사</span>
+                            </div>
+                            <div class="book_store_price_wrap">
+                                <div class="book_store">
+                                    <p>서점</p>
+                                    <p>코끼리서점</p>
+                                </div>
+                                <hr>
+                                <div class="book_price">
+                                    <p>가격</p>
+                                    <p>15,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 이미지</p>
+                    <div draggable="true" class="drag_img_form"></div>
+                    <div draggable="true" class="drag_img_form"></div>
+                    <div draggable="true" class="drag_img_form"></div>
+                </div>
+                <div class="add_input_wrap">
+                    <p>회원ID</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>회원명</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>연락처</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>이메일</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>결제방법</p>
+                    <input type="text" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>결제금액</p>
+                    <input type="text" readonly>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
 </body>
 </html>

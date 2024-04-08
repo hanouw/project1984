@@ -1,10 +1,8 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
-import com.jpa4.pj1984.dto.BookCategoryDTO;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.repository.StoreRepository;
@@ -14,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,6 +85,15 @@ public class StoreService {
         findStore.setStoreBankName(storeForm.getStoreBankName());
     }
 
+    // VIEW 목록 조회용
+    public List<StoreDTO> findStoreAllList(){
+        List<Store> all = storeRepository.findAll();
+        List<StoreDTO> storeDTOList = new ArrayList<>();
+        for (Store list : all){
+            storeDTOList.add(new StoreDTO(list));
+        }
+        return storeDTOList;
+    }
 
 
 

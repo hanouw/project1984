@@ -74,7 +74,7 @@ public class CmsService {
             paymentResponseDTO.setOrderBookId(orderList.getPayment().getOrderBookId());
             paymentResponseDTO.setUserId(orderList.getPayment().getMember().getUserId());
             paymentResponseDTO.setUserName(orderList.getPayment().getMember().getUserName());
-            paymentResponseDTO.setIsbn(orderList.getBook().getIsbn());
+            paymentResponseDTO.setIsbn(orderList.getBook().getBookId());
             paymentResponseDTO.setBookTitle(orderList.getBook().getBookTitle());
             //paymentResponseDTO.setStoreTitle(orderList.getBook().getS);
             paymentResponseDTO.setPaymentBookStatus(orderList.getPayment().getPaymentBookStatus());
@@ -82,9 +82,15 @@ public class CmsService {
             paymentResponseDTO.setCreateDate(orderList.getPayment().getCreateDate());
             paymentResponseDTO.setBookPub(orderList.getBook().getBookPub());
             paymentResponseDTO.setBookEbookPrice(orderList.getBook().getBookEbookPrice());
+            paymentResponseDTO.setCreateDate(orderList.getCreateDate());
             list.add(paymentResponseDTO);
         }
         return list;
+    }
+
+    // 주문관리 - 검색된 주문 개수 조회 판매자 ver
+    public Long countHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
+        return paymentBookHistoryCustomRepository.countHistoryListByStoreId(storeId, pageRequestDTO);
     }
 
 }

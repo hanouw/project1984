@@ -250,6 +250,15 @@ div.top_st_bar > span{
     border: 1px solid var(--maingr01);
     border-radius: 4px;
 }
+.search_text_wrap > form > .item > input{
+    padding: 13px;
+    border-radius: 4px;
+}
+.search_text_wrap > form> .item > select{
+    padding: 12px 22px 12px 20px;
+    border: 1px solid var(--maingr01);
+    border-radius: 4px;
+}
 
 /*list_table*/
 .list_table_wrap{

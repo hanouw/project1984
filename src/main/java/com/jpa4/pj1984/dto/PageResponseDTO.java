@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.dto;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,8 +9,8 @@ import java.util.stream.IntStream;
 
 // 화면에 글 목록 응답할때 함께 보내주는 페이징 처리 정보 보낼 용도
 // 직접 모두 계산하는 버전
-@Getter
-public class PageResponseDTO {
+@Getter @ToString
+public class PageResponseDTO { // 구 PageDTO
     private PageRequestDTO pageRequestDTO; // 페이지 요청 정보 (page, size)
     private Long totalCount; // 전체 글의 개수
     private int startPage, endPage; // 화면상 페이지 시작 번호, 페이지 끝 번호
@@ -17,6 +18,7 @@ public class PageResponseDTO {
     private boolean prev, next; // 이전 페이지, 다음페이지 여부
     private int totalPage;
     private boolean lastPage; // 마지막 페이지인지 여부
+    private List<PaymentResponseDTO> orderList;
 
     public PageResponseDTO(PageRequestDTO pageRequestDTO, Long totalCount) {
         this.pageRequestDTO = pageRequestDTO;
@@ -35,5 +37,12 @@ public class PageResponseDTO {
         this.pageNumList = IntStream.rangeClosed(startPage, endPage).boxed().collect(Collectors.toList());
 
         this.lastPage = pageRequestDTO.getPage() == totalPage;
+    }
+
+    public PageResponseDTO(PageRequestDTO pageRequestDTO, Long totalCount, List<PaymentResponseDTO> orderList) {
+        super();
+        this.pageRequestDTO = pageRequestDTO;
+        this.totalCount = totalCount;
+        this.orderList = orderList;
     }
 }

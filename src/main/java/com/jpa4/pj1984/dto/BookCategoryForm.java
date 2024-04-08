@@ -23,7 +23,7 @@ public class BookCategoryForm {
         BookCategory bookCategory = new BookCategory();
         bookCategory.setBookCategoryId(bookCategoryId);
         bookCategory.setBookCategoryName(bookCategoryName);
-        bookCategory.setBookCategoryStatus(BookCategoryStatus.ON);
+        bookCategory.setBookCategoryStatus(bookCategoryStatus);
         return bookCategory;
     }
 }

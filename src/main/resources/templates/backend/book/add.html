@@ -3,7 +3,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
-      <form action="" th:action th:object="${bookForm}" method="post">
+      <form action="" th:action th:object="${bookForm}" method="post" enctype="multipart/form-data">
         <div class="search_date_wrap">
           <div class="item">
             <h2>상품등록</h2>
@@ -17,12 +17,12 @@
 
           <!--TODO select로 변경-->
           <div class="add_input_wrap">
-            <p>카테고리</p>
-            <select name="bookCategory" th:field="*{bookCategory}">
+            <p>카테고리명</p>
+            <select th:field="*{bookCategory}">
               <option
-                      th:each="list : ${bookCategoryDTOList}"
-                      th:value="${list.bookCategoryId}"
-                      th:utext="${list.bookCategoryName}"
+                      th:each="ctlist : ${categoryLists}"
+                      th:value="${ctlist.bookCategoryId}"
+                      th:utext="${ctlist.bookCategoryName}"
               ></option>
             </select>
           </div>
@@ -31,11 +31,17 @@
             <p>ISBN</p>
             <input type="text" th:field="*{isbn}" placeholder="ISBN을 입력해주세요.">
           </div>
+
           <div class="add_input_wrap">
             <p>도서표지</p>
-            <div draggable="true" class="drag_img_form"></div>
-            <input type="file" th:field="*{bookImg}" placeholder="이미지를 첨부해주세요.">
+            <div id="drop_zone" class="drag_img_form">
+              <img id="image-preview" alt="">
+<!--              <img id="image-preview" thth:src="|/cms/book/images/${book.getBookImg()}|" alt="">-->
+            </div>
+            <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+<!--            <button type="button"></button>-->
           </div>
+
           <div class="add_input_wrap">
             <p>도서명</p>
             <input type="text" th:field="*{bookTitle}" placeholder="도서명을 입력해주세요.">
@@ -63,14 +69,16 @@
             <input type="text" th:field="*{bookPub}" placeholder="출판사를 입력해주세요.">
           </div>
 
-          <!--TODO select로 변경-->
-<!--          <div class="add_input_wrap">-->
-<!--            <p>서점명</p>-->
-<!--            <select name="" id="">-->
-<!--              <option value=""></option>-->
-<!--            </select>-->
-<!--            <input th:field="*{StoreId}" placeholder="서점명을 입력해주세요."></input>-->
-<!--          </div>-->
+          <div class="add_input_wrap">
+            <p>서점명</p>
+            <select th:field="*{store}">
+              <option
+                      th:each="stlist : ${storeLists}"
+                      th:value="${stlist.storeId}"
+                      th:utext="${stlist.storeTitle}"
+              ></option>
+            </select>
+          </div>
 
           <div class="add_input_wrap">
             <p>독립서점 리뷰</p>
@@ -91,12 +99,58 @@
           </div>
           <div class="add_checkbox_wrap">
             <p>활성화</p>
-            <input type="radio" name="status" value="ON">활성화
-            <input type="radio" name="status" value="OFF">비활성화
+            <input type="radio" th:field="*{bookStatus}" value="ON">활성화
+            <input type="radio" th:field="*{bookStatus}" value="OFF">비활성화
           </div>
         </div>
       </form>
     </div>
   </th:block>
 </th:block>
+<script>
+  // Prevent default drag behaviors
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, preventDefaults, false)
+  });
+
+  function preventDefaults (e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  // Highlight drop area when item is dragged over it
+  ['dragenter', 'dragover'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, highlight, false)
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, unhighlight, false)
+  });
+
+  function highlight(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
+  }
+
+  function unhighlight(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
+  }
+
+  // Handle dropped files
+  document.getElementById('drop_zone').addEventListener('drop', handleDrop, false);
+
+  function handleDrop(e) {
+    let dt = e.dataTransfer;
+    let files = dt.files;
+
+    handleFiles(files);
+  }
+
+  function handleFiles(files) {
+    ([...files]).forEach(uploadFile);
+  }
+
+  function uploadFile(file) {
+    document.getElementById('bookImg').value = file.name;
+  }
+</script>
 </html>

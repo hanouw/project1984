@@ -60,12 +60,12 @@ public class CMSController {
     public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
         log.info("******* CMSController userList 호출");
         List<MemberDTO> allMember = memberService.findAllMember();
-        model.addAttribute(allMember);
+        model.addAttribute("allMember", allMember);
         return "backend/member/memberList";
     }
 
     // 회원관리 - 회원 상세 정보 조회
-    @GetMapping("/userDetail")
+    @GetMapping("/userDetail/{userNo}")
     public String userDetail() {
         return "backend/member/memberDetail";
     }
