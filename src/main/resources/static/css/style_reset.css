@@ -84,3 +84,12 @@ input:read-only{
     background-color: #fafafa;
     border: 1px solid var(--maingr00);
 }
+
+textarea{
+    border: 1px solid var(--maingr01);
+    resize: none;
+}
+textarea:read-only{
+    background-color: #fafafa;
+    border: 1px solid var(--maingr00);
+}
