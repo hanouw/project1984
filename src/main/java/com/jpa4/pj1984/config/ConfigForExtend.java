@@ -13,7 +13,7 @@ public class ConfigForExtend {
     @Bean
     public WebSecurityCustomizer WebSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers(new AntPathRequestMatcher("/**"))
+//                .requestMatchers(new AntPathRequestMatcher("/**"))
                 .requestMatchers(new AntPathRequestMatcher("/css/**"))
                 .requestMatchers(new AntPathRequestMatcher("/cms/ajaxUsernameAvail"))
                 .requestMatchers(new AntPathRequestMatcher("/img/**"));

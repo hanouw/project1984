@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-@RequestMapping("/")
+//@RequestMapping("/")
 public class HomeController {
 
     @GetMapping("/")
     public String homeController(@AuthenticationPrincipal CustomCms customCms){
+        log.info("*********************** Controller / - customCms : {}",customCms);
         if(customCms == null){
             return "home";
         }

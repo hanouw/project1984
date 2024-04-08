@@ -21,6 +21,7 @@ public class MemberDTO {
     private String userPhoneNum;
     private MemberStatus userStatus;
     private LocalDateTime createDate;
+    private LocalDateTime lastModifiedDate;
 
 
     // Entity -> DTO
@@ -32,6 +33,7 @@ public class MemberDTO {
         this.userEmail = member.getUserEmail();
         this.userPhoneNum = member.getUserPhoneNum();
         this.createDate = member.getCreateDate();
+        this.lastModifiedDate = member.getLastModifiedDate();
         this.userStatus = member.getUserStatus();
     }
 }

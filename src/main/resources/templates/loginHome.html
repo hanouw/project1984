@@ -19,13 +19,13 @@
                 <hr />
                 <p>환영합니다 <span sec:authentication="principal.username"></span> 고객님</p>
                 <p >권한 : <span sec:authentication="principal.authorities"></span></p>
-                <a href="signup" class="link_login">회원가입하기</a> <br/>
-                <a href="login" class="link_login">로그인하기</a><br/>
-                <a href="cms/signup" class="link_login">관리자회원가입하기</a><br/>
-                <a href="cms/login" class="link_login">관리자로그인하기</a><br/>
-                <a href="cms/book" class="link_login">관리자 책</a><br/>
-                <a href="cms/book/add" class="link_login">관리자 책 추가</a><br/>
-                <a href="cms/userList" class="link_login">회원목록보기</a><br/>
+                <a href="/signup" class="link_login">회원가입하기</a> <br/>
+                <a href="/login" class="link_login">로그인하기</a><br/>
+                <a href="/cms/signup" class="link_login">관리자회원가입하기</a><br/>
+                <a href="/cms/login" class="link_login">관리자로그인하기</a><br/>
+                <a href="/cms/book" class="link_login">관리자 책</a><br/>
+                <a href="/cms/book/add" class="link_login">관리자 책 추가</a><br/>
+                <a href="/cms/userList" class="link_login">회원목록보기</a><br/>
                 <form th:action="@{/cms/logout}" method="post">
                     <button type="submit" class="btn_login">CMS Logout</button>
                 </form>

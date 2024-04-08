@@ -58,8 +58,8 @@
                     </thead>
                     <tbody>
                         <tr th:each="user : ${allMember}">
-                            <td><a th:href="@{/cms/userDetail/{userNo}(id=${user.userNo})}" th:text="*{user.userNo}"></a></td>
-                            <td><a th:href="@{/cms/userDetail/{userNo}(id=${user.userNo})}" th:text="*{user.userId}"></a></td>
+                            <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userNo}"></a></td>
+                            <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userId}"></a></td>
                             <td th:text="*{user.userName}"></td>
                             <td th:text="*{user.userPhoneNum}"></td>
                             <td th:text="*{user.userEmail}"></td>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+            <form action="post">
+                <div class="search_date_wrap">
+                    <div class="item">
+                        <h2>회원상세</h2>
+                    </div>
+                    <div class="item">
+                        <form method="get" action="" th:action>
+                            <button class="grey_btn" type="button" onclick="toList()">취소</button>
+                            <button class="black_btn" type="button" th:onclick="toModify(${userNo})">저장</button>
+                        </form>
+                    </div>
+                    <div class="add_form_wrap" th:object="${memberDTO}">
+                        <div class="add_input_wrap">
+                            <p>아이디</p>
+                            <input type="text" th:field="*{userId}">
+                        </div>
+                        <div class="add_input_wrap">
+                            <p>이름</p>
+                            <input type="text" th:field="*{userName}">
+                        </div>
+                        <div class="add_input_wrap">
+                            <p>전화번호</p>
+                            <input type="text" th:field="*{userPhoneNum}">
+                        </div>
+                        <div class="add_input_wrap">
+                            <p>이메일</p>
+                            <input type="text" th:field="*{userEmail}">
+                        </div>
+                        <div class="add_input_wrap">
+                            <p>회원가입일</p>
+                            <input type="text" th:field="*{createDate}">
+                        </div>
+                        <div class="add_input_wrap">
+                            <p>회원정보수정일</p>
+                            <input type="text" th:field="*{lastModifiedDate}">
+                        </div>
+                        <div class="add_checkbox_wrap">
+                            <p>활성화</p>
+                            <input id="on_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_USER'}">
+                            <label for="on_status" >일반회원</label>
+                            <input id="off_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_BANNED'}">
+                            <label for="off_status">정지</label>
+                            <input id="quit_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_QUIT'}">
+                            <label for="off_status">탈퇴</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </th:block>
+</th:block>
+    <script>
+        const toList = () =>{
+            location.href = "/cms/userList"
+        }
+        const toModify = (userNo) =>{
+            console.log(userNo)
+            location.href = "/cms/userDetail/" + userNo +"/modify"
+        }
+    </script>
+</body>
+</html>
