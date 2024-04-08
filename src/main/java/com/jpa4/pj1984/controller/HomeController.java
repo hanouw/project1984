@@ -27,4 +27,9 @@ public class HomeController {
     public String cmsHome(){
         return "/backend/home/dashboard";
     }
+
+    @GetMapping("/error")
+    public String errorPage(){
+        return "/errorPage";
+    }
 }

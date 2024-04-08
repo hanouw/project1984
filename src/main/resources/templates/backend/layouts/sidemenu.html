@@ -67,10 +67,9 @@
                 </a>
             </li>
             <li class="menu_list">
-                <a href="#">
-                    <span>로그아웃</span>
-                    <div class="menu_arrow_icon"></div>
-                </a>
+                <form th:action="@{/cms/logout}" method="post">
+                    <button class="btn_login" type="submit">로그아웃</button>
+                </form>
             </li>
         </ul>
         <span class="signup_copyright">ⓒ 2024. 1984 All rights reserved.</span>
