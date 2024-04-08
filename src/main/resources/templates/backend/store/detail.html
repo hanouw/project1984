@@ -89,12 +89,12 @@
         <!--            <td th:text="${#temporals.format(store.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>-->
         <!--            <td th:text="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}"></td>-->
         <div class="add_input_wrap">
-          <p>등록일</p>
-          <input type="text" th:value="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
-        </div>
-        <div class="add_input_wrap">
           <p>수정일</p>
           <input type="text" th:value="${#temporals.format(store.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>등록일</p>
+          <input type="text" th:value="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
         </div>
         <div class="add_checkbox_wrap">
           <p>활성화</p>
