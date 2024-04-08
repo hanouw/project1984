@@ -359,6 +359,25 @@ button.img_delete_btn{
     transform: translate(-30px, 10px);
 }
 
+
+
+
+
+
+/* store img CSS */
+.store_img_form{
+    max-width:50%;
+    height:260px;
+    border:1px dashed var(--maingr00);
+    border-radius:4px;
+    background-color:#fafafa;
+    background-image:url("");
+    background-position:center;
+    background-repeat:no-repeat;
+    margin-bottom:14px;
+}
+
+
 /* 관리자 회원가입 */
 .avail {
     position: relative;

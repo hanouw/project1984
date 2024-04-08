@@ -39,12 +39,10 @@
           <table class="list_table">
             <tr>
               <th>NO</th>
-              <th>서점ID</th>
-              <th>서점명</th>
-              <th>대표자명</th>
-              <th>연락처</th>
-              <th>주소</th>
-              <th>사업자등록번호</th>
+              <th>구분</th>
+              <th>회원ID</th>
+              <th>회원명</th>
+              <th>리뷰내용</th>
               <th>활성화</th>
               <th>수정일</th>
               <th>등록일</th>
@@ -60,8 +58,6 @@
               </td>
               <td th:text="${storeList.storeOwner}"></td>
               <td th:text="${storeList.storePhoneNum}"></td>
-              <td th:text="${storeList.storeAddress}"></td>
-              <td th:text="${storeList.storeCrn}"></td>
               <td th:text="${storeList.storeStatus}"></td>
               <td th:text="${#temporals.format(storeList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
               <td th:text="${#temporals.format(storeList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
