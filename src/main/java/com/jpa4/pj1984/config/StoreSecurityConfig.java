@@ -41,7 +41,7 @@ public class StoreSecurityConfig extends ConfigForExtend{
 
         http.csrf(csrf -> csrf.disable()); // csrf 토큰을 달고 넘어가는데 disable해둠
         http.authorizeHttpRequests(request -> // anyRequest(): 어떤 요청이든 permitAll(): 다 허용
-                                request.requestMatchers("/", "/cms/signup", "/cms/login", "/cms/logout", "/login").permitAll()
+                                request.requestMatchers("/cms/signup", "/cms/login", "/cms/logout", "/login").permitAll()
                                 .requestMatchers("/cms/**").hasAuthority("STATUS_STORE") // authenticated는 사용자 정보를 기반으로 사용자가 인증되었는지 확인 //hasAnyRole을 할 경우에는 앞에 ROLE_~~ 로 시작해야함
                                 .anyRequest().authenticated()
                 );
@@ -50,7 +50,7 @@ public class StoreSecurityConfig extends ConfigForExtend{
                 .usernameParameter("storeLoginId")
                 .passwordParameter("storePassword")
                         .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/cms/home", true)
                         .failureHandler(new CustomLoginFailureHandler()))
                 .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/cms/logout")) // 로그아웃 경로는 요청 경로로 지정해서(POST방식) 성공하면 / : 홈으로 돌아가라
                 .logoutSuccessUrl("/") // 홈 : /으로 돌아가라
