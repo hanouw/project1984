@@ -53,17 +53,17 @@
             <th>수정일</th>
             <th>등록일</th>
           </tr>
-          <tr th:each="bookCategory : ${list}">
-              <td th:text="${book}">9999</td>
-              <td>인문</td>
-              <td>호랑나비</td>
-              <td>111122223333</td>
-              <td>15,000원</td>
-              <td>빵빵이와 친구들</td>
-              <td>이주용</td>
-              <td>한빛미디어</td>
-              <td>2024-03-25</td>
-              <td>2024-04-25</td>
+          <tr th:each="book : ${bookList}">
+              <td th:text="${book.bookId}"></td>
+              <td th:text="${book.bookCategory.bookCategoryName}">인문</td>
+              <td><a th:text="${book.bookTitle}" th:href="@{/cms/book/{id}(id=${book.bookId})}"></a></td>
+              <td><a th:text="${book.isbn}" th:href="@{/cms/book/{id}(id=${book.bookId})}"></a></td>
+              <td th:text="${book.bookEbookPrice}">15,000원</td>
+              <td th:text="${book.store.storeTitle}">빵빵이와 친구들</td>
+              <td th:text="${book.bookWriter}">이주용</td>
+              <td th:text="${book.bookPub}">한빛미디어</td>
+              <td th:text="${#temporals.format(book.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
+              <td th:text="${#temporals.format(book.createDate, 'yyyy-MM-dd HH:mm')}"></td>
           </tr>
         </table>
       </div>

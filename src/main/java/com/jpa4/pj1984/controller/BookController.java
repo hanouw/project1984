@@ -3,20 +3,24 @@ package com.jpa4.pj1984.controller;
 import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.BookCategoryStatus;
-import com.jpa4.pj1984.dto.BookCategoryDTO;
-import com.jpa4.pj1984.dto.BookCategoryForm;
-import com.jpa4.pj1984.dto.BookDTO;
-import com.jpa4.pj1984.dto.BookForm;
+import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.BookCategoryService;
 import com.jpa4.pj1984.service.BookService;
+import com.jpa4.pj1984.service.FileUploadService;
+import com.jpa4.pj1984.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,36 +32,86 @@ public class BookController {
     //--공통사용-----------------------------------------------------//
     private final BookService bookService;
     private final BookCategoryService bookCategoryService;
-    
-//    @ModelAttribute("categoryLists")
-//    public List<BookCategory> categoryLists(){
-//        List<BookCategory> categoryLists = new ArrayList<>();
-//        System.out.println("categoryLists = " + categoryLists);
-//    }
+    private final StoreService storeService;
+    private final FileUploadService fileUploadService;
+
+    // 도서 카테고리 리스트 요청
+    @ModelAttribute("categoryLists")
+    public List<BookCategoryDTO> categoryLists(){
+        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findCategoryAllList();
+        log.info("****BookController bookCategoryDTOList :{} ", bookCategoryDTOList.size());
+        return bookCategoryDTOList;
+    }
+
+    // 도서 리스트 요청
+    @ModelAttribute("BookLists")
+    public List<BookDTO> bookLists(){
+        List<BookDTO> bookDTOList = bookService.findAllList();
+        log.info("****BookController bookCategoryDTOList :{} ", bookDTOList.size());
+        return bookDTOList;
+    }
+
+    // 스토어 리스트 요청
+    @ModelAttribute("storeLists")
+    public List<StoreDTO> storeLists(){
+        List<StoreDTO> storeDTOList = storeService.findStoreAllList();
+        System.out.println("storeDTOList = " + storeDTOList);
+        return storeDTOList;
+    }
+
+    // 이미지 데이터 요청
+    @ResponseBody
+    @GetMapping("/images/{fileName}")
+    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
+        return new UrlResource("file:" + fileUploadService.getPath(fileName));
+    }
     
     //--상품관리-----------------------------------------------------//
-    
-    //상품리스트
-    @GetMapping("/book")
-    public String bookList(){
-        log.info("--CMS--Book--List--Request--");
-        return "backend/book/list";
-    }
+
     //상품추가폼
     @GetMapping("/book/add")
     public String bookAddForm(@ModelAttribute BookForm bookForm, Model model){
         log.info("--CMS--Book--AddForm--Request--");
-        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll();
-        System.out.println("bookCategoryDTOList = " + bookCategoryDTOList);
-        System.out.println("bookForm = " + bookForm + ", model = " + model);
         return "backend/book/add";
     }
     //상품추가
     @PostMapping("/book/add")
-    public String bookAddPro(BookForm bookForm){
+    public String bookAddPro(BookForm bookForm, MultipartFile bookFile) throws Exception{
         log.info("--CMS--Book-Add--Request--");
-        Long save = bookService.save(bookForm);
+        bookService.save(bookForm);
         return "redirect:/cms/book";
+    }
+
+    //상품리스트
+    @GetMapping("/book")
+    public String bookList(Model model){
+        log.info("--CMS--Book--List--Request--");
+        List<BookDTO> bookDTOList = bookService.findAll();
+        model.addAttribute("bookList", bookDTOList);
+        System.out.println("bookDTOList = " + bookDTOList);
+        return "backend/book/list";
+    }
+
+    //상품상세
+    @GetMapping("/book/{id}")
+    public String bookDetail(@PathVariable("id") Long id, Model model){
+        BookDTO book = bookService.findOne(id);
+        System.out.println("book = " + book);
+        model.addAttribute("book", book);
+        return "backend/book/detail";
+    }
+
+    //상품수정
+    @GetMapping("/book/{id}/modify")
+    public String bookModifyForm(@PathVariable("id") Long id, Model model){
+        BookDTO book = bookService.findOne(id);
+        model.addAttribute("book", book);
+        return "backend/book/modify";
+    }
+    @PostMapping("/book/{id}/modify")
+    public String bookModifyPro(@PathVariable("id") Long id, BookForm bookForm, MultipartFile file) throws Exception{
+        bookService.updateOne(bookForm, file);
+        return "redirect:/cms/book/{id}";
     }
 
 //--상품카테고리관리-----------------------------------------------------//

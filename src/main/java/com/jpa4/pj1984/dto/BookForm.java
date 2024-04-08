@@ -3,11 +3,13 @@ package com.jpa4.pj1984.dto;
 import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.BookStatus;
+import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.service.BookCategoryService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -15,17 +17,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookForm {
-    private Long isbn;
+    private Long bookId;
+    private String isbn;
     private String bookImg;
-    private String bookFile;
+    private MultipartFile bookFile;
     private String bookTitle;
     private String bookWriter;
-//    private Long storeId;
+
+    private Store store;
+
     private String bookPub;
-    private String bookPubDate;
     private String bookPaperPrice;
     private String bookEbookPrice;
+
     private BookCategory bookCategory;
+
     private String bookIntro;
     private String bookIndex;
     private String bookReview;
@@ -36,16 +42,15 @@ public class BookForm {
     //DTO -> Entity
     public Book toEntity(){
         Book book = new Book();
+        book.setBookId(bookId);
         book.setIsbn(isbn);
         book.setBookImg(bookImg);
-        book.setBookFile(bookFile);
+        book.setBookFile(bookFile.getName());
         book.setBookTitle(bookTitle);
         book.setBookWriter(bookWriter);
-
-//        book.setStore(storeId);
+        book.setStore(store);
 
         book.setBookPub(bookPub);
-        book.setBookPubDate(bookPubDate);
         book.setBookPaperPrice(bookPaperPrice);
         book.setBookEbookPrice(bookEbookPrice);
 

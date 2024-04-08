@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,6 +74,15 @@ public class StoreService {
         findStore.setStoreBankName(storeForm.getStoreBankName());
     }
 
+    // VIEW 목록 조회용
+    public List<StoreDTO> findStoreAllList(){
+        List<Store> all = storeRepository.findAll();
+        List<StoreDTO> storeDTOList = new ArrayList<>();
+        for (Store list : all){
+            storeDTOList.add(new StoreDTO(list));
+        }
+        return storeDTOList;
+    }
 
 
 

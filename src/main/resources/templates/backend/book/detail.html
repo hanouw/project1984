@@ -1,10 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+  <th:block th:fragment="content">
+    <div class="search_bar_wrap">
 
+      <div class="search_date_wrap">
+        <div class="item">
+          <h2>상품 상세</h2>
+        </div>
+        <div class="item">
+          <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
+          <button th:onclick="|location.href='@{/cms/book/{id}/modify(id=${book.bookId})}'|" class="black_btn">수정</button>
+        </div>
+      </div>
+      <div class="add_form_wrap">
+        <div class="add_input_wrap">
+          <p>카테고리명</p>
+          <input type="text" th:field="${book.bookCategory.bookCategoryName}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>ISBN</p>
+          <input type="text" th:field="${book.isbn}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>도서표지</p>
+          <input type="text" th:field="${book.bookImg}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>도서명</p>
+          <input type="text" th:field="${book.bookTitle}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>목차</p>
+          <input type="text" th:field="${book.bookIndex}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>도서소개</p>
+          <input type="text" th:field="${book.bookIntro}" readonly>
+        </div>
+        <br>
+
+        <div class="add_input_wrap">
+          <p>저자</p>
+          <input type="text" th:field="${book.bookWriter}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>저자소개</p>
+          <input type="text" th:field="${book.bookWriterProfile}" readonly>
+        </div>
+        <br>
+
+        <div class="add_input_wrap">
+          <p>출판사</p>
+          <input type="text" th:field="${book.bookPub}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>서점명</p>
+          <input type="text" th:field="${book.store.storeTitle}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>독립서점 리뷰</p>
+          <input type="text" th:field="${book.bookReview}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>책 파일</p>
+          <input type="text" th:field="${book.bookFile}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>전자도서 판매가</p>
+          <input type="text" th:field="${book.bookEbookPrice}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>일반도서 판매가</p>
+          <input type="text" th:field="${book.bookPaperPrice}" readonly>
+        </div>
+
+        <br>
+        <div class="add_input_wrap">
+          <p>수정일</p>
+          <input type="text" th:field="${book.lastModifiedDate}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>등록일</p>
+          <input type="text" th:field="${book.createDate}" readonly>
+        </div>
+      </div>
+
+    </div>
+  </th:block>
+</th:block>
 </body>
 </html>

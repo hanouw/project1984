@@ -12,25 +12,27 @@ import java.time.LocalDateTime;
 public class Book extends TimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long isbn;
+    private Long bookId;
+
+    @Column(nullable = false)
+    private String isbn;
     @Column(nullable = false)
     private String bookImg;
+
     @Column(nullable = false)
     private String bookFile;
+
     @Column(nullable = false)
     private String bookTitle;
     @Column(nullable = false)
     private String bookWriter;
 
-//    @Column(nullable = false)
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "store_id")
-//    private Store store;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @Column(nullable = false)
     private String bookPub;
-    @Column(nullable = false)
-    private String bookPubDate;
     @Column
     private String bookPaperPrice;
     @Column(nullable = false)
@@ -53,6 +55,4 @@ public class Book extends TimeEntity{
     @Column(nullable = false)
     private BookStatus bookStatus;
 
-    @Column(updatable = false)
-    private LocalDateTime regDate;
 }
