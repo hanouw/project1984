@@ -12,15 +12,10 @@
                         <form method="get">
                             <button class="grey_btn" type="button" id="memberList" onclick="toList()">목록</button>
 
-                            <button class="black_btn" type="button" th:href="@{/user/detail/{id}(id=${memberDTO.userNo})}">수정</button>
-                            <button class="black_btn" th:href="@{/user/detail/{id}(id=${memberDTO.userNo})}">수정</button>
+                            <button class="black_btn" type="button" th:href="@{/cms/userDetail/{id}(id=${memberDTO.userNo})/modify}">수정</button>
+                            <button class="black_btn" th:href="@{/cms/userDetail/modify/{id}(id=${memberDTO.userNo})}">수정</button>
 
-
-
-                            <button class="black_btn" type="submit" th:text="${memberDTO.userNo}" th:onclick="|location.href='@{/userDetail/' + ${memberDTO.userNo} + '/modify}'|">수정</button>
-                            <button class="black_btn" type="submit" th:onclick="toModify(${memberDTO.userNo})">수정</button>
-                            <button class="black_btn" type="submit" onclick="toModify(${userNo})">수정</button>
-                            <button class="black_btn" type="submit" th:onclick="|location.href = '@{/userDetail/{memberDTO.userNo}/modify}'|">수정</button>
+                            <button class="black_btn" type="submit" th:text="${memberDTO.userNo}" th:onclick="|location.href='@{/cms/userDetail/modify' + ${memberDTO.userNo} + '}'|">수정</button>
                         </form>
                     </div>
                 </div>

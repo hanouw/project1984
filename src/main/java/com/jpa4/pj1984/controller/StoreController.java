@@ -28,7 +28,7 @@ import java.util.Map;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/store")
+@RequestMapping("/cms/store")
 public class StoreController {
 
     @Value("${file.dir}")
