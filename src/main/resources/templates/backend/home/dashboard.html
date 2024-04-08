@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+  <th:block th:fragment="content">
+    <div class="search_bar_wrap">
+        <h1>대시보드</h1>
+    </div>
+  </th:block>
+</th:block>
+</body>
+</html>

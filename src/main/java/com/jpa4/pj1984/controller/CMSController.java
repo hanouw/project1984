@@ -74,7 +74,7 @@ public class CMSController {
         return "backend/member/memberDetail";
     }
 
-    @GetMapping("/userDetail/modify/{userNo}")
+    @GetMapping("/userDetail/{userNo}/modify")
     public String userModify(@PathVariable Long userNo, Model model){
         log.info("******* CMSController /userDetail/userNo/modify = {}", userNo);
         MemberDTO memberDTO = memberService.findMemberById(userNo);
