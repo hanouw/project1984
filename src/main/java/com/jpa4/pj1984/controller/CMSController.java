@@ -1,16 +1,13 @@
 package com.jpa4.pj1984.controller;
 
-import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.service.CmsService;
 import com.jpa4.pj1984.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -71,29 +68,42 @@ public class CMSController {
     }
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
-    @GetMapping("/orderList")
+    @GetMapping("/order/bookList")
     public String orderList(Model model
             , PageRequestDTO pageRequestDTO
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
-        log.info("----CmsService pageRequestDTO : {}", pageRequestDTO);
-        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
-        Long garaId = 1L;
+        log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
         if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
             pageRequestDTO.setDateOrder("desc");
         }
+//        if (pageRequestDTO.getStartDateSelected() == null || pageRequestDTO.getEndDateSelected() == null) {
+//            pageRequestDTO.setStartDateSelected("2000-01-01");
+//            pageRequestDTO.setEndDateSelected("2100-01-01");
+//        }
+        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
+        Long garaId = 1L;
         List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
         Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
         PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
         model.addAttribute("pageResponseDTO", pageResponseDTO);
-        log.info("**************CmsControlle orderList:{}", orderList);
-        return "backend/order/list";
+        log.info("**************CmsController orderList:{}", orderList);
+        return "backend/order/bookList";
     }
 
-    @GetMapping("/orderList/ajax")
+    // ajax 주문관리 - 주문 목록 조회 판매자 ver
+    @GetMapping("/order/bookList/ajax")
     public ResponseEntity<PageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
-        log.info("----CmsService orderListAjax pageRequestDTO : {}", pageRequestDTO);
+        log.info("----CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
+        if (pageRequestDTO.getKeyword() == "") {
+            pageRequestDTO.setKeyword(null);
+            log.info("***************** CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
+        }
+        if (pageRequestDTO.getSearchType() == "") {
+            pageRequestDTO.setSearchType(null);
+            log.info("***************** CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
+        }
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1L;
         if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {

@@ -9,22 +9,37 @@
                     <h2>주문관리</h2>
                 </div>
                 <div class="item">
-                    <button id="todayBtn" class="grey_btn dateBtn" th:value="today">오늘</button>
-                    <button id="oneWeekBtn" class="grey_btn dateBtn" th:value="oneWeek">일주일</button>
-                    <button id="oneMonthBtn" class="grey_btn dateBtn" th:value="oneMonth">한달</button>
-                    <input type="date" />
-                    <input type="date" />
-                    <button class="black_btn">조회</button>
+                    <span><button id="todayBtn" class="grey_btn dateBtn" th:value="today">오늘</button></span>
+                    <span><button id="oneWeekBtn" class="grey_btn dateBtn" th:value="oneWeek">일주일</button></span>
+                    <span><button id="oneMonthBtn" class="grey_btn dateBtn" th:value="oneMonth">한달</button></span>
+                    <form th:action="@{/cms/order/bookList}" method="get" style="display: inline-block;">
+                        <input type="hidden" name="startDateSelected" th:if="${pageResponseDTO.pageRequestDTO.startDateSelected != null}"
+                               th:value="${pageResponseDTO.pageRequestDTO.startDateSelected}"/>
+                        <input type="hidden" name="endDateSelected" th:if="${pageResponseDTO.pageRequestDTO.endDateSelected != null}"
+                               th:value="${pageResponseDTO.pageRequestDTO.endDateSelected}"/>
+                        <input type="hidden" name="page" th:value="${pageResponseDTO.pageRequestDTO.page}"/>
+                        <input type="hidden" name="size" th:value="${pageResponseDTO.pageRequestDTO.size}"/>
+                        <input type="date" name="startDateSelected"
+                               th:value="${pageResponseDTO.pageRequestDTO.startDateSelected}"/>
+                        <input type="date" name="endDateSelected"
+                               th:value="${pageResponseDTO.pageRequestDTO.endDateSelected}"/>
+                        <button class="black_btn" type="submit" >조회</button>
+                    </form>
                 </div>
             </div>
             <hr />
             <div class="search_text_wrap">
-                <form th:action="@{/cms/orderList}" method="get">
+                <form th:action="@{/cms/order/bookList}" method="get">
                     <div class="item">
+                        <input type="hidden" name="startDateSelected" th:if="${pageResponseDTO.pageRequestDTO.startDateSelected != null}"
+                               th:value="${pageResponseDTO.pageRequestDTO.startDateSelected}"/>
+                        <input type="hidden" name="endDateSelected" th:if="${pageResponseDTO.pageRequestDTO.endDateSelected != null}"
+                               th:value="${pageResponseDTO.pageRequestDTO.endDateSelected}"/>
                         <input type="hidden" name="page" th:value="${pageResponseDTO.pageRequestDTO.page}"/>
                         <input type="hidden" name="size" th:value="${pageResponseDTO.pageRequestDTO.size}"/>
                         <select name="searchType" id="searchType" >
-                            <option value="all" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'all'}">전체</option>
+<!--                            <option value="all" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'all'}">전체</option>-->
+                            <option value="" th:selected="${pageResponseDTO.pageRequestDTO.searchType == null}">----</option>
                             <option value="orderNo" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'orderNo'}">No</option>
                             <option value="userId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userId'}">회원ID</option>
                             <option value="userName" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userName'}">회원명</option>
@@ -91,7 +106,7 @@
             console.log(dateOrderSelected);
             $.ajax({
                 type: "GET",
-                url: "/cms/orderList/ajax",
+                url: "/cms/order/bookList/ajax",
                 data: {
                     dateOrder: dateOrderSelected,
                     keyword: keyword,
@@ -114,11 +129,12 @@
             console.log(datePeriodSelected);
             $.ajax({
                 type: "GET",
-                url: "/cms/orderList/ajax",
+                url: "/cms/order/bookList/ajax",
                 data: {
                     dateOrder: dateOrderSelected,
                     keyword: keyword,
-                    searchType: searchType
+                    searchType: searchType,
+                    datePeriod: datePeriodSelected
                 },
                 success: function(response){
                     console.log("요청 성공");

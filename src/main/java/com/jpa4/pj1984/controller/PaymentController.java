@@ -1,8 +1,8 @@
 package com.jpa4.pj1984.controller;
 
 
-import com.jpa4.pj1984.dto.PaymentDTO;
-import com.jpa4.pj1984.service.PaymentService;
+import com.jpa4.pj1984.dto.PaymentBookDTO;
+import com.jpa4.pj1984.service.PaymentBookService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class PaymentController {
 
-    private final PaymentService paymentService;
+    private final PaymentBookService paymentBookService;
 
     @Value("${iamport.key}")
     private String restApiKey;
@@ -37,11 +37,11 @@ public class PaymentController {
 
     // 책 주문 처리 요청
     @PostMapping("/book")
-    public ResponseEntity<String> paymentComplete(@RequestBody PaymentDTO paymentDTO// @AuthenticationPrincipal CustomMember customMember
+    public ResponseEntity<String> paymentComplete(@RequestBody PaymentBookDTO paymentBookDTO// @AuthenticationPrincipal CustomMember customMember
     ) throws IOException {
 
-        Long userNo = paymentDTO.getUserNo(); // 추후 수정
-        paymentService.saveOrder(userNo, paymentDTO);
+        Long userNo = paymentBookDTO.getUserNo(); // 추후 수정
+        paymentBookService.saveOrder(userNo, paymentBookDTO);
         // log.info("결제 성공 : 주문 번호 {}", orderNumber);
         return ResponseEntity.ok().build();
         }

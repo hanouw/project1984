@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @Slf4j
-public class PaymentServiceTest {
+public class PaymentBookServiceTest {
 
     @Autowired
     private MemberService memberService;

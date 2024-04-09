@@ -10,16 +10,17 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class PaymentBookHistory extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_book_history_id")
     private Long orderBookHistoryId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "isbn")
+    @JoinColumn(name = "book_id")
     private Book book;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_book_id")
-    private Payment payment;
+    @JoinColumn(name = "order_book_no")
+    private PaymentBook paymentBook;
 
-    public void setPayment(Payment payment){
-        this.payment = payment;
-        this.payment.getOrderBookHistories().add(this);
+    public void setPaymentBook(PaymentBook paymentBook){
+        this.paymentBook = paymentBook;
+        this.paymentBook.getOrderBookHistories().add(this);
     }
 }
