@@ -24,7 +24,7 @@
         </div>
         <div class="add_input_wrap">
           <p>리뷰내용</p>
-          <textarea th:text="${bookReview.review}" readonly></textarea>
+          <textarea th:text="${bookReview.bookReviewDetail}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>수정일</p>
@@ -36,10 +36,10 @@
         </div>
         <div class="add_checkbox_wrap">
           <p>활성화</p>
-          <input name="status" th:name="bookReviewStatus" value="STORE" type="radio"
-                 th:checked="${bookReview.bookReviewStatus == T(com.jpa4.pj1984.domain.bookReviewStatus).STORE}" disabled>활성화
-          <input name="status" th:name="bookReviewStatus" value="QUIT" type="radio"
-                 th:checked="${bookReview.bookReviewStatus == T(com.jpa4.pj1984.domain.bookReviewStatus).QUIT}" disabled>비활성화
+          <input name="status" th:name="bookReviewStatus" value="ON" type="radio"
+                 th:checked="${bookReview.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).ON}" disabled>활성화
+          <input name="status" th:name="bookReviewStatus" value="OFF" type="radio"
+                 th:checked="${bookReview.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).OFF}" disabled>비활성화
         </div>
       </div>
     </div>

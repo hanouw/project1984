@@ -39,7 +39,7 @@ public class BookReviewController {
         BookReviewDTO bookReview = new BookReviewDTO(bookReviewService.getOneBookReview(bookReviewId));
 
         log.info("******* BookReviewController detail - bookReview : {}", bookReview);
-        model.addAttribute("storeReview", bookReview);
+        model.addAttribute("bookReview", bookReview);
         return "backend/bookReview/detail";
     }
 }

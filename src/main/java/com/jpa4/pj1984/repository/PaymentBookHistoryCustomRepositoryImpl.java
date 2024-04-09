@@ -177,8 +177,8 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
             case "userName" :
                 s += ".paymentBook.member.userName";
                 break;
-            case "isbn" :
-                s += ".book.isbn";
+            case "bookId" :
+                s += ".book.bookId";
                 break;
             case "bookTitle" :
                 s += ".book.bookTitle";

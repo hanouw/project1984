@@ -14,8 +14,8 @@
 
 <form id="orderForm" th:action="@{/order}" method="post">
   <div th:each="book : ${selectedBooks}">
-    <input type="checkbox" class="selectedBookCheckbox" name="selectedBook" th:value="${book.isbn}">
-    <input type="hidden" name="isbn" th:value="${book.isbn}">
+    <input type="checkbox" class="selectedBookCheckbox" name="selectedBook" th:value="${book.bookId}">
+    <input type="hidden" name="bookId" th:value="${book.bookId}">
     <label th:text="${book.bookTitle}"></label>
     <label th:text="${book.bookEbookPrice}"></label>
     <br>

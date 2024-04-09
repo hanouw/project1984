@@ -69,7 +69,7 @@ public class CmsService {
             paymentResponseDTO.setOrderBookId(orderList.getPaymentBook().getOrderBookId());
             paymentResponseDTO.setUserId(orderList.getPaymentBook().getMember().getUserId());
             paymentResponseDTO.setUserName(orderList.getPaymentBook().getMember().getUserName());
-            paymentResponseDTO.setIsbn(orderList.getBook().getBookId());
+            paymentResponseDTO.setBookId(orderList.getBook().getBookId());
             paymentResponseDTO.setBookTitle(orderList.getBook().getBookTitle());
             //paymentResponseDTO.setStoreTitle(orderList.getBook().getS);
             paymentResponseDTO.setPaymentBookStatus(orderList.getPaymentBook().getPaymentBookStatus());

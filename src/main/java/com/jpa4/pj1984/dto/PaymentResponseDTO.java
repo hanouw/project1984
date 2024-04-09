@@ -17,7 +17,7 @@ public class PaymentResponseDTO {
     private Long orderBookId; // 2024040300000
     private String userId;
     private String userName;
-    private Long isbn;
+    private Long bookId;
     private String bookTitle;
     private String storeTitle;
     private PaymentBookStatus paymentBookStatus;

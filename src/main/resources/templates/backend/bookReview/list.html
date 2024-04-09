@@ -47,13 +47,13 @@
               <th>등록일</th>
             </tr>
             <tr th:each="bookReviewList : ${bookReviewList}">
-              <td th:text="${bookReviewList.storeReviewId}"></td>
+              <td th:text="${bookReviewList.bookReviewId}"></td>
               <td th:text="${bookReviewList.member.userId}"></td>
               <td th:text="${bookReviewList.member.userName}"></td>
-              <td th:text="${bookReviewList.storeReviewDetail}"></td>
+              <td th:text="${bookReviewList.bookReviewDetail}"></td>
               <td>
-                <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.bookReviewStatus).ON}">활성화</span>
-                <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.bookReviewStatus).OFF}">비활성화</span>
+                <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).ON}">활성화</span>
+                <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).OFF}">비활성화</span>
               </td>
               <td th:text="${#temporals.format(bookReviewList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
               <td th:text="${#temporals.format(bookReviewList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
