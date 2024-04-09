@@ -35,8 +35,9 @@
             <option value="">최신순</option>
             <option value="">이전순</option>
           </select>
-          <button type="button" class="black_btn" onclick="bookCategory()">카테고리관리</button>
-          <button type="button" class="black_btn" onclick="bookAdd()">추가</button>
+          <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/bookCategory/list}'|">카테고리관리</button>
+          <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/book/add}'|">추가</button>
+
         </div>
       </div>
       <div class="list_table_wrap">
@@ -71,12 +72,6 @@
   </th:block>
 </th:block>
 <script>
-  const bookCategory = () => {
-      location.href = "/cms/bookCategory"
-  }
-  const bookAdd = () => {
-      location.href = "/cms/book/add"
-  }
 </script>
 </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+            <div class="search_date_wrap">
+                <div class="item">
+                    <h2>문의관리</h2>
+                </div>
+                <div class="item">
+                    <button type="button" class="grey_btn">오늘</button>
+                    <button type="button" class="grey_btn">일주일</button>
+                    <button type="button" class="grey_btn">한달</button>
+                    <input type="date" />
+                    <input type="date" />
+                    <button type="button" class="black_btn">조회</button>
+                </div>
+            </div>
+            <hr />
+            <div class="search_text_wrap">
+                <div class="item">
+                    <select name="" id="">
+                        <option value="">전체</option>
+                    </select>
+                    <input type="text" />
+                    <button type="button" class="black_btn">검색</button>
+                </div>
+                <div class="item">
+                    <select name="" id="">
+                        <option value="">최신순</option>
+                        <option value="">이전순</option>
+                    </select>
+                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/}'|">카테고리관리</button>
+                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/}'|">추가</button>
+
+                </div>
+            </div>
+            <div class="list_table_wrap">
+                <table class="list_table">
+                    <tr>
+                        <th>NO</th>
+                        <th>항목</th>
+                        <th>수정일</th>
+                        <th>등록일</th>
+                    </tr>
+                    <tr>
+                        <th>NO</th>
+                        <th>항목</th>
+                        <th>수정일</th>
+                        <th>등록일</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+<script>
+</script>
+</body>
+</html>

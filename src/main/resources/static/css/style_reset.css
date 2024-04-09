@@ -91,5 +91,5 @@ textarea{
 }
 textarea:read-only{
     background-color: #fafafa;
-    border: 1px solid var(—maingr00);
+    border: 1px solid var(--maingr00);
 }

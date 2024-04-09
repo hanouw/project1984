@@ -36,7 +36,7 @@
             <p>도서표지</p>
             <div id="drop_zone" class="drag_img_form">
               <img id="image-preview" alt="">
-              <button type="button" class="img_delete_btn"></button>
+              <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
             </div>
             <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
 
@@ -87,7 +87,7 @@
           <br>
           <div class="add_input_wrap">
             <p>책파일</p>
-            <input type="file" th:field="*{bookFile}" placeholder="*PDF 파일만 첨부가 가능합니다.">
+            <input type="text" th:field="*{bookFile}" placeholder="*PDF 파일만 첨부가 가능합니다." class="text_drag">
           </div>
           <div class="add_input_wrap">
             <p>전자도서 판매가</p>
@@ -122,13 +122,19 @@
   ['dragenter', 'dragover'].forEach(eventName => {
     document.getElementById('drop_zone').addEventListener(eventName, highlight, false)
   });
-
-  ['dragleave', 'drop'].forEach(eventName => {
+  ['dropleave'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, highlightlv, false)
+  });
+  ['drop'].forEach(eventName => {
     document.getElementById('drop_zone').addEventListener(eventName, unhighlight, false)
   });
 
   function highlight(e) {
-    document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
+    document.getElementById('drop_zone').style.backgroundColor = '#fafafa';
+  }
+
+  function highlightlv(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
   }
 
   function unhighlight(e) {
@@ -157,12 +163,99 @@
     reader.onloadend = function() {
       let img = document.getElementById('image-preview');
       let deleteBtn = document.querySelector('.img_delete_btn');
+      let dropZone = document.getElementById('drop_zone');
       img.src = reader.result;
       deleteBtn.style.display = 'block';
+<!--      dropZone.style.backgroundImage = 'url()';-->
     }
     reader.readAsDataURL(file);
   }
 
+  function clickdelete(e){
+    // 이미지 삭제 버튼에 클릭 이벤트 리스너 추가
+    document.querySelector('.img_delete_btn').addEventListener('click', function() {
+      // 이미지 미리보기 초기화
+      document.getElementById('image-preview').src = '';
 
+      // 'bookImg' 요소의 값 초기화
+      document.getElementById('bookImg').value = '';
+
+      //버튼 다시 삭제
+      document.querySelector('.img_delete_btn').style.display = 'none';
+
+      // 드래그 배경 색 수정
+      document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
+<!--      let bgImgUrl = "../img/img_drag.png";-->
+<!--      let dropZone = document.getElementById('drop_zone');-->
+<!--      dropZone.style.backgroundImage = "url('" + bgImgUrl + "')";-->
+
+      // 이미지 삭제 버튼 숨기기
+      this.style.display = 'none';
+    });
+  }
+
+
+
+</script>
+<script>
+  function upload() {
+  const imageInput = $("#imageInput")[0];
+  // 파일을 여러개 선택할 수 있으므로 files 라는 객체에 담긴다.
+  console.log("imageInput: ", imageInput.files)
+
+  if(imageInput.files.length === 0){
+    alert("파일은 선택해주세요");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", imageInput.files[0]);
+
+
+  $.ajax({
+    type:"POST",
+    url: "function upload() {
+  const imageInput = $("#imageInput")[0];
+  // 파일을 여러개 선택할 수 있으므로 files 라는 객체에 담긴다.
+  console.log("imageInput: ", imageInput.files)
+
+  if(imageInput.files.length === 0){
+    alert("파일은 선택해주세요");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", imageInput.files[0]);
+
+
+  $.ajax({
+    type:"POST",
+    url: "/Users/hoseonyoo/Documents/hoseon/project1984/project1984/src/main/resources/static/files",
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function(rtn){
+      const message = rtn.data.values[0];
+      console.log("message: ", message)
+      $("#resultUploadPath").text(message.uploadFilePath)
+    },
+    err: function(err){
+      console.log("err:", err)
+    }
+  })
+}",
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function(rtn){
+      const message = rtn.data.values[0];
+      console.log("message: ", message)
+      $("#resultUploadPath").text(message.uploadFilePath)
+    },
+    err: function(err){
+      console.log("err:", err)
+    }
+  })
+}
 </script>
 </html>

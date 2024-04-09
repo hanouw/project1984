@@ -1,79 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <th:block th:fragment="sidemenuFrg">
-        <div class="side_menu item">
-            <a th:href="@{/}">
-                <h1 class="side_logo"></h1>
-            </a>
-            <ul class="menu_wrap">
-                <li class="menu_list">
-                    <a th:href="@{/}">
-                        <span>대시보드</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>주문관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>구독관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a th:href="@{/cms/book}">
-                        <span>상품관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>문의관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>리뷰관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>배너관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>전시관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a th:href="@{/cms/store}">
-                        <span>서점관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>회원관리</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-                <li class="menu_list">
-                    <a href="">
-                        <span>로그아웃</span>
-                        <div class="menu_arrow_icon"></div>
-                    </a>
-                </li>
-            </ul>
-            <span class="signup_copyright">ⓒ 2024. 1984 All rights reserved.</span>
-        </div>
-    </th:block>
+<th:block th:fragment="sidemenuFrg">
+    <div class="side_menu item">
+        <a th:href="@{/}">
+            <h1 class="side_logo"></h1>
+        </a>
+        <ul class="menu_wrap">
+            <li class="menu_list">
+                <a th:href="@{/}">
+                    <span>대시보드</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/orders/list}">
+                    <span>주문관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/ordermembership/list}">
+                    <span>구독관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/book/list}">
+                    <span>상품관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/inquiry/list}">
+                    <span>문의관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/review/list}">
+                    <span>리뷰관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/banner/list}">
+                    <span>배너관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/display/list}">
+                    <span>전시관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/store/list}">
+                    <span>서점관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <a th:href="@{/cms/userList}">
+                    <span>회원관리</span>
+                    <div class="menu_arrow_icon"></div>
+                </a>
+            </li>
+            <li class="menu_list">
+                <form th:action="@{/cms/logout}" method="post">
+                    <button class="btn_login" type="submit">로그아웃</button>
+                </form>
+            </li>
+        </ul>
+        <span class="signup_copyright">ⓒ 2024. 1984 All rights reserved.</span>
+    </div>
+</th:block>
 </html>

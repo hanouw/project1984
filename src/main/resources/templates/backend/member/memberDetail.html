@@ -9,22 +9,11 @@
                         <h2>회원상세</h2>
                     </div>
                     <div class="item">
-                        <form method="get">
-                            <button class="grey_btn" type="button" id="memberList" onclick="toList()">목록</button>
-
-                            <button class="black_btn" type="button" th:href="@{/user/detail/{id}(id=${memberDTO.userNo})}">수정</button>
-                            <button class="black_btn" th:href="@{/user/detail/{id}(id=${memberDTO.userNo})}">수정</button>
-
-
-
-                            <button class="black_btn" type="submit" th:text="${memberDTO.userNo}" th:onclick="|location.href='@{/userDetail/' + ${memberDTO.userNo} + '/modify}'|">수정</button>
-                            <button class="black_btn" type="submit" th:onclick="toModify(${memberDTO.userNo})">수정</button>
-                            <button class="black_btn" type="submit" onclick="toModify(${userNo})">수정</button>
-                            <button class="black_btn" type="submit" th:onclick="|location.href = '@{/userDetail/{memberDTO.userNo}/modify}'|">수정</button>
-                        </form>
+                        <button class="grey_btn" type="button" id="memberList" onclick="toList()">목록</button>
+                        <button class="black_btn" type="button" th:onclick="|location.href='@{/cms/userDetail/{id}/modify(id=${memberForm.userNo})}'|">수정</button>
                     </div>
                 </div>
-                <div class="add_form_wrap" th:object="${memberDTO}">
+                <div class="add_form_wrap" th:object="${memberForm}">
                     <div class="add_input_wrap">
                         <p>아이디</p>
                         <input type="text" id="userId" th:field="*{userId}" readonly>
@@ -51,11 +40,11 @@
                     </div>
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>
-                        <input id="on_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_USER'}" onclick="return false">
+                        <input id="on_status" type="radio" th:checked="${memberForm.userStatus.getValue() == 'STATUS_USER'}" onclick="return false">
                         <label for="on_status" >일반회원</label>
-                        <input id="off_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_BANNED'}" onclick="return false">
+                        <input id="off_status" type="radio" th:checked="${memberForm.userStatus.getValue() == 'STATUS_BANNED'}" onclick="return false">
                         <label for="off_status">정지</label>
-                        <input id="quit_status" type="checkbox" th:checked="${memberDTO.userStatus.getValue() == 'STATUS_QUIT'}" onclick="return false">
+                        <input id="quit_status" type="radio" th:checked="${memberForm.userStatus.getValue() == 'STATUS_QUIT'}" onclick="return false">
                         <label for="quit_status">탈퇴</label>
                     </div>
                 </div>
@@ -66,13 +55,6 @@
         // 목록으로 돌아가기
         const toList = () =>{
             location.href = "/cms/userList"
-        }
-
-        // modify 으로 넘어가기
-        function toModify(userNo){
-            console.log(userNo)
-            location.href="/userDetail/" + userNo + "/modify"
-
         }
     </script>
     </body>
