@@ -12,7 +12,7 @@ public class PaymentBookHistory extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderBookHistoryId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "isbn")
+    @JoinColumn(name = "book_id")
     private Book book;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_book_id")

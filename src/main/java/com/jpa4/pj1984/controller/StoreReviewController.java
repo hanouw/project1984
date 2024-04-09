@@ -23,7 +23,7 @@ public class StoreReviewController {
     // 서점댓글 목록 조회 요청
     @GetMapping("/list")
     public String List(Model model) {
-        log.info("******* StoreController list");
+        log.info("******* StoreReviewController list");
         //DB에서 전체 게시글 데이터를 가져와서 List에 담아서 list.html로 전달
         List<StoreReviewDTO> storeReviewList = storeReviewService.findAll();
         model.addAttribute("storeReviewList", storeReviewList);
