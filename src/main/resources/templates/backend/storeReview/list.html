@@ -7,7 +7,7 @@
       <form action="post">
         <div class="search_date_wrap">
           <div class="item">
-            <h2>서점관리</h2>
+            <h2>서점리뷰관리</h2>
           </div>
           <div class="item">
             <button id="todayBtn" class="grey_btn">오늘</button>
@@ -39,32 +39,24 @@
           <table class="list_table">
             <tr>
               <th>NO</th>
-              <th>서점ID</th>
-              <th>서점명</th>
-              <th>대표자명</th>
-              <th>연락처</th>
-              <th>주소</th>
-              <th>사업자등록번호</th>
+              <th>회원ID</th>
+              <th>회원명</th>
+              <th>리뷰내용</th>
               <th>활성화</th>
               <th>수정일</th>
               <th>등록일</th>
             </tr>
-            <!--            <tr th:each="bookCategoryList : ${bookCategoryList}">-->
-            <tr th:each="storeList : ${storeList}">
-              <!--              NO	서점ID	서점명	대표자명	연락처	주소	사업자등록번호	활성화	수정일	등록일-->
-              <!--th:href="@{/store/{storeId}"-->
-              <td th:text="${storeList.storeId}"></td>
-              <td><a th:text="${storeList.storeLoginId}"
-                     th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
-              <td><a th:text="${storeList.storeTitle}" th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a>
+            <tr th:each="storeReviewList : ${storeReviewList}">
+              <td th:text="${storeReviewList.storeReviewId}"></td>
+              <td th:text="${storeReviewList.member.userId}"></td>
+              <td th:text="${storeReviewList.member.userName}"></td>
+              <td th:text="${storeReviewList.storeReviewDetail}"></td>
+              <td>
+              <span th:if="${storeReviewList.storeReviewStatus == T(com.jpa4.pj1984.domain.StoreReviewStatus).ON}">활성화</span>
+              <span th:if="${storeReviewList.storeReviewStatus == T(com.jpa4.pj1984.domain.StoreReviewStatus).OFF}">비활성화</span>
               </td>
-              <td th:text="${storeList.storeOwner}"></td>
-              <td th:text="${storeList.storePhoneNum}"></td>
-              <td th:text="${storeList.storeAddress}"></td>
-              <td th:text="${storeList.storeCrn}"></td>
-              <td th:text="${storeList.storeStatus}"></td>
-              <td th:text="${#temporals.format(storeList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
-              <td th:text="${#temporals.format(storeList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+              <td th:text="${#temporals.format(storeReviewList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
+              <td th:text="${#temporals.format(storeReviewList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
           </table>
         </div>

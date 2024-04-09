@@ -7,15 +7,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class BookReview {
+public class BookReview extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long bookReviewId;
-    @Column(nullable = false, unique = true, length = 50)
-    private String userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userNo")
+    private Member member;
     @Column(nullable = false, unique = true, length = 100)
-    private String bookReview;
+    private String bookReviewDetail;
     @Column(nullable = false, length = 200)
     private Long bookReviewPosition;
     @Enumerated(EnumType.STRING)

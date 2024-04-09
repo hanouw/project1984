@@ -1,13 +1,13 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.dto.PaymentDTO;
-import com.jpa4.pj1984.domain.Payment;
+import com.jpa4.pj1984.dto.PaymentBookDTO;
+import com.jpa4.pj1984.domain.PaymentBook;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.PaymentBookStatus;
 import com.jpa4.pj1984.repository.BookRepository;
 import com.jpa4.pj1984.repository.MemberRepository;
 import com.jpa4.pj1984.repository.PaymentBookHistoryRepository;
-import com.jpa4.pj1984.repository.PaymentRepository;
+import com.jpa4.pj1984.repository.PaymentBookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,30 +21,30 @@ import java.util.List;
 @Transactional
 @Slf4j
 @RequiredArgsConstructor
-public class PaymentService {
+public class PaymentBookService {
 
-    private final PaymentRepository paymentRepository;
+    private final PaymentBookRepository paymentBookRepository;
     private final MemberRepository memberRepository;
     private final BookRepository bookRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
 
     // 책 주문 등록
-    public void saveOrder(Long userNo, PaymentDTO paymentDTO) {
+    public void saveOrder(Long userNo, PaymentBookDTO paymentBookDTO) {
 
-        Payment order = new Payment();
-        order.setOrderBookId(paymentDTO.getOrderBookId());
+        PaymentBook order = new PaymentBook();
+        order.setOrderBookId(paymentBookDTO.getOrderBookId());
         order.setMember(memberRepository.findByUserId("")); // 추후 수정 필요
-        order.setOrderBookMethod(paymentDTO.getOrderBookMethod());
+        order.setOrderBookMethod(paymentBookDTO.getOrderBookMethod());
         order.setPaymentBookStatus(PaymentBookStatus.COMPLETE);
-        paymentRepository.save(order);
+        paymentBookRepository.save(order);
 
         // 책 주문 내역 등록
         List<PaymentBookHistory> histories = new ArrayList<>();
-        for (String bookList : paymentDTO.getSelectedBooks()) {
+        for (String bookList : paymentBookDTO.getSelectedBooks()) {
             PaymentBookHistory history = new PaymentBookHistory();
-            long isbn = Long.parseLong(bookList);
-            history.setPayment(paymentRepository.findById(isbn).orElse(null));
-            history.setBook(bookRepository.findById(isbn).orElse(null));
+            long bookId = Long.parseLong(bookList);
+            history.setPaymentBook(paymentBookRepository.findById(bookId).orElse(null));
+            history.setBook(bookRepository.findById(bookId).orElse(null));
             histories.add(history);
             paymentBookHistoryRepository.save(history);
         }

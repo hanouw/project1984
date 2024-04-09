@@ -1,27 +1,22 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.domain.Payment;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class CmsService {
 
     private final CmsRepository cmsRepository;
@@ -70,16 +65,16 @@ public class CmsService {
         List<PaymentResponseDTO> list = new ArrayList<>();
         for (PaymentBookHistory orderList : historyEntityList) {
             PaymentResponseDTO paymentResponseDTO = new PaymentResponseDTO();
-            paymentResponseDTO.setOrderBookNo(orderList.getPayment().getOrderBookNo());
-            paymentResponseDTO.setOrderBookId(orderList.getPayment().getOrderBookId());
-            paymentResponseDTO.setUserId(orderList.getPayment().getMember().getUserId());
-            paymentResponseDTO.setUserName(orderList.getPayment().getMember().getUserName());
+            paymentResponseDTO.setOrderBookNo(orderList.getPaymentBook().getOrderBookNo());
+            paymentResponseDTO.setOrderBookId(orderList.getPaymentBook().getOrderBookId());
+            paymentResponseDTO.setUserId(orderList.getPaymentBook().getMember().getUserId());
+            paymentResponseDTO.setUserName(orderList.getPaymentBook().getMember().getUserName());
             paymentResponseDTO.setIsbn(orderList.getBook().getBookId());
             paymentResponseDTO.setBookTitle(orderList.getBook().getBookTitle());
             //paymentResponseDTO.setStoreTitle(orderList.getBook().getS);
-            paymentResponseDTO.setPaymentBookStatus(orderList.getPayment().getPaymentBookStatus());
-            paymentResponseDTO.setOrderBookMethod(orderList.getPayment().getOrderBookMethod());
-            paymentResponseDTO.setCreateDate(orderList.getPayment().getCreateDate());
+            paymentResponseDTO.setPaymentBookStatus(orderList.getPaymentBook().getPaymentBookStatus());
+            paymentResponseDTO.setOrderBookMethod(orderList.getPaymentBook().getOrderBookMethod());
+            paymentResponseDTO.setCreateDate(orderList.getPaymentBook().getCreateDate());
             paymentResponseDTO.setBookPub(orderList.getBook().getBookPub());
             paymentResponseDTO.setBookEbookPrice(orderList.getBook().getBookEbookPrice());
             paymentResponseDTO.setCreateDate(orderList.getCreateDate());

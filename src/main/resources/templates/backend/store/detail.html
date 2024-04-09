@@ -10,15 +10,18 @@
         </div>
         <div class="item">
           <!-- 버튼에 주소 걸어주기 -->
-          <button th:onclick="|location.href='@{/store/list}'|" class="grey_btn">목록</button>
-          <button th:onclick="|location.href='@{/store/{id}/modify(id=${store.storeId})}'|" class="black_btn">수정</button>
+          <button th:onclick="|location.href='@{/cms/store/list}'|" class="grey_btn">목록</button>
+          <button th:onclick="|location.href='@{/cms/store/{id}/modify(id=${store.storeId})}'|" class="black_btn">수정
+          </button>
         </div>
       </div>
       <div class="add_form_wrap">
         <div class="add_input_wrap">
-          <p>서점 썸네일 </p>
-          <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored()}|"/> <br/>
-          <input type="text" th:value="${store.getStoreImageOrigin()}" readonly>
+            <p>서점 썸네일 </p>
+          <div class="store_img_form">
+            <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored()}|"/> <br/>
+          </div>
+            <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin()}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>서점명</p>
@@ -38,15 +41,21 @@
         </div>
         <div class="add_input_wrap">
           <p>서점 이미지</p>
-          <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored01()}|"/> <br/>
-          <input type="text" th:value="${store.getStoreImageOrigin01()}" readonly>
+          <div class="store_img_form">
+          <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored01()}|"/> <br/>
+          </div>
+          <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin01()}" readonly>
         </div>
         <div class="add_input_wrap">
-          <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored02()}|"/> <br/>
-          <input type="text" th:value="${store.getStoreImageOrigin02()}" readonly></div>
+          <div class="store_img_form">
+          <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored02()}|"/> <br/>
+          </div>
+          <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin02()}" readonly></div>
         <div class="add_input_wrap">
-          <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored03()}|"/> <br/>
-          <input type="text" th:value="${store.getStoreImageOrigin03()}" readonly>
+          <div class="store_img_form">
+          <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored03()}|"/> <br/>
+          </div>
+          <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin03()}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>1984의 서점리뷰</p>
@@ -75,6 +84,7 @@
         <div class="add_input_wrap">
           <p>계좌번호</p>
           <select th:value="${store.storeBankName}" disabled>
+            <option value="placeholder" th:selected>은행명</option>
             <option th:each="bank : ${bankList}" th:value="${bank}" th:text="${bank}"
                     th:selected="${bank == store.storeBankName}"></option>
           </select>
