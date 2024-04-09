@@ -17,10 +17,12 @@ public class Book extends TimeEntity{
     @Column(nullable = false)
     private String isbn;
     @Column(nullable = false)
-    private String bookImg;
+    private String bookImgOrg;
+    private String bookImgStored;
 
     @Column(nullable = false)
-    private String bookFile;
+    private String bookFileOrg; // 원본 파일명
+    private String bookFileStored;// 저장된 파일명
 
     @Column(nullable = false)
     private String bookTitle;

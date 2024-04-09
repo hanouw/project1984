@@ -3,7 +3,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
-      <form action="" th:action th:object="${bookForm}" method="post" enctype="multipart/form-data">
+      <form action="" class="book_add_form" th:action th:object="${bookForm}" method="post" enctype="multipart/form-data">
         <div class="search_date_wrap">
           <div class="item">
             <h2>상품등록</h2>
@@ -87,7 +87,7 @@
           <br>
           <div class="add_input_wrap">
             <p>책파일</p>
-            <input type="text" th:field="*{bookFile}" placeholder="*PDF 파일만 첨부가 가능합니다." class="text_drag">
+            <input type="file" th:field="*{bookFile}" placeholder="*PDF 파일만 첨부가 가능합니다." class="text_drag">
           </div>
           <div class="add_input_wrap">
             <p>전자도서 판매가</p>
@@ -108,6 +108,8 @@
   </th:block>
 </th:block>
 <script>
+  let fileList = new Array();
+  let files = null;
   // Prevent default drag behaviors
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     document.getElementById('drop_zone').addEventListener(eventName, preventDefaults, false)
@@ -146,7 +148,8 @@
 
   function handleDrop(e) {
     let dt = e.dataTransfer;
-    let files = dt.files;
+    files = dt.files;
+    //fileList.push(files); // 배열에 추가
 
     handleFiles(files);
   }
@@ -191,71 +194,79 @@
 
       // 이미지 삭제 버튼 숨기기
       this.style.display = 'none';
+      console.log(fileList[0][0]);
     });
   }
 
-
-
 </script>
 <script>
-  function upload() {
-  const imageInput = $("#imageInput")[0];
-  // 파일을 여러개 선택할 수 있으므로 files 라는 객체에 담긴다.
-  console.log("imageInput: ", imageInput.files)
+  $(document).ready(function(){
+    $(".book_add_form").on("submit", function(e){
+      e.preventDefault(); // 기본 제출 동작 막기
+      console.log(fileList);
+      // 폼 데이터 만들어 폼태그에 있는 작성값들 모두 담기
+      let formData = new FormData();
 
-  if(imageInput.files.length === 0){
-    alert("파일은 선택해주세요");
-    return;
-  }
+      let isbn = $("#isbn").val();
 
-  const formData = new FormData();
-  formData.append("image", imageInput.files[0]);
+      let bookImg = files[0];
+      let bookFile = $("#bookFile")[0].files[0];
 
+      let bookTitle = $("#bookTitle").val();
+      let bookWriter = $("#bookWriter").val();
+      let store = $("#store").val();
+      let bookPub = $("#bookPub").val();
+      let bookPaperPrice = $("#bookPaperPrice").val();
+      let bookEbookPrice = $("#bookEbookPrice").val();
+      let bookCategory = $("#bookCategory").val();
+      let bookIntro = $("#bookIntro").val();
+      let bookIndex = $("#bookIndex").val();
+      let bookReview = $("#bookReview").val();
+      let bookWriterProfile = $("#bookWriterProfile").val();
+      let bookStatus = document.querySelector('input[name="bookStatus"]:checked').value;
 
-  $.ajax({
-    type:"POST",
-    url: "function upload() {
-  const imageInput = $("#imageInput")[0];
-  // 파일을 여러개 선택할 수 있으므로 files 라는 객체에 담긴다.
-  console.log("imageInput: ", imageInput.files)
+      formData.append("isbn", isbn);
 
-  if(imageInput.files.length === 0){
-    alert("파일은 선택해주세요");
-    return;
-  }
+      formData.append("bookImg", bookImg);
+      formData.append("bookFile", bookFile);
 
-  const formData = new FormData();
-  formData.append("image", imageInput.files[0]);
+      formData.append("bookTitle", bookTitle);
+      formData.append("bookWriter", bookWriter);
+      formData.append("store", store);
+      formData.append("bookPub", bookPub);
+      formData.append("bookPaperPrice", bookPaperPrice);
+      formData.append("bookEbookPrice", bookEbookPrice);
+      formData.append("bookCategory", bookCategory);
+      formData.append("bookIntro", bookIntro);
+      formData.append("bookIndex", bookIndex);
+      formData.append("bookReview", bookReview);
+      formData.append("bookWriterProfile", bookWriterProfile);
+      formData.append("bookStatus", bookStatus);
 
+      console.log(bookFile);
+      console.log(bookImg);
+      console.log(formData);
 
-  $.ajax({
-    type:"POST",
-    url: "/Users/hoseonyoo/Documents/hoseon/project1984/project1984/src/main/resources/static/files",
-    processData: false,
-    contentType: false,
-    data: formData,
-    success: function(rtn){
-      const message = rtn.data.values[0];
-      console.log("message: ", message)
-      $("#resultUploadPath").text(message.uploadFilePath)
-    },
-    err: function(err){
-      console.log("err:", err)
-    }
-  })
-}",
-    processData: false,
-    contentType: false,
-    data: formData,
-    success: function(rtn){
-      const message = rtn.data.values[0];
-      console.log("message: ", message)
-      $("#resultUploadPath").text(message.uploadFilePath)
-    },
-    err: function(err){
-      console.log("err:", err)
-    }
-  })
-}
+      $.ajax({
+        type: "post",
+        url: "/cms/book/add",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result){
+          console.log("성공!");
+              console.log(result);
+              // availResult input태그에 결과 메세지 띄우기
+              $("#availResult").val(result);
+              window.location.href = "/cms/book/list";
+          },
+          error: function(e) {
+              console.log("실패...");
+              console.log(e);
+          }
+      });
+    });
+  });
+
 </script>
 </html>

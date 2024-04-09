@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class BookForm {
     private Long bookId;
     private String isbn;
-    private String bookImg;
+    private MultipartFile bookImg;
     private MultipartFile bookFile;
     private String bookTitle;
     private String bookWriter;
@@ -44,8 +44,10 @@ public class BookForm {
         Book book = new Book();
         book.setBookId(bookId);
         book.setIsbn(isbn);
-        book.setBookImg(bookImg);
-        book.setBookFile(bookFile.getName());
+        book.setBookImgOrg(bookImg.getOriginalFilename());
+        book.setBookImgStored(bookImg.getName());
+        book.setBookFileOrg(bookFile.getOriginalFilename());
+        book.setBookFileStored(bookFile.getName());
         book.setBookTitle(bookTitle);
         book.setBookWriter(bookWriter);
         book.setStore(store);
