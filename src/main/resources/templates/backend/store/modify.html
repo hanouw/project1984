@@ -17,8 +17,10 @@
         <div class="add_form_wrap">
           <div class="add_input_wrap">
             <p>서점 썸네일 </p>
-            <img class="store_img_form" src="" th:src="|/store/images/${store.getStoreImageStored()}|"/> <br/>
-            <input type="text" th:value="${store.getStoreImageOrigin()}" readonly>
+            <div class="store_img_form">
+              <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored()}|"/> <br/>
+            </div>
+            <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin()}" readonly>
             <input type="file" th:name="newStoreImage">
           </div>
           <div class="add_input_wrap">
@@ -39,18 +41,24 @@
           </div>
           <div class="add_input_wrap">
             <p>서점 이미지</p>
-            <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored01()}|"/> <br/>
-            <input type="text" th:value="${store.getStoreImageOrigin01()}" readonly>
+            <div class="store_img_form">
+              <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored01()}|"/> <br/>
+            </div>
+            <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin01()}" readonly>
             <input type="file" th:name="newStoreImage01" th:value="${store.getStoreImageOrigin01()}">
           </div>
           <div class="add_input_wrap">
-            <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored02()}|"/><br/>
-            <input type="text" th:value="${store.getStoreImageOrigin02()}" readonly>
+            <div class="store_img_form">
+              <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored02()}|"/><br/>
+            </div>
+            <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin02()}" readonly>
             <input type="file" th:name="newStoreImage02" th:value="${store.getStoreImageOrigin02()}">
           </div>
           <div class="add_input_wrap">
-            <img class="store_img_form" th:src="|/store/images/${store.getStoreImageStored03()}|"/> <br/>
-            <input type="text" th:value="${store.getStoreImageOrigin03()}" readonly>
+            <div class="store_img_form">
+              <img class="store_img_form" th:if="${imageExists}" th:src="|/cms/store/images/${store.getStoreImageStored03()}|"/> <br/>
+            </div>
+            <input type="text" th:if="${imageExists}" th:value="${store.getStoreImageOrigin03()}" readonly>
             <input type="file" th:name="newStoreImage03" th:value="${store.getStoreImageOrigin03()}">
           </div>
           <div class="add_input_wrap">
