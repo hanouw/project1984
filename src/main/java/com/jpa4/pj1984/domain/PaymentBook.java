@@ -8,14 +8,14 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Payment extends TimeEntity{
+public class PaymentBook extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderBookNo;
 
     @Column(nullable = false)
     private Long orderBookId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "userNo")
     private Member member;
 
@@ -26,7 +26,11 @@ public class Payment extends TimeEntity{
     @Column(nullable = false)
     private PaymentBookStatus paymentBookStatus;
 
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "order_book_history_id")
+//    private List<PaymentBookHistory> orderBookHistories;
+
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_book_history")
+    @JoinColumn(name = "order_book_no") // 외래 키를 PaymentBookHistory의 기본 키로 지정
     private List<PaymentBookHistory> orderBookHistories;
 }

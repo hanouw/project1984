@@ -15,7 +15,7 @@ public class HomeController {
 
     @GetMapping("/orderDetail")
     public String bookOrder() { // 임시
-        return "backend/order/detail";
+        return "bookDetail";
     }
 
     @GetMapping("/")

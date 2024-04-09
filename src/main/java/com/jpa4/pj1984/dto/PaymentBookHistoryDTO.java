@@ -17,6 +17,6 @@ public class PaymentBookHistoryDTO {
     public PaymentBookHistoryDTO(PaymentBookHistory paymentBookHistory) {
         this.orderBookHistoryId = paymentBookHistory.getOrderBookHistoryId();
         this.isbn = paymentBookHistory.getBook().getBookId();
-        this.orderBookId = paymentBookHistory.getPayment().getOrderBookId();
+        this.orderBookId = paymentBookHistory.getPaymentBook().getOrderBookId();
     }
 }
