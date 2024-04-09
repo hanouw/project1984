@@ -60,7 +60,7 @@ public class CMSController {
     @GetMapping("/userList")
     public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
         log.info("******* CMSController userList 호출");
-        List<MemberDTO> allMember = memberService.findAllMember();
+        List<MemberForm> allMember = memberService.findAllMember();
         model.addAttribute("allMember", allMember);
         return "backend/member/memberList";
     }
@@ -69,17 +69,26 @@ public class CMSController {
     @GetMapping("/userDetail/{userNo}")
     public String userDetail(@PathVariable Long userNo, Model model) {
         log.info("******* CMSController /userDetail/userNo = {}", userNo);
-        MemberDTO memberDTO = memberService.findMemberById(userNo);
-        model.addAttribute("memberDTO", memberDTO);
+        MemberForm memberForm = memberService.findMemberById(userNo);
+        model.addAttribute("memberForm", memberForm);
         return "backend/member/memberDetail";
     }
 
+    // 회원 수정 - 페이지 출력
     @GetMapping("/userDetail/{userNo}/modify")
     public String userModify(@PathVariable Long userNo, Model model){
         log.info("******* CMSController /userDetail/userNo/modify = {}", userNo);
-        MemberDTO memberDTO = memberService.findMemberById(userNo);
-        model.addAttribute("memberDTO", memberDTO);
+        MemberForm memberForm = memberService.findMemberById(userNo);
+        model.addAttribute("memberForm", memberForm);
         return "backend/member/memberModify";
+    }
+
+    // 회원 수정 - 수정처리
+    @PostMapping("/userDetail/{userNo}/modify")
+    public String userModifyPro(MemberDTO memberDTO){
+        log.info("*******  CMS Controller / POST / userModifyPro : modify");
+        memberService.modifyMember(memberDTO);
+        return "redirect:/cms/userDetail/{userNo}";
     }
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)

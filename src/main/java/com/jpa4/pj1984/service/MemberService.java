@@ -8,13 +8,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class MemberService {
 
@@ -22,32 +25,55 @@ public class MemberService {
     private final PasswordEncoder PasswordEncoder;
 
     // 회원 등록
-    public Member save(MemberForm memberForm){
-        memberForm.setUserPassword(PasswordEncoder.encode(memberForm.getUserPassword()));
-        Member memberSaved = memberRepository.save(memberForm.toEntity());
+    public Member save(MemberDTO memberDTO){
+        memberDTO.setUserPassword(PasswordEncoder.encode(memberDTO.getUserPassword()));
+        Member memberSaved = memberRepository.save(memberDTO.toEntity());
         return memberSaved;
     }
 
     // 회원 목록 조회하기
-    public List<MemberDTO> findAllMember(){
+    public List<MemberForm> findAllMember(){
         List<Member> memberList = memberRepository.findAll();
-        List<MemberDTO> memberDTOList = new ArrayList<>();
+        List<MemberForm> memberFromList = new ArrayList<>();
         for (Member val : memberList) {
-            memberDTOList.add(new MemberDTO(val));
+            memberFromList.add(new MemberForm(val));
         }
-        return memberDTOList;
+        return memberFromList;
     }
 
     // No로 회원 하나 데이터 찾기
-    public MemberDTO findMemberById(Long userNo){
+    public MemberForm findMemberById(Long userNo){
         Optional<Member> member = memberRepository.findById(userNo);
-        log.info("******* member = {}", member.orElse(null).getUserStatus().getValue());
-        return member.map(MemberDTO::new).orElse(null);
+        log.info("******* MemberService / findMemberById = {}", member.orElse(null).getUserStatus().getValue());
+        return member.map(MemberForm::new).orElse(null);
 //        위 방법이 더 쉽고 깔끔, 그걸 풀면 아래코드와 동일함
 //        if(member.isPresent()){
 //            return new MemberDTO(member.get());
 //        }
 //        return null;
+    }
+
+    // 회원 정보 수정
+    public void modifyMember(MemberDTO memberDTO){
+        Member member = memberRepository.findById(memberDTO.getUserNo()).orElse(null);
+        member.setUserId(memberDTO.getUserId());
+        member.setUserName(memberDTO.getUserName());
+        member.setUserPhoneNum(memberDTO.getUserPhoneNum());
+        member.setUserEmail(memberDTO.getUserEmail());
+        member.setUserStatus(memberDTO.getUserStatus());
+
+//        log.info("******* memberDTO = {}", memberDTO.getUserId());
+//        Member member = memberRepository.findById(memberDTO.getUserNo())
+//                .map(m -> {
+//                    m.setUserId(memberDTO.getUserId());
+//                    m.setUserName(memberDTO.getUserName()); // Likely meant userName here
+//                    m.setUserPhoneNum(memberDTO.getUserPhoneNum());
+//                    m.setUserEmail(memberDTO.getUserEmail());
+//                    m.setUserStatus(memberDTO.getUserStatus());
+//                    return m;
+//                })
+//                .orElse(null);
+//        log.info("******* member = {}", member.getUserId());
     }
 
     // 로그인
