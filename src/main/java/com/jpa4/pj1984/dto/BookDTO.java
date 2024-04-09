@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 public class BookDTO {
     private Long bookId;
     private String isbn;
-    private String bookImg;
-    private String bookFile;
+    private String bookImgOrg;
+    private String bookImgStored;
+    private String bookFileOrg;
+    private String bookFileStored;
     private String bookTitle;
     private String bookWriter;
 
@@ -37,8 +39,12 @@ public class BookDTO {
     public BookDTO(Book book){
         this.bookId = book.getBookId();
         this.isbn = book.getIsbn();
-        this.bookImg = book.getBookImg();
-        this.bookFile = book.getBookFile();
+
+        this.bookImgOrg = book.getBookImgOrg();
+        this.bookImgStored = book.getBookImgStored();
+        this.bookFileOrg = book.getBookFileOrg();
+        this.bookFileStored = book.getBookFileStored();
+
         this.bookTitle = book.getBookTitle();
         this.bookWriter = book.getBookWriter();
 

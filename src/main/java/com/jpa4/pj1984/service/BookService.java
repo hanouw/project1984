@@ -35,7 +35,14 @@ public class BookService {
 
 
         ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
-        Book bookSaved = bookRepository.save(bookForm.toEntity());
+        ProductFile imgFile = fileUploadService.saveFile(bookForm.getBookImg());
+        Book entity = bookForm.toEntity();
+        entity.setBookFileOrg(bookFile.getOrgFileName());
+        entity.setBookFileStored(bookFile.getStoredFileName());
+        entity.setBookImgOrg(imgFile.getOrgFileName());
+        entity.setBookImgStored(imgFile.getStoredFileName());
+        // img
+        Book bookSaved = bookRepository.save(entity);
     }
 
     //목록조회
