@@ -79,11 +79,11 @@ public class BookController {
     public String bookAddPro(BookForm bookForm, MultipartFile bookFile) throws Exception{
         log.info("--CMS--Book-Add--Request--");
         bookService.save(bookForm);
-        return "redirect:/cms/book";
+        return "redirect:/cms/book/list";
     }
 
     //상품리스트
-    @GetMapping("/book")
+    @GetMapping("/book/list")
     public String bookList(Model model){
         log.info("--CMS--Book--List--Request--");
         List<BookDTO> bookDTOList = bookService.findAll();
@@ -128,11 +128,11 @@ public class BookController {
     public String bookCategoryAddPro(BookCategoryForm bookCategoryForm){
         log.info("--CMS--Book--Category--Add--Request--");
         Long save = bookCategoryService.save(bookCategoryForm);
-        return "redirect:/cms/bookCategory";
+        return "redirect:/cms/bookCategory/list";
     }
 
     //상품카테고리리스트
-    @GetMapping("/bookCategory")
+    @GetMapping("/bookCategory/list")
     public String bookCategoryList(Model model){
         log.info("--CMS--Book--Category--List--Request--");
          //DB에서 전체 게시글 데이터를 가져와서 bookCategoryList에 담아서 list.html로 전달

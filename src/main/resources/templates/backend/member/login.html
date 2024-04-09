@@ -11,7 +11,7 @@
 <section class="page_wrap">
     <div class="login_form item">
         <a href=""><h1 class="main_logo"><</h1></a>
-        <form action="" th:action="@{/cms/login}" th:object="${storeLoginForm}" method="post">
+        <form action="" th:action="@{/login}" th:object="${storeLoginForm}" method="post">
             <div class="login_form_wrap">
                 <p>
                     책은 문화의 <br />
@@ -34,7 +34,7 @@
                     <span>자동 로그인</span>
                 </div>
                 <button class="btn_login" type="submit">로그인</button>
-                <a href="" class="link_signup">회원가입 하러가기</a>
+                <a href="/cms/signup" class="link_signup">회원가입 하러가기</a>
                 <span class="login_copyright">ⓒ 2024. 1984 All rights reserved.</span>
             </div>
         </form>

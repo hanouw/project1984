@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+            <form action="/userDetail/{userNo}/modify" th:action method="post" class="form" th:object="${memberForm}">
+                <div class="search_date_wrap">
+                    <div class="item">
+                        <h2>회원상세</h2>
+                    </div>
+                    <div class="item" style="display: inline-block">
+                        <button class="grey_btn" type="button" onclick="history_back()">취소</button>
+                        <button class="black_btn" type="submit">저장</button>
+                    </div>
+                </div>
+                <div class="add_form_wrap">
+                    <div class="add_input_wrap">
+                        <p>아이디</p>
+                        <input type="text" th:field="*{userId}">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>이름</p>
+                        <input type="text" th:field="*{userName}">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>전화번호</p>
+                        <input type="text" th:field="*{userPhoneNum}">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>이메일</p>
+                        <input type="text" th:field="*{userEmail}">
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>회원가입일</p>
+                        <input type="text" th:field="*{createDate}" readonly>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>회원정보수정일</p>
+                        <input type="text" th:field="*{lastModifiedDate}" readonly>
+                    </div>
+                    <div class="add_checkbox_wrap">
+                        <p>활성화</p>
+                        <input id="on_status" type="radio" name="userStatus" th:value="${memberForm.userStatus.USER}" th:checked="${memberForm.userStatus.getValue() == 'STATUS_USER'}">
+                        <label for="on_status" >일반회원</label>
+                        <input id="off_status" type="radio" name="userStatus" th:value="${memberForm.userStatus.BANNED}" th:checked="${memberForm.userStatus.getValue() == 'STATUS_BANNED'}">
+                        <label for="off_status">정지</label>
+                        <input id="quit_status" type="radio" name="userStatus" th:value="${memberForm.userStatus.QUIT}" th:checked="${memberForm.userStatus.getValue() == 'STATUS_QUIT'}">
+                        <label for="quit_status">탈퇴</label>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </th:block>
+</th:block>
+    <script>
+        document.querySelector(".form").addEventListener("submit", function (event) {
+            event.preventDefault(); // 기본 제출 동작 막기
+
+            // 필드 값 가져오기
+            let idInput = document.querySelector('input[name="userId"]');
+            let nameInput = document.querySelector('input[name="userName"]');
+            let phoneNumInput = document.querySelector('input[name="userPhoneNum"]');
+            let emailInput = document.querySelector('input[name="userEmail"]');
+
+
+            // 아이디 필드 유효성 검사
+            if (idInput.value.trim() === "") {
+                alert("닉네임을 입력하세요.");
+                return false;
+            }
+
+            // 이름 필드 유효성 검사
+            if (nameInput.value.trim() === "") {
+                alert("이름을 입력하세요.");
+                return false;
+            }
+
+            // 이메일 필드 유효성 검사
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value.trim())) {
+                alert("유효한 이메일을 입력하세요.");
+                return false;
+            }
+
+            // 전화번호 유효성 검사
+            if (phoneNumInput.value.trim() === "") {
+                // errorMessage += "비밀번호 확인을 입력하세요.\n\n";
+                alert("전화번호를 입력하세요.");
+                return false;
+            }
+
+            // 유효성 검사 통과 시 회원가입 폼 제출
+            event.target.submit();
+        });
+
+        const history_back = () =>{
+            history.back();
+        }
+    </script>
+</html>

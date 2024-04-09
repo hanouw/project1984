@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="base(content)">
     <!--Header-->
@@ -11,8 +11,10 @@
             <!-- 컨텐츠영역 -->
             <div class="content item">
                 <div class="top_st_bar">
-                    <p>USER_00</p>
-                    <span>ADMIN</span>
+                    <p sec:authentication="principal.username"></p>
+                    <span sec:authentication="principal.authorities"></span>
+
+
                 </div>
                 <!-- 컨텐츠 -->
                 <th:block th:replace="${content}"></th:block>

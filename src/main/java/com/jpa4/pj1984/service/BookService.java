@@ -31,6 +31,9 @@ public class BookService {
 
     //저장
     public void save(BookForm bookForm) throws IOException{
+        String projectPath = System.getProperty("user.dir") + "";
+
+
         ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
         Book bookSaved = bookRepository.save(bookForm.toEntity());
     }

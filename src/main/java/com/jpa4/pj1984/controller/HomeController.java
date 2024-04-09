@@ -11,29 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-@RequestMapping("/")
 public class HomeController {
-
-    @GetMapping("/")
-    public String homeController(@AuthenticationPrincipal CustomCms customCms){
-        if(customCms == null){
-            return "home";
-        }
-        return "loginHome";
-    }
 
     @GetMapping("/orderDetail")
     public String bookOrder() { // 임시
         return "bookDetail";
     }
 
-    @GetMapping("/cms/home")
-    public String cmsHome(){
-        return "backend/home/home";
+    @GetMapping("/")
+    public String redirHome(){
+        return "redirect:/cms/home";
     }
 
-    @GetMapping("/main/main")
-    public String memberHome(){
-        return "frontend/home/main";
+    @GetMapping("/cms/home")
+    public String cmsHome(){
+        return "/backend/home/dashboard";
+    }
+
+    @GetMapping("/error")
+    public String errorPage(){
+        return "/errorPage";
     }
 }

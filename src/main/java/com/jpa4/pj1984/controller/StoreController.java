@@ -57,8 +57,13 @@ public class StoreController {
 
     // 서점 목록 조회 요청
     @GetMapping("/list")
-    public String list() {
+    public String List(Model model) {
         log.info("******* StoreController list");
+        //DB에서 전체 게시글 데이터를 가져와서 List에 담아서 list.html로 전달
+        List<StoreDTO> storeList = storeService.findAll();
+        model.addAttribute("storeList", storeList);
+        System.out.println("storeList = " + storeList);
+
         return "backend/store/list";
     }
 
@@ -102,94 +107,3 @@ public class StoreController {
     }
 
 }
-
-    /*
-    // 글 수정
-    @GetMapping("/{id}/modify")
-    // @PreAuthorize("isAuthenticated()")
-    public String modifyForm(@PathVariable("id") Long id, Model model) {
-        log.info("**** BoardController GET /boards/:id/modify - id : {}", id);
-        BoardDTO board = boardService.getOneBoard(id);
-        model.addAttribute("board", board);
-        return "board/modify";
-    }
-    @PostMapping("/{id}/modify")
-    // @PreAuthorize("principal.username == #boardForm.writer")
-    public String modifyPro(@PathVariable("id") Long id, BoardForm boardForm) {
-        log.info("**** BoardController GET /boards/:id/modify - id : {}", id);
-        log.info("**** BoardController GET /boards/:id/modify - boardForm : {}", boardForm);
-        boardService.updateOneBoard(boardForm);
-        return "redirect:/boards/{id}";
-    }
-    /*
-    // 서점 상세
-    @GetMapping("/detail")
-    public String detailForm(@ModelAttribute("store") StoreForm storeForm, Model model) {
-        log.info("******* StoreController");
-        Store findStore = storeService.getOneStore(storeForm.getStoreId());
-        if(findStore == null) {
-            return "backend/store/add";
-        }else {
-            model.addAttribute("store", findStore);
-            return "backend/store/detail";
-        }
-    }
-
-}
-/*
-    // 게시판 목록
-    @GetMapping("/list") // ...8080/boards/list?page=2&size=10 (1페이지부터시작)
-    public String list(Model model, PageRequestDTO pageRequestDTO) { // page, size
-        log.info("**** BoardController GET /boards/list");
-        //List<BoardDTO> list = boardService.getList();
-        Page<Board> result = boardService.getListWithPaging(pageRequestDTO);
-        // 글목록 List<BoardDTO> 보내기
-        List<Board> contents = result.getContent(); // Entity 목록이 list에 담긴형태
-        //  Entity -> BoardDTO 변환해서 view에 전달
-        List<BoardDTO> list = new ArrayList<>();
-        for(int i = 0; i < contents.size(); i++) {
-            Board board = contents.get(i); // Entity한개 꺼내서
-            BoardDTO dto = new BoardDTO(board); // BoardDTO로 변환
-            list.add(dto); // list에 추가
-        }
-            /* 위 for문을 Stream을 이용한 버전
-            List<BoardDTO> list = contents.stream()
-                    .map(b -> new BoardDTO(b))
-                    .collect(Collectors.toList());
-
-        // 페이징처리 위한 PageResponseDTO 보내기
-        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, result.getTotalElements());
-
-        model.addAttribute("list", list); // 글 목록 view에 전달
-        model.addAttribute("pageDTO", pageResponseDTO); // 페이징처리 전달
-        return "board/list";
-    }
-    // 상세 페이지
-    @GetMapping("/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
-        log.info("**** BoardController GET /boards/:id - id : {}", id);
-        BoardDTO board = boardService.getOneBoard(id);
-        model.addAttribute("board", board);
-        return "board/detail";
-    }
-    // 글 수정
-    @GetMapping("/{id}/modify")
-    // @PreAuthorize("isAuthenticated()")
-    public String modifyForm(@PathVariable("id") Long id, Model model) {
-        log.info("**** BoardController GET /boards/:id/modify - id : {}", id);
-        BoardDTO board = boardService.getOneBoard(id);
-        model.addAttribute("board", board);
-        return "board/modify";
-    }
-    @PostMapping("/{id}/modify")
-    // @PreAuthorize("principal.username == #boardForm.writer")
-    public String modifyPro(@PathVariable("id") Long id, BoardForm boardForm) {
-        log.info("**** BoardController GET /boards/:id/modify - id : {}", id);
-        log.info("**** BoardController GET /boards/:id/modify - boardForm : {}", boardForm);
-        boardService.updateOneBoard(boardForm);
-        return "redirect:/boards/{id}";
-    }
-
-
-
-}*/
