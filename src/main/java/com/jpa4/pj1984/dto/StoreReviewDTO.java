@@ -3,7 +3,6 @@ package com.jpa4.pj1984.dto;
 import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.domain.StoreReview;
 import com.jpa4.pj1984.domain.StoreReviewStatus;
-import com.jpa4.pj1984.domain.TimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

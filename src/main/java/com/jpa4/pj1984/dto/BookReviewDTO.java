@@ -1,9 +1,8 @@
 package com.jpa4.pj1984.dto;
 
 import com.jpa4.pj1984.domain.BookReview;
+import com.jpa4.pj1984.domain.BookReviewStatus;
 import com.jpa4.pj1984.domain.Member;
-import com.jpa4.pj1984.domain.StoreReview;
-import com.jpa4.pj1984.domain.StoreReviewStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ public class BookReviewDTO { // 가져오는
     private Long bookReviewId;
     private Member member;
     private String bookReviewDetail;
-    private StoreReviewStatus bookReviewStatus;
+    private BookReviewStatus bookReviewStatus;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
 
@@ -28,6 +27,8 @@ public class BookReviewDTO { // 가져오는
         this.bookReviewDetail = bookReview.getBookReviewDetail();
         this.createDate = bookReview.getCreateDate();
         this.lastModifiedDate = bookReview.getLastModifiedDate();
+        this.bookReviewStatus = bookReview.getBookReviewStatus();
+
     }
 
 }

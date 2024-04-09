@@ -10,7 +10,6 @@ import lombok.Setter;
 public class StoreReview extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long storeReviewId;
 
     @ManyToOne(fetch = FetchType.LAZY)

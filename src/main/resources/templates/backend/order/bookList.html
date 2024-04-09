@@ -43,7 +43,7 @@
                             <option value="orderNo" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'orderNo'}">No</option>
                             <option value="userId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userId'}">회원ID</option>
                             <option value="userName" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userName'}">회원명</option>
-                            <option value="isbn" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'isbn'}">ISBN</option>
+                            <option value="bookId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'bookId'}">bookId</option>
                             <option value="bookTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'bookTitle'}">도서명</option>
                             <option value="storeTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeTitle'}">서점명</option>
                             <option value="status" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'status'}">주문상태</option>
@@ -68,7 +68,7 @@
                         <th>주문번호</th>
                         <th>회원ID</th>
                         <th>회원명</th>
-                        <th>ISBN</th>
+                        <th>bookId</th>
                         <th>도서명</th>
                         <th>서점명</th>
                         <th>주문상태</th>
@@ -80,7 +80,7 @@
                         <td th:text="*{list.orderBookId}"></td>
                         <td th:text="*{list.userId}"></td>
                         <td th:text="*{list.userName}"></td>
-                        <td th:text="*{list.}"></td>
+                        <td th:text="*{list.bookId}"></td>
                         <td th:text="*{list.bookTitle}"></td>
                         <td th:text="*{list.storeTitle}"></td>
                         <td th:text="*{list.paymentBookStatus}"></td>
@@ -153,14 +153,14 @@
             let html = '';
             html += '<table class="list_table">';
             html += '<tr><th>NO</th><th>주문번호</th><th>회원ID</th><th>회원명</th>';
-            html += '<th>ISBN</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
+            html += '<th>bookId</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
             html += '<th>결제방법</th><th>구매일</th></tr>';
             $.each(response.orderList, function(index, item) {
                 html += '<tr></tr><td>' + item.orderBookNo + '</td>';
                 html += '<td>' + item.orderBookId + '</td>';
                 html += '<td>' + item.userId + '</td>';
                 html += '<td>' + item.userName + '</td>';
-                html += '<td>' + item.isbn + '</td>';
+                html += '<td>' + item.bookId + '</td>';
                 html += '<td>' + item.bookTitle + '</td>';
                 html += '<td>' + item.storeTitle + '</td>';
                 html += '<td>' + item.paymentBookStatus + '</td>';

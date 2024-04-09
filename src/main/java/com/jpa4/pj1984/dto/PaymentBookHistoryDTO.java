@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PaymentBookHistoryDTO {
     private Long orderBookHistoryId;
-    private Long isbn;
+    private Long bookId;
     private Long orderBookId;
 
     // Entity -> DTO
     public PaymentBookHistoryDTO(PaymentBookHistory paymentBookHistory) {
         this.orderBookHistoryId = paymentBookHistory.getOrderBookHistoryId();
-        this.isbn = paymentBookHistory.getBook().getBookId();
+        this.bookId = paymentBookHistory.getBook().getBookId();
         this.orderBookId = paymentBookHistory.getPaymentBook().getOrderBookId();
     }
 }

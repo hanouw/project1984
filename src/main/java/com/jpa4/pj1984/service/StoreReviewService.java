@@ -1,8 +1,6 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreReview;
-import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreReviewDTO;
 import com.jpa4.pj1984.repository.StoreReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,7 @@ public class StoreReviewService {
 
     private final StoreReviewRepository storeReviewRepository;
 
-    // 서점 목록 조회
+    // 서점리뷰 목록 조회
     public List<StoreReviewDTO> findAll() {
         List<StoreReview> all = storeReviewRepository.findAll();
         System.out.println("all = " + all);//all까지는 불러옴
@@ -37,5 +35,4 @@ public class StoreReviewService {
 
         return storeReview;
     }
-
 }
