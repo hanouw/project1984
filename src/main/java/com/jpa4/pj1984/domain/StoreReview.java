@@ -12,15 +12,17 @@ public class StoreReview extends TimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long storeReviewId;
-    @Column(nullable = false, unique = true, length = 50)
-    private String userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userNo")
+    private Member member;
     @Column(nullable = false, unique = true, length = 100)
-    private String storeReview;
+    private String storeReviewDetail;
     @Column(nullable = false, length = 200)
     private Long storeReviewPosition;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StoreStatus storeStatus;
+    private StoreReviewStatus storeReviewStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "storeId")

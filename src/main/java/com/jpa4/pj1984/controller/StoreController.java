@@ -28,7 +28,7 @@ import java.util.Map;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/store")
+@RequestMapping("/cms/store")
 public class StoreController {
 
     @Value("${file.dir}")
@@ -40,7 +40,7 @@ public class StoreController {
 
     @ModelAttribute("bankList")
     public List<String> banks() {
-        log.info("************** colors 데이터 전송!");
+        log.info("************** bank 데이터 전송!");
         List<String> bankList = new ArrayList<>();
         bankList.add("국민은행");
         bankList.add("기업은행");
@@ -95,7 +95,7 @@ public class StoreController {
         log.info("******* StoreController modifyPro - storeId : {}", storeId);
 
         storeService.updateOneBoard(storeForm); // 저장/수정해~~
-        return "redirect:/store/{storeId}";
+        return "redirect:/cms/store/{storeId}";
     }
 
     // 이미지 파일 화면에 보여주기 위한, 이미지 요청 uri. Resource = ...springframework.core.io... 임포트
