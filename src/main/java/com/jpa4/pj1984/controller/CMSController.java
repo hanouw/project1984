@@ -57,7 +57,7 @@ public class CMSController {
     @GetMapping("/userList")
     public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
         log.info("******* CMSController userList 호출");
-        List<MemberForm> allMember = memberService.findAllMember();
+        List<MemberDTO> allMember = memberService.findAllMember();
         model.addAttribute("allMember", allMember);
         return "backend/member/memberList";
     }
@@ -66,8 +66,8 @@ public class CMSController {
     @GetMapping("/userDetail/{userNo}")
     public String userDetail(@PathVariable Long userNo, Model model) {
         log.info("******* CMSController /userDetail/userNo = {}", userNo);
-        MemberForm memberForm = memberService.findMemberById(userNo);
-        model.addAttribute("memberForm", memberForm);
+        MemberDTO memberDTO = memberService.findMemberById(userNo);
+        model.addAttribute("memberForm", memberDTO);
         return "backend/member/memberDetail";
     }
 
@@ -75,8 +75,8 @@ public class CMSController {
     @GetMapping("/userDetail/{userNo}/modify")
     public String userModify(@PathVariable Long userNo, Model model){
         log.info("******* CMSController /userDetail/userNo/modify = {}", userNo);
-        MemberForm memberForm = memberService.findMemberById(userNo);
-        model.addAttribute("memberForm", memberForm);
+        MemberDTO memberDTO = memberService.findMemberById(userNo);
+        model.addAttribute("memberForm", memberDTO);
         return "backend/member/memberModify";
     }
 
