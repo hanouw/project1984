@@ -1,10 +1,85 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <body>
-
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+            <div class="search_date_wrap">
+                <div class="item">
+                    <h2>전시관리</h2>
+                </div>
+                <div class="item">
+                    <button class="grey_btn">오늘</button>
+                    <button class="grey_btn">일주일</button>
+                    <button class="grey_btn">한달</button>
+                    <input type="date" />
+                    <input type="date" />
+                    <button class="black_btn">조회</button>
+                </div>
+            </div>
+            <hr />
+            <div class="search_text_wrap">
+                <div class="item">
+                    <select name="" id="">
+                        <option value="">전체</option>
+                        <option value="">문의번호</option>
+                        <option value="">회원아이디</option>
+                        <option value="">문의제목</option>
+                        <option value="">문의내용</option>
+                        <option value="">문의상태</option>
+                        <option value="">서점아이디</option>
+                        <option value="">문의등록일</option>
+                    </select>
+                    <input type="text" />
+                    <button class="black_btn">검색</button>
+                </div>
+                <div class="item">
+                    <select name="" id="">
+                        <option value="">최신순</option>
+                        <option value="">이전순</option>
+                    </select>
+                </div>
+            </div>
+            <div class="list_table_wrap">
+                <table class="list_table">
+                    <thead>
+                    <tr>
+                        <th>전시아이디</th>
+                        <th>소개이미지01</th>
+                        <th>소개이미지01이름</th>
+                        <th>소개이미지02</th>
+                        <th>소개이미지02이름</th>
+                        <th>소개텍스트01</th>
+                        <th>소개텍스트02</th>
+                        <th>소개텍스트03</th>
+                        <th>소개텍스트04</th>
+                        <th>소개텍스트05</th>
+                        <th>소개텍스트06</th>
+                        <th>메인서점전시</th>
+                        <th>메인도서전시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>전시아이디</td>
+                        <td>소개이미지01</td>
+                        <td>소개이미지01이름</td>
+                        <td>소개이미지02</td>
+                        <td>소개이미지02이름</td>
+                        <td>소개텍스트01</td>
+                        <td>소개텍스트02</td>
+                        <td>소개텍스트03</td>
+                        <td>소개텍스트04</td>
+                        <td>소개텍스트05</td>
+                        <td>소개텍스트06</td>
+                        <td>메인서점전시</td>
+                        <td>메인도서전시</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+</th:block>
 </body>
 </html>

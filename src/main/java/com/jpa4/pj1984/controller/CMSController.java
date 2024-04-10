@@ -88,10 +88,16 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
+    // 구독 관리 - 목록 조회
+    @GetMapping("/ordermembership/list")
+    public String userMembershipList(){
+        log.info("*******  CMS Controller / GET / userMemberShipList : list");
+        return "backend/member/membershipList";
+    }
+
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
     @GetMapping("/order/bookList")
-    public String orderList(Model model
-            , PageRequestDTO pageRequestDTO
+    public String orderList(Model model, PageRequestDTO pageRequestDTO
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
         log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
