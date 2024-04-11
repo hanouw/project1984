@@ -9,46 +9,29 @@
                     <h2>배너관리</h2>
                 </div>
                 <div class="item">
-                    <button type="button" class="grey_btn">오늘</button>
-                    <button type="button" class="grey_btn">일주일</button>
-                    <button type="button" class="grey_btn">한달</button>
-                    <input type="date" />
-                    <input type="date" />
-                    <button type="button" class="black_btn">조회</button>
-                </div>
-            </div>
-            <hr />
-            <div class="search_text_wrap">
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">전체</option>
-                    </select>
-                    <input type="text" />
-                    <button type="button" class="black_btn">검색</button>
-                </div>
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">최신순</option>
-                        <option value="">이전순</option>
-                    </select>
                     <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/}'|">카테고리관리</button>
                     <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/}'|">추가</button>
-
                 </div>
             </div>
             <div class="list_table_wrap">
                 <table class="list_table">
                     <tr>
                         <th>NO</th>
-                        <th>항목</th>
+                        <th>제목</th>
+                        <th>설명</th>
+                        <th>활성화</th>
+                        <th>노출순서</th>
                         <th>수정일</th>
                         <th>등록일</th>
                     </tr>
-                    <tr>
-                        <th>NO</th>
-                        <th>항목</th>
-                        <th>수정일</th>
-                        <th>등록일</th>
+                    <tr th:each="banner : ${bannerList}">
+                        <th th:text="${banner.bannerId}">1</th>
+                        <th><a th:text="${banner.bannerTitle}" th:href="@{/cms/book/{id}(id=${banner.bannerId})}">제목입니다.</a></th>
+                        <th th:text="${banner.bannerDetail}">설명입니다.</th>
+                        <th th:text="${banner.bannerStatus}">ON</th>
+                        <th th:text="${banner.bannerOrder}">1</th>
+                        <th th:text="${#temporals.format(book.lastModifiedDate, 'yyyy-MM-dd HH:mm')}">2024</th>
+                        <th th:text="${#temporals.format(book.createDate, 'yyyy-MM-dd HH:mm')}">2024</th>
                     </tr>
                 </table>
             </div>

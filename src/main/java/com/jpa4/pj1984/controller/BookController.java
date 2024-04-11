@@ -81,13 +81,6 @@ public class BookController {
         bookService.save(bookForm);
         return "redirect:/cms/book/list";
     }
-    //상품이미지추가
-    @PostMapping("/book/addImg")
-    public String bookAddProImg(MultipartFile file){
-        log.info("--CMS--BookMultipartFile-Add--Request--");
-        return null;
-    }
-
 
     //상품리스트
     @GetMapping("/book/list")
