@@ -3,12 +3,14 @@ package com.jpa4.pj1984.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+
 public class Member extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

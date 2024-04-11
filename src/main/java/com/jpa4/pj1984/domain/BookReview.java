@@ -10,7 +10,6 @@ import lombok.Setter;
 public class BookReview extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long bookReviewId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,7 +21,7 @@ public class BookReview extends TimeEntity{
     private Long bookReviewPosition;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BookStatus bookStatus;
+    private BookReviewStatus bookReviewStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookId")

@@ -25,27 +25,27 @@ public class MemberService {
     private final PasswordEncoder PasswordEncoder;
 
     // 회원 등록
-    public Member save(MemberDTO memberDTO){
-        memberDTO.setUserPassword(PasswordEncoder.encode(memberDTO.getUserPassword()));
-        Member memberSaved = memberRepository.save(memberDTO.toEntity());
+    public Member save(MemberForm memberForm){
+        memberForm.setUserPassword(PasswordEncoder.encode(memberForm.getUserPassword()));
+        Member memberSaved = memberRepository.save(memberForm.toEntity());
         return memberSaved;
     }
 
     // 회원 목록 조회하기
-    public List<MemberForm> findAllMember(){
+    public List<MemberDTO> findAllMember(){
         List<Member> memberList = memberRepository.findAll();
-        List<MemberForm> memberFromList = new ArrayList<>();
+        List<MemberDTO> memberFromList = new ArrayList<>();
         for (Member val : memberList) {
-            memberFromList.add(new MemberForm(val));
+            memberFromList.add(new MemberDTO(val));
         }
         return memberFromList;
     }
 
     // No로 회원 하나 데이터 찾기
-    public MemberForm findMemberById(Long userNo){
+    public MemberDTO findMemberById(Long userNo){
         Optional<Member> member = memberRepository.findById(userNo);
         log.info("******* MemberService / findMemberById = {}", member.orElse(null).getUserStatus().getValue());
-        return member.map(MemberForm::new).orElse(null);
+        return member.map(MemberDTO::new).orElse(null);
 //        위 방법이 더 쉽고 깔끔, 그걸 풀면 아래코드와 동일함
 //        if(member.isPresent()){
 //            return new MemberDTO(member.get());

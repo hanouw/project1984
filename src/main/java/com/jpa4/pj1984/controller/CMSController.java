@@ -57,7 +57,7 @@ public class CMSController {
     @GetMapping("/userList")
     public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
         log.info("******* CMSController userList 호출");
-        List<MemberForm> allMember = memberService.findAllMember();
+        List<MemberDTO> allMember = memberService.findAllMember();
         model.addAttribute("allMember", allMember);
         return "backend/member/memberList";
     }
@@ -66,8 +66,8 @@ public class CMSController {
     @GetMapping("/userDetail/{userNo}")
     public String userDetail(@PathVariable Long userNo, Model model) {
         log.info("******* CMSController /userDetail/userNo = {}", userNo);
-        MemberForm memberForm = memberService.findMemberById(userNo);
-        model.addAttribute("memberForm", memberForm);
+        MemberDTO memberDTO = memberService.findMemberById(userNo);
+        model.addAttribute("memberForm", memberDTO);
         return "backend/member/memberDetail";
     }
 
@@ -75,8 +75,8 @@ public class CMSController {
     @GetMapping("/userDetail/{userNo}/modify")
     public String userModify(@PathVariable Long userNo, Model model){
         log.info("******* CMSController /userDetail/userNo/modify = {}", userNo);
-        MemberForm memberForm = memberService.findMemberById(userNo);
-        model.addAttribute("memberForm", memberForm);
+        MemberDTO memberDTO = memberService.findMemberById(userNo);
+        model.addAttribute("memberForm", memberDTO);
         return "backend/member/memberModify";
     }
 
@@ -88,10 +88,16 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
+    // 구독 관리 - 목록 조회
+    @GetMapping("/ordermembership/list")
+    public String userMembershipList(){
+        log.info("*******  CMS Controller / GET / userMemberShipList : list");
+        return "backend/member/membershipList";
+    }
+
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
     @GetMapping("/order/bookList")
-    public String orderList(Model model
-            , PageRequestDTO pageRequestDTO
+    public String orderList(Model model, PageRequestDTO pageRequestDTO
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
         log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
