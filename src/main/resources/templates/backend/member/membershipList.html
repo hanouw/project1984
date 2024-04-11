@@ -6,7 +6,7 @@
         <div class="search_bar_wrap">
             <div class="search_date_wrap">
                 <div class="item">
-                    <h2>회원관리</h2>
+                    <h2>구독관리</h2>
                 </div>
                 <div class="item">
                     <button class="grey_btn">오늘</button>
@@ -45,30 +45,30 @@
             <div class="list_table_wrap">
                 <table class="list_table">
                     <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>회원ID</th>
-                            <th>회원명</th>
-                            <th>전화번호</th>
-                            <th>이메일</th>
-                            <th>주문수</th>
-                            <th>구독수</th>
-                            <th>상태</th>
-                            <th>가입일</th>
-                        </tr>
+                    <tr>
+                        <th>NO</th>
+                        <th>회원ID</th>
+                        <th>회원명</th>
+                        <th>전화번호</th>
+                        <th>이메일</th>
+                        <th>주문수</th>
+                        <th>구독수</th>
+                        <th>상태</th>
+                        <th>가입일</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="user : ${allMember}">
-                            <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userNo}"></a></td>
-                            <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userId}"></a></td>
-                            <td th:text="*{user.userName}"></td>
-                            <td th:text="*{user.userPhoneNum}"></td>
-                            <td th:text="*{user.userEmail}"></td>
-                            <td th:text="*{user.userNo}"></td>
-                            <td th:text="*{user.userNo}"></td>
-                            <td th:text="*{user.userStatus}"></td>
-                            <td th:text="*{#temporals.format(user.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-                        </tr>
+                    <tr th:each="user : ${allMember}">
+                        <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userNo}"></a></td>
+                        <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userId}"></a></td>
+                        <td th:text="*{user.userName}"></td>
+                        <td th:text="*{user.userPhoneNum}"></td>
+                        <td th:text="*{user.userEmail}"></td>
+                        <td th:text="*{user.userNo}"></td>
+                        <td th:text="*{user.userNo}"></td>
+                        <td th:text="*{user.userStatus}"></td>
+                        <td th:text="*{#temporals.format(user.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
