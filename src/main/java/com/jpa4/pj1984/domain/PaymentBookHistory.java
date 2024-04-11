@@ -7,7 +7,7 @@ import lombok.ToString;
 
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter
 public class PaymentBookHistory extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_book_history_id")
