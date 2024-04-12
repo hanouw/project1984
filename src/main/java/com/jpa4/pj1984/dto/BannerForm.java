@@ -21,6 +21,7 @@ public class BannerForm {
     // 배너이미지 파일
     private MultipartFile bannerImg;
     private BannerStatus bannerStatus;
+    private LocalDateTime lastModifiedDate;
     private LocalDateTime createDate;
 
     //DTO -> Entity

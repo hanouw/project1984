@@ -115,7 +115,7 @@
   }
 
   function uploadFile(file) {
-    document.getElementById('bookImg').value = file.name;
+    document.getElementById('bannerImg').value = file.name;
 
       // 이미지 미리보기
     let reader = new FileReader();
@@ -136,8 +136,8 @@
       // 이미지 미리보기 초기화
       document.getElementById('image-preview').src = '';
 
-      // 'bookImg' 요소의 값 초기화
-      document.getElementById('bookImg').value = '';
+      // 'bannerImg' 요소의 값 초기화
+      document.getElementById('bannerImg').value = '';
 
       //버튼 다시 삭제
       document.querySelector('.img_delete_btn').style.display = 'none';
@@ -167,8 +167,8 @@
 
       let bannerTitle = $("#bannerTitle").val();
       let bannerDetail = $("#bannerDetail").val();
-      let bannerDetail = $("#bannerLink").val();
-      let bannerDetail = $("#bannerOrder").val();
+      let bannerLink = $("#bannerLink").val();
+      let bannerOrder = $("#bannerOrder").val();
       let bannerStatus = document.querySelector('input[name="bannerStatus"]:checked').value;
 
       formData.append("bannerImg", bannerImg);
