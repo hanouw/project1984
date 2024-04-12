@@ -60,11 +60,11 @@ public class BookController {
     }
 
     // 이미지 데이터 요청
-    @ResponseBody
-    @GetMapping("/images/{fileName}")
-    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
-        return new UrlResource("file:" + fileUploadService.getPath(fileName));
-    }
+//    @ResponseBody
+//    @GetMapping("/images/{fileName}")
+//    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
+//        return new UrlResource("file:" + fileUploadService.getPath(fileName));
+//    }
     
     //--상품관리-----------------------------------------------------//
 

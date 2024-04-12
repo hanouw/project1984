@@ -40,4 +40,12 @@ public class BannerService {
         return list;
     }
 
+    //조회(1)
+    public BannerDTO findOne(Long id){
+        Banner banner = bannerRepository.findById(id).orElse(null);
+        return new BannerDTO(banner);
+    }
+
+    //수정
+
 }

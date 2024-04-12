@@ -9,8 +9,11 @@
                     <h2>배너관리</h2>
                 </div>
                 <div class="item">
-                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/}'|">카테고리관리</button>
-                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/}'|">추가</button>
+                    <select name="" id="">
+                        <option value="">최신순</option>
+                        <option value="">이전순</option>
+                    </select>
+                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/banner/add}'|">추가</button>
                 </div>
             </div>
             <div class="list_table_wrap">
