@@ -55,5 +55,12 @@ public class BannerController {
         model.addAttribute("bannerList", bannerDTOList);
         return "backend/banner/list";
     }
+    //배너 상세
+    @GetMapping("/banner/{id}")
+    public String bannerDetail(@PathVariable("id") Long id, Model model){
+        BannerDTO banner = bannerService.findOne(id);
+        model.addAttribute("banner", banner);
+        return "backend/banner/detail";
+    }
 
 }

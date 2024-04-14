@@ -4,80 +4,107 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
+
             <div class="search_date_wrap">
                 <div class="item">
                     <h2>전시관리</h2>
                 </div>
                 <div class="item">
-                    <button class="grey_btn">오늘</button>
-                    <button class="grey_btn">일주일</button>
-                    <button class="grey_btn">한달</button>
-                    <input type="date" />
-                    <input type="date" />
-                    <button class="black_btn">조회</button>
+                    <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
+                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/display/modify}'|">수정</button>
                 </div>
             </div>
-            <hr />
-            <div class="search_text_wrap">
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">전체</option>
-                        <option value="">문의번호</option>
-                        <option value="">회원아이디</option>
-                        <option value="">문의제목</option>
-                        <option value="">문의내용</option>
-                        <option value="">문의상태</option>
-                        <option value="">서점아이디</option>
-                        <option value="">문의등록일</option>
-                    </select>
-                    <input type="text" />
-                    <button class="black_btn">검색</button>
+            <div class="add_form_wrap">
+                <div class="add_input_wrap">
+                    <p>1984소개이미지_01</p>
+                    <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
+                        <img id="image-preview" alt="" >
+                    </div>
+                    <input type="text" th:field="${display.aboutImg01Org}" readonly>
                 </div>
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">최신순</option>
-                        <option value="">이전순</option>
-                    </select>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_01</p>
+                    <textarea th:text="${display.aboutText01}" readonly></textarea>
                 </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_02</p>
+                    <textarea th:text="${display.aboutText02}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_03</p>
+                    <textarea th:text="${display.aboutText03}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_04</p>
+                    <textarea th:text="${display.aboutText04}" readonly></textarea>
+                </div>
+                <br>
+
+                <div class="add_input_wrap">
+                    <p>1984소개이미지_02</p>
+                    <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
+                        <img id="image-preview" alt="" >
+                    </div>
+                    <input type="text" th:field="${display.aboutImg02Org}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_01</p>
+                    <textarea th:text="${display.aboutText05}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_02</p>
+                    <textarea th:text="${display.aboutText06}" readonly></textarea>
+                </div>
+                <br>
+
+                <h3>메인 서점 전시</h3>
+                <div class="add_input_wrap">
+                    <p>서점 01</p>
+                    <input type="text" th:field="${display.mainStore01}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 02</p>
+                    <input type="text" th:field="${display.mainStore02}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 03</p>
+                    <input type="text" th:field="${display.mainStore03}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 04</p>
+                    <input type="text" th:field="${display.mainStore04}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 05</p>
+                    <input type="text" th:field="${display.mainStore05}" readonly>
+                </div>
+                <br>
+
+                <h3>메인 도서 전시</h3>
+                <div class="add_input_wrap">
+                    <p>도서 01</p>
+                    <input type="text" th:field="${display.mainBook01}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 02</p>
+                    <input type="text" th:field="${display.mainBook02}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 03</p>
+                    <input type="text" th:field="${display.mainBook03}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 04</p>
+                    <input type="text" th:field="${display.mainBook04}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 05</p>
+                    <input type="text" th:field="${display.mainBook05}" readonly>
+                </div>
+                <br>
+
             </div>
-            <div class="list_table_wrap">
-                <table class="list_table">
-                    <thead>
-                    <tr>
-                        <th>전시아이디</th>
-                        <th>소개이미지01</th>
-                        <th>소개이미지01이름</th>
-                        <th>소개이미지02</th>
-                        <th>소개이미지02이름</th>
-                        <th>소개텍스트01</th>
-                        <th>소개텍스트02</th>
-                        <th>소개텍스트03</th>
-                        <th>소개텍스트04</th>
-                        <th>소개텍스트05</th>
-                        <th>소개텍스트06</th>
-                        <th>메인서점전시</th>
-                        <th>메인도서전시</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>전시아이디</td>
-                        <td>소개이미지01</td>
-                        <td>소개이미지01이름</td>
-                        <td>소개이미지02</td>
-                        <td>소개이미지02이름</td>
-                        <td>소개텍스트01</td>
-                        <td>소개텍스트02</td>
-                        <td>소개텍스트03</td>
-                        <td>소개텍스트04</td>
-                        <td>소개텍스트05</td>
-                        <td>소개텍스트06</td>
-                        <td>메인서점전시</td>
-                        <td>메인도서전시</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+
         </div>
     </th:block>
 </th:block>
