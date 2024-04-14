@@ -279,6 +279,10 @@ div.top_st_bar > span{
     line-height: 52px;
 }
 /*add_from*/
+.input_wrap_h3{
+    font-size: 28px;
+    margin-left:40px;
+}
 .add_form_wrap{
     border: 0.5px solid var(--maingr00);
     border-radius:4px;
