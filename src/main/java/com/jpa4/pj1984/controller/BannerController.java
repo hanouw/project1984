@@ -40,6 +40,7 @@ public class BannerController {
         log.info("--CMS--Banner--AddForm--Request--");
         return "backend/banner/add";
     }
+
     // 배너 추가
     @PostMapping("/banner/add")
     public String bannerAddPro(BannerForm bannerForm) throws Exception{
@@ -47,6 +48,7 @@ public class BannerController {
         bannerService.save(bannerForm);
         return "redirect:/cms/banner/list";
     }
+
     // 배너 리스트
     @GetMapping("/banner/list")
     public String bannerList(Model model) {
@@ -55,12 +57,26 @@ public class BannerController {
         model.addAttribute("bannerList", bannerDTOList);
         return "backend/banner/list";
     }
+
     //배너 상세
     @GetMapping("/banner/{id}")
     public String bannerDetail(@PathVariable("id") Long id, Model model){
         BannerDTO banner = bannerService.findOne(id);
         model.addAttribute("banner", banner);
         return "backend/banner/detail";
+    }
+
+    //배너수정
+    @GetMapping("/banner/{id}/modify")
+    public String bannerModifyForm(@PathVariable("id")Long id, Model model){
+        BannerDTO banner = bannerService.findOne(id);
+        model.addAttribute("banner", banner);
+        return "backend/banner/modify";
+    }
+    @PostMapping("/banner/{id}/modify")
+    public String bannerModifyPro(@PathVariable("id")Long id, BannerForm bannerForm){
+        bannerService.updateOne(bannerForm);
+        return "redirect:/cms/banner/{id}";
     }
 
 }
