@@ -20,7 +20,7 @@
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/ordermembership/list}">
-                    <span>구독관리</span>   <!--  TODO 페이지 수정 필요 admin과 store 구분해서 바로 필터링 후 뿌리기  -->
+                    <span>구독관리</span>
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
@@ -32,25 +32,37 @@
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/inquiry/list}">
-                    <span>문의관리(*내용)</span> <!--  TODO 페이지 수정 필요  -->
+                    <span>문의관리(*내용)</span>
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
             <li class="menu_list">
-                <a th:href="@{/cms/review/list}">
-                    <span>리뷰관리(*파일&내용)</span> <!--  TODO 페이지 생성 및 페이지 수정 필요  -->
+                <details>
+                    <summary>리뷰관리</summary>
                     <div class="menu_arrow_icon"></div>
-                </a>
+                    <a th:href="@{/cms/storeReview/list}">
+                        <div markdown="1">
+                            <span>서점리뷰관리</span>
+                            <div class="menu_arrow_icon"></div>
+                        </div>
+                    </a>
+                    <a th:href="@{/cms/bookReview/list}">
+                        <div markdown="2">
+                            <span>도서리뷰관리</span>
+                            <div class="menu_arrow_icon"></div>
+                        </div>
+                    </a>
+                </details>
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/banner/list}">
-                    <span>배너관리</span> <!--  TODO 페이지 수정 필요  -->
+                    <span>배너관리</span>
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/display/detail}">
-                    <span>전시관리</span> <!--  TODO 페이지 수정 필요  -->
+                    <span>전시관리</span>
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
