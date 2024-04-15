@@ -58,13 +58,6 @@ public class BookController {
         System.out.println("storeDTOList = " + storeDTOList);
         return storeDTOList;
     }
-
-    // 이미지 데이터 요청
-//    @ResponseBody
-//    @GetMapping("/images/{fileName}")
-//    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
-//        return new UrlResource("file:" + fileUploadService.getPath(fileName));
-//    }
     
     //--상품관리-----------------------------------------------------//
 
@@ -162,6 +155,15 @@ public class BookController {
     public String bookCategoryModifyPro(@PathVariable("id") Long id, BookCategoryForm bookCategoryForm){
         bookCategoryService.updateOne(bookCategoryForm);
         return "redirect:/cms/bookCategory/{id}";
+    }
+
+    // 이미지 데이터 요청
+    @ResponseBody
+    @GetMapping("/bookimages/{fileName}")
+    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
+        System.out.println("fileName = " + fileName);
+        return new UrlResource("file:" + fileUploadService.getPath(fileName));
+
     }
 
 }

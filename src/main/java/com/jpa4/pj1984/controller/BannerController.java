@@ -25,13 +25,6 @@ public class BannerController {
     private final BannerService bannerService;
     private final FileUploadService fileUploadService;
 
-    // 이미지 데이터 요청
-    @ResponseBody
-    @GetMapping("/images/{fileName}")
-    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException {
-        return new UrlResource("file:" + fileUploadService.getPath(fileName));
-    }
-
     //--배너관리-----------------------------------------------------//
 
     // 배너 추가폼
@@ -78,5 +71,10 @@ public class BannerController {
         bannerService.updateOne(bannerForm);
         return "redirect:/cms/banner/{id}";
     }
-
+    // 이미지 데이터 요청
+    @ResponseBody
+    @GetMapping("/bannerimages/{fileName}")
+    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException {
+        return new UrlResource("file:" + fileUploadService.getPath(fileName));
+    }
 }

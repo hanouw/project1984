@@ -32,27 +32,15 @@
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/inquiry/list}">
-                    <span>문의관리(*내용)</span>
+                    <span>문의관리</span>
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
             <li class="menu_list">
-                <details>
-                    <summary>리뷰관리</summary>
+                <a th:href="@{/cms/bookReview/list}">
+                    <span>리뷰관리</span>
                     <div class="menu_arrow_icon"></div>
-                    <a th:href="@{/cms/storeReview/list}">
-                        <div markdown="1">
-                            <span>서점리뷰관리</span>
-                            <div class="menu_arrow_icon"></div>
-                        </div>
-                    </a>
-                    <a th:href="@{/cms/bookReview/list}">
-                        <div markdown="2">
-                            <span>도서리뷰관리</span>
-                            <div class="menu_arrow_icon"></div>
-                        </div>
-                    </a>
-                </details>
+                </a>
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/banner/list}">
