@@ -30,9 +30,9 @@
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>
                         <input name="status" th:name="bookCategoryStatus" value="ON" type="radio"
-                               th:checked="${book.bookCategoryStatus == T(com.jpa4.pj1984.domain.BookCategoryStatus).ON}" disabled>활성화
+                               th:checked="${bookCategory.bookCategoryStatus == T(com.jpa4.pj1984.domain.BookCategoryStatus).ON}" disabled>활성화
                         <input name="status" th:name="bookCategoryStatus" value="OFF" type="radio"
-                               th:checked="${book.bookCategoryStatus == T(com.jpa4.pj1984.domain.BookCategoryStatus).OFF}" disabled>비활성화
+                               th:checked="${bookCategory.bookCategoryStatus == T(com.jpa4.pj1984.domain.BookCategoryStatus).OFF}" disabled>비활성화
                     </div>
                 </div>
 

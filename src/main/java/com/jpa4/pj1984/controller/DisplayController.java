@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.controller;
 
 import com.jpa4.pj1984.dto.DisplayDTO;
+import com.jpa4.pj1984.dto.DisplayForm;
 import com.jpa4.pj1984.service.DisplayService;
 import com.jpa4.pj1984.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
@@ -40,16 +41,17 @@ public class DisplayController {
 
     // 전시 수정
     @GetMapping("/display/modify")
-    public String displayModifyForm() {
+    public String displayModifyForm(Model model) {
         log.info("******* DisplayController modify");
-
+        DisplayDTO display = displayService.findOne();
+        model.addAttribute("display", display);
         return "backend/display/modify";
     }
     // 전시 수정처리
     @PostMapping("/display/modify")
-    public String displayModifyPro() {
+    public String displayModifyPro(DisplayForm displayForm) {
         log.info("******* DisplayController modify");
-
+        displayService.updateOne(displayForm);
         return "redirect:/cms/display/detail";
     }
 

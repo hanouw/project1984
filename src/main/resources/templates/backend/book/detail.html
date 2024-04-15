@@ -88,16 +88,14 @@
           <p>등록일</p>
           <input type="text" th:field="${book.createDate}" readonly>
         </div>
+        <div class="add_checkbox_wrap">
+          <p>활성화</p>
+          <input name="status" th:name="bookStatus" value="ON" type="radio"
+                 th:checked="${book.bookStatus == T(com.jpa4.pj1984.domain.BookStatus).ON}" disabled>활성화
+          <input name="status" th:name="bookStatus" value="OFF" type="radio"
+                 th:checked="${book.bookStatus == T(com.jpa4.pj1984.domain.BookStatus).OFF}" disabled>비활성화
+        </div>
       </div>
-
-      <div class="add_checkbox_wrap">
-        <p>활성화</p>
-        <input name="status" th:name="bookStatus" value="ON" type="radio"
-               th:checked="${book.bookStatus == T(com.jpa4.pj1984.domain.BookStatus).ON}" disabled>활성화
-        <input name="status" th:name="bookStatus" value="OFF" type="radio"
-               th:checked="${book.bookStatus == T(com.jpa4.pj1984.domain.BookStatus).OFF}" disabled>비활성화
-      </div>
-
     </div>
   </th:block>
 </th:block>
