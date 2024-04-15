@@ -50,12 +50,12 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
             }
         }
         log.info("***************PaymentMemRepo startDate:{} endDate:{}", startDate, endDate);
-        log.info("--------PaymentMemRepo getStartDateSelected:{} getEndDateSelected:{}", pageRequestDTO.getStartDateSelected(), pageRequestDTO.getEndDateSelected());
+        log.info("--------PaymentMemRepo getStartDateSelected:{} getEndDateSelected:{}", pageRequestDTO.getStartDate(), pageRequestDTO.getEndDate());
 
-        if (pageRequestDTO.getStartDateSelected() != null && pageRequestDTO.getEndDateSelected() != null) {
+        if (pageRequestDTO.getStartDate() != null && pageRequestDTO.getEndDate() != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            startDate = LocalDate.parse(pageRequestDTO.getStartDateSelected(), formatter).atStartOfDay();
-            endDate = LocalDate.parse(pageRequestDTO.getEndDateSelected(), formatter).atStartOfDay();
+            startDate = LocalDate.parse(pageRequestDTO.getStartDate(), formatter).atStartOfDay();
+            endDate = LocalDate.parse(pageRequestDTO.getEndDate(), formatter).atStartOfDay();
         }
 
         if (startDate == null && endDate == null && period == null && pageRequestDTO.getKeyword() == null ) { // 키워드 없음 + 기간 없음

@@ -11,5 +11,7 @@ public interface PaymentBookHistoryCustomRepository {
 
     Long countBookListByStoreId(Long storeId, PageRequestDTO pageRequestDTO);
 
-    String method(PageRequestDTO pageRequestDTO);
+    String searchTypeMethod(PageRequestDTO pageRequestDTO);
+
+    PageRequestDTO bindingMethod(PageRequestDTO pageRequestDTO);
 }
