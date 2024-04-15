@@ -14,6 +14,10 @@ public class ReviewController {
 
     @GetMapping("/review/list")
     public String reviewListForm(){
-        return "errorPage";
+        return "backend/bookReview/list";
+    }
+    @GetMapping("/review/detail")
+    public String reviewDetailForm(){
+        return "backend/bookReview/list";
     }
 }
