@@ -196,6 +196,7 @@ li.menu_list > a:hover div{
     background-image: url("../img/icon_arrow_up.svg");
 }
 /*============================================================= 드롭바 관련 css*/
+/*
 li.menu_list > details summary{
     font-size: 24px;
     line-height: 29px;
@@ -212,6 +213,13 @@ li.menu_list > details > a:hover span{
 li.menu_list > details > a:hover div{
     color: var(--pointcolor);
     background-image: url("../img/icon_arrow_up.svg");
+}
+*/
+a.review_page_a{
+    color: #dcdcdc;
+}
+a.review_page_a:hover{
+    color: var(--pointcolor);
 }
 /*=============================================================*/
 div.top_st_bar{
