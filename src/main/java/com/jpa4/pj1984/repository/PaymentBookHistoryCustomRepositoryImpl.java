@@ -28,6 +28,8 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
 
         PageRequestDTO newDTO = new PageRequestDTO();
 
+        log.info("************bindingMethod pageRequestDTO:{}", pageRequestDTO);
+
         if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
             newDTO.setDateOrder("desc");
             pageRequestDTO.setDateOrder("desc");
@@ -42,6 +44,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         LocalDateTime startDate = null;
         LocalDateTime endDate = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         if (pageRequestDTO.getDatePeriod() == null || pageRequestDTO.getDatePeriod().equals("")) {
             newDTO.setStartDate(null);
             newDTO.setEndDate(null);
@@ -158,7 +161,6 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
 
     @Override
     public Long countBookListByStoreId(Long storeId, PageRequestDTO pageRequestDTO) {
-        int offset = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         PageRequestDTO dto = bindingMethod(pageRequestDTO);
@@ -171,14 +173,14 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
             endDate = LocalDate.parse(dto.getEndDate(), formatter).atTime(LocalTime.MAX);
         }
 
+        log.info("************PaymentBookHistoryRepo count page:{},order:{},keyword:{},startDate:{},endDate:{}",pageRequestDTO.getPage(),order,keyword,startDate,endDate);
+
         if (startDate == null && keyword == null ) { // 키워드 없음 + 기간 없음
             log.info("**************************키워드 없음 + 기간 없음");
             Long result = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
                             "where p.book.store.storeId = :storeId " +
                             "order by p.createDate "+ order +" ")
                     .setParameter("storeId", storeId)
-                    .setFirstResult(offset)
-                    .setMaxResults(pageRequestDTO.getSize())
                     .getSingleResult();
             return result;
         }
@@ -190,8 +192,6 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
                     .setParameter("storeId", storeId)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
-                    .setFirstResult(offset)
-                    .setMaxResults(pageRequestDTO.getSize())
                     .getSingleResult();
             return result;
         }
@@ -203,8 +203,6 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
                             "order by p.createDate "+ order +" ")
                     .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
-                    .setFirstResult(offset)
-                    .setMaxResults(pageRequestDTO.getSize())
                     .getSingleResult();
             return result;
         }
@@ -219,8 +217,6 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
                     .setParameter("keyword", keyword)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
-                    .setFirstResult(offset)
-                    .setMaxResults(pageRequestDTO.getSize())
                     .getSingleResult();
 
             return result;
@@ -233,9 +229,6 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         String searchType = pageRequestDTO.getSearchType();
         String s = "p";
         switch (searchType) {
-            case "orderNo" :
-                s += ".paymentBook.orderBookNo";
-                break;
             case "userId" :
                 s += ".paymentBook.member.userId";
                 break;

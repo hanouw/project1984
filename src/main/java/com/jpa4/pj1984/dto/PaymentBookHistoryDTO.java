@@ -21,6 +21,7 @@ public class PaymentBookHistoryDTO {
 
     private String userId;
     private String userName;
+    private String userEmail;
 
     private Long bookId;
     private String bookTitle;
@@ -34,7 +35,7 @@ public class PaymentBookHistoryDTO {
 
     // Entity -> DTO
     public PaymentBookHistoryDTO(PaymentBookHistory paymentBookHistory) {
-        this.orderBookNo = paymentBookHistory.getPaymentBook().getOrderBookNo();
+        this.orderBookNo = paymentBookHistory.getOrderBookHistoryId();
         this.orderBookId = paymentBookHistory.getPaymentBook().getOrderBookId();
         this.paymentBookStatus = paymentBookHistory.getPaymentBook().getPaymentBookStatus();
         this.orderBookMethod = paymentBookHistory.getPaymentBook().getOrderBookMethod();
@@ -42,13 +43,14 @@ public class PaymentBookHistoryDTO {
 
         this.userName = paymentBookHistory.getPaymentBook().getMember().getUserName();
         this.userId = paymentBookHistory.getPaymentBook().getMember().getUserId();
+        this.userEmail = paymentBookHistory.getPaymentBook().getMember().getUserEmail();
 
         this.bookId = paymentBookHistory.getBook().getBookId();
         this.bookTitle = paymentBookHistory.getBook().getBookTitle();
         this.storeTitle = paymentBookHistory.getBook().getStore().getStoreTitle();
+        this.bookImgStored = paymentBookHistory.getBook().getBookImgStored();
         this.bookPub = paymentBookHistory.getBook().getBookPub();
         this.bookEbookPrice = paymentBookHistory.getBook().getBookEbookPrice();
         this.bookWriter = paymentBookHistory.getBook().getBookWriter();
-        this.bookImgStored = paymentBookHistory.getBook().getBookImgStored();
     }
 }

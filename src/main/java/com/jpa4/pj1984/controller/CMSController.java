@@ -101,6 +101,8 @@ public class CMSController {
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
         log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
+        pageRequestDTO.setPage(1);
+        pageRequestDTO.setDateOrder("desc");
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1L;
         List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
