@@ -37,23 +37,22 @@
                 </a>
             </li>
             <li class="menu_list">
-                <a th:href="@{/cms/review/list}">
-                    <span>리뷰관리(*파일&내용)</span> <!--  TODO 페이지 생성 및 페이지 수정 필요  -->
+                <details>
+                    <summary>리뷰관리</summary>
                     <div class="menu_arrow_icon"></div>
-
-<!--                    <details>-->
-<!--                        <summary>리뷰관리</summary>-->
-<!--                        <div class="menu_arrow_icon"></div>-->
-<!--                        <div markdown="1">-->
-<!--                            <span>서점리뷰관리</span>-->
-<!--                            <div class="menu_arrow_icon"></div>-->
-<!--                        </div>-->
-<!--                        <div markdown="2">-->
-<!--                            <span>서점리뷰관리</span>-->
-<!--                            <div class="menu_arrow_icon"></div>-->
-<!--                        </div>-->
-<!--                    </details>-->
-                </a>
+                    <a th:href="@{/cms/review/list}">
+                        <div markdown="1">
+                            <span>서점리뷰관리</span>
+                            <div class="menu_arrow_icon"></div>
+                        </div>
+                    </a>
+                    <a th:href="@{/cms/review/detail}">
+                        <div markdown="2">
+                            <span>도서리뷰관리</span>
+                            <div class="menu_arrow_icon"></div>
+                        </div>
+                    </a>
+                </details>
             </li>
             <li class="menu_list">
                 <a th:href="@{/cms/banner/list}">
