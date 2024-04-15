@@ -101,9 +101,6 @@ public class CMSController {
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
         log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
-        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
-            pageRequestDTO.setDateOrder("desc");
-        }
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1L;
         List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
@@ -119,15 +116,6 @@ public class CMSController {
     @GetMapping("/order/bookList/ajax")
     public ResponseEntity<BookPageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
         log.info("----CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        if (pageRequestDTO.getKeyword() == null || pageRequestDTO.getKeyword().equals("")) {
-            pageRequestDTO.setKeyword(null);
-            pageRequestDTO.setSearchType(null);
-            log.info("*******CMSController keyword null 설정");
-        }
-        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
-            pageRequestDTO.setDateOrder("desc");
-        }
-        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1L;
         List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
