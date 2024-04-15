@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+
+                <div class="search_date_wrap">
+                    <div class="item">
+                        <h2>배너상세</h2>
+                    </div>
+                    <div class="item">
+                        <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
+                        <button th:onclick="|location.href='@{/cms/banner/{id}/modify(id=${banner.bannerId})}'|" class="black_btn">수정</button>
+                    </div>
+                </div>
+                <div class="add_form_wrap">
+
+                    <div class="add_input_wrap">
+                        <p>배너이미지</p>
+                        <div id="drop_zone" class="drag_img_form">
+                            <img id="image-preview" alt="">
+                            <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
+                        </div>
+                        <input type="text" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+                    </div>
+
+                    <div class="add_input_wrap">
+                        <p>제목</p>
+                        <input type="text" th:field="${banner.bannerTitle}" placeholder="제목을 입력해주세요." readonly>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>설명</p>
+                        <textarea th:field="${banner.bannerDetail}" placeholder="설명을 입력해주세요." readonly></textarea>
+                    </div>
+                    <br>
+                    <div class="add_input_wrap">
+                        <p>링크</p>
+                        <input type="text" th:field="${banner.bannerLink}" placeholder="링크를 입력해주세요." readonly>
+                    </div>
+                    <div class="add_input_wrap">
+                        <p>노출순서</p>
+                        <select th:field="${banner.bannerOrder}" disabled>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="add_checkbox_wrap">
+                        <p>활성화</p>
+                        <input name="status" th:name="bannerStatus" value="ON" type="radio"
+                               th:checked="${banner.bannerStatus == T(com.jpa4.pj1984.domain.BannerStatus).ON}" disabled>활성화
+                        <input name="status" th:name="bannerStatus" value="OFF" type="radio"
+                               th:checked="${banner.bannerStatus == T(com.jpa4.pj1984.domain.BannerStatus).OFF}" disabled>비활성화
+                    </div>
+                </div>
+
+        </div>
+    </th:block>
+</th:block>
+
+</html>

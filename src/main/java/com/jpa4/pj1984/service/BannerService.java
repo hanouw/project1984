@@ -46,6 +46,11 @@ public class BannerService {
         return new BannerDTO(banner);
     }
 
+    public void updateOne(BannerForm bannerForm) {
+        Banner banner = bannerRepository.findById(bannerForm.getBannerId()).orElse(null);
+        banner.setBannerTitle(bannerForm.getBannerTitle());
+    }
+
     //수정
 
 }
