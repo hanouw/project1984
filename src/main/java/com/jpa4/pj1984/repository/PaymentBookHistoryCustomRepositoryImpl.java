@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.List;
 @Repository
 @Slf4j
 @RequiredArgsConstructor
+@Primary
 public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistoryCustomRepository{
 
     @PersistenceContext

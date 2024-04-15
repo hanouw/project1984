@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentBookHistoryDTO {
-    private Long orderBookNo; // auto_increment
+    private Long orderBookHistoryId;
     private Long orderBookId; // 2024040300000
     private PaymentBookStatus paymentBookStatus;
     private String orderBookMethod;
@@ -22,6 +22,7 @@ public class PaymentBookHistoryDTO {
     private String userId;
     private String userName;
     private String userEmail;
+    private String userPhoneNum;
 
     private Long bookId;
     private String bookTitle;
@@ -35,7 +36,7 @@ public class PaymentBookHistoryDTO {
 
     // Entity -> DTO
     public PaymentBookHistoryDTO(PaymentBookHistory paymentBookHistory) {
-        this.orderBookNo = paymentBookHistory.getOrderBookHistoryId();
+        this.orderBookHistoryId = paymentBookHistory.getOrderBookHistoryId();
         this.orderBookId = paymentBookHistory.getPaymentBook().getOrderBookId();
         this.paymentBookStatus = paymentBookHistory.getPaymentBook().getPaymentBookStatus();
         this.orderBookMethod = paymentBookHistory.getPaymentBook().getOrderBookMethod();
@@ -44,6 +45,7 @@ public class PaymentBookHistoryDTO {
         this.userName = paymentBookHistory.getPaymentBook().getMember().getUserName();
         this.userId = paymentBookHistory.getPaymentBook().getMember().getUserId();
         this.userEmail = paymentBookHistory.getPaymentBook().getMember().getUserEmail();
+        this.userPhoneNum = paymentBookHistory.getPaymentBook().getMember().getUserPhoneNum();
 
         this.bookId = paymentBookHistory.getBook().getBookId();
         this.bookTitle = paymentBookHistory.getBook().getBookTitle();

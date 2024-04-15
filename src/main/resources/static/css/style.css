@@ -337,6 +337,34 @@ div.top_st_bar > span{
     padding: 13px 20px;
     border-radius: 4px;
 }
+.book_order_wrap {
+    background-color:#fff;
+    border-radius:4px;
+}
+.book_img_body{
+    width: 100px;
+    height:140px;
+    background-color: #dcdcdc;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.book_text{
+    margin-left: 20px;
+    margin-top: 20px;
+    line-height: 20px;
+    text-align: left;
+}
+.book_text > p{
+    font-size: 18px;
+}
+.book_text span{
+    font-size: 14px;
+    color: var(--maingr01);
+}
+.book_store_price_wrap {
+    margin-top: 20px;
+}
 .drag_img_form{
     max-width:780px;
     width:50%;
