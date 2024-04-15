@@ -326,7 +326,7 @@ div.top_st_bar > span{
 }
 #image-preview{
     margin:20px;
-
+    width: auto;
     height:calc(100% - 40px);
 }
 

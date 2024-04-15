@@ -39,10 +39,10 @@
           <div class="add_input_wrap">
             <p>도서표지</p>
             <div id="drop_zone" class="drag_img_form">
-              <img id="image-preview" alt="">
-              <!--              <img id="image-preview" thth:src="|/cms/book/images/${book.getBookImg()}|" alt="">-->
+              <img id="image-preview" alt="" th:src="|/cms/bookimages/${book.getBookImgStored}|">
+              <button type="button" class="img_delete_btn" onclick="clickdelete()" style="display:block;"></button>
             </div>
-            <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+            <input type="text" th:field="*{bookImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
             <!--            <button type="button"></button>-->
           </div>
 
@@ -165,5 +165,75 @@
   function uploadFile(file) {
     document.getElementById('bookImg').value = file.name;
   }
+</script>
+<script>
+  $(document).ready(function(){
+    $(".book_add_form").on("submit", function(e){
+      e.preventDefault(); // 기본 제출 동작 막기
+      console.log(fileList);
+      // 폼 데이터 만들어 폼태그에 있는 작성값들 모두 담기
+      let formData = new FormData();
+
+      let isbn = $("#isbn").val();
+
+      let bookImg = files[0];
+      let bookFile = $("#bookFile")[0].files[0];
+
+      let bookTitle = $("#bookTitle").val();
+      let bookWriter = $("#bookWriter").val();
+      let store = $("#store").val();
+      let bookPub = $("#bookPub").val();
+      let bookPaperPrice = $("#bookPaperPrice").val();
+      let bookEbookPrice = $("#bookEbookPrice").val();
+      let bookCategory = $("#bookCategory").val();
+      let bookIntro = $("#bookIntro").val();
+      let bookIndex = $("#bookIndex").val();
+      let bookReview = $("#bookReview").val();
+      let bookWriterProfile = $("#bookWriterProfile").val();
+      let bookStatus = document.querySelector('input[name="bookStatus"]:checked').value;
+
+      formData.append("isbn", isbn);
+
+      formData.append("bookImg", bookImg);
+      formData.append("bookFile", bookFile);
+
+      formData.append("bookTitle", bookTitle);
+      formData.append("bookWriter", bookWriter);
+      formData.append("store", store);
+      formData.append("bookPub", bookPub);
+      formData.append("bookPaperPrice", bookPaperPrice);
+      formData.append("bookEbookPrice", bookEbookPrice);
+      formData.append("bookCategory", bookCategory);
+      formData.append("bookIntro", bookIntro);
+      formData.append("bookIndex", bookIndex);
+      formData.append("bookReview", bookReview);
+      formData.append("bookWriterProfile", bookWriterProfile);
+      formData.append("bookStatus", bookStatus);
+
+      console.log(bookFile);
+      console.log(bookImg);
+      console.log(formData);
+
+      $.ajax({
+        type: "post",
+        url: "/cms/book/modify",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result){
+          console.log("성공!");
+              console.log(result);
+              // availResult input태그에 결과 메세지 띄우기
+              $("#availResult").val(result);
+              window.location.href = "/cms/book/list";
+          },
+          error: function(e) {
+              console.log("실패...");
+              console.log(e);
+          }
+      });
+    });
+  });
+
 </script>
 </html>

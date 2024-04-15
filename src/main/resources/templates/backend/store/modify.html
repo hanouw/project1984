@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
@@ -118,5 +117,166 @@
     </div>
   </th:block>
 </th:block>
-</body>
+<script>
+  let fileList = new Array();
+  let files = null;
+  // Prevent default drag behaviors
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, preventDefaults, false)
+  });
+
+  function preventDefaults (e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  // Highlight drop area when item is dragged over it
+  ['dragenter', 'dragover'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, highlight, false)
+  });
+  ['dropleave'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, highlightlv, false)
+  });
+  ['drop'].forEach(eventName => {
+    document.getElementById('drop_zone').addEventListener(eventName, unhighlight, false)
+  });
+
+  function highlight(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#fafafa';
+  }
+
+  function highlightlv(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
+  }
+
+  function unhighlight(e) {
+    document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
+  }
+
+  // Handle dropped files
+  document.getElementById('drop_zone').addEventListener('drop', handleDrop, false);
+
+  function handleDrop(e) {
+    let dt = e.dataTransfer;
+    files = dt.files;
+    //fileList.push(files); // 배열에 추가
+
+    handleFiles(files);
+  }
+
+  function handleFiles(files) {
+    ([...files]).forEach(uploadFile);
+  }
+
+  function uploadFile(file) {
+    document.getElementById('bookImg').value = file.name;
+
+      // 이미지 미리보기
+    let reader = new FileReader();
+    reader.onloadend = function() {
+      let img = document.getElementById('image-preview');
+      let deleteBtn = document.querySelector('.img_delete_btn');
+      let dropZone = document.getElementById('drop_zone');
+      img.src = reader.result;
+      deleteBtn.style.display = 'block';
+<!--      dropZone.style.backgroundImage = 'url()';-->
+    }
+    reader.readAsDataURL(file);
+  }
+
+  function clickdelete(e){
+    // 이미지 삭제 버튼에 클릭 이벤트 리스너 추가
+    document.querySelector('.img_delete_btn').addEventListener('click', function() {
+      // 이미지 미리보기 초기화
+      document.getElementById('image-preview').src = '';
+
+      // 'bookImg' 요소의 값 초기화
+      document.getElementById('bookImg').value = '';
+
+      //버튼 다시 삭제
+      document.querySelector('.img_delete_btn').style.display = 'none';
+
+      // 드래그 배경 색 수정
+      document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
+<!--      let bgImgUrl = "../img/img_drag.png";-->
+<!--      let dropZone = document.getElementById('drop_zone');-->
+<!--      dropZone.style.backgroundImage = "url('" + bgImgUrl + "')";-->
+
+      // 이미지 삭제 버튼 숨기기
+      this.style.display = 'none';
+      console.log(fileList[0][0]);
+    });
+  }
+
+</script>
+<script>
+  $(document).ready(function(){
+    $(".book_add_form").on("submit", function(e){
+      e.preventDefault(); // 기본 제출 동작 막기
+      console.log(fileList);
+      // 폼 데이터 만들어 폼태그에 있는 작성값들 모두 담기
+      let formData = new FormData();
+
+      let isbn = $("#isbn").val();
+
+      let bookImg = files[0];
+      let bookFile = $("#bookFile")[0].files[0];
+
+      let bookTitle = $("#bookTitle").val();
+      let bookWriter = $("#bookWriter").val();
+      let store = $("#store").val();
+      let bookPub = $("#bookPub").val();
+      let bookPaperPrice = $("#bookPaperPrice").val();
+      let bookEbookPrice = $("#bookEbookPrice").val();
+      let bookCategory = $("#bookCategory").val();
+      let bookIntro = $("#bookIntro").val();
+      let bookIndex = $("#bookIndex").val();
+      let bookReview = $("#bookReview").val();
+      let bookWriterProfile = $("#bookWriterProfile").val();
+      let bookStatus = document.querySelector('input[name="bookStatus"]:checked').value;
+
+      formData.append("isbn", isbn);
+
+      formData.append("bookImg", bookImg);
+      formData.append("bookFile", bookFile);
+
+      formData.append("bookTitle", bookTitle);
+      formData.append("bookWriter", bookWriter);
+      formData.append("store", store);
+      formData.append("bookPub", bookPub);
+      formData.append("bookPaperPrice", bookPaperPrice);
+      formData.append("bookEbookPrice", bookEbookPrice);
+      formData.append("bookCategory", bookCategory);
+      formData.append("bookIntro", bookIntro);
+      formData.append("bookIndex", bookIndex);
+      formData.append("bookReview", bookReview);
+      formData.append("bookWriterProfile", bookWriterProfile);
+      formData.append("bookStatus", bookStatus);
+
+      console.log(bookFile);
+      console.log(bookImg);
+      console.log(formData);
+
+      $.ajax({
+        type: "post",
+        url: "/cms/book/{id}/modify",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(result){
+          console.log("성공!");
+              console.log(result);
+              // availResult input태그에 결과 메세지 띄우기
+              $("#availResult").val(result);
+              window.location.href = "/cms/book/list";
+          },
+          error: function(e) {
+              console.log("실패...");
+              console.log(e);
+          }
+      });
+    });
+  });
+
+</script>
 </html>
