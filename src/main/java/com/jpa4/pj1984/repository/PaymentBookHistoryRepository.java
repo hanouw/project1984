@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PaymentBookHistoryRepository extends JpaRepository<PaymentBookHistory, Long> {
+public interface PaymentBookHistoryRepository extends JpaRepository<PaymentBookHistory, Long>, PaymentBookHistoryCustomRepository {
 }

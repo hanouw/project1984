@@ -101,16 +101,9 @@ public class CMSController {
                             // @AuthenticationPrincipal CustomMember customMember
     ) {
         log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
-        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
-            pageRequestDTO.setDateOrder("desc");
-        }
-//        if (pageRequestDTO.getStartDateSelected() == null || pageRequestDTO.getEndDateSelected() == null) {
-//            pageRequestDTO.setStartDateSelected("2000-01-01");
-//            pageRequestDTO.setEndDateSelected("2100-01-01");
-//        }
         // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1L;
-        List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
+        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
         Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
         PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
@@ -121,26 +114,14 @@ public class CMSController {
 
     // ajax 주문관리 - 주문 목록 조회 판매자 ver
     @GetMapping("/order/bookList/ajax")
-    public ResponseEntity<PageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
+    public ResponseEntity<BookPageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
         log.info("----CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        if (pageRequestDTO.getKeyword() == "") {
-            pageRequestDTO.setKeyword(null);
-            log.info("***************** CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        }
-        if (pageRequestDTO.getSearchType() == "") {
-            pageRequestDTO.setSearchType(null);
-            log.info("***************** CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        }
-        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
         Long garaId = 1L;
-        if (pageRequestDTO.getDateOrder() == null || pageRequestDTO.getDateOrder().equals("desc")) {
-            pageRequestDTO.setDateOrder("desc");
-        }
-        List<PaymentResponseDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
+        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
         Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
-        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count, orderList);
-        log.info("----CmsService orderListAjax pageResponseDTO : {}", pageResponseDTO);
-        return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
+        BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
+        log.info("----CmsService orderListAjax pageResponseDTO : {}", bookPageResponseDTO);
+        return new ResponseEntity<>(bookPageResponseDTO, HttpStatus.OK);
     }
 
     // ajax : 관리자 회원가입 중복 확인

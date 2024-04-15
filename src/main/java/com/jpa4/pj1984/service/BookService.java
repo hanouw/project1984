@@ -1,11 +1,7 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.Book;
-
-import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.ProductFile;
-import com.jpa4.pj1984.dto.BookCategoryDTO;
-import com.jpa4.pj1984.dto.BookCategoryForm;
 import com.jpa4.pj1984.dto.BookDTO;
 import com.jpa4.pj1984.dto.BookForm;
 import com.jpa4.pj1984.repository.BookRepository;

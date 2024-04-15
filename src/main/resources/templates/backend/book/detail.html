@@ -25,7 +25,10 @@
         </div>
         <div class="add_input_wrap">
           <p>도서표지</p>
-          <input type="text" th:field="${book.bookImg}" readonly>
+          <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
+            <img id="image-preview" alt="" th:src="|/Users/hoseonyoo/Documents/file/${book.getBookImgStored()}|">
+          </div>
+          <input type="text" th:field="${book.bookImgOrg}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>도서명</p>
@@ -65,7 +68,7 @@
         </div>
         <div class="add_input_wrap">
           <p>책 파일</p>
-          <input type="text" th:field="${book.bookFile}" readonly>
+          <input type="text" th:field="${book.bookFileOrg}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>전자도서 판매가</p>
@@ -85,6 +88,14 @@
           <p>등록일</p>
           <input type="text" th:field="${book.createDate}" readonly>
         </div>
+      </div>
+
+      <div class="add_checkbox_wrap">
+        <p>활성화</p>
+        <input name="status" th:name="bookStatus" value="ON" type="radio"
+               th:checked="${book.bookStatus == T(com.jpa4.pj1984.domain.BookStatus).ON}" disabled>활성화
+        <input name="status" th:name="bookStatus" value="OFF" type="radio"
+               th:checked="${book.bookStatus == T(com.jpa4.pj1984.domain.BookStatus).OFF}" disabled>비활성화
       </div>
 
     </div>

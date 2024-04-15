@@ -17,6 +17,6 @@ public class PageRequestDTO { // 구 Pager
     private String searchType; // 검색 유형 (t, w, c, tc, tw, twc)
     private String dateOrder; // 최신순, 이전순
     private String datePeriod; // 검색기간
-    private String startDateSelected;
-    private String endDateSelected;
+    private String startDate;
+    private String endDate;
 }

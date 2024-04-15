@@ -37,6 +37,7 @@ public class BookForm {
     private String bookReview;
     private String bookWriterProfile;
     private BookStatus bookStatus;
+    private LocalDateTime lastModifiedDate;
     private LocalDateTime createDate;
 
     //DTO -> Entity
