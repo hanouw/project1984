@@ -26,7 +26,6 @@
                 <div class="item">
                     <select name="searchType" id="searchType" >
                         <option value="" th:selected="${pageResponseDTO.pageRequestDTO.searchType == null}">----</option>
-                        <option value="orderNo" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'orderNo'}">No</option>
                         <option value="userId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userId'}">회원ID</option>
                         <option value="userName" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userName'}">회원명</option>
                         <option value="bookId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'bookId'}">bookId</option>
@@ -48,32 +47,23 @@
                 </div>
             </div>
             <div class="list_table_wrap">
-        </div>
+
+            </div>
         </div>
         <div class="paging_wrap">
-            <div class="paging_bar">
-                <ul class="flex_between">
-                    <li>Prev</li>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>Next</li>
-                </ul>
-            </div>
+
         </div>
     </th:block>
 </th:block>
 
 <script th:inline="javascript">
 $(document).ready(function () {
-    let keyword = $("#keyword").val();
-    let searchType = $("#searchType").val();
+    let keyword = '';
+    let searchType = '';
     let dateOrder = $("#dateOrder").val();
-    let datePeriodSelected = $(this).val();
-    let startDateSelected = $("#startDate").val();
-    let endDateSelected = $("#endDate").val();
+    let datePeriodSelected = '';
+    let startDateSelected = '';
+    let endDateSelected = '';
     let orderListDiv = $(".list_table_wrap");
     let paginationDiv = $(".paging_wrap");
     let currPage = 1;
@@ -83,19 +73,30 @@ $(document).ready(function () {
     function getList(page) { // page = 요청된 페이지 번호
         currPage = page;
         console.log(page);
+        startDateSelected = $("#startDate").val();
+        endDateSelected = $("#endDate").val();
+        keyword = $("#keyword").val();
+        searchType = $("#searchType").val();
         $.ajax({
             type: "GET",
             url: "/cms/order/bookList/ajax",
-            data: {page: page},
-            success: function (response) {
-                console.log("ajax 성공");
-                console.log(response);
-                // 목록 화면에 출력
-                printList(response);
-                // 페이지네이션 출력
-                printPagination(response);
+            data: {
+                page: currPage,
+                keyword: keyword,
+                searchType: searchType,
+                dateOrder: dateOrder,
+                datePeriod: datePeriodSelected,
+                startDate: startDateSelected,
+                endDate: endDateSelected
             },
-            error: function (e) {
+            success: function(response){
+                console.log(response);
+                printList(response);
+                printPagination(response)
+            },
+            error: function(e){
+                console.error("요청 실패");
+                console.log(e);
             }
         });
     }
@@ -105,31 +106,32 @@ $(document).ready(function () {
         let html = '';
         html += '<div class="paging_bar"><ul class="flex_between">';
         if (response.prev) {
-            html += '<li>';
+            html += '<li class="click">';
         } else {
             html += '<li class="disabled">';
         }
-        html += '<a class="page-link" href="' + (response.startPage - 1) + '">Previous</a></li>';
+        html += '<a class="pageLink" href="' + (response.startPage - 1) + '">Previous</a></li>';
         response.pageNumList.forEach(function (pageNum, i) {
             if (pageNum == currPage) {
                 html += '<li class="active">';
             } else {
-                html += '<li>';
+                html += '<li class="click">';
             }
-            html += ' <a class="page-link" href="' + pageNum + '">' + pageNum + '</a></li>';
+            html += ' <a class="pageLink" href="' + pageNum + '">' + pageNum + '</a></li>';
         })
         if (response.next) {
-            html += '<li>';
+            html += '<li click>';
         } else {
             html += '<li class="disabled">';
         }
-        html += '<a class="page-link" href="' + (response.endPage + 1) + '">Next</a></li></ul></div>';
+        html += '<a class="pageLink" href="' + (response.endPage + 1) + '">Next</a></li></ul></div>';
 
         paginationDiv.html(html);
     };
 
     // 댓글 페이지 번호 클릭 이벤트 등록
-    paginationDiv.on("click", "a.page-link", function (e) {
+    paginationDiv.on("click", "a.pageLink", function (e) {
+        console.log("페이지번호 클릭");
         e.preventDefault(); // a 태그의 기본 이벤트는 취소
         let pageNum = $(this).attr("href");
         console.log("pageNum : " + pageNum);
@@ -166,120 +168,35 @@ $(document).ready(function () {
 
     // 최신순, 이전순 클릭시
     $("#dateOrder").change(function () {
+        console.log("최신순 이전순 클릭")
         if (valueCheck()) {
             dateOrder = $(this).val();
-            startDateSelected = $("#startDate").val();
-            endDateSelected = $("#endDate").val();
-            keyword = $("#keyword").val();
-            searchType = $("#searchType").val();
-            $.ajax({
-                type: "GET",
-                url: "/cms/order/bookList/ajax",
-                data: {
-                    keyword: keyword,
-                    searchType: searchType,
-                    dateOrder: dateOrder,
-                    datePeriod: datePeriodSelected,
-                    startDate: startDateSelected,
-                    endDate: endDateSelected
-                },
-                success: function(response){
-                    console.log("최신순 이전순 요청 성공");
-                    console.log(response.pageRequestDTO);
-                    printList(response);
-                },
-                error: function(e){
-                    console.error("요청 실패");
-                    console.log(e);
-                }
-            });
+            getList(1);
         }
     });
 
     // 오늘, 일주일, 한달 버튼 클릭시
     $(".dateBtn").on("click", function (e) {
+        console.log("datePeriod 클릭")
         if (valueCheck()) {
-            let datePeriodSelected = $(this).val();
+            datePeriodSelected = $(this).val();
             console.log(datePeriodSelected);
-            $.ajax({
-                type: "GET",
-                url: "/cms/order/bookList/ajax",
-                data: {
-                    keyword: keyword,
-                    searchType: searchType,
-                    dateOrder: dateOrder,
-                    datePeriod: datePeriodSelected
-                },
-                success: function (response) {
-                    console.log("date Button click 요청 성공");
-                    console.log(response.pageRequestDTO);
-                    printList(response);
-                },
-                error: function (e) {
-                    console.error("요청 실패");
-                    console.log(e);
-                }
-            });
+            getList(1);
         }
     });
 
     // 달력 조회버튼 클릭시
     $("#dateSelectedBtn").on("click", function (e) {
+        console.log('달력 조회 클릭')
         if(valueCheck()){
-            startDateSelected = $("#startDate").val();
-            endDateSelected = $("#endDate").val();
-            keyword = $("#keyword").val();
-            searchType = $("#searchType").val();
-            $.ajax({
-                type: "GET",
-                url: "/cms/order/bookList/ajax",
-                data: {
-                    keyword: keyword,
-                    searchType: searchType,
-                    dateOrder: dateOrder,
-                    startDate: startDateSelected,
-                    endDate: endDateSelected
-                },
-                success: function(response){
-                    console.log("달력 조회 버튼 click 요청 성공");
-                    console.log(response.pageRequestDTO);
-                    printList(response);
-                },
-                error: function(e){
-                    console.error("요청 실패");
-                    console.log(e);
-                }
-            });
+            getList(1);
         }
     });
 
     // 키워드 검색 버튼 클릭시
     $("#searchBtn").on("click", function (e) {
         if(valueCheck()) {
-            keyword = $("#keyword").val();
-            searchType = $("#searchType").val();
-            startDateSelected = $("#startDate").val();
-            endDateSelected = $("#endDate").val();
-            $.ajax({
-                type: "GET",
-                url: "/cms/order/bookList/ajax",
-                data: {
-                    keyword: keyword,
-                    searchType: searchType,
-                    dateOrder: dateOrder,
-                    startDate: startDateSelected,
-                    endDate: endDateSelected
-                },
-                success: function(response){
-                    console.log("키워드 검색 버튼 click");
-                    console.log(response.pageRequestDTO);
-                    printList(response);
-                },
-                error: function(e){
-                    console.error("요청 실패");
-                    console.log(e);
-                }
-            })
+            getList(1);
         }
     });
 
