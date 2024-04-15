@@ -484,3 +484,32 @@ button.img_delete_btn{
     outline: none;
     color: rgb(255 255 255 / 96%);
 }
+
+/* 대시보드 */
+.dash_board_top {
+    width: calc(100% - 40px);
+    margin: 20px;
+    height: 80px;
+    border-radius: 4px;
+    border: 0.5px solid var(--maingr00);
+    background-color: #fff;
+    text-align: right;
+}
+.dash_board_left {
+    width: calc(100% - 40px);
+    margin: 20px;
+    height: 160px;
+    border-radius: 4px;
+    border: 0.5px solid var(--maingr00);
+    background-color: #fff;
+    text-align: left;
+}
+.dash_board_right {
+    width: calc(100% - 40px);
+    margin: 20px;
+    height: 160px;
+    border-radius: 4px;
+    border: 0.5px solid var(--maingr00);
+    background-color: #fff;
+    text-align: left;
+}
