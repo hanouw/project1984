@@ -71,6 +71,14 @@ public class CmsService {
         return paymentBookHistoryRepository.countBookListByStoreId(storeId, pageRequestDTO);
     }
 
+    // 주문관리 - 주문 상세페이지 조회
+    public PaymentBookHistoryDTO findOneBookHistory(Long orderBookHistoryId) {
+        log.info("************CmsService orderBookHistoryId:{}", orderBookHistoryId);
+        PaymentBookHistoryDTO dto = new PaymentBookHistoryDTO(paymentBookHistoryRepository.findById(orderBookHistoryId).orElse(null));
+        log.info("************CmsService dto:{}", dto);
+        return dto;
+    }
+
     // 구독관리 - 구독내역 목록 조회 판매자 ver
     public List<PaymentMemDTO> findMembershipList(Long storeId, PageRequestDTO pageRequestDTO) {
         List<PaymentMem> membershipEntityList = paymentMemRepository.findMembershipListByStoreId(storeId, pageRequestDTO);
@@ -82,9 +90,17 @@ public class CmsService {
         return list;
     }
 
-    // 구독관리 - 구독내역 개수 조회 판매자 ver
+    // 구독관리 - 검색된 구독내역 개수 조회 판매자 ver
     public Long countMembershipList(Long storeId, PageRequestDTO pageRequestDTO) {
         return paymentMemRepository.countMembershipListByStoreId(storeId, pageRequestDTO);
+    }
+
+    // 구독관리 - 구독내역 상세페이지 조회
+    public PaymentMemDTO findOneMemHistory(Long orderMembershipNo) {
+        log.info("************CmsService findOneMemHistory orderMembershipNo:{}", orderMembershipNo);
+        PaymentMemDTO dto = new PaymentMemDTO(paymentMemRepository.findById(orderMembershipNo).orElse(null));
+        log.info("************CmsService findOneMemHistory dto:{}", dto);
+        return dto;
     }
 
 }

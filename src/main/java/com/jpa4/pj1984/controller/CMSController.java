@@ -89,10 +89,38 @@ public class CMSController {
     }
 
     // 구독 관리 - 목록 조회
-    @GetMapping("/ordermembership/list")
-    public String userMembershipList(){
-        log.info("*******  CMS Controller / GET / userMemberShipList : list");
+    @GetMapping("/order/membershipList")
+    public String userMembershipList(Model model, PageRequestDTO pageRequestDTO){
+        log.info("----CmsController userMemberShipList pageRequestDTO : {}", pageRequestDTO);
+        pageRequestDTO.setPage(1);
+        pageRequestDTO.setDateOrder("desc");
+        Long garaId = 1L;
+        List<PaymentMemDTO> orderList = cmsService.findMembershipList(garaId, pageRequestDTO);
+        model.addAttribute("orderList", orderList);
+        Long count = cmsService.countMembershipList(garaId, pageRequestDTO);
+        MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
         return "backend/member/membershipList";
+    }
+
+    // ajax 구독 관리 - 목록 조회
+    @GetMapping("/order/membershipList/ajax")
+    public ResponseEntity<MemPageResponseDTO> userMembershipListAjax(PageRequestDTO pageRequestDTO) {
+        log.info("----CmsController userMembershipListAjax pageRequestDTO : {}", pageRequestDTO);
+        Long garaId = 1L;
+        List<PaymentMemDTO> orderList = cmsService.findMembershipList(garaId, pageRequestDTO);
+        Long count = cmsService.countMembershipList(garaId, pageRequestDTO);
+        MemPageResponseDTO memPageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
+        log.info("----CmsService orderListAjax memPageResponseDTO : {}", memPageResponseDTO);
+        return new ResponseEntity<>(memPageResponseDTO, HttpStatus.OK);
+    }
+
+    // 구독관리 - 구독내역 상세페이지 조회
+    @GetMapping("/order/membership/{orderMembershipNo}")
+    public String membershipDetail(@PathVariable("orderMembershipNo") Long orderMembershipNo, Model model) {
+        PaymentMemDTO memDTO = cmsService.findOneMemHistory(orderMembershipNo);
+        model.addAttribute("order", memDTO);
+        return "backend/member/membershipDetail";
     }
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
@@ -124,6 +152,14 @@ public class CMSController {
         BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
         log.info("----CmsService orderListAjax pageResponseDTO : {}", bookPageResponseDTO);
         return new ResponseEntity<>(bookPageResponseDTO, HttpStatus.OK);
+    }
+
+    // 주문관리 - 주문 내역 상세페이지 조회
+    @GetMapping("/order/book/{orderBookHistoryId}")
+    public String orderBook(@PathVariable("orderBookHistoryId") Long orderBookHistoryId, Model model) {
+        PaymentBookHistoryDTO bookHistoryDTO = cmsService.findOneBookHistory(orderBookHistoryId);
+        model.addAttribute("order", bookHistoryDTO);
+        return "backend/order/bookDetail";
     }
 
     // ajax : 관리자 회원가입 중복 확인
