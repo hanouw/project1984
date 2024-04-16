@@ -52,12 +52,12 @@
           <tr th:each="storeList : ${storeList}">
             <!--              NO	서점ID	서점명	대표자명	연락처	주소	사업자등록번호	활성화	수정일	등록일-->
             <!--th:href="@{/store/{storeId}"-->
-            <td th:text="${storeList.storeId}"></td>
+            <td><a th:text="${storeList.storeId}"
+                   th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
             <td><a th:text="${storeList.storeLoginId}"
                    th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
             <td><a th:text="${storeList.storeTitle}"
-                   th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a>
-            </td>
+                   th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
             <td th:text="${storeList.storeOwner}"></td>
             <td th:text="${storeList.storePhoneNum}"></td>
             <td th:text="${storeList.storeAddress}"></td>

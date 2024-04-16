@@ -499,9 +499,7 @@ button.img_delete_btn{
     margin-bottom:14px;
 }
 
-.store_img_form.imageExists {
-    background-image: none !important; /* 이미지가 존재하는 경우 백그라운드 이미지 제거 */
-}
+
 
 
 
