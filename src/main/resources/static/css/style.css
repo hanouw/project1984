@@ -547,3 +547,8 @@ button.img_delete_btn{
     background-color: #fff;
     text-align: left;
 }
+.dash_board_img {
+    width: calc(100% - 80px);
+    margin-bottom: 40px;
+    margin-left: 40px;
+}
