@@ -9,75 +9,70 @@
                     <h2>주문상세</h2>
                 </div>
                 <div class="item">
-                    <button class="grey_btn">목록</button>
+                    <button class="grey_btn" th:onclick="|location.href='@{/cms/order/bookList}'|">목록</button>
                 </div>
             </div>
             <div class="add_form_wrap">
                 <div class="add_input_wrap">
                     <p>주문번호</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.orderBookId}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>구매일</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.createDate}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>주문상태</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.paymentBookStatus}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>주문도서</p>
                     <div class="book_order_wrap">
-                        <div class="book_img_form"></div>
-                        <div class="book_order_text_wrap">
-                            <p>호랑나비</p>
-                            <div class="book_title_writer_wrap">
-                                <span>김흥국</span>
-                                <span>어쩌구출판사</span>
+                        <div class="flex_start">
+                            <div class="book_img_body">
+                                <img th:src="|/images/${order.bookImgStored}|" alt="" />
                             </div>
-                            <div class="book_store_price_wrap">
-                                <div class="book_store">
-                                    <p>서점</p>
-                                    <p>코끼리서점</p>
-                                </div>
-                                <hr>
-                                <div class="book_price">
-                                    <p>가격</p>
-                                    <p>15,000원</p>
+                            <div class="book_text">
+                                <p th:text="*{order.bookTitle}">호랑나비</p>
+                                <span><span th:text="*{order.bookWriter}">김흥국</span> / <span th:text="*{order.bookPub}">호랑수월출판사</span></span>
+                                <div class="book_store_price_wrap">
+                                    <div class="flex_between">
+                                        <span>판매서점</span>
+                                        <span th:value="${order.storeTitle}">코끼리서점</span>
+                                    </div>
+                                    <hr>
+                                    <div class="book_price">
+                                        <span>판매가격</span>
+                                        <span th:value="${order.bookEbookPrice}">15,000원</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="add_input_wrap">
-                    <p>서점 이미지</p>
-                    <div draggable="true" class="drag_img_form"></div>
-                    <div draggable="true" class="drag_img_form"></div>
-                    <div draggable="true" class="drag_img_form"></div>
-                </div>
-                <div class="add_input_wrap">
                     <p>회원ID</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.userId}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>회원명</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.userName}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>연락처</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.userPhoneNum}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>이메일</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.userEmail}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>결제방법</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.orderBookMethod}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>결제금액</p>
-                    <input type="text" readonly>
+                    <input type="text" th:value="${order.bookEbookPrice}" readonly>
                 </div>
             </div>
         </div>

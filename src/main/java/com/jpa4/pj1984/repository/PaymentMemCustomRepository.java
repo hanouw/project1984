@@ -10,5 +10,6 @@ public interface PaymentMemCustomRepository {
 
     Long countMembershipListByStoreId(Long storeId, PageRequestDTO pageRequestDTO);
 
-    String method(PageRequestDTO pageRequestDTO);
+    String searchTypeMethod(PageRequestDTO pageRequestDTO);
+
 }
