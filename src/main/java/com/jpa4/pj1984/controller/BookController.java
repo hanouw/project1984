@@ -58,13 +58,6 @@ public class BookController {
         System.out.println("storeDTOList = " + storeDTOList);
         return storeDTOList;
     }
-
-    // 이미지 데이터 요청
-    @ResponseBody
-    @GetMapping("/images/{fileName}")
-    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
-        return new UrlResource("file:" + fileUploadService.getPath(fileName));
-    }
     
     //--상품관리-----------------------------------------------------//
 
@@ -81,13 +74,6 @@ public class BookController {
         bookService.save(bookForm);
         return "redirect:/cms/book/list";
     }
-    //상품이미지추가
-    @PostMapping("/book/addImg")
-    public String bookAddProImg(MultipartFile file){
-        log.info("--CMS--BookMultipartFile-Add--Request--");
-        return null;
-    }
-
 
     //상품리스트
     @GetMapping("/book/list")
@@ -116,8 +102,9 @@ public class BookController {
         return "backend/book/modify";
     }
     @PostMapping("/book/{id}/modify")
-    public String bookModifyPro(@PathVariable("id") Long id, BookForm bookForm, MultipartFile file) throws Exception{
-        bookService.updateOne(bookForm, file);
+    public String bookModifyPro(@PathVariable("id") Long id, BookForm bookForm) throws Exception{
+        System.out.println("id = " + id + ", bookForm = " + bookForm);
+        bookService.updateOne(bookForm);
         return "redirect:/cms/book/{id}";
     }
 
@@ -169,6 +156,15 @@ public class BookController {
     public String bookCategoryModifyPro(@PathVariable("id") Long id, BookCategoryForm bookCategoryForm){
         bookCategoryService.updateOne(bookCategoryForm);
         return "redirect:/cms/bookCategory/{id}";
+    }
+
+    // 이미지 데이터 요청
+    @ResponseBody
+    @GetMapping("/bookimages/{fileName}")
+    public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
+        System.out.println("fileName = " + fileName);
+        return new UrlResource("file:" + fileUploadService.getPath(fileName));
+
     }
 
 }

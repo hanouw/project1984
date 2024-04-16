@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">]
+<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
+            <div class="search_date_wrap">
+                <div class="item">
+                    <h2>구독관리 상세</h2>
+                </div>
+                <div class="item">
+                    <button class="grey_btn" th:onclick="|location.href='@{/cms/order/membershipList}'|">목록</button>
+                </div>
+            </div>
+            <div class="add_form_wrap">
+                <div class="add_input_wrap">
+                    <p>서점명</p>
+                    <input type="text" th:value="${order.storeTitle}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>회원ID</p>
+                    <input type="text" th:value="${order.userId}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>회원명</p>
+                    <input type="text" th:value="${order.userName}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>연락처</p>
+                    <input type="text" th:value="${order.userPhoneNum}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>이메일</p>
+                    <input type="text" th:value="${order.userEmail}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>결제방법</p>
+                    <input type="text" th:value="${order.orderMembershipMethod}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>결제금액</p>
+                    <input type="text"  readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>구독 시작일</p>
+                    <input type="text" th:value="${order.membershipStartDate}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>구독 종료일</p>
+                    <input type="text" th:value="${order.membershipEndDate}" readonly>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+</body>
+</html>

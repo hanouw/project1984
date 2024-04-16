@@ -17,7 +17,7 @@
             <div class="add_form_wrap">
                 <div class="add_input_wrap" style="display:none;">
                     <p>카테고리아이디</p>
-                    <input type="text" th:field="*{bookCategory}" readonly>
+                    <input type="text" th:field="*{bookCategoryId}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>카테고리명</p>
@@ -33,8 +33,10 @@
                 </div>
                 <div class="add_checkbox_wrap">
                     <p>활성화</p>
-                    <input type="radio" th:field="*{bookCategoryStatus}" value="ON">활성화
-                    <input type="radio" th:field="*{bookCategoryStatus}" value="OFF">비활성화
+                    <input name="status" th:name="bookCategoryStatus" value="ON" type="radio"
+                           th:checked="${bookCategory.bookCategoryStatus == T(com.jpa4.pj1984.domain.BookCategoryStatus).ON}" >활성화
+                    <input name="status" th:name="bookCategoryStatus" value="OFF" type="radio"
+                           th:checked="${bookCategory.bookCategoryStatus == T(com.jpa4.pj1984.domain.BookCategoryStatus).OFF}" >비활성화
                 </div>
             </div>
             </form>

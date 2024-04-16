@@ -1,7 +1,7 @@
 package com.jpa4.pj1984.controller;
 
 
-import com.jpa4.pj1984.dto.PaymentBookDTO;
+import com.jpa4.pj1984.dto.PaymentBookForm;
 import com.jpa4.pj1984.service.PaymentBookService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
@@ -37,11 +37,11 @@ public class PaymentController {
 
     // 책 주문 처리 요청
     @PostMapping("/book")
-    public ResponseEntity<String> paymentComplete(@RequestBody PaymentBookDTO paymentBookDTO// @AuthenticationPrincipal CustomMember customMember
+    public ResponseEntity<String> paymentComplete(@RequestBody PaymentBookForm paymentBookForm// @AuthenticationPrincipal CustomMember customMember
     ) throws IOException {
 
-        Long userNo = paymentBookDTO.getUserNo(); // 추후 수정
-        paymentBookService.saveOrder(userNo, paymentBookDTO);
+        Long userNo = paymentBookForm.getUserNo(); // 추후 수정
+        paymentBookService.saveOrder(userNo, paymentBookForm);
         // log.info("결제 성공 : 주문 번호 {}", orderNumber);
         return ResponseEntity.ok().build();
         }

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentBookDTO {
+public class PaymentBookForm {
     private Long orderBookId;
     private Long userNo;
     private String orderBookMethod;

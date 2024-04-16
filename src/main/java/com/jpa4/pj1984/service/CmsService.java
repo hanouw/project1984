@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.PaymentBookHistory;
+import com.jpa4.pj1984.domain.PaymentMem;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.repository.*;
@@ -19,12 +20,11 @@ import java.util.List;
 @Transactional
 public class CmsService {
 
+    private final PasswordEncoder storePasswordEncoder;
     private final CmsRepository cmsRepository;
     private final CmsCustomRepositoryImpl cmsCustomRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
-    private final PasswordEncoder storePasswordEncoder;
-    private final PaymentCustomRepository paymentCustomRepository;
-    private final PaymentBookHistoryCustomRepositoryImpl paymentBookHistoryCustomRepository;
+    private final PaymentMemRepository paymentMemRepository;
 
     // 서점관리 - 서점 정보 등록
     public String save(StoreForm storeForm){
@@ -56,36 +56,51 @@ public class CmsService {
 //    }
 
     // 주문관리 - 주문 목록 조회 판매자 ver
-    public List<PaymentResponseDTO> findHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
-        List<PaymentBookHistory> historyEntityList = paymentBookHistoryCustomRepository.findListByStoreId(storeId, pageRequestDTO);
-//        List<PaymentBookHistoryDTO> list = new ArrayList<>();
-//        for (PaymentBookHistory p : historyEntityList) {
-//            list.add(new PaymentBookHistoryDTO(p));
-//        }
-        List<PaymentResponseDTO> list = new ArrayList<>();
+    public List<PaymentBookHistoryDTO> findHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
+        List<PaymentBookHistory> historyEntityList = paymentBookHistoryRepository.findBookListByStoreId(storeId, pageRequestDTO);
+        List<PaymentBookHistoryDTO> list = new ArrayList<>();
         for (PaymentBookHistory orderList : historyEntityList) {
-            PaymentResponseDTO paymentResponseDTO = new PaymentResponseDTO();
-            paymentResponseDTO.setOrderBookNo(orderList.getPaymentBook().getOrderBookNo());
-            paymentResponseDTO.setOrderBookId(orderList.getPaymentBook().getOrderBookId());
-            paymentResponseDTO.setUserId(orderList.getPaymentBook().getMember().getUserId());
-            paymentResponseDTO.setUserName(orderList.getPaymentBook().getMember().getUserName());
-            paymentResponseDTO.setBookId(orderList.getBook().getBookId());
-            paymentResponseDTO.setBookTitle(orderList.getBook().getBookTitle());
-            //paymentResponseDTO.setStoreTitle(orderList.getBook().getS);
-            paymentResponseDTO.setPaymentBookStatus(orderList.getPaymentBook().getPaymentBookStatus());
-            paymentResponseDTO.setOrderBookMethod(orderList.getPaymentBook().getOrderBookMethod());
-            paymentResponseDTO.setCreateDate(orderList.getPaymentBook().getCreateDate());
-            paymentResponseDTO.setBookPub(orderList.getBook().getBookPub());
-            paymentResponseDTO.setBookEbookPrice(orderList.getBook().getBookEbookPrice());
-            paymentResponseDTO.setCreateDate(orderList.getCreateDate());
-            list.add(paymentResponseDTO);
+            PaymentBookHistoryDTO paymentBookHistoryDTO = new PaymentBookHistoryDTO(orderList);
+            list.add(paymentBookHistoryDTO);
         }
         return list;
     }
 
     // 주문관리 - 검색된 주문 개수 조회 판매자 ver
     public Long countHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
-        return paymentBookHistoryCustomRepository.countHistoryListByStoreId(storeId, pageRequestDTO);
+        return paymentBookHistoryRepository.countBookListByStoreId(storeId, pageRequestDTO);
+    }
+
+    // 주문관리 - 주문 상세페이지 조회
+    public PaymentBookHistoryDTO findOneBookHistory(Long orderBookHistoryId) {
+        log.info("************CmsService orderBookHistoryId:{}", orderBookHistoryId);
+        PaymentBookHistoryDTO dto = new PaymentBookHistoryDTO(paymentBookHistoryRepository.findById(orderBookHistoryId).orElse(null));
+        log.info("************CmsService dto:{}", dto);
+        return dto;
+    }
+
+    // 구독관리 - 구독내역 목록 조회 판매자 ver
+    public List<PaymentMemDTO> findMembershipList(Long storeId, PageRequestDTO pageRequestDTO) {
+        List<PaymentMem> membershipEntityList = paymentMemRepository.findMembershipListByStoreId(storeId, pageRequestDTO);
+        List<PaymentMemDTO> list = new ArrayList<>();
+        for (PaymentMem membershipList : membershipEntityList) {
+            PaymentMemDTO paymentMemDTO = new PaymentMemDTO(membershipList);
+            list.add(paymentMemDTO);
+        }
+        return list;
+    }
+
+    // 구독관리 - 검색된 구독내역 개수 조회 판매자 ver
+    public Long countMembershipList(Long storeId, PageRequestDTO pageRequestDTO) {
+        return paymentMemRepository.countMembershipListByStoreId(storeId, pageRequestDTO);
+    }
+
+    // 구독관리 - 구독내역 상세페이지 조회
+    public PaymentMemDTO findOneMemHistory(Long orderMembershipNo) {
+        log.info("************CmsService findOneMemHistory orderMembershipNo:{}", orderMembershipNo);
+        PaymentMemDTO dto = new PaymentMemDTO(paymentMemRepository.findById(orderMembershipNo).orElse(null));
+        log.info("************CmsService findOneMemHistory dto:{}", dto);
+        return dto;
     }
 
 }

@@ -30,7 +30,6 @@ public class PaymentBook extends TimeEntity{
 //    @JoinColumn(name = "order_book_history_id")
 //    private List<PaymentBookHistory> orderBookHistories;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_book_no") // 외래 키를 PaymentBookHistory의 기본 키로 지정
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderBookHistoryId")
     private List<PaymentBookHistory> orderBookHistories;
 }
