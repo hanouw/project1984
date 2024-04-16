@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -14,8 +15,8 @@ public class PaymentMemDTO {
     private Long orderMembershipNo; // auto_increment
     private Long orderMembershipId; // 2024041200000
     private String orderMembershipMethod;
-    private LocalDateTime membershipStartDate;
-    private LocalDateTime membershipEndDate;
+    private String membershipStartDate;
+    private String membershipEndDate;
 
     private String userId;
     private String userName;
@@ -32,8 +33,8 @@ public class PaymentMemDTO {
         this.orderMembershipNo = paymentMem.getOrderMembershipNo();
         this.orderMembershipId = paymentMem.getOrderMembershipId();
         this.orderMembershipMethod = paymentMem.getOrderMembershipMethod();
-        this.membershipStartDate = paymentMem.getMembershipStartDate();
-        this.membershipEndDate = paymentMem.getMembershipEndDate();
+        this.membershipStartDate = displayTime(paymentMem.getMembershipStartDate());
+        this.membershipEndDate = displayTime(paymentMem.getMembershipEndDate());
 
         this.userId = paymentMem.getMember().getUserId();
         this.userName = paymentMem.getMember().getUserName();
@@ -44,5 +45,11 @@ public class PaymentMemDTO {
         this.storeTitle = paymentMem.getStore().getStoreTitle();
         this.storeImgStored = paymentMem.getStore().getStoreImageStored();
         this.storeAddress = paymentMem.getStore().getStoreAddress();
+    }
+
+    public String displayTime(LocalDateTime createDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = createDate.format(formatter);
+        return formattedDate;
     }
 }

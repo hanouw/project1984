@@ -146,7 +146,7 @@ $(document).ready(function () {
         html += '<th>bookId</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
         html += '<th>결제방법</th><th>구매일</th></tr>';
         $.each(response.orderList, function(index, item) {
-            html += '<tr></tr><td><a class="detail" href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
+            html += '<tr></tr><td><a href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
             html += '<td>' + item.orderBookId + '</td>';
             html += '<td>' + item.userId + '</td>';
             html += '<td>' + item.userName + '</td>';
@@ -155,7 +155,7 @@ $(document).ready(function () {
             html += '<td>' + item.storeTitle + '</td>';
             html += '<td>' + item.paymentBookStatus + '</td>';
             html += '<td>' + item.orderBookMethod + '</td>';
-            html += '<td>' + displayTime(item.createDate) + '</td></tr>';
+            html += '<td>' + item.createDate + '</td></tr>';
         });
         html += '</table>';
         orderListDiv.html(html);
@@ -199,11 +199,6 @@ $(document).ready(function () {
             getList(1);
         }
     });
-
-    function displayTime(timeVal) {
-        let time = timeVal;
-        return time.split('T')[0];
-    }
 
     function valueCheck() {
         let keywordValue = $("#keyword").val().trim();

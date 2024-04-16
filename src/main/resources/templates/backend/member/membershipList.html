@@ -150,8 +150,8 @@
                 html += '<td>' + item.userPhoneNum + '</td>';
                 html += '<td>' + item.userEmail + '</td>';
                 html += '<td>' + item.orderMembershipMethod + '</td>';
-                html += '<td>' + displayTime(item.membershipStartDate) + '</td>';
-                html += '<td>' + displayTime(item.membershipEndDate) + '</td>';
+                html += '<td>' + item.membershipStartDate + '</td>';
+                html += '<td>' + item.membershipEndDate + '</td>';
             });
             html += '</table>';
             orderListDiv.html(html);
@@ -195,11 +195,6 @@
                 getList(1);
             }
         });
-
-        function displayTime(timeVal) {
-            let time = timeVal;
-            return time.split('T')[0];
-        }
 
         function valueCheck() {
             let keywordValue = $("#keyword").val().trim();
