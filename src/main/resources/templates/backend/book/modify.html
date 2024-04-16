@@ -4,7 +4,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
-      <form action="" th:action th:object="${book}" method="post" enctype="multipart/form-data">
+      <form action="" class="book_add_form" th:action th:object="${book}" method="post" enctype="multipart/form-data">
         <div class="search_date_wrap">
           <div class="item">
             <h2>상품수정</h2>
@@ -91,10 +91,14 @@
             <textarea th:field="*{bookReview}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
           </div>
           <br>
+
           <div class="add_input_wrap">
             <p>책파일</p>
-            <input type="file" th:name="${bookFile}" th:value="${book.getBookFileOrg()}" placeholder="*PDF 파일만 첨부가 가능합니다.">
+            <input type="text" class="BookFileName" th:value="${book.getBookFileOrg()}" placeholder="*PDF 파일만 첨부가 가능합니다." readonly>
+            <input type="file" class="newBookFile" name="bookFiles" id="bookFiles" placeholder="*PDF 파일만 첨부가 가능합니다.">
+            <span class="drop_zone_ph" style="transform:translateY(6px);">수정하시려면 새로운 파일을 추가해주세요.</span>
           </div>
+
           <div class="add_input_wrap">
             <p>전자도서 판매가</p>
             <input type="text" th:field="*{bookEbookPrice}" placeholder="전자도서 판매가를 입력해주세요.">
@@ -178,76 +182,193 @@
     }
     reader.readAsDataURL(file);
   }
+
+  let newBookFileInput = document.querySelector('.newBookFile');
+  let BookFileName = document.querySelector('.BookFileName');
+
+  newBookFileInput.addEventListener('change', function() {
+    // 파일이 선택된 경우
+    if (newBookFileInput.files.length > 0) {
+      BookFileName.value = newBookFileInput.files[0].name;
+
+    }
+    // 파일이 선택되지 않은 경우
+    else {
+      alert('파일이 선택되지 않았습니다.');
+    }
+  });
+</script>
+
 </script>
 
 <script>
+  <!-- 북아이디값 가져오기 -->
+  let bookId = document.querySelector('#bookId').value;
+
+  <!-- 저장될 값 리스트 -->
+    let formData = new FormData();
+    let bookId = $("#bookId").val();
+    let isbn = $("#isbn").val();
+    let bookImgs = files[0];
+    let bookFiles = $("#bookFile")[0].files[0];
+    let bookTitle = $("#bookTitle").val();
+    let bookWriter = $("#bookWriter").val();
+    let store = $("#store").val();
+    let bookPub = $("#bookPub").val();
+    let bookPaperPrice = $("#bookPaperPrice").val();
+    let bookEbookPrice = $("#bookEbookPrice").val();
+    let bookCategory = $("#bookCategory").val();
+    let bookIntro = $("#bookIntro").val();
+    let bookIndex = $("#bookIndex").val();
+    let bookReview = $("#bookReview").val();
+    let bookWriterProfile = $("#bookWriterProfile").val();
+    let bookStatus = document.querySelector('input[name="bookStatus"]:checked').value;
+
   $(document).ready(function(){
     $(".book_add_form").on("submit", function(e){
       e.preventDefault(); // 기본 제출 동작 막기
-      console.log(fileList);
-      // 폼 데이터 만들어 폼태그에 있는 작성값들 모두 담기
-      let formData = new FormData();
 
-      let isbn = $("#isbn").val();
-
-      let bookImg = files[0];
-      let bookFile = $("#bookFile")[0].files[0];
-
-      let bookTitle = $("#bookTitle").val();
-      let bookWriter = $("#bookWriter").val();
-      let store = $("#store").val();
-      let bookPub = $("#bookPub").val();
-      let bookPaperPrice = $("#bookPaperPrice").val();
-      let bookEbookPrice = $("#bookEbookPrice").val();
-      let bookCategory = $("#bookCategory").val();
-      let bookIntro = $("#bookIntro").val();
-      let bookIndex = $("#bookIndex").val();
-      let bookReview = $("#bookReview").val();
-      let bookWriterProfile = $("#bookWriterProfile").val();
-      let bookStatus = document.querySelector('input[name="bookStatus"]:checked').value;
-
-      formData.append("isbn", isbn);
-
-      formData.append("bookImg", bookImg);
-      formData.append("bookFile", bookFile);
-
-      formData.append("bookTitle", bookTitle);
-      formData.append("bookWriter", bookWriter);
-      formData.append("store", store);
-      formData.append("bookPub", bookPub);
-      formData.append("bookPaperPrice", bookPaperPrice);
-      formData.append("bookEbookPrice", bookEbookPrice);
-      formData.append("bookCategory", bookCategory);
-      formData.append("bookIntro", bookIntro);
-      formData.append("bookIndex", bookIndex);
-      formData.append("bookReview", bookReview);
-      formData.append("bookWriterProfile", bookWriterProfile);
-      formData.append("bookStatus", bookStatus);
-
-      console.log(bookFile);
-      console.log(bookImg);
-      console.log(formData);
-
-      $.ajax({
-        type: "post",
-        url: "/cms/book/{id}/modify",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(result){
-          alert("도서가 수정되었습니다.");
-              console.log(result);
-              // availResult input태그에 결과 메세지 띄우기
-              $("#availResult").val(result);
-              window.location.href = "/cms/book/list";
-          },
+      let newBookFileInput = document.querySelector('.newBookFile');
+      let BookFileName = document.querySelector('.BookFileName');
+      // 이미지 + 파일 첨부 할 경우
+      if(newBookFileInput.files.length > 0 && files.length > 0){
+        formData.append("bookId", bookId);
+        formData.append("isbn", isbn);
+        formData.append("bookImg", bookImgs);
+        formData.append("bookFile", bookFiles);
+        formData.append("bookTitle", bookTitle);
+        formData.append("bookWriter", bookWriter);
+        formData.append("store", store);
+        formData.append("bookPub", bookPub);
+        formData.append("bookPaperPrice", bookPaperPrice);
+        formData.append("bookEbookPrice", bookEbookPrice);
+        formData.append("bookCategory", bookCategory);
+        formData.append("bookIntro", bookIntro);
+        formData.append("bookIndex", bookIndex);
+        formData.append("bookReview", bookReview);
+        formData.append("bookWriterProfile", bookWriterProfile);
+        formData.append("bookStatus", bookStatus);
+        alert("이미지와 파일 모두 첨부하였음");
+        $.ajax({
+          type: "post",
+          url: '/cms/book/' + bookId + '/modify',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(result){
+            alert("도서가 수정되었습니다.");
+                console.log(result);
+                window.location.href = "/cms/book/list";
+            },
           error: function(e) {
               alert("도서수정이 실패하였습니다.");
               console.log(e);
           }
-      });
+        });
+      }// 파일 첨부 없을 경우
+      else if(!newBookFileInput.files.length && files.length > 0){
+        formData.append("bookId", bookId);
+        formData.append("isbn", isbn);
+        formData.append("bookImg", bookImgs);
+        formData.append("bookTitle", bookTitle);
+        formData.append("bookWriter", bookWriter);
+        formData.append("store", store);
+        formData.append("bookPub", bookPub);
+        formData.append("bookPaperPrice", bookPaperPrice);
+        formData.append("bookEbookPrice", bookEbookPrice);
+        formData.append("bookCategory", bookCategory);
+        formData.append("bookIntro", bookIntro);
+        formData.append("bookIndex", bookIndex);
+        formData.append("bookReview", bookReview);
+        formData.append("bookWriterProfile", bookWriterProfile);
+        formData.append("bookStatus", bookStatus);
+        alert("이미지만 첨부하였음");
+        $.ajax({
+          type: "post",
+          url: '/cms/book/' + bookId + '/modify',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(result){
+            alert("도서가 수정되었습니다.");
+                console.log(result);
+                window.location.href = "/cms/book/list";
+            },
+          error: function(e) {
+              alert("도서수정이 실패하였습니다.");
+              console.log(e);
+          }
+        });
+      }// 이미지 첨부 없을 경우
+      else if(newBookFileInput.files.length > 0 && !files.length){
+        formData.append("bookId", bookId);
+        formData.append("isbn", isbn);
+        formData.append("bookFile", bookFiles);
+        formData.append("bookTitle", bookTitle);
+        formData.append("bookWriter", bookWriter);
+        formData.append("store", store);
+        formData.append("bookPub", bookPub);
+        formData.append("bookPaperPrice", bookPaperPrice);
+        formData.append("bookEbookPrice", bookEbookPrice);
+        formData.append("bookCategory", bookCategory);
+        formData.append("bookIntro", bookIntro);
+        formData.append("bookIndex", bookIndex);
+        formData.append("bookReview", bookReview);
+        formData.append("bookWriterProfile", bookWriterProfile);
+        formData.append("bookStatus", bookStatus);
+        alert("파일 만 첨부하였음");
+        $.ajax({
+          type: "post",
+          url: '/cms/book/' + bookId + '/modify',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(result){
+            alert("도서가 수정되었습니다.");
+                console.log(result);
+                window.location.href = "/cms/book/list";
+            },
+          error: function(e) {
+              alert("도서수정이 실패하였습니다.");
+              console.log(e);
+          }
+        });
+      }// 이미지 + 파일 첨부 없을 경우
+      else{
+        formData.append("bookId", bookId);
+        formData.append("isbn", isbn);
+        formData.append("bookTitle", bookTitle);
+        formData.append("bookWriter", bookWriter);
+        formData.append("store", store);
+        formData.append("bookPub", bookPub);
+        formData.append("bookPaperPrice", bookPaperPrice);
+        formData.append("bookEbookPrice", bookEbookPrice);
+        formData.append("bookCategory", bookCategory);
+        formData.append("bookIntro", bookIntro);
+        formData.append("bookIndex", bookIndex);
+        formData.append("bookReview", bookReview);
+        formData.append("bookWriterProfile", bookWriterProfile);
+        formData.append("bookStatus", bookStatus);
+        alert("이미지와 파일 모두 첨부하지않음");
+        $.ajax({
+          type: "post",
+          url: '/cms/book/' + bookId + '/modify',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(result){
+            alert("도서가 수정되었습니다.");
+                console.log(result);
+                window.location.href = "/cms/book/list";
+            },
+          error: function(e) {
+              alert("도서수정이 실패하였습니다.");
+              console.log(e);
+          }
+          console.log(formData);
+        });
+      }
     });
   });
-
 </script>
 </html>
