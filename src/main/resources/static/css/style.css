@@ -374,7 +374,7 @@ button.img_delete_btn{
     max-width:50%;
     height:260px;
     border-radius:4px;
-    border:1px dashed var(--maingr00);
+    border:1px solid var(--maingr00);
     background-color:#fafafa;
     background-image:url("../img/store_default.jpg");
     background-size:cover;
@@ -382,6 +382,11 @@ button.img_delete_btn{
     background-repeat:no-repeat;
     margin-bottom:14px;
 }
+
+.store_img_form.imageExists {
+    background-image: none !important; /* 이미지가 존재하는 경우 백그라운드 이미지 제거 */
+}
+
 
 
 

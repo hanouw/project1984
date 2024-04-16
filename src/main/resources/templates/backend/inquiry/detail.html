@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">]
+<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+  <th:block th:fragment="content">
+    <div class="search_bar_wrap">
+      <div class="search_date_wrap">
+        <div class="item">
+          <h2>문의상세</h2>
+        </div>
+        <div class="item">
+          <!-- 버튼에 주소 걸어주기 -->
+          <button th:onclick="|location.href='@{/cms/inquiry/list}'|" class="grey_btn">목록</button>
+          <button th:if="${inquiry.answer == null}"
+                  th:onclick="|location.href='@{/cms/inquiry/{id}/add(id=${inquiry.inquiryId})}'|" class="black_btn">답변등록</button>
+          <button th:if="${inquiry.answer != null}"
+                  th:onclick="|location.href='@{/cms/inquiry/{id}/modify(id=${inquiry.inquiryId})}'|" class="black_btn">답변수정</button>
+        </div>
+      </div>
+      <div class="add_form_wrap">
+        <div class="add_input_wrap">
+          <p>회원ID</p>
+          <input type="text" th:value="${inquiry.member.userId}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>회원명</p>
+          <input type="text" th:value="${inquiry.member.userName}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>연락처</p>
+          <input type="text" th:value="${inquiry.member.userPhoneNum}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>서점명</p>
+          <input type="text" th:value="${inquiry.store.storeTitle}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>문의제목</p>
+          <input type="text" th:value="${inquiry.inquiryTitle}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>문의내용</p>
+          <textarea th:text="${inquiry.inquiryDetail}" readonly></textarea>
+        </div>
+        <div class="add_input_wrap">
+          <p>수정일</p>
+          <input type="text" th:value="${#temporals.format(inquiry.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>등록일</p>
+          <input type="text" th:value="${#temporals.format(inquiry.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+      </div>
+      <div class="search_bar_wrap">
+        <div class="search_date_wrap">
+          <div class="item" th:if="${inquiry.answer != null}">
+            <h2>답변</h2>
+          </div>
+        </div>
+      </div>
+      <div class="add_form_wrap" th:if="${inquiry.answer != null}">
+        <div class="add_input_wrap">
+          <p>답변제목</p>
+          <input type="text"  th:value="${inquiry.answer.answerTitle}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>답변내용</p>
+          <textarea th:text="${inquiry.answer.answerDetail}" readonly></textarea>
+        </div>
+        <div class="add_input_wrap">
+          <p>등록자</p>
+          <input type="text" th:value="${inquiry.store.storeLoginId}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>수정일</p>
+          <input type="text" th:value="${#temporals.format(inquiry.answer.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+        <div class="add_input_wrap">
+          <p>등록일</p>
+          <input type="text" th:value="${#temporals.format(inquiry.answer.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">]
+<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+  <th:block th:fragment="content">
+    <form action="" th:action th:object="${inquiry}" method="post">
+      <div class="search_bar_wrap">
+        <div class="search_date_wrap">
+          <div class="item">
+            <h2>문의상세</h2>
+          </div>
+          <div class="item">
+            <!-- 버튼에 주소 걸어주기 -->
+            <button th:onclick="|location.href='@{/cms/inquiry/list}'|" class="grey_btn">목록</button>
+            <button type="submit" class="black_btn">저장</button>
+          </div>
+        </div>
+        <div class="add_form_wrap">
+          <div class="add_input_wrap">
+            <p>회원ID</p>
+            <input type="text" th:field="*{member.userId}" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>회원명</p>
+            <input type="text" th:field="*{member.userName}" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>연락처</p>
+            <input type="text" th:field="*{member.userPhoneNum}" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>서점명</p>
+            <input type="text" th:field="*{store.storeTitle}" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>문의제목</p>
+            <input type="text" th:field="*{inquiryTitle}" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>문의내용</p>
+            <textarea th:field="*{inquiryDetail}" readonly></textarea>
+          </div>
+          <div class="add_input_wrap">
+            <p>수정일</p>
+            <input type="text" th:field="*{lastModifiedDate}" readonly>
+          </div>
+          <div class="add_input_wrap">
+            <p>등록일</p>
+            <input type="text" th:field="*{createDate}" readonly>
+          </div>
+        </div>
+        <div class="search_bar_wrap">
+          <div class="search_date_wrap">
+            <div class="item">
+              <h2>답변</h2>
+            </div>
+          </div>
+        </div>
+        <div class="add_form_wrap">
+          <div class="add_input_wrap">
+            <p>답변제목</p>
+            <input type="text" name="answerTitle" placeholder="답변제목을 입력해주세요.">
+          </div>
+          <div class="add_input_wrap">
+            <p>답변내용</p>
+            <textarea name="answerDetail" placeholder="답변내용을 입력해주세요."></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </th:block>
+</th:block>
+</body>
+</html>
