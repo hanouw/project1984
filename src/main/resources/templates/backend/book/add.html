@@ -36,8 +36,9 @@
             <p>도서표지</p>
             <div id="drop_zone" class="drag_img_form">
               <img id="image-preview" alt="">
-              <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
+<!--              <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>-->
             </div>
+            <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
             <input type="text" th:field="*{bookImg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
 
           </div>
@@ -155,6 +156,7 @@
   }
 
   function handleFiles(files) {
+    fileList = [...files]; // Update the fileList with the new set of files
     ([...files]).forEach(uploadFile);
   }
 
@@ -165,38 +167,34 @@
     let reader = new FileReader();
     reader.onloadend = function() {
       let img = document.getElementById('image-preview');
-      let deleteBtn = document.querySelector('.img_delete_btn');
-      let dropZone = document.getElementById('drop_zone');
       img.src = reader.result;
-      deleteBtn.style.display = 'block';
-<!--      dropZone.style.backgroundImage = 'url()';-->
     }
     reader.readAsDataURL(file);
   }
 
-  function clickdelete(e){
-    // 이미지 삭제 버튼에 클릭 이벤트 리스너 추가
-    document.querySelector('.img_delete_btn').addEventListener('click', function() {
-      // 이미지 미리보기 초기화
-      document.getElementById('image-preview').src = '';
+<!--  function clickdelete(e){-->
+<!--    // 이미지 삭제 버튼에 클릭 이벤트 리스너 추가-->
+<!--    document.querySelector('.img_delete_btn').addEventListener('click', function() {-->
+<!--      // 이미지 미리보기 초기화-->
+<!--      document.getElementById('image-preview').src = '';-->
 
-      // 'bookImg' 요소의 값 초기화
-      document.getElementById('bookImg').value = '';
+<!--      // 'bookImg' 요소의 값 초기화-->
+<!--      document.getElementById('bookImg').value = '';-->
 
-      //버튼 다시 삭제
-      document.querySelector('.img_delete_btn').style.display = 'none';
+<!--      //버튼 다시 삭제-->
+<!--      document.querySelector('.img_delete_btn').style.display = 'none';-->
 
-      // 드래그 배경 색 수정
-      document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
-<!--      let bgImgUrl = "../img/img_drag.png";-->
-<!--      let dropZone = document.getElementById('drop_zone');-->
-<!--      dropZone.style.backgroundImage = "url('" + bgImgUrl + "')";-->
+<!--      // 드래그 배경 색 수정-->
+<!--      document.getElementById('drop_zone').style.backgroundColor = '#ffffff';-->
+<!--&lt;!&ndash;      let bgImgUrl = "../img/img_drag.png";&ndash;&gt;-->
+<!--&lt;!&ndash;      let dropZone = document.getElementById('drop_zone');&ndash;&gt;-->
+<!--&lt;!&ndash;      dropZone.style.backgroundImage = "url('" + bgImgUrl + "')";&ndash;&gt;-->
 
-      // 이미지 삭제 버튼 숨기기
-      this.style.display = 'none';
-      console.log(fileList[0][0]);
-    });
-  }
+<!--      // 이미지 삭제 버튼 숨기기-->
+<!--      this.style.display = 'none';-->
+<!--      console.log(fileList[0][0]);-->
+<!--    });-->
+<!--  }-->
 
 </script>
 <script>
@@ -254,14 +252,14 @@
         contentType: false,
         processData: false,
         success: function(result){
-          console.log("성공!");
+          alert("도서가 저장되었습니다.");
               console.log(result);
               // availResult input태그에 결과 메세지 띄우기
               $("#availResult").val(result);
               window.location.href = "/cms/book/list";
           },
           error: function(e) {
-              console.log("실패...");
+              alert("도서 저장이 실패하였습니다.");
               console.log(e);
           }
       });

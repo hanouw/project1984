@@ -379,6 +379,12 @@ div.top_st_bar > span{
     display:flex;
     justify-content:flex-start;
 }
+.drop_zone_ph{
+    font-size:12px;
+    display:block;
+    color: var(--pointcolor);
+    transform:translateY(-5px);
+}
 #image-preview{
     margin:20px;
 
