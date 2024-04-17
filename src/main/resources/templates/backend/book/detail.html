@@ -25,7 +25,7 @@
         <div class="add_input_wrap">
           <p>도서표지</p>
           <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-            <img id="image-preview" alt="" th:src="|/cms/bookimages/${book.getBookImgStored}|" style="transform:translateX(-20px);">
+            <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bookimages/${book.getBookImgStored}|" style="transform:translateX(-20px);">
           </div>
           <input type="text" th:field="${book.bookImgOrg}" readonly>
         </div>

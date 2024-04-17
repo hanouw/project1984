@@ -18,7 +18,7 @@
                     <div class="add_input_wrap">
                         <p>배너이미지</p>
                         <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-                            <img id="image-preview" alt="" th:src="|/cms/bannerimages/${banner.getBannerImgStored}|" style="transform:translateX(-20px);">
+                            <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bannerimages/${banner.getBannerImgStored}|" style="transform:translateX(-20px);">
                             <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
                         </div>
                         <input type="text" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>

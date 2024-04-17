@@ -17,7 +17,7 @@
                 <div class="add_input_wrap">
                     <p>1984소개이미지_01</p>
                     <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-                        <img id="image-preview" alt="" th:src="|/cms/displayimages/${display.getAboutImg01Stored}|" style="transform:translateX(-20px);">
+                        <img id="image-preview" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg01Stored}|" style="transform:translateX(-20px);">
                     </div>
                     <input type="text" th:field="${display.aboutImg01Org}" readonly>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="add_input_wrap">
                     <p>1984소개이미지_02</p>
                     <div id="drop_zone02" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-                        <img id="image-preview" alt="" th:src="|/cms/displayimages/${display.getAboutImg02Stored}|" style="transform:translateX(-20px);">
+                        <img id="image-preview" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg02Stored}|" style="transform:translateX(-20px);">
                     </div>
                     <input type="text" th:field="${display.aboutImg02Org}" readonly>
                 </div>
@@ -59,46 +59,46 @@
                 <h3 class="input_wrap_h3">메인 서점 전시</h3>
                 <div class="add_input_wrap">
                     <p>서점 01</p>
-                    <input type="text" th:field="${display.mainStore01}" readonly>
+                    <input type="text" th:field="${display.mainStore01.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 02</p>
-                    <input type="text" th:field="${display.mainStore02}" readonly>
+                    <input type="text" th:field="${display.mainStore02.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 03</p>
-                    <input type="text" th:field="${display.mainStore03}" readonly>
+                    <input type="text" th:field="${display.mainStore03.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 04</p>
-                    <input type="text" th:field="${display.mainStore04}" readonly>
+                    <input type="text" th:field="${display.mainStore04.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 05</p>
-                    <input type="text" th:field="${display.mainStore05}" readonly>
+                    <input type="text" th:field="${display.mainStore05.storeTitle}" readonly>
                 </div>
                 <br>
 
                 <h3 class="input_wrap_h3">메인 도서 전시</h3>
                 <div class="add_input_wrap">
                     <p>도서 01</p>
-                    <input type="text" th:field="${display.mainBook01}" readonly>
+                    <input type="text" th:field="${display.mainBook01.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 02</p>
-                    <input type="text" th:field="${display.mainBook02}" readonly>
+                    <input type="text" th:field="${display.mainBook02.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 03</p>
-                    <input type="text" th:field="${display.mainBook03}" readonly>
+                    <input type="text" th:field="${display.mainBook03.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 04</p>
-                    <input type="text" th:field="${display.mainBook04}" readonly>
+                    <input type="text" th:field="${display.mainBook04.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 05</p>
-                    <input type="text" th:field="${display.mainBook05}" readonly>
+                    <input type="text" th:field="${display.mainBook05.bookTitle}" readonly>
                 </div>
                 <br>
 
