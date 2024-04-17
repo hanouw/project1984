@@ -459,6 +459,17 @@ button.img_delete_btn{
     background-color: var(--mainblack);
     color: var(--mainwhite);
 }
+.paging_bar > ul > li > a:hover{
+    background-color: var(--mainblack);
+    color: var(--pointcolor);
+}
+.disabled {
+    pointer-events: none;
+}
+.active {
+    pointer-events: none;
+    color: var(--pointcolor);
+}
 .review_input_form{
     margin-top: 20px;
     width: 100%;
@@ -499,9 +510,7 @@ button.img_delete_btn{
     margin-bottom:14px;
 }
 
-.store_img_form.imageExists {
-    background-image: none !important; /* 이미지가 존재하는 경우 백그라운드 이미지 제거 */
-}
+
 
 
 

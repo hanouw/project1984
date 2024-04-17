@@ -18,8 +18,8 @@
       <div class="add_form_wrap">
         <div class="add_input_wrap">
             <p>서점 썸네일 </p>
-          <div class="store_img_form" th:classappend="${imageExists} ? 'imageExists' : ''">
-            <img class="store_img_form" th:if="${store.getStoreImageStored()}" th:src="|/cms/store/images/${store.getStoreImageStored()}|"/> <br/>
+          <div class="store_img_form store_img_div" >
+            <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored()}" th:src="|/cms/store/images/${store.getStoreImageStored()}|"/> <br/>
           </div>
             <input type="text" th:value="${store.getStoreImageOrigin()}" readonly>
         </div>
@@ -41,19 +41,19 @@
         </div>
         <div class="add_input_wrap">
           <p>서점 이미지</p>
-          <div class="store_img_form">
-          <img class="store_img_form" th:if="${store.getStoreImageStored01()}" th:src="|/cms/store/images/${store.getStoreImageStored01()}|"/> <br/>
+          <div class="store_img_form store_img_div" >
+            <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored01()}" th:src="|/cms/store/images/${store.getStoreImageStored01()}|"/> <br/>
           </div>
           <input type="text" th:value="${store.getStoreImageOrigin01()}" readonly>
         </div>
         <div class="add_input_wrap">
-          <div class="store_img_form">
-          <img class="store_img_form" th:if="${store.getStoreImageStored02()}" th:src="|/cms/store/images/${store.getStoreImageStored02()}|"/> <br/>
+          <div class="store_img_form store_img_div" >
+          <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored02()}" th:src="|/cms/store/images/${store.getStoreImageStored02()}|"/> <br/>
           </div>
           <input type="text" th:value="${store.getStoreImageOrigin02()}" readonly></div>
         <div class="add_input_wrap">
-          <div class="store_img_form">
-          <img class="store_img_form" th:if="${store.getStoreImageStored03()}" th:src="|/cms/store/images/${store.getStoreImageStored03()}|"/> <br/>
+          <div class="store_img_form store_img_div" >
+          <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored03()}" th:src="|/cms/store/images/${store.getStoreImageStored03()}|"/> <br/>
           </div>
           <input type="text" th:value="${store.getStoreImageOrigin03()}" readonly>
         </div>
@@ -115,6 +115,21 @@
         </div>
       </div>
     </div>
+
+    <script>
+      $(document).ready(function(){
+        let src = $(".store_img_tag").attr("src");
+        console.log(src);
+        if(src.length > 0) {
+          $(".store_img_div").css("background-image", "none");
+          $(".store_img_div").css("background-color", "#fff");
+          $(".store_img_div").css("border", "none");
+        }
+      });
+
+    </script>
+
+
   </th:block>
 </th:block>
 </body>

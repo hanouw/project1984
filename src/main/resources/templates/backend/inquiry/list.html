@@ -2,85 +2,69 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
-    <th:block th:fragment="content">
-        <div class="search_bar_wrap">
-            <div class="search_date_wrap">
-                <div class="item">
-                    <h2>문의관리</h2>
-                </div>
-                <div class="item">
-                    <button class="grey_btn">오늘</button>
-                    <button class="grey_btn">일주일</button>
-                    <button class="grey_btn">한달</button>
-                    <input type="date" />
-                    <input type="date" />
-                    <button class="black_btn">조회</button>
-                </div>
-            </div>
-            <hr />
-            <div class="search_text_wrap">
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">전체</option>
-                        <option value="">문의번호</option>
-                        <option value="">회원아이디</option>
-                        <option value="">문의제목</option>
-                        <option value="">문의내용</option>
-                        <option value="">문의상태</option>
-                        <option value="">서점아이디</option>
-                        <option value="">문의등록일</option>
-                    </select>
-                    <input type="text" />
-                    <button class="black_btn">검색</button>
-                </div>
-                <div class="item">
-                    <select name="" id="">
-                        <option value="">최신순</option>
-                        <option value="">이전순</option>
-                    </select>
-                </div>
-            </div>
-            <div class="list_table_wrap">
-                <table class="list_table">
-                    <thead>
-                    <tr>
-                        <th>문의번호</th>
-                        <th>회원아이디</th>
-                        <th>문의제목</th>
-                        <th>문의내용</th>
-                        <th>문의상태</th>
-                        <th>서점아이디</th>
-                        <th>문의등록일</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-<!--                    <tr th:each="user : ${allMember}">-->
-<!--                        <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userNo}"></a></td>-->
-<!--                        <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userId}"></a></td>-->
-<!--                        <td th:text="*{user.userName}"></td>-->
-<!--                        <td th:text="*{user.userPhoneNum}"></td>-->
-<!--                        <td th:text="*{user.userEmail}"></td>-->
-<!--                        <td th:text="*{user.userNo}"></td>-->
-<!--                        <td th:text="*{user.userNo}"></td>-->
-<!--                        <td th:text="*{user.userStatus}"></td>-->
-<!--                        <td th:text="*{#temporals.format(user.createDate, 'yyyy-MM-dd HH:mm')}"></td>-->
-<!--                    </tr>-->
-                    <tr>
-                        <td>문의번호</td>
-                        <td>회원아이디</td>
-                        <td>문의제목</td>
-                        <td>문의내용</td>
-                        <td>문의상태</td>
-                        <td>서점아이디</td>
-                        <td>문의등록일</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+  <th:block th:fragment="content">
+    <div class="search_bar_wrap">
+      <div class="search_date_wrap">
+        <div class="item">
+          <h2>문의관리</h2>
         </div>
-    </th:block>
+        <div class="item">
+          <button id="todayBtn" class="grey_btn">오늘</button>
+          <button id="oneWeekBtn" class="grey_btn">일주일</button>
+          <button id="oneMonthBtn" class="grey_btn">한달</button>
+          <input type="date"/>
+          <input type="date"/>
+          <button class="black_btn">조회</button>
+        </div>
+      </div>
+      <hr/>
+      <div class="search_text_wrap">
+        <div class="item">
+          <select name="" id="">
+            <option value="">전체</option>
+            <option value="">회원명</option>
+          </select>
+          <input type="text" placeholder="검색어를 입력해주세요. "/>
+          <button class="black_btn">검색</button>
+        </div>
+        <div class="item">
+          <select name="" id="">
+            <option value="">최신순</option>
+            <option value="">이전순</option>
+          </select>
+        </div>
+      </div>
+      <div class="list_table_wrap">
+        <table class="list_table">
+          <tr>
+            <th>NO</th>
+            <th>회원ID</th>
+            <th>회원명</th>
+            <th>연락처</th>
+            <th>서점명</th>
+            <th>문의제목</th>
+            <th>문의내용</th>
+            <th>수정일</th>
+            <th>등록일</th>
+          </tr>
+
+          <tr th:each="inquiryList : ${inquiryList}">
+            <td th:text="${inquiryList.inquiryId}"></td>
+            <td th:text="${inquiryList.member.userId}"></td>
+            <td th:text="${inquiryList.member.userName}"></td>
+            <td th:text="${inquiryList.member.userPhoneNum}"></td>
+            <td th:text="${inquiryList.store.storeTitle}"></td>
+            <td><a th:text="${inquiryList.inquiryTitle}"
+                   th:href="@{/cms/inquiry/{inquiryId}(inquiryId=${inquiryList.inquiryId})}"></a></td>
+            <td><a th:text="${inquiryList.inquiryDetail}"
+                   th:href="@{/cms/inquiry/{inquiryId}(inquiryId=${inquiryList.inquiryId})}"></a></td>
+            <td th:text="${#temporals.format(inquiryList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(inquiryList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </th:block>
 </th:block>
-<script>
-</script>
 </body>
 </html>

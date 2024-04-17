@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.controller;
 
 import com.jpa4.pj1984.dto.*;
+import com.jpa4.pj1984.security.domain.CustomCms;
 import com.jpa4.pj1984.service.CmsService;
 import com.jpa4.pj1984.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -88,16 +90,23 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
+    // 구독관리 - 구독권 수정
+    @GetMapping("membership/modify")
+    public String membershipModify(Model model) {
+        // TODO 구독권수정
+        return "backend/member/membershipModify";
+    }
+
     // 구독 관리 - 목록 조회
     @GetMapping("/order/membershipList")
-    public String userMembershipList(Model model, PageRequestDTO pageRequestDTO){
+    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO){
         log.info("----CmsController userMemberShipList pageRequestDTO : {}", pageRequestDTO);
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        Long garaId = 1L;
-        List<PaymentMemDTO> orderList = cmsService.findMembershipList(garaId, pageRequestDTO);
+        Long storeId = customCms.getStore().getStoreId();
+        List<PaymentMemDTO> orderList = cmsService.findMembershipList(storeId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
-        Long count = cmsService.countMembershipList(garaId, pageRequestDTO);
+        Long count = cmsService.countMembershipList(storeId, pageRequestDTO);
         MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
         model.addAttribute("pageResponseDTO", pageResponseDTO);
         return "backend/member/membershipList";
@@ -105,11 +114,11 @@ public class CMSController {
 
     // ajax 구독 관리 - 목록 조회
     @GetMapping("/order/membershipList/ajax")
-    public ResponseEntity<MemPageResponseDTO> userMembershipListAjax(PageRequestDTO pageRequestDTO) {
+    public ResponseEntity<MemPageResponseDTO> userMembershipListAjax(@AuthenticationPrincipal CustomCms customCms,PageRequestDTO pageRequestDTO) {
         log.info("----CmsController userMembershipListAjax pageRequestDTO : {}", pageRequestDTO);
-        Long garaId = 1L;
-        List<PaymentMemDTO> orderList = cmsService.findMembershipList(garaId, pageRequestDTO);
-        Long count = cmsService.countMembershipList(garaId, pageRequestDTO);
+        Long storeId = customCms.getStore().getStoreId();
+        List<PaymentMemDTO> orderList = cmsService.findMembershipList(storeId, pageRequestDTO);
+        Long count = cmsService.countMembershipList(storeId, pageRequestDTO);
         MemPageResponseDTO memPageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
         log.info("----CmsService orderListAjax memPageResponseDTO : {}", memPageResponseDTO);
         return new ResponseEntity<>(memPageResponseDTO, HttpStatus.OK);
@@ -125,17 +134,14 @@ public class CMSController {
 
     // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
     @GetMapping("/order/bookList")
-    public String orderList(Model model, PageRequestDTO pageRequestDTO
-                            // @AuthenticationPrincipal CustomMember customMember
-    ) {
+    public String orderList(Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
         log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        // customMember 에서 storeId 뽑아내기, 일단은 가라로 적음
-        Long garaId = 1L;
-        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
+        Long storeId = customCms.getStore().getStoreId();
+        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(storeId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
-        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
+        Long count = cmsService.countHistoryList(storeId, pageRequestDTO);
         PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
         model.addAttribute("pageResponseDTO", pageResponseDTO);
         log.info("**************CmsController orderList:{}", orderList);
@@ -144,11 +150,11 @@ public class CMSController {
 
     // ajax 주문관리 - 주문 목록 조회 판매자 ver
     @GetMapping("/order/bookList/ajax")
-    public ResponseEntity<BookPageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO) {
+    public ResponseEntity<BookPageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
         log.info("----CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        Long garaId = 1L;
-        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(garaId, pageRequestDTO);
-        Long count = cmsService.countHistoryList(garaId, pageRequestDTO);
+        Long storeId = customCms.getStore().getStoreId();
+        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(storeId, pageRequestDTO);
+        Long count = cmsService.countHistoryList(storeId, pageRequestDTO);
         BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
         log.info("----CmsService orderListAjax pageResponseDTO : {}", bookPageResponseDTO);
         return new ResponseEntity<>(bookPageResponseDTO, HttpStatus.OK);
