@@ -22,7 +22,6 @@ import java.util.List;
 public class InquiryController {
 
     private final InquiryService inquiryService;
-    private final AnswerService answerService;
 
     // 문의 목록 조회 요청
     @GetMapping("/list")

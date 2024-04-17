@@ -1,10 +1,170 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="search_bar_wrap">
 
-</body>
+            <div class="search_date_wrap">
+                <div class="item">
+                    <h2>전시관리</h2>
+                </div>
+                <div class="item">
+                    <button th:onclick="history.go(-1)" class="grey_btn">취소</button>
+                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/display/modify}'|">저장</button>
+                </div>
+            </div>
+            <div class="add_form_wrap">
+                <div class="add_input_wrap">
+                    <p>1984소개이미지_01</p>
+                    <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
+                        <img id="image-preview" alt="" >
+                    </div>
+                    <input type="text" th:field="${display.aboutImg01Org}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_01</p>
+                    <textarea th:text="${display.aboutText01}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_02</p>
+                    <textarea th:text="${display.aboutText02}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_03</p>
+                    <textarea th:text="${display.aboutText03}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_04</p>
+                    <textarea th:text="${display.aboutText04}" readonly></textarea>
+                </div>
+                <br>
+
+                <div class="add_input_wrap">
+                    <p>1984소개이미지_02</p>
+                    <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
+                        <img id="image-preview" alt="" >
+                    </div>
+                    <input type="text" th:field="${display.aboutImg02Org}" readonly>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_01</p>
+                    <textarea th:text="${display.aboutText05}" readonly></textarea>
+                </div>
+                <div class="add_input_wrap">
+                    <p>소개텍스트_02</p>
+                    <textarea th:text="${display.aboutText06}" readonly></textarea>
+                </div>
+                <br>
+
+                <h3 class="input_wrap_h3">메인 서점 전시</h3>
+                <div class="add_input_wrap">
+                    <p>서점 01</p>
+                    <select th:field="*{display.mainStore01}">
+                        <option
+                                th:each="stlist : ${storeLists}"
+                                th:value="${stlist.storeId}"
+                                th:utext="${stlist.storeTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 02</p>
+                    <select th:field="*{display.mainStore02}">
+                        <option
+                                th:each="stlist : ${storeLists}"
+                                th:value="${stlist.storeId}"
+                                th:utext="${stlist.storeTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 03</p>
+                    <select th:field="*{display.mainStore03}">
+                        <option
+                                th:each="stlist : ${storeLists}"
+                                th:value="${stlist.storeId}"
+                                th:utext="${stlist.storeTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 04</p>
+                    <select th:field="*{display.mainStore04}">
+                        <option
+                                th:each="stlist : ${storeLists}"
+                                th:value="${stlist.storeId}"
+                                th:utext="${stlist.storeTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>서점 05</p>
+                    <select th:field="*{display.mainStore05}">
+                        <option
+                                th:each="stlist : ${storeLists}"
+                                th:value="${stlist.storeId}"
+                                th:utext="${stlist.storeTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <br>
+
+                <h3 class="input_wrap_h3">메인 도서 전시</h3>
+                <div class="add_input_wrap">
+                    <p>도서 01</p>
+                    <select th:field="*{display.mainBook01}">
+                        <option
+                                th:each="bolist : ${BookLists}"
+                                th:value="${bolist.bookId}"
+                                th:utext="${bolist.bookTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 02</p>
+                    <select th:field="*{display.mainBook02}">
+                        <option
+                                th:each="bolist : ${BookLists}"
+                                th:value="${bolist.bookId}"
+                                th:utext="${bolist.bookTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 03</p>
+                    <select th:field="*{display.mainBook03}">
+                        <option
+                                th:each="bolist : ${BookLists}"
+                                th:value="${bolist.bookId}"
+                                th:utext="${bolist.bookTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 04</p>
+                    <select th:field="*{display.mainBook04}">
+                        <option
+                                th:each="bolist : ${BookLists}"
+                                th:value="${bolist.bookId}"
+                                th:utext="${bolist.bookTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <div class="add_input_wrap">
+                    <p>도서 05</p>
+                    <select th:field="*{display.mainBook05}">
+                        <option
+                                th:each="bolist : ${BookLists}"
+                                th:value="${bolist.bookId}"
+                                th:utext="${bolist.bookTitle}"
+                        ></option>
+                    </select>
+                </div>
+                <br>
+
+            </div>
+
+        </div>
+    </th:block>
+</th:block>
 </html>
