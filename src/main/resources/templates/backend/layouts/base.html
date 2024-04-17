@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <th:block th:fragment="base(content)">
-<th:block th:replace="~{backend/layouts/header :: headerFrg}"></th:block>
   <!--Header-->
+  <th:block th:replace="~{backend/layouts/header :: headerFrg}"></th:block>
   <body>
   <section class="page_wrap">
     <!-- 사이드바  -->

@@ -62,7 +62,7 @@ public class BookService {
     public void updateOne(BookForm bookForm) throws IOException{
         Book book = bookRepository.findById(bookForm.getBookId()).orElse(null);
         // bookFile 처리
-        if (bookForm.getBookFile() != null && !bookForm.getBookFile().isEmpty()) {
+        if (bookForm.getBookFile() != null || !bookForm.getBookFile().isEmpty()) {
             ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
             book.setBookFileOrg(bookFile.getOrgFileName());
             book.setBookFileStored(bookFile.getStoredFileName());
@@ -70,7 +70,7 @@ public class BookService {
         }
 
         // imgFile 처리
-        if (bookForm.getBookImg() != null && !bookForm.getBookImg().isEmpty()) {
+        if (bookForm.getBookImg() != null || !bookForm.getBookImg().isEmpty()) {
             ProductFile imgFile = fileUploadService.saveFile(bookForm.getBookImg());
             book.setBookImgOrg(imgFile.getOrgFileName());
             book.setBookImgStored(imgFile.getStoredFileName());

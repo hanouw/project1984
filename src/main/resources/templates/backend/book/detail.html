@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
@@ -26,7 +25,7 @@
         <div class="add_input_wrap">
           <p>도서표지</p>
           <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-            <img id="image-preview" alt="" th:src="|/cms/bookimages/${book.getBookImgStored}|">
+            <img id="image-preview" alt="" th:src="|/cms/bookimages/${book.getBookImgStored}|" style="transform:translateX(-20px);">
           </div>
           <input type="text" th:field="${book.bookImgOrg}" readonly>
         </div>
@@ -99,5 +98,4 @@
     </div>
   </th:block>
 </th:block>
-</body>
 </html>

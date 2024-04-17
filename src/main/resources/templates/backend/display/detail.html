@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
@@ -18,7 +17,7 @@
                 <div class="add_input_wrap">
                     <p>1984소개이미지_01</p>
                     <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-                        <img id="image-preview" alt="" >
+                        <img id="image-preview" alt="" th:src="|/cms/displayimages/${display.getAboutImg01Stored}|" style="transform:translateX(-20px);">
                     </div>
                     <input type="text" th:field="${display.aboutImg01Org}" readonly>
                 </div>
@@ -42,8 +41,8 @@
 
                 <div class="add_input_wrap">
                     <p>1984소개이미지_02</p>
-                    <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
-                        <img id="image-preview" alt="" >
+                    <div id="drop_zone02" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
+                        <img id="image-preview" alt="" th:src="|/cms/displayimages/${display.getAboutImg02Stored}|" style="transform:translateX(-20px);">
                     </div>
                     <input type="text" th:field="${display.aboutImg02Org}" readonly>
                 </div>
@@ -108,5 +107,4 @@
         </div>
     </th:block>
 </th:block>
-</body>
 </html>
