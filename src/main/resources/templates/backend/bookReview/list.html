@@ -1,66 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
-        <div class="search_date_wrap">
-          <div class="item">
-            <h2>도서리뷰 / <a class="review_page_a" th:href="@{/cms/storeReview/list}">서점리뷰</a></h2>
-          </div>
-          <div class="item">
-            <button id="todayBtn" class="grey_btn">오늘</button>
-            <button id="oneWeekBtn" class="grey_btn">일주일</button>
-            <button id="oneMonthBtn" class="grey_btn">한달</button>
-            <input type="date"/>
-            <input type="date"/>
-            <button class="black_btn">조회</button>
-          </div>
+      <div class="search_date_wrap">
+        <div class="item">
+          <h2>도서리뷰 / <a class="review_page_a" th:href="@{/cms/storeReview/list}">서점리뷰</a></h2>
         </div>
-        <hr/>
-        <div class="search_text_wrap">
-          <div class="item">
-            <select name="" id="">
-              <option value="">전체</option>
-              <option value="">도서명</option>
-            </select>
-            <input type="text" placeholder="검색어를 입력해주세요. "/>
-            <button class="black_btn">검색</button>
-          </div>
-          <div class="item">
-            <select name="" id="">
-              <option value="">최신순</option>
-              <option value="">이전순</option>
-            </select>
-          </div>
+        <div class="item">
+          <button id="todayBtn" class="grey_btn">오늘</button>
+          <button id="oneWeekBtn" class="grey_btn">일주일</button>
+          <button id="oneMonthBtn" class="grey_btn">한달</button>
+          <input type="date"/>
+          <input type="date"/>
+          <button class="black_btn">조회</button>
         </div>
-        <div class="list_table_wrap">
-          <table class="list_table">
-            <tr>
-              <th>NO</th>
-              <th>회원ID</th>
-              <th>회원명</th>
-              <th>리뷰내용</th>
-              <th>활성화</th>
-              <th>수정일</th>
-              <th>등록일</th>
-            </tr>
-            <tr th:each="bookReviewList : ${bookReviewList}">
-              <td th:text="${bookReviewList.bookReviewId}"></td>
-              <td th:text="${bookReviewList.member.userId}"></td>
-              <td th:text="${bookReviewList.member.userName}"></td>
-              <td th:text="${bookReviewList.bookReviewDetail}"></td>
-              <td>
-                <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).ON}">활성화</span>
-                <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).OFF}">비활성화</span>
-              </td>
-              <td th:text="${#temporals.format(bookReviewList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
-              <td th:text="${#temporals.format(bookReviewList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-            </tr>
-          </table>
+      </div>
+      <hr/>
+      <div class="search_text_wrap">
+        <div class="item">
+          <select name="" id="">
+            <option value="">전체</option>
+            <option value="">도서명</option>
+          </select>
+          <input type="text" placeholder="검색어를 입력해주세요. "/>
+          <button class="black_btn">검색</button>
         </div>
+        <div class="item">
+          <select name="" id="">
+            <option value="">최신순</option>
+            <option value="">이전순</option>
+          </select>
+        </div>
+      </div>
+      <div class="list_table_wrap">
+        <table class="list_table">
+          <tr>
+            <th>NO</th>
+            <th>회원ID</th>
+            <th>회원명</th>
+            <th>리뷰내용</th>
+            <th>활성화</th>
+            <th>수정일</th>
+            <th>등록일</th>
+          </tr>
+          <tr th:each="bookReviewList : ${bookReviewList}">
+            <td th:text="${bookReviewList.bookReviewId}"></td>
+            <td th:text="${bookReviewList.member.userId}"></td>
+            <td th:text="${bookReviewList.member.userName}"></td>
+            <td><a th:text="${bookReviewList.bookReviewDetail}"
+                   th:href="@{/cms/bookReview/{bookReviewId}(bookReviewId=${bookReviewList.bookReviewId})}"></a></td>
+            <td>
+              <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).ON}">활성화</span>
+              <span th:if="${bookReviewList.bookReviewStatus == T(com.jpa4.pj1984.domain.BookReviewStatus).OFF}">비활성화</span>
+            </td>
+            <td th:text="${#temporals.format(bookReviewList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(bookReviewList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+          </tr>
+        </table>
+      </div>
     </div>
   </th:block>
 </th:block>
-</body>
 </html>
