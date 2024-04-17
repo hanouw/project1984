@@ -39,4 +39,5 @@ iamport:
 
 file:
 #  dir: C:/lhw/images/
-  dir: C:/HJ/pj1984/
+#  dir: C:/HJ/pj1984/
+  dir: /Users/hoseonyoo/Documents/file
