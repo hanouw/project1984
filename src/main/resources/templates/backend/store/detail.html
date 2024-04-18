@@ -88,7 +88,9 @@
           <p>계좌번호</p>
           <select th:value="${store.storeBankName}" disabled>
             <option value="placeholder" th:selected>은행명</option>
-            <option th:each="bank : ${bankList}" th:value="${bank}" th:text="${bank}"
+            <option th:each="bank : ${bankList}"
+                    th:value="${bank}"
+                    th:text="${bank}"
                     th:selected="${bank == store.storeBankName}"></option>
           </select>
           <input type="text" th:value="${store.storeAccount}" readonly>
