@@ -24,6 +24,10 @@ public class PaymentBookHistory extends TimeEntity{
     @Column(nullable = false)
     private String price;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookReviewStatus bookReviewStatus;
+
     public void setPaymentBook(PaymentBook paymentBook){
         this.paymentBook = paymentBook;
         this.paymentBook.getOrderBookHistories().add(this);
