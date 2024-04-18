@@ -2,26 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="base(content)">
-    <!--Header-->
-    <th:block th:replace="~{backend/layouts/header :: headerFrg}"></th:block>
-    <body>
-        <section class="page_wrap">
-            <!-- 사이드바  -->
-            <th:block th:replace="~{backend/layouts/sidemenu :: sidemenuFrg}"></th:block>
-            <!-- 컨텐츠영역 -->
-            <div class="content item">
-                <div class="top_st_bar">
-                    <p sec:authentication="principal.username"></p>
-                    <span sec:authentication="principal.authorities"></span>
+  <!--Header-->
+  <th:block th:replace="~{backend/layouts/header :: headerFrg}"></th:block>
+  <body>
+  <section class="page_wrap">
+    <!-- 사이드바  -->
+    <th:block th:replace="~{backend/layouts/sidemenu :: sidemenuFrg}"></th:block>
+    <!-- 컨텐츠영역 -->
+    <div class="content item">
+      <div class="top_st_bar">
+        <!--                    <p>haha</p>-->
+        <!--                    <span>hohho</span>-->
+        <p sec:authentication="principal.username"></p>
+        <span sec:authentication="principal.authorities"></span>
 
 
-                </div>
-                <!-- 컨텐츠 -->
-                <th:block th:replace="${content}"></th:block>
-            </div>
-        </section>
+      </div>
+      <!-- 컨텐츠 -->
+      <th:block th:replace="${content}"></th:block>
+    </div>
+  </section>
 
 
-    </body>
+  </body>
 </th:block>
 </html>

@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 public class PaymentMem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderMembershipNo; // auto_increment
 
     @Column(nullable = false)
@@ -22,6 +21,9 @@ public class PaymentMem {
 
     @Column(nullable = false)
     private String orderMembershipMethod;
+
+    @Column(nullable = false)
+    private String price;
 
     @ManyToOne
     @JoinColumn(name = "user_no")

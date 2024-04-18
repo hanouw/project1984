@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 // 주문 목록이나 주문 상세 정보 화면에 뿌려줄때 사용할 DTO
 @Data
@@ -17,7 +18,7 @@ public class PaymentBookHistoryDTO {
     private Long orderBookId; // 2024040300000
     private PaymentBookStatus paymentBookStatus;
     private String orderBookMethod;
-    private LocalDateTime createDate;
+    private String createDate;
 
     private String userId;
     private String userName;
@@ -40,7 +41,7 @@ public class PaymentBookHistoryDTO {
         this.orderBookId = paymentBookHistory.getPaymentBook().getOrderBookId();
         this.paymentBookStatus = paymentBookHistory.getPaymentBook().getPaymentBookStatus();
         this.orderBookMethod = paymentBookHistory.getPaymentBook().getOrderBookMethod();
-        this.createDate = paymentBookHistory.getCreateDate();
+        this.createDate = displayTime(paymentBookHistory.getPaymentBook().getCreateDate());
 
         this.userName = paymentBookHistory.getPaymentBook().getMember().getUserName();
         this.userId = paymentBookHistory.getPaymentBook().getMember().getUserId();
@@ -54,5 +55,10 @@ public class PaymentBookHistoryDTO {
         this.bookPub = paymentBookHistory.getBook().getBookPub();
         this.bookEbookPrice = paymentBookHistory.getBook().getBookEbookPrice();
         this.bookWriter = paymentBookHistory.getBook().getBookWriter();
+    }
+    public String displayTime(LocalDateTime createDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = createDate.format(formatter);
+        return formattedDate;
     }
 }

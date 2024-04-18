@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
@@ -44,6 +43,8 @@
                         </option>
                         <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
                     </select>
+                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/membership/modify}'|">
+                        구독권수정</button>
                 </div>
             </div>
             <div class="list_table_wrap">
@@ -106,7 +107,7 @@ $(document).ready(function () {
         let html = '';
         html += '<div class="paging_bar"><ul class="flex_between">';
         if (response.prev) {
-            html += '<li class="click">';
+            html += '<li>';
         } else {
             html += '<li class="disabled">';
         }
@@ -115,12 +116,12 @@ $(document).ready(function () {
             if (pageNum == currPage) {
                 html += '<li class="active">';
             } else {
-                html += '<li class="click">';
+                html += '<li>';
             }
             html += ' <a class="pageLink" href="' + pageNum + '">' + pageNum + '</a></li>';
         })
         if (response.next) {
-            html += '<li click>';
+            html += '<li>';
         } else {
             html += '<li class="disabled">';
         }
@@ -146,7 +147,7 @@ $(document).ready(function () {
         html += '<th>bookId</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
         html += '<th>결제방법</th><th>구매일</th></tr>';
         $.each(response.orderList, function(index, item) {
-            html += '<tr></tr><td><a class="detail" href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
+            html += '<tr></tr><td><a href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
             html += '<td>' + item.orderBookId + '</td>';
             html += '<td>' + item.userId + '</td>';
             html += '<td>' + item.userName + '</td>';
@@ -155,7 +156,7 @@ $(document).ready(function () {
             html += '<td>' + item.storeTitle + '</td>';
             html += '<td>' + item.paymentBookStatus + '</td>';
             html += '<td>' + item.orderBookMethod + '</td>';
-            html += '<td>' + displayTime(item.createDate) + '</td></tr>';
+            html += '<td>' + item.createDate + '</td></tr>';
         });
         html += '</table>';
         orderListDiv.html(html);
@@ -200,11 +201,6 @@ $(document).ready(function () {
         }
     });
 
-    function displayTime(timeVal) {
-        let time = timeVal;
-        return time.split('T')[0];
-    }
-
     function valueCheck() {
         let keywordValue = $("#keyword").val().trim();
         let searchTypeValue = $("#searchType").val();
@@ -239,5 +235,4 @@ $(document).ready(function () {
 });
 
 </script>
-</body>
 </html>

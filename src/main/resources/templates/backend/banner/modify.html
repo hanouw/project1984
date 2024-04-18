@@ -3,7 +3,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
-            <form action="" class="banner_add_form" th:action th:object="${bannerForm}" method="post" enctype="multipart/form-data">
+            <form action="" class="banner_add_form" th:action th:object="${banner}" method="post" enctype="multipart/form-data">
                 <div class="search_date_wrap">
                     <div class="item">
                         <h2>배너수정</h2>
@@ -15,10 +15,15 @@
                 </div>
                 <div class="add_form_wrap">
 
+                    <div class="add_input_wrap" style="display:none;">
+                        <p>배너아이디</p>
+                        <input type="text" th:field="*{bannerId}" readonly>
+                    </div>
+
                     <div class="add_input_wrap">
                         <p>배너이미지</p>
                         <div id="drop_zone" class="drag_img_form">
-                            <img id="image-preview" alt="">
+                            <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bannerimages/${banner.getBannerImgStored}|">
                             <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
                         </div>
                         <input type="text" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
@@ -66,49 +71,29 @@
     </th:block>
 </th:block>
 <script>
-    let fileList = new Array();
+    let fileList = [];
     let files = null;
-    // Prevent default drag behaviors
+
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-      document.getElementById('drop_zone').addEventListener(eventName, preventDefaults, false)
+        document.getElementById('drop_zone').addEventListener(eventName, preventDefaults, false);
     });
-
     function preventDefaults (e) {
-      e.preventDefault()
-      e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
     }
-
-    // Highlight drop area when item is dragged over it
     ['dragenter', 'dragover'].forEach(eventName => {
-      document.getElementById('drop_zone').addEventListener(eventName, highlight, false)
+        document.getElementById('drop_zone').addEventListener(eventName, highlight, false);
     });
-    ['dropleave'].forEach(eventName => {
-      document.getElementById('drop_zone').addEventListener(eventName, highlightlv, false)
-    });
-    ['drop'].forEach(eventName => {
-      document.getElementById('drop_zone').addEventListener(eventName, unhighlight, false)
-    });
-
     function highlight(e) {
-      document.getElementById('drop_zone').style.backgroundColor = '#fafafa';
+        document.getElementById('drop_zone').style.backgroundColor = '#fafafa';
     }
 
-    function highlightlv(e) {
-      document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
-    }
-
-    function unhighlight(e) {
-      document.getElementById('drop_zone').style.backgroundColor = '#dcdcdc';
-    }
-
-    // Handle dropped files
     document.getElementById('drop_zone').addEventListener('drop', handleDrop, false);
 
     function handleDrop(e) {
       let dt = e.dataTransfer;
       files = dt.files;
-      //fileList.push(files); // 배열에 추가
-
+      fileList.push(files); // 배열에 추가
       handleFiles(files);
     }
 
@@ -117,85 +102,58 @@
     }
 
     function uploadFile(file) {
-      document.getElementById('bannerImg').value = file.name;
+      document.getElementById('bannerImgOrg').value = file.name;
 
         // 이미지 미리보기
       let reader = new FileReader();
       reader.onloadend = function() {
         let img = document.getElementById('image-preview');
-        let deleteBtn = document.querySelector('.img_delete_btn');
-        let dropZone = document.getElementById('drop_zone');
         img.src = reader.result;
-        deleteBtn.style.display = 'block';
-  <!--      dropZone.style.backgroundImage = 'url()';-->
       }
       reader.readAsDataURL(file);
     }
-
-    function clickdelete(e){
-      // 이미지 삭제 버튼에 클릭 이벤트 리스너 추가
-      document.querySelector('.img_delete_btn').addEventListener('click', function() {
-        // 이미지 미리보기 초기화
-        document.getElementById('image-preview').src = '';
-
-        // 'bannerImg' 요소의 값 초기화
-        document.getElementById('bannerImg').value = '';
-
-        //버튼 다시 삭제
-        document.querySelector('.img_delete_btn').style.display = 'none';
-
-        // 드래그 배경 색 수정
-        document.getElementById('drop_zone').style.backgroundColor = '#ffffff';
-  <!--      let bgImgUrl = "../img/img_drag.png";-->
-  <!--      let dropZone = document.getElementById('drop_zone');-->
-  <!--      dropZone.style.backgroundImage = "url('" + bgImgUrl + "')";-->
-
-        // 이미지 삭제 버튼 숨기기
-        this.style.display = 'none';
-        console.log(fileList[0][0]);
-      });
-    }
-
 </script>
 <script>
     $(document).ready(function(){
       $(".banner_add_form").on("submit", function(e){
         e.preventDefault(); // 기본 제출 동작 막기
         console.log(fileList);
+        console.log(files);
         // 폼 데이터 만들어 폼태그에 있는 작성값들 모두 담기
         let formData = new FormData();
+        let bannerImg = null;
+        if(files != null){
+            bannerImg = files[0];
+            formData.append("bannerImg", bannerImg);
+            console.log(files);
+        }
 
-        let bannerImg = files[0];
-
+        let bannerId = $("#bannerId").val();
+        //let bannerImg = files[0];
+        let bannerImgOrg = $('.image-input-form').val();
         let bannerTitle = $("#bannerTitle").val();
         let bannerDetail = $("#bannerDetail").val();
         let bannerLink = $("#bannerLink").val();
         let bannerOrder = $("#bannerOrder").val();
         let bannerStatus = document.querySelector('input[name="bannerStatus"]:checked').value;
 
-        formData.append("bannerImg", bannerImg);
 
+        formData.append("bannerId", bannerId);
         formData.append("bannerTitle", bannerTitle);
         formData.append("bannerDetail", bannerDetail);
         formData.append("bannerLink", bannerLink);
         formData.append("bannerOrder", bannerOrder);
         formData.append("bannerStatus", bannerStatus);
 
-        console.log(bannerImg);
-        console.log(formData);
-
         $.ajax({
           type: "post",
-          url: "/cms/banner/{id}/modify",
+          url: '/cms/banner/' + bannerId + '/modify',
           data: formData,
           contentType: false,
           processData: false,
           success: function(result){
-            console.log("성공!");
-                console.log(result);
-                // availResult input태그에 결과 메세지 띄우기
-                $("#availResult").val(result);
-                window.location.href = "/cms/banner/{id}/modify";
+            alert("배너가 수정되었습니다.");
+            window.location.href = "/cms/banner/list";
             },
             error: function(e) {
                 console.log("실패...");

@@ -31,7 +31,6 @@ public class BookService {
     public void save(BookForm bookForm) throws IOException{
         String projectPath = System.getProperty("user.dir") + "";
 
-
         ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
         ProductFile imgFile = fileUploadService.saveFile(bookForm.getBookImg());
         Book entity = bookForm.toEntity();
@@ -61,21 +60,18 @@ public class BookService {
     //수정
     public void updateOne(BookForm bookForm) throws IOException{
         Book book = bookRepository.findById(bookForm.getBookId()).orElse(null);
-        // bookFile 처리
-        if (bookForm.getBookFile() != null && !bookForm.getBookFile().isEmpty()) {
+
+        if(!bookForm.getBookImg().isEmpty()){ // 북 이미지
+            ProductFile bookImg = fileUploadService.saveFile(bookForm.getBookImg());
+            book.setBookImgOrg(bookImg.getOrgFileName());
+            book.setBookImgStored(bookImg.getStoredFileName());
+        }
+        if(!bookForm.getBookFile().isEmpty()){ // 북 파일
             ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
             book.setBookFileOrg(bookFile.getOrgFileName());
             book.setBookFileStored(bookFile.getStoredFileName());
-            System.out.println("파일처리~~~~~bookForm = " + bookForm);
         }
-
-        // imgFile 처리
-        if (bookForm.getBookImg() != null && !bookForm.getBookImg().isEmpty()) {
-            ProductFile imgFile = fileUploadService.saveFile(bookForm.getBookImg());
-            book.setBookImgOrg(imgFile.getOrgFileName());
-            book.setBookImgStored(imgFile.getStoredFileName());
-            System.out.println("파일이미지~~~~~bookForm = " + bookForm);
-        }
+        // 저장
         book.setIsbn(bookForm.getIsbn());
         book.setBookTitle(bookForm.getBookTitle());
         book.setStore(bookForm.getStore());
@@ -88,7 +84,7 @@ public class BookService {
         book.setBookReview(bookForm.getBookReview());
         book.setBookWriter(bookForm.getBookWriter());
         book.setBookWriterProfile(bookForm.getBookWriterProfile());
-        System.out.println("도서저장처리~~~~~bookForm = " + bookForm);
+
     }
 
     //VIEW 목록 조회용

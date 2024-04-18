@@ -385,9 +385,8 @@ div.top_st_bar > span{
     color: var(--pointcolor);
     transform:translateY(-5px);
 }
-#image-preview{
+.preview-img{
     margin:20px;
-
     height:calc(100% - 40px);
 }
 
@@ -459,6 +458,17 @@ button.img_delete_btn{
     background-color: var(--mainblack);
     color: var(--mainwhite);
 }
+.paging_bar > ul > li > a:hover{
+    background-color: var(--mainblack);
+    color: var(--pointcolor);
+}
+.disabled {
+    pointer-events: none;
+}
+.active {
+    pointer-events: none;
+    color: var(--pointcolor);
+}
 .review_input_form{
     margin-top: 20px;
     width: 100%;
@@ -490,7 +500,7 @@ button.img_delete_btn{
     max-width:50%;
     height:260px;
     border-radius:4px;
-    border:1px dashed var(--maingr00);
+    border:1px solid var(--maingr00);
     background-color:#fafafa;
     background-image:url("../img/store_default.jpg");
     background-size:cover;
@@ -498,6 +508,9 @@ button.img_delete_btn{
     background-repeat:no-repeat;
     margin-bottom:14px;
 }
+
+
+
 
 
 

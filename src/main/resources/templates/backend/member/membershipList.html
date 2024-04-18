@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
@@ -138,20 +137,21 @@
 
         // 목록 출력 함수
         function printList(response) {
+            console.log("printList 실행")
             let html = '';
             html += '<table class="list_table">';
             html += '<tr><th>NO</th><th>서점명</th><th>회원ID</th><th>회원명</th>';
             html += '<th>연락처</th><th>이메일</th><th>결제방법</th><th>시작일</th><th>종료일</th>';
-            $.each(response.orderList, function(index, item) {
-                html += '<tr></tr><td><a class="detail" href="/cms/order/book/'+ item.orderMembershipNo +'">' + item.orderBookHistoryId + '</a></td>';
+            $.each(response.paymentMemDTO, function(index, item) {
+                html += '<tr></tr><td><a class="detail" href="/cms/order/membership/'+ item.orderMembershipNo +'">' + item.orderMembershipNo + '</a></td>';
                 html += '<td>' + item.storeTitle + '</td>';
                 html += '<td>' + item.userId + '</td>';
                 html += '<td>' + item.userName + '</td>';
                 html += '<td>' + item.userPhoneNum + '</td>';
                 html += '<td>' + item.userEmail + '</td>';
                 html += '<td>' + item.orderMembershipMethod + '</td>';
-                html += '<td>' + displayTime(item.membershipStartDate) + '</td>';
-                html += '<td>' + displayTime(item.membershipEndDate) + '</td>';
+                html += '<td>' + item.membershipStartDate + '</td>';
+                html += '<td>' + item.membershipEndDate + '</td>';
             });
             html += '</table>';
             orderListDiv.html(html);
@@ -196,11 +196,6 @@
             }
         });
 
-        function displayTime(timeVal) {
-            let time = timeVal;
-            return time.split('T')[0];
-        }
-
         function valueCheck() {
             let keywordValue = $("#keyword").val().trim();
             let searchTypeValue = $("#searchType").val();
@@ -235,5 +230,4 @@
     });
 
 </script>
-</body>
 </html>

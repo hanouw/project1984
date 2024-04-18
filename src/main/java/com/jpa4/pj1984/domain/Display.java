@@ -32,25 +32,35 @@ public class Display {
     @Column
     private String aboutText06;
 
-    @Column
-    private String mainStore01;
-    @Column
-    private String mainStore02;
-    @Column
-    private String mainStore03;
-    @Column
-    private String mainStore04;
-    @Column
-    private String mainStore05;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainStore01")
+    private Store mainStore01;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainStore02")
+    private Store mainStore02;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainStore03")
+    private Store mainStore03;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainStore04")
+    private Store mainStore04;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainStore05")
+    private Store mainStore05;
 
-    @Column
-    private String mainBook01;
-    @Column
-    private String mainBook02;
-    @Column
-    private String mainBook03;
-    @Column
-    private String mainBook04;
-    @Column
-    private String mainBook05;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainBook01")
+    private Book mainBook01;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainBook02")
+    private Book mainBook02;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainBook03")
+    private Book mainBook03;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainBook04")
+    private Book mainBook04;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mainBook05")
+    private Book mainBook05;
 }
