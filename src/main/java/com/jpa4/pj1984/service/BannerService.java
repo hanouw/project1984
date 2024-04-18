@@ -47,12 +47,13 @@ public class BannerService {
         Banner banner = bannerRepository.findById(id).orElse(null);
         return new BannerDTO(banner);
     }
+
     //수정
     public void updateOne(BannerForm bannerForm) throws IOException{
         Banner banner = bannerRepository.findById(bannerForm.getBannerId()).orElse(null);
         System.out.println("배너서비스실행 됬습니둥");
 
-        if (bannerForm. getBannerImg() != null) {
+        if (bannerForm.getBannerImg() != null) {
 
             if (banner != null && !banner.getBannerImgStored().isEmpty()) {
                 // 기존 이미지 파일 삭제
