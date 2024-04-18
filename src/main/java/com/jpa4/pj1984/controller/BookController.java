@@ -162,7 +162,7 @@ public class BookController {
     @ResponseBody
     @GetMapping("/bookimages/{fileName}")
     public Resource getImages(@PathVariable("fileName") String fileName) throws MalformedURLException{
-        System.out.println("fileName = " + fileName);
+        System.out.println("북컨트롤러-fileName = " + fileName);
         return new UrlResource("file:" + fileUploadService.getPath(fileName));
 
     }

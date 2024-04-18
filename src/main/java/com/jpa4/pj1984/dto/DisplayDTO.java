@@ -1,6 +1,8 @@
 package com.jpa4.pj1984.dto;
 
+import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.Display;
+import com.jpa4.pj1984.domain.Store;
 import lombok.Data;
 
 @Data
@@ -19,17 +21,17 @@ public class DisplayDTO {
     private String aboutText05;
     private String aboutText06;
 
-    private String mainStore01;
-    private String mainStore02;
-    private String mainStore03;
-    private String mainStore04;
-    private String mainStore05;
+    private Store mainStore01;
+    private Store mainStore02;
+    private Store mainStore03;
+    private Store mainStore04;
+    private Store mainStore05;
 
-    private String mainBook01;
-    private String mainBook02;
-    private String mainBook03;
-    private String mainBook04;
-    private String mainBook05;
+    private Book mainBook01;
+    private Book mainBook02;
+    private Book mainBook03;
+    private Book mainBook04;
+    private Book mainBook05;
 
     //Entity -> DTO
     public DisplayDTO(Display display){

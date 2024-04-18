@@ -17,10 +17,10 @@
                 <div class="add_input_wrap">
                     <p>1984소개이미지_01</p>
                     <div id="drop_zone" class="drag_img_form">
-                        <img id="image-preview" alt="">
+                        <img id="image-preview1" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg01Stored}|">
                     </div>
                     <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
-                    <input type="text" th:field="*{aboutImg01Org}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+                    <input type="text" th:value="${display.aboutImg01Org}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_01</p>
@@ -43,10 +43,10 @@
                 <div class="add_input_wrap">
                     <p>1984소개이미지_02</p>
                     <div id="drop_zone2" class="drag_img_form">
-                        <img id="image-preview2" alt="">
+                        <img id="image-preview2" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg02Stored}|">
                     </div>
                     <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
-                    <input type="text" th:field="*{aboutImg02Org}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+                    <input type="text" th:value="${display.aboutImg02Org}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_01</p>

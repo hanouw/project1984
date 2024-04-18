@@ -385,9 +385,8 @@ div.top_st_bar > span{
     color: var(--pointcolor);
     transform:translateY(-5px);
 }
-#image-preview{
+.preview-img{
     margin:20px;
-
     height:calc(100% - 40px);
 }
 

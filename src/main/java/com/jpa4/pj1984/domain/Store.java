@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,7 +30,6 @@ public class Store extends TimeEntity{
     private String storeCrn;
     @Column(unique = true, length = 100)
     private String storeText;
-
     @Column(nullable = false, unique = true, length = 400)
     private String storePhoneNum;
     @Column(length = 100)
@@ -37,9 +38,14 @@ public class Store extends TimeEntity{
     private String storeOneReview;
     @Column(length = 100)
     private String storeReview;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "storeReviewId")
+    private List<StoreReview> storeUserReviews = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StoreStatus storeStatus;
+
     @Column(length = 100)
     private String storeOperateTime;
     @Column(length = 400)
@@ -48,6 +54,7 @@ public class Store extends TimeEntity{
     private String storeAccount;
     @Column(length = 30)
     private String storeBankName;
+
     // 찢어야 함 String
     @Column(length = 50)
     private String storeImageOrigin;

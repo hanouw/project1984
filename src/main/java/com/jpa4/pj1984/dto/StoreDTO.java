@@ -2,12 +2,14 @@ package com.jpa4.pj1984.dto;
 
 import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.domain.Store;
+import com.jpa4.pj1984.domain.StoreReview;
 import com.jpa4.pj1984.domain.StoreStatus;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -40,6 +42,8 @@ public class StoreDTO { // 가져오는
     private String storeImageOrigin03;
     private String storeImageStored03;
 
+    private List<StoreReview> storeUserReviews;
+
     // sampleDTO 생성자의 매개변수는 entity
     // Entity -> DTO
     // 생성자 : Store 엔티티 -> StoreForm으로 변경해 화면에 전달
@@ -70,5 +74,6 @@ public class StoreDTO { // 가져오는
         this.storeImageOrigin03 = store.getStoreImageOrigin03();
         this.storeImageStored03 = store.getStoreImageStored03();
 
+        this.storeUserReviews = store.getStoreUserReviews();
     }
 }
