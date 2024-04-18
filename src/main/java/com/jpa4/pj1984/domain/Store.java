@@ -40,7 +40,7 @@ public class Store extends TimeEntity{
     private String storeReview;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "storeReviewId")
-    private List<StoreReview> storeUserReviews = new ArrayList<>();
+    private List<StoreReview> storeUserReviewList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
