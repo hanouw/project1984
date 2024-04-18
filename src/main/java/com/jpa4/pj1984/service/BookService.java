@@ -60,6 +60,7 @@ public class BookService {
     //수정
     public void updateOne(BookForm bookForm) throws IOException{
         Book book = bookRepository.findById(bookForm.getBookId()).orElse(null);
+
         if(!bookForm.getBookImg().isEmpty()){ // 북 이미지
             ProductFile bookImg = fileUploadService.saveFile(bookForm.getBookImg());
             book.setBookImgOrg(bookImg.getOrgFileName());
