@@ -19,6 +19,8 @@ public class StoreReview extends TimeEntity{
     private String storeReviewDetail;
     @Column(nullable = false, length = 200)
     private Long storeReviewPosition;
+    @Column(nullable = false, length = 200)
+    private Integer step;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StoreReviewStatus storeReviewStatus;

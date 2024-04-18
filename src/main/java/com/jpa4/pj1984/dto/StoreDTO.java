@@ -42,7 +42,7 @@ public class StoreDTO { // 가져오는
     private String storeImageOrigin03;
     private String storeImageStored03;
 
-    private List<StoreReview> storeUserReviews;
+    private List<StoreReview> storeUserReviewList;
 
     // sampleDTO 생성자의 매개변수는 entity
     // Entity -> DTO
@@ -74,6 +74,6 @@ public class StoreDTO { // 가져오는
         this.storeImageOrigin03 = store.getStoreImageOrigin03();
         this.storeImageStored03 = store.getStoreImageStored03();
 
-        this.storeUserReviews = store.getStoreUserReviews();
+        this.storeUserReviewList = store.getStoreUserReviewList();
     }
 }

@@ -47,6 +47,16 @@ public class FileUploadService {
         return orgFileName.substring(idx);
     }
 
+    // 파일 삭제
+    public boolean deleteFile(String storedFileName) throws IOException{
+        File file = new File(getPath(storedFileName));
+        System.out.println("storedFileName가 삭제됨 = " + storedFileName);
+        if (file.exists()){
+            return file.delete();
+        }
+        return false;
+    }
+
 
 
 }

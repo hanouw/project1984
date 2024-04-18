@@ -1,6 +1,7 @@
 package com.jpa4.pj1984.dto;
 
 import com.jpa4.pj1984.domain.Member;
+import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreReview;
 import com.jpa4.pj1984.domain.StoreReviewStatus;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,10 @@ public class StoreReviewDTO { // 가져오는
     private StoreReviewStatus storeReviewStatus;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
+    private Long storeReviewPosition;
+    private Store store;
+    private Integer step;
+
 
     public StoreReviewDTO(StoreReview storeReview) {
         this.storeReviewId = storeReview.getStoreReviewId();
@@ -28,6 +33,9 @@ public class StoreReviewDTO { // 가져오는
         this.createDate = storeReview.getCreateDate();
         this.lastModifiedDate = storeReview.getLastModifiedDate();
         this.storeReviewStatus = storeReview.getStoreReviewStatus();
+        this.storeReviewPosition = storeReview.getStoreReviewPosition();
+        this.store = storeReview.getStore();
+        this.step = storeReview.getStep();
     }
 
 }
