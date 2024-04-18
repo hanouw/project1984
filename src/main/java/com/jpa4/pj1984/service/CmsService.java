@@ -1,5 +1,6 @@
 package com.jpa4.pj1984.service;
 
+import com.jpa4.pj1984.domain.Membership;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.PaymentMem;
 import com.jpa4.pj1984.domain.Store;
@@ -25,6 +26,7 @@ public class CmsService {
     private final CmsCustomRepositoryImpl cmsCustomRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
     private final PaymentMemRepository paymentMemRepository;
+    private final MembershipRepository membershipRepository;
 
     // 서점관리 - 서점 정보 등록
     public String save(StoreForm storeForm){
@@ -77,6 +79,12 @@ public class CmsService {
         PaymentBookHistoryDTO dto = new PaymentBookHistoryDTO(paymentBookHistoryRepository.findById(orderBookHistoryId).orElse(null));
         log.info("************CmsService dto:{}", dto);
         return dto;
+    }
+
+    // 구독권 수정
+    public void modifyMembershipPrice(MembershipDTO membershipDTO) {
+        Membership membership = membershipRepository.findById(1L).orElse(null);
+        membership.setPrice(membershipDTO.getPrice());
     }
 
     // 구독관리 - 구독내역 목록 조회 판매자 ver

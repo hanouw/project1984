@@ -91,9 +91,10 @@ public class CMSController {
     }
 
     // 구독관리 - 구독권 수정
-    @GetMapping("membership/modify")
-    public String membershipModify(Model model) {
+    @GetMapping("/membership/modify")
+    public String membershipModify(MembershipDTO membershipDTO, Model model) {
         // TODO 구독권수정
+        cmsService.modifyMembershipPrice(membershipDTO);
         return "backend/member/membershipModify";
     }
 
