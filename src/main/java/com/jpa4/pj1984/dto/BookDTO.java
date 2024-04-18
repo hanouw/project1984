@@ -1,12 +1,10 @@
 package com.jpa4.pj1984.dto;
 
-import com.jpa4.pj1984.domain.Book;
-import com.jpa4.pj1984.domain.BookCategory;
-import com.jpa4.pj1984.domain.BookStatus;
-import com.jpa4.pj1984.domain.Store;
+import com.jpa4.pj1984.domain.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class BookDTO {
@@ -34,6 +32,8 @@ public class BookDTO {
     private BookStatus bookStatus;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
+
+    private List<BookReview> bookUserReviews;
 
     //Entity -> DTO
     public BookDTO(Book book){
@@ -63,6 +63,8 @@ public class BookDTO {
         this.bookStatus = book.getBookStatus();
         this.createDate = book.getCreateDate();
         this.lastModifiedDate = book.getLastModifiedDate();
+
+        this.bookUserReviews = book.getBookUserReviews();
     }
 
 }
