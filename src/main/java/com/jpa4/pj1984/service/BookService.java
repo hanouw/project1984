@@ -61,16 +61,29 @@ public class BookService {
     public void updateOne(BookForm bookForm) throws IOException{
         Book book = bookRepository.findById(bookForm.getBookId()).orElse(null);
 
-        if(!bookForm.getBookImg().isEmpty()){ // 북 이미지
-            ProductFile bookImg = fileUploadService.saveFile(bookForm.getBookImg());
-            book.setBookImgOrg(bookImg.getOrgFileName());
-            book.setBookImgStored(bookImg.getStoredFileName());
+        if (bookForm. getBookImg() != null) {
+            if (book != null && !book.getBookImgStored().isEmpty()){
+                boolean deleteImg = fileUploadService.deleteFile(book.getBookImgStored());
+                System.out.println("북커버이미지 삭제");
+                if (deleteImg){
+                    ProductFile bookImg = fileUploadService.saveFile(bookForm.getBookImg());
+                    book.setBookImgOrg(bookImg.getOrgFileName());
+                    book.setBookImgStored(bookImg.getStoredFileName());
+                }
+            }
         }
-        if(!bookForm.getBookFile().isEmpty()){ // 북 파일
-            ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
-            book.setBookFileOrg(bookFile.getOrgFileName());
-            book.setBookFileStored(bookFile.getStoredFileName());
+        if (bookForm. getBookFile() != null) {
+            if (book != null && !book.getBookFileStored().isEmpty()){
+                boolean deleteFile = fileUploadService.deleteFile(book.getBookFileStored());
+                System.out.println("북파일 삭제");
+                if (deleteFile){
+                    ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
+                    book.setBookFileOrg(bookFile.getOrgFileName());
+                    book.setBookFileStored(bookFile.getStoredFileName());
+                }
+            }
         }
+
         // 저장
         book.setIsbn(bookForm.getIsbn());
         book.setBookTitle(bookForm.getBookTitle());
@@ -84,7 +97,7 @@ public class BookService {
         book.setBookReview(bookForm.getBookReview());
         book.setBookWriter(bookForm.getBookWriter());
         book.setBookWriterProfile(bookForm.getBookWriterProfile());
-
+        System.out.println("도서서비스실행 - 처리 - 됬습니둥");
     }
 
     //VIEW 목록 조회용

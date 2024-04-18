@@ -68,8 +68,8 @@ public class BannerController {
     }
     @PostMapping("/banner/{id}/modify")
     public String bannerModifyPro(@PathVariable("id") Long id, BannerForm bannerForm) throws Exception{
+        System.out.println("실행 확인-배너수정 id = " + id + ", bannerForm = " + bannerForm);
         bannerService.updateOne(bannerForm);
-        System.out.println("실행 확인 id = " + id + ", bannerForm = " + bannerForm);
         return "redirect:/cms/banner/{id}";
     }
     // 이미지 데이터 요청
