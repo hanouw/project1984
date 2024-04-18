@@ -66,10 +66,10 @@ public class BannerService {
                     banner.setBannerImgStored(bannerImg.getStoredFileName());
                     System.out.println("bannerForm = " + banner.getBannerImgStored());
                     System.out.println("이미지저장요청");
-
                 }
             }
         }
+        // 저장
         banner.setBannerTitle(bannerForm.getBannerTitle());
         banner.setBannerDetail(bannerForm.getBannerDetail());
         banner.setBannerOrder(bannerForm.getBannerOrder());
