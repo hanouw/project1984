@@ -28,7 +28,7 @@ public class Store extends TimeEntity{
     private String storeOwner;
     @Column(nullable = false, unique = true, length = 20)
     private String storeCrn;
-    @Column(unique = true, length = 100)
+    @Column(length = 100)
     private String storeText;
     @Column(nullable = false, unique = true, length = 400)
     private String storePhoneNum;
