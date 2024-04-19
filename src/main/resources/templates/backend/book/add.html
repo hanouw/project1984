@@ -224,7 +224,7 @@
         processData: false,
         success: function(result){
               alert("도서가 저장되었습니다.");
-              console.log(result);
+              window.location.href = "/cms/book/list";
           },
           error: function(e) {
               alert("도서 저장이 실패하였습니다.");
