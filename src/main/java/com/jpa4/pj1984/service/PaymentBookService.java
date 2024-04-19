@@ -8,6 +8,7 @@ import com.jpa4.pj1984.repository.BookRepository;
 import com.jpa4.pj1984.repository.MemberRepository;
 import com.jpa4.pj1984.repository.PaymentBookHistoryRepository;
 import com.jpa4.pj1984.repository.PaymentBookRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
