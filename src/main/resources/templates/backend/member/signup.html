@@ -155,18 +155,37 @@
             alert("사업자등록번호를 입력하세요.");
             return false;
         }
+
+        // crn 길이 제한
+        if (crnInput.value.trim().length < 9) {
+            alert("올바른 사업자등록번호를 입력하세요.");
+            return false;
+        }
+
         // let titleInput = document.querySelector('input[name="storeTitle"]')
         if (titleInput.value.trim() === "") {
             alert("서점명을 입력하세요.");
             return false;
         }
 
-        // 오류가 발생하면 오류 메시지를 콘솔에 출력하고 제출을 막음
-        // if (errorMessage !== "") {
-        //     console.log(errorMessage);
-        //     alert(errorMessage);
-        //     return false;
-        // }
+        // 이메일, 타이틀, 전번
+
+        // 이메일 중복 확인
+        $.ajax({
+            type: "post",
+            url: "/cms/ajaxUsernameAvail",
+            data: {storeLoginId: storeLoginId},
+            success: function(result){
+                console.log("성공!");
+                console.log(result);
+                // availResult input태그에 결과 메세지 띄우기
+                $("#availResult").val(result);
+            },
+            error: function(e) {
+                console.log("실패...");
+                console.log(e);
+            }
+        });
 
         // 유효성 검사 통과 시 회원가입 폼 제출
         event.target.submit();
