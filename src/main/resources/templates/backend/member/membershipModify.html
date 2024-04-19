@@ -3,7 +3,7 @@
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
-            <form action="" th:action th:object="${bookCategory}" method="post">
+            <form action="" th:action method="post">
                 <div class="search_date_wrap">
                     <div class="item">
                         <h2>구독권 수정</h2>
@@ -16,15 +16,15 @@
                 <div class="add_form_wrap">
                     <div class="add_input_wrap">
                         <p>구독권 금액</p>
-                        <input type="text" th:field="*{bookCategoryId}" readonly>
+                        <input type="text" th:field="${membershipPrice.price}">
                     </div>
                     <div class="add_input_wrap">
                         <p>수정일</p>
-                        <input type="text" th:field="*{lastModifiedDate}" readonly>
+                        <input type="text" th:field="${membershipPrice.lastModifiedDate}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>등록일</p>
-                        <input type="text" th:field="*{createDate}" readonly>
+                        <input type="text" th:field="${membershipPrice.createDate}" readonly>
                     </div>
                 </div>
             </form>

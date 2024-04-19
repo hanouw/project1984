@@ -90,17 +90,23 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
-    // 구독관리 - 구독권 수정
+    // 구독관리 - 구독권 수정 상세페이지 조회
     @GetMapping("/membership/modify")
-    public String membershipModify(MembershipDTO membershipDTO, Model model) {
-        // TODO 구독권수정
-        cmsService.modifyMembershipPrice(membershipDTO);
+    public String membershipModify(Model model) {
+        MembershipDTO membershipPrice = cmsService.findMembershipPrice();
+        model.addAttribute("membershipPrice", membershipPrice);
         return "backend/member/membershipModify";
+    }
+
+    @PostMapping("/membership/modify")
+    public String membershipModifyPro(MembershipDTO membershipDTO) {
+        cmsService.modifyMembershipPrice(membershipDTO);
+        return "redirect:/cms/membership/modify";
     }
 
     // 구독 관리 - 목록 조회
     @GetMapping("/order/membershipList")
-    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO){
+    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
         log.info("----CmsController userMemberShipList pageRequestDTO : {}", pageRequestDTO);
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");

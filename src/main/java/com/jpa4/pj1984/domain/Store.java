@@ -46,7 +46,7 @@ public class Store extends TimeEntity{
     @Column(nullable = false)
     private StoreStatus storeStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "membership_no")
     private Membership membership;
 

@@ -31,7 +31,8 @@ public class CmsService {
     // 서점관리 - 서점 정보 등록
     public String save(StoreForm storeForm){
         storeForm.setStorePassword(storePasswordEncoder.encode(storeForm.getStorePassword()));
-        cmsRepository.save(storeForm.toSignupEntity());
+        Store saved = cmsRepository.save(storeForm.toSignupEntity());
+        saved.setMembership(membershipRepository.findById(1L).orElse(null));
         return null;
     }
 
@@ -81,10 +82,25 @@ public class CmsService {
         return dto;
     }
 
+    // 구독권 가격 조회
+    public MembershipDTO findMembershipPrice() {
+        Membership membership = membershipRepository.findById(1L).orElse(null);
+        if (membership == null) {
+            MembershipDTO membershipDTO = new MembershipDTO();
+            membershipDTO.setPrice("아직 정해진 가격이 없습니다.");
+            return membershipDTO;
+        }
+        return new MembershipDTO(membership);
+    }
+
     // 구독권 수정
     public void modifyMembershipPrice(MembershipDTO membershipDTO) {
         Membership membership = membershipRepository.findById(1L).orElse(null);
-        membership.setPrice(membershipDTO.getPrice());
+        if (membership == null) {
+            membershipRepository.save(membershipDTO.toEntity());
+        } else {
+            membership.setPrice(membershipDTO.getPrice());
+        }
     }
 
     // 구독관리 - 구독내역 목록 조회 판매자 ver
