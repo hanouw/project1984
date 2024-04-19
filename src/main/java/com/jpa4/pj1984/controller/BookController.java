@@ -103,7 +103,7 @@ public class BookController {
     }
     @PostMapping("/book/{id}/modify")
     public String bookModifyPro(@PathVariable("id") Long id, BookForm bookForm) throws Exception{
-        System.out.println("id = " + id + ", bookForm = " + bookForm);
+        System.out.println("실행확인-도서수정 id = " + id + ", bookForm = " + bookForm);
         bookService.updateOne(bookForm);
         return "redirect:/cms/book/{id}";
     }

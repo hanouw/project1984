@@ -46,6 +46,10 @@ public class Store extends TimeEntity{
     @Column(nullable = false)
     private StoreStatus storeStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "membership_no")
+    private Membership membership;
+
     @Column(length = 100)
     private String storeOperateTime;
     @Column(length = 400)
@@ -73,6 +77,12 @@ public class Store extends TimeEntity{
     @Column
     private String storeImageStored03;
 
+    @PostLoad
+    private void initDefaultMembership() {
+        if (membership == null) {
+            membership = new Membership(1L); // Create a Membership object with membershipNo=1
+        }
+    }
 
 
 }

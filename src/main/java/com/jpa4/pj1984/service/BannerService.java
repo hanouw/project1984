@@ -47,12 +47,13 @@ public class BannerService {
         Banner banner = bannerRepository.findById(id).orElse(null);
         return new BannerDTO(banner);
     }
+
     //수정
     public void updateOne(BannerForm bannerForm) throws IOException{
         Banner banner = bannerRepository.findById(bannerForm.getBannerId()).orElse(null);
         System.out.println("배너서비스실행 됬습니둥");
 
-        if (bannerForm. getBannerImg() != null) {
+        if (bannerForm.getBannerImg() != null) {
 
             if (banner != null && !banner.getBannerImgStored().isEmpty()) {
                 // 기존 이미지 파일 삭제
@@ -66,10 +67,10 @@ public class BannerService {
                     banner.setBannerImgStored(bannerImg.getStoredFileName());
                     System.out.println("bannerForm = " + banner.getBannerImgStored());
                     System.out.println("이미지저장요청");
-
                 }
             }
         }
+        // 저장
         banner.setBannerTitle(bannerForm.getBannerTitle());
         banner.setBannerDetail(bannerForm.getBannerDetail());
         banner.setBannerOrder(bannerForm.getBannerOrder());
