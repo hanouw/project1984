@@ -195,41 +195,41 @@ public class CMSController {
         return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
     }
 
-    @PostMapping("/ajaxEmailAvail")
-    public ResponseEntity<Boolean> ajaxEmailAvail(String storeLoginId) {
-        log.info("Controller /ajaxEmailAvail - storeId : {}", storeLoginId);
-        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
-        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
-            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-    }
-
-    @PostMapping("/ajaxTitleAvail")
-    public ResponseEntity<String> ajaxTitleAvail(String storeLoginId) {
-        log.info("Controller /ajaxTitleAvail - storeId : {}", storeLoginId);
-        // username 사용 가능한지 DB 가서 체크
-        String result = "이미 사용 중 입니다.";
-        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
-        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
-            result = "사용 가능합니다.";
-        }
-        // 헤더정보 포함해서 응답 한글깨짐 방지
-        HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
-
-        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
-    }
-
-    @PostMapping("/ajaxUsernameAvail")
-    public ResponseEntity<String> ajaxPhoneNumAvail(String storeLoginId) {
-        String result = null;
-        // 헤더정보 포함해서 응답 한글깨짐 방지
-        HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
-
-        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
-    }
+//    @PostMapping("/ajaxEmailAvail")
+//    public ResponseEntity<Boolean> ajaxEmailAvail(String storeLoginId) {
+//        log.info("Controller /ajaxEmailAvail - storeId : {}", storeLoginId);
+//        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
+//        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
+//            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+//        }
+//
+//        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/ajaxTitleAvail")
+//    public ResponseEntity<String> ajaxTitleAvail(String storeLoginId) {
+//        log.info("Controller /ajaxTitleAvail - storeId : {}", storeLoginId);
+//        // username 사용 가능한지 DB 가서 체크
+//        String result = "이미 사용 중 입니다.";
+//        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
+//        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
+//            result = "사용 가능합니다.";
+//        }
+//        // 헤더정보 포함해서 응답 한글깨짐 방지
+//        HttpHeaders responseHeader = new HttpHeaders();
+//        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
+//
+//        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/ajaxUsernameAvail")
+//    public ResponseEntity<String> ajaxPhoneNumAvail(String storeLoginId) {
+//        String result = null;
+//        // 헤더정보 포함해서 응답 한글깨짐 방지
+//        HttpHeaders responseHeader = new HttpHeaders();
+//        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
+//
+//        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
+//    }
 }
 
