@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -98,9 +99,11 @@ public class CMSController {
         return "backend/member/membershipModify";
     }
 
+    // 구독관리 - 구독권 수정 처리 요청
     @PostMapping("/membership/modify")
-    public String membershipModifyPro(MembershipDTO membershipDTO) {
+    public String membershipModifyPro(MembershipDTO membershipDTO, RedirectAttributes rttr) {
         cmsService.modifyMembershipPrice(membershipDTO);
+        rttr.addFlashAttribute("success", "success");
         return "redirect:/cms/membership/modify";
     }
 

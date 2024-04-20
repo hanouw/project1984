@@ -6,6 +6,7 @@ import com.jpa4.pj1984.domain.PaymentMem;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.repository.*;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,17 +23,30 @@ import java.util.List;
 public class CmsService {
 
     private final PasswordEncoder storePasswordEncoder;
+    private final StoreRepository storeRepository;
     private final CmsRepository cmsRepository;
     private final CmsCustomRepositoryImpl cmsCustomRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
     private final PaymentMemRepository paymentMemRepository;
     private final MembershipRepository membershipRepository;
+    private final EntityManager entityManager;
 
     // 서점관리 - 서점 정보 등록
     public String save(StoreForm storeForm){
         storeForm.setStorePassword(storePasswordEncoder.encode(storeForm.getStorePassword()));
         Store saved = cmsRepository.save(storeForm.toSignupEntity());
-        saved.setMembership(membershipRepository.findById(1L).orElse(null));
+        entityManager.flush();
+        Long storeId = saved.getStoreId();
+        Membership membership = membershipRepository.findById(1L).orElse(null);
+        if (membership == null) {
+            Membership newMembership = new Membership(1);
+            membershipRepository.save(newMembership);
+            entityManager.flush();
+            Store store = storeRepository.findById(storeId).orElse(null);
+            store.setMembership(newMembership);
+        }
+        Store store = storeRepository.findById(storeId).orElse(null);
+        store.setMembership(membership);
         return null;
     }
 

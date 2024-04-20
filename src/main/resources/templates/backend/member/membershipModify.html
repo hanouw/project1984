@@ -29,6 +29,12 @@
                 </div>
             </form>
         </div>
+        <script th:inline="javascript">
+            let successMessage = [[${success}]];
+            if (successMessage === 'success') {
+                alert('구독권 수정이 완료됐습니다.');
+            }
+        </script>
     </th:block>
 </th:block>
 </html>

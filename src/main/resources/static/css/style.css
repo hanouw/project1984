@@ -447,18 +447,23 @@ button.img_delete_btn{
     width: 40%;
     max-width: 500px;
     border: 1px solid var(--mainblack);
-    border-radius: 4px;
     margin: 0 auto;
 }
 .paging_bar > ul > li{
-    padding:15px;
     cursor: pointer;
 }
 .paging_bar > ul > li:hover{
     background-color: var(--mainblack);
     color: var(--mainwhite);
 }
-.paging_bar > ul > li > a:hover{
+div.paging_bar > ul > li > a, a.pageLink{
+    padding:0px 15px;
+    height:32px;
+    line-height:32px;
+    cursor:pointer;
+}
+div.paging_bar > ul > li > a:hover,
+a.pageLink:hover{
     background-color: var(--mainblack);
     color: var(--pointcolor);
 }
