@@ -24,8 +24,8 @@ public class PageResponseDTO { // 구 PageDTO
         this.pageRequestDTO = pageRequestDTO;
         this.totalCount = totalCount;
 
-        this.endPage = (int) Math.ceil((double) pageRequestDTO.getPage() / pageRequestDTO.getSize()) * pageRequestDTO.getSize();
-        this.startPage = endPage - (pageRequestDTO.getSize() - 1);
+        this.endPage = (int) Math.ceil((double) pageRequestDTO.getPage() / pageRequestDTO.getPagingSize()) * pageRequestDTO.getPagingSize();
+        this.startPage = endPage - (pageRequestDTO.getPagingSize() - 1);
 
         this.totalPage = (int) Math.ceil((double) this.totalCount / pageRequestDTO.getSize());
         if (this.totalPage < this.endPage) {

@@ -44,9 +44,11 @@ public class CmsService {
             entityManager.flush();
             Store store = storeRepository.findById(storeId).orElse(null);
             store.setMembership(newMembership);
+            entityManager.flush();
         }
         Store store = storeRepository.findById(storeId).orElse(null);
         store.setMembership(membership);
+        entityManager.flush();
         return null;
     }
 
@@ -99,7 +101,7 @@ public class CmsService {
     // 구독권 가격 조회
     public MembershipDTO findMembershipPrice() {
         Membership membership = membershipRepository.findById(1L).orElse(null);
-        if (membership == null) {
+        if (membership.getPrice() == null) {
             MembershipDTO membershipDTO = new MembershipDTO();
             membershipDTO.setPrice("아직 정해진 가격이 없습니다.");
             return membershipDTO;

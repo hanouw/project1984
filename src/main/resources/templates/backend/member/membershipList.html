@@ -186,6 +186,7 @@
         $("#dateSelectedBtn").on("click", function (e) {
             console.log('달력 조회 클릭')
             if(valueCheck()){
+                datePeriodSelected = null;
                 getList(1);
             }
         });
