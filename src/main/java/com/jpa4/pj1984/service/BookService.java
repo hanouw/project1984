@@ -1,12 +1,16 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.Book;
+import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.ProductFile;
+import com.jpa4.pj1984.dto.BookCategoryDTO;
 import com.jpa4.pj1984.dto.BookDTO;
 import com.jpa4.pj1984.dto.BookForm;
 import com.jpa4.pj1984.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,13 +47,20 @@ public class BookService {
     }
 
     //목록조회
-    public List<BookDTO> findAll() {
-        List<Book> all = bookRepository.findAll();
-        List<BookDTO> list = all.stream()
-                .map(b -> new BookDTO(b))
-                .collect(Collectors.toList());
+    public Page<BookDTO> findAll(Pageable pageable) {
+        Page<Book> all = bookRepository.findAll(pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
         return list;
     }
+
+    //목록조회
+//    public List<BookDTO> findAll() {
+//        List<Book> all = bookRepository.findAll();
+//        List<BookDTO> list = all.stream()
+//                .map(b -> new BookDTO(b))
+//                .collect(Collectors.toList());
+//        return list;
+//    }
 
     //조회(1개)
     public BookDTO findOne(Long id) {

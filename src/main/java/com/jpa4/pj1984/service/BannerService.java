@@ -1,12 +1,16 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.Banner;
+import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.dto.BannerDTO;
 import com.jpa4.pj1984.dto.BannerForm;
+import com.jpa4.pj1984.dto.BookDTO;
 import com.jpa4.pj1984.repository.BannerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +38,20 @@ public class BannerService {
     }
 
     //목록조회
-    public List<BannerDTO> findAll(){
-        List<Banner> all = bannerRepository.findAll();
-        List<BannerDTO> list = all.stream()
-                .map(b -> new BannerDTO(b))
-                .collect(Collectors.toList());
+    public Page<BannerDTO> findAll(Pageable pageable) {
+        Page<Banner> all = bannerRepository.findAll(pageable);
+        Page<BannerDTO> list = all.map(b -> new BannerDTO(b));
         return list;
     }
+
+    //목록조회
+//    public List<BannerDTO> findAll(){
+//        List<Banner> all = bannerRepository.findAll();
+//        List<BannerDTO> list = all.stream()
+//                .map(b -> new BannerDTO(b))
+//                .collect(Collectors.toList());
+//        return list;
+//    }
 
     //조회(1)
     public BannerDTO findOne(Long id){

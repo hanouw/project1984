@@ -36,6 +36,20 @@
                         <th th:text="${#temporals.format(banner.createDate, 'yyyy-MM-dd HH:mm')}"></th>
                     </tr>
                 </table>
+
+                <!--페이징처리-->
+                <div class="pageble_wrap">
+                    <div>
+                        <a class="pageNav_btn" th:href="${nowPage != startPage} ? @{/cms/banner/list(page = ${prevPage})} : '#'">Prev</a>
+                        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                            <a class="pageNav_btn" th:if="${page != nowPage}" th:href="@{/cms/banner/list(page = ${page -1})}" th:text="${page}"></a>
+                            <a class="pageNav_btn nowPage_btn" th:if="${page == nowPage}" th:href="@{#}" th:text="${page}"></a>
+                        </th:block>
+                        <a class="pageNav_btn" th:href="${nowPage != endPage} ? @{/cms/banner/list(page = ${nextPage})} : '#'">Next</a>
+                    </div>
+                </div>
+                <!--페이징처리-->
+
             </div>
         </div>
     </th:block>
