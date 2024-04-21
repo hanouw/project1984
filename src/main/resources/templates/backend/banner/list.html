@@ -8,9 +8,10 @@
                     <h2>배너관리</h2>
                 </div>
                 <div class="item">
-                    <select name="" id="">
-                        <option value="">최신순</option>
-                        <option value="">이전순</option>
+                    <select name="" id="sortOrder">
+                        <option value="desc" hidden="">정렬선택</option>
+                        <option value="desc">최신순</option>
+                        <option value="asc">이전순</option>
                     </select>
                     <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/banner/add}'|">추가</button>
                 </div>
@@ -55,5 +56,11 @@
     </th:block>
 </th:block>
 <script>
+    //정렬필터(최신순,이전순)
+    document.getElementById('sortOrder').addEventListener('change', function() {
+        var selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
+        var url = "/cms/banner/list?page=0&size=10&sort=bannerId," + selectedOption;
+        window.location.href = url; // 페이지를 새 URL로 리다이렉트
+    });
 </script>
 </html>
