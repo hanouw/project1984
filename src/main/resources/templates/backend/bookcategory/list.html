@@ -26,9 +26,10 @@
                     <button class="black_btn">검색</button>
                 </div>
                 <div class="item">
-                    <select name="" id="">
-                        <option value="">최신순</option>
-                        <option value="">이전순</option>
+                    <select name="" id="sortOrder">
+                        <option value="desc" hidden="">정렬선택</option>
+                        <option value="desc">최신순</option>
+                        <option value="asc">이전순</option>
                     </select>
                     <button class="black_btn" th:onclick="|location.href='@{/cms/bookCategory/add}'|">추가</button>
 <!--                    <button class="black_btn" onclick="bookCategoryAdd()">추가</button>-->
@@ -52,8 +53,30 @@
                             <td th:text="${#temporals.format(bookCategoryList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
                     </tr>
                 </table>
+
+                <!--페이징처리-->
+                <div class="pageble_wrap">
+                    <div>
+                        <a class="pageNav_btn" th:href="${nowPage != startPage} ? @{/cms/bookCategory/list(page = ${prevPage})} : '#'">Prev</a>
+                        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                            <a class="pageNav_btn" th:if="${page != nowPage}" th:href="@{/cms/bookCategory/list(page = ${page -1})}" th:text="${page}"></a>
+                            <a class="pageNav_btn nowPage_btn" th:if="${page == nowPage}" th:href="@{#}" th:text="${page}"></a>
+                        </th:block>
+                        <a class="pageNav_btn" th:href="${nowPage != endPage} ? @{/cms/bookCategory/list(page = ${nextPage})} : '#'">Next</a>
+                    </div>
+                </div>
+                <!--페이징처리-->
+
             </div>
         </div>
     </th:block>
 </th:block>
+<script>
+    //정렬필터(최신순,이전순)
+        document.getElementById('sortOrder').addEventListener('change', function() {
+            var selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
+            var url = "/cms/bookCategory/list?page=0&size=10&sort=bookCategoryId," + selectedOption;
+            window.location.href = url; // 페이지를 새 URL로 리다이렉트
+        });
+</script>
 </html>

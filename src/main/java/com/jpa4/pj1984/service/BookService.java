@@ -1,12 +1,16 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.Book;
+import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.ProductFile;
+import com.jpa4.pj1984.dto.BookCategoryDTO;
 import com.jpa4.pj1984.dto.BookDTO;
 import com.jpa4.pj1984.dto.BookForm;
 import com.jpa4.pj1984.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,13 +47,20 @@ public class BookService {
     }
 
     //목록조회
-    public List<BookDTO> findAll() {
-        List<Book> all = bookRepository.findAll();
-        List<BookDTO> list = all.stream()
-                .map(b -> new BookDTO(b))
-                .collect(Collectors.toList());
+    public Page<BookDTO> findAll(Pageable pageable) {
+        Page<Book> all = bookRepository.findAll(pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
         return list;
     }
+
+    //목록조회
+//    public List<BookDTO> findAll() {
+//        List<Book> all = bookRepository.findAll();
+//        List<BookDTO> list = all.stream()
+//                .map(b -> new BookDTO(b))
+//                .collect(Collectors.toList());
+//        return list;
+//    }
 
     //조회(1개)
     public BookDTO findOne(Long id) {
@@ -61,16 +72,29 @@ public class BookService {
     public void updateOne(BookForm bookForm) throws IOException{
         Book book = bookRepository.findById(bookForm.getBookId()).orElse(null);
 
-        if(!bookForm.getBookImg().isEmpty()){ // 북 이미지
-            ProductFile bookImg = fileUploadService.saveFile(bookForm.getBookImg());
-            book.setBookImgOrg(bookImg.getOrgFileName());
-            book.setBookImgStored(bookImg.getStoredFileName());
+        if (bookForm. getBookImg() != null) {
+            if (book != null && !book.getBookImgStored().isEmpty()){
+                boolean deleteImg = fileUploadService.deleteFile(book.getBookImgStored());
+                System.out.println("북커버이미지 삭제");
+                if (deleteImg){
+                    ProductFile bookImg = fileUploadService.saveFile(bookForm.getBookImg());
+                    book.setBookImgOrg(bookImg.getOrgFileName());
+                    book.setBookImgStored(bookImg.getStoredFileName());
+                }
+            }
         }
-        if(!bookForm.getBookFile().isEmpty()){ // 북 파일
-            ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
-            book.setBookFileOrg(bookFile.getOrgFileName());
-            book.setBookFileStored(bookFile.getStoredFileName());
+        if (bookForm. getBookFile() != null) {
+            if (book != null && !book.getBookFileStored().isEmpty()){
+                boolean deleteFile = fileUploadService.deleteFile(book.getBookFileStored());
+                System.out.println("북파일 삭제");
+                if (deleteFile){
+                    ProductFile bookFile = fileUploadService.saveFile(bookForm.getBookFile());
+                    book.setBookFileOrg(bookFile.getOrgFileName());
+                    book.setBookFileStored(bookFile.getStoredFileName());
+                }
+            }
         }
+
         // 저장
         book.setIsbn(bookForm.getIsbn());
         book.setBookTitle(bookForm.getBookTitle());
@@ -84,7 +108,7 @@ public class BookService {
         book.setBookReview(bookForm.getBookReview());
         book.setBookWriter(bookForm.getBookWriter());
         book.setBookWriterProfile(bookForm.getBookWriterProfile());
-
+        System.out.println("도서서비스실행 - 처리 - 됬습니둥");
     }
 
     //VIEW 목록 조회용

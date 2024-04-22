@@ -28,7 +28,7 @@ public class Store extends TimeEntity{
     private String storeOwner;
     @Column(nullable = false, unique = true, length = 20)
     private String storeCrn;
-    @Column(unique = true, length = 100)
+    @Column(length = 100)
     private String storeText;
     @Column(nullable = false, unique = true, length = 400)
     private String storePhoneNum;
@@ -45,6 +45,10 @@ public class Store extends TimeEntity{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StoreStatus storeStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "membership_no")
+    private Membership membership;
 
     @Column(length = 100)
     private String storeOperateTime;
@@ -73,6 +77,12 @@ public class Store extends TimeEntity{
     @Column
     private String storeImageStored03;
 
+    @PostLoad
+    private void initDefaultMembership() {
+        if (membership == null) {
+            membership = new Membership(1L); // Create a Membership object with membershipNo=1
+        }
+    }
 
 
 }

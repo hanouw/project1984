@@ -1,10 +1,12 @@
 package com.jpa4.pj1984.service;
 
+import com.jpa4.pj1984.domain.Membership;
 import com.jpa4.pj1984.domain.PaymentBookHistory;
 import com.jpa4.pj1984.domain.PaymentMem;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.repository.*;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,15 +23,32 @@ import java.util.List;
 public class CmsService {
 
     private final PasswordEncoder storePasswordEncoder;
+    private final StoreRepository storeRepository;
     private final CmsRepository cmsRepository;
     private final CmsCustomRepositoryImpl cmsCustomRepository;
     private final PaymentBookHistoryRepository paymentBookHistoryRepository;
     private final PaymentMemRepository paymentMemRepository;
+    private final MembershipRepository membershipRepository;
+    private final EntityManager entityManager;
 
     // 서점관리 - 서점 정보 등록
     public String save(StoreForm storeForm){
         storeForm.setStorePassword(storePasswordEncoder.encode(storeForm.getStorePassword()));
-        cmsRepository.save(storeForm.toSignupEntity());
+        Store saved = cmsRepository.save(storeForm.toSignupEntity());
+        entityManager.flush();
+        Long storeId = saved.getStoreId();
+        Membership membership = membershipRepository.findById(1L).orElse(null);
+        if (membership == null) {
+            Membership newMembership = new Membership(1);
+            membershipRepository.save(newMembership);
+            entityManager.flush();
+            Store store = storeRepository.findById(storeId).orElse(null);
+            store.setMembership(newMembership);
+            entityManager.flush();
+        }
+        Store store = storeRepository.findById(storeId).orElse(null);
+        store.setMembership(membership);
+        entityManager.flush();
         return null;
     }
 
@@ -77,6 +96,27 @@ public class CmsService {
         PaymentBookHistoryDTO dto = new PaymentBookHistoryDTO(paymentBookHistoryRepository.findById(orderBookHistoryId).orElse(null));
         log.info("************CmsService dto:{}", dto);
         return dto;
+    }
+
+    // 구독권 가격 조회
+    public MembershipDTO findMembershipPrice() {
+        Membership membership = membershipRepository.findById(1L).orElse(null);
+        if (membership.getPrice() == null) {
+            MembershipDTO membershipDTO = new MembershipDTO();
+            membershipDTO.setPrice("아직 정해진 가격이 없습니다.");
+            return membershipDTO;
+        }
+        return new MembershipDTO(membership);
+    }
+
+    // 구독권 수정
+    public void modifyMembershipPrice(MembershipDTO membershipDTO) {
+        Membership membership = membershipRepository.findById(1L).orElse(null);
+        if (membership == null) {
+            membershipRepository.save(membershipDTO.toEntity());
+        } else {
+            membership.setPrice(membershipDTO.getPrice());
+        }
     }
 
     // 구독관리 - 구독내역 목록 조회 판매자 ver

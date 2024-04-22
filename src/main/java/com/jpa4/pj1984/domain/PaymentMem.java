@@ -35,6 +35,10 @@ public class PaymentMem {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    private StoreReviewStatus storeReviewStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PaymentMemStatus paymentMemStatus;
 
     @Column(updatable = false) @CreatedDate

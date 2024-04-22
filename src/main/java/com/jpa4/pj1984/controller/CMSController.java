@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -90,16 +91,25 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
-    // 구독관리 - 구독권 수정
-    @GetMapping("membership/modify")
+    // 구독관리 - 구독권 수정 상세페이지 조회
+    @GetMapping("/membership/modify")
     public String membershipModify(Model model) {
-        // TODO 구독권수정
+        MembershipDTO membershipPrice = cmsService.findMembershipPrice();
+        model.addAttribute("membershipPrice", membershipPrice);
         return "backend/member/membershipModify";
+    }
+
+    // 구독관리 - 구독권 수정 처리 요청
+    @PostMapping("/membership/modify")
+    public String membershipModifyPro(MembershipDTO membershipDTO, RedirectAttributes rttr) {
+        cmsService.modifyMembershipPrice(membershipDTO);
+        rttr.addFlashAttribute("success", "success");
+        return "redirect:/cms/membership/modify";
     }
 
     // 구독 관리 - 목록 조회
     @GetMapping("/order/membershipList")
-    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO){
+    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
         log.info("----CmsController userMemberShipList pageRequestDTO : {}", pageRequestDTO);
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
@@ -184,5 +194,42 @@ public class CMSController {
 
         return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
     }
+
+//    @PostMapping("/ajaxEmailAvail")
+//    public ResponseEntity<Boolean> ajaxEmailAvail(String storeLoginId) {
+//        log.info("Controller /ajaxEmailAvail - storeId : {}", storeLoginId);
+//        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
+//        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
+//            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+//        }
+//
+//        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/ajaxTitleAvail")
+//    public ResponseEntity<String> ajaxTitleAvail(String storeLoginId) {
+//        log.info("Controller /ajaxTitleAvail - storeId : {}", storeLoginId);
+//        // username 사용 가능한지 DB 가서 체크
+//        String result = "이미 사용 중 입니다.";
+//        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
+//        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
+//            result = "사용 가능합니다.";
+//        }
+//        // 헤더정보 포함해서 응답 한글깨짐 방지
+//        HttpHeaders responseHeader = new HttpHeaders();
+//        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
+//
+//        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/ajaxUsernameAvail")
+//    public ResponseEntity<String> ajaxPhoneNumAvail(String storeLoginId) {
+//        String result = null;
+//        // 헤더정보 포함해서 응답 한글깨짐 방지
+//        HttpHeaders responseHeader = new HttpHeaders();
+//        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
+//
+//        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
+//    }
 }
 

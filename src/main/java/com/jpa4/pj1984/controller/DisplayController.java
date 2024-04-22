@@ -74,7 +74,7 @@ public class DisplayController {
     }
     // 전시 수정처리
     @PostMapping("/display/modify")
-    public String displayModifyPro(DisplayForm displayForm) {
+    public String displayModifyPro(DisplayForm displayForm) throws Exception{
         log.info("******* DisplayController modify");
         displayService.updateOne(displayForm);
         return "redirect:/cms/display/detail";

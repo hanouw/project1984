@@ -43,8 +43,6 @@
                         </option>
                         <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
                     </select>
-                    <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/membership/modify}'|">
-                        구독권수정</button>
                 </div>
             </div>
             <div class="list_table_wrap">
@@ -78,6 +76,7 @@ $(document).ready(function () {
         endDateSelected = $("#endDate").val();
         keyword = $("#keyword").val();
         searchType = $("#searchType").val();
+        console.log(startDateSelected, endDateSelected);
         $.ajax({
             type: "GET",
             url: "/cms/order/bookList/ajax",
@@ -190,6 +189,7 @@ $(document).ready(function () {
     $("#dateSelectedBtn").on("click", function (e) {
         console.log('달력 조회 클릭')
         if(valueCheck()){
+            datePeriodSelected = null;
             getList(1);
         }
     });

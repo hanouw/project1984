@@ -14,9 +14,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -77,13 +79,36 @@ public class BookController {
 
     //상품리스트
     @GetMapping("/book/list")
-    public String bookList(Model model){
+    public String bookList(Model model, @PageableDefault(page = 0, size = 10, sort = "bookId", direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("--CMS--Book--List--Request--");
-        List<BookDTO> bookDTOList = bookService.findAll();
+        // DB에서 전체 게시글 데이터를 가져와서 bookCategoryList 변수에 저장
+        Page<BookDTO> bookDTOList = bookService.findAll(pageable);
+
+        // 페이징 처리 변수 지정
+        int nowPage = bookDTOList.getPageable().getPageNumber() + 1;
+        int prevPage = Math.max(nowPage -1, 1);
+        int nextPage = Math.min(nowPage +1, bookDTOList.getTotalPages());
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, bookDTOList.getTotalPages());
+
+        // HTML VIEW 페이지로 데이터 전달
         model.addAttribute("bookList", bookDTOList);
-        System.out.println("bookDTOList = " + bookDTOList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "backend/book/list";
     }
+
+    //상품리스트
+//    @GetMapping("/book/list")
+//    public String bookList(Model model){
+//        log.info("--CMS--Book--List--Request--");
+//        List<BookDTO> bookDTOList = bookService.findAll();
+//        model.addAttribute("bookList", bookDTOList);
+//        System.out.println("bookDTOList = " + bookDTOList);
+//        return "backend/book/list";
+//    }
 
     //상품상세
     @GetMapping("/book/{id}")
@@ -103,7 +128,7 @@ public class BookController {
     }
     @PostMapping("/book/{id}/modify")
     public String bookModifyPro(@PathVariable("id") Long id, BookForm bookForm) throws Exception{
-        System.out.println("id = " + id + ", bookForm = " + bookForm);
+        System.out.println("실행확인-도서수정 id = " + id + ", bookForm = " + bookForm);
         bookService.updateOne(bookForm);
         return "redirect:/cms/book/{id}";
     }
@@ -127,14 +152,37 @@ public class BookController {
 
     //상품카테고리리스트
     @GetMapping("/bookCategory/list")
-    public String bookCategoryList(Model model){
+    public String bookCategoryList(Model model, @PageableDefault(page = 0, size = 10, sort = "bookCategoryId", direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("--CMS--Book--Category--List--Request--");
-         //DB에서 전체 게시글 데이터를 가져와서 bookCategoryList에 담아서 list.html로 전달
-        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll();
+         // DB에서 전체 게시글 데이터를 가져와서 bookCategoryList 변수에 저장
+        Page<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll(pageable);
+
+        // 페이징 처리 변수 지정
+        int nowPage = bookCategoryDTOList.getPageable().getPageNumber() + 1;
+        int prevPage = Math.max(nowPage -1, 1);
+        int nextPage = Math.min(nowPage +1, bookCategoryDTOList.getTotalPages());
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, bookCategoryDTOList.getTotalPages());
+
+        // HTML VIEW 페이지로 데이터 전달
         model.addAttribute("bookCategoryList", bookCategoryDTOList);
-        System.out.println("bookCategoryDTOList = " + bookCategoryDTOList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "backend/bookcategory/list";
     }
+
+    //상품카테고리리스트
+//    @GetMapping("/bookCategory/list")
+//    public String bookCategoryList(Model model){
+//        log.info("--CMS--Book--Category--List--Request--");
+//        //DB에서 전체 게시글 데이터를 가져와서 bookCategoryList에 담아서 list.html로 전달
+//        List<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll();
+//        model.addAttribute("bookCategoryList", bookCategoryDTOList);
+//        System.out.println("bookCategoryDTOList = " + bookCategoryDTOList);
+//        return "backend/bookcategory/list";
+//    }
 
     //상품카테고리상세
     @GetMapping("/bookCategory/{id}")

@@ -24,8 +24,8 @@
                         <p>배너이미지</p>
                         <div id="drop_zone" class="drag_img_form">
                             <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bannerimages/${banner.getBannerImgStored}|">
-                            <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
                         </div>
+                        <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
                         <input type="text" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
                     </div>
 
@@ -115,7 +115,7 @@
 </script>
 <script>
     $(document).ready(function(){
-      $(".banner_add_form").on("submit", function(e){
+      $(".banner_add_form").on("submit", function(e){ //FORM SUBMIT 클릭이벤트
         e.preventDefault(); // 기본 제출 동작 막기
         console.log(fileList);
         console.log(files);
@@ -138,6 +138,7 @@
         let bannerStatus = document.querySelector('input[name="bannerStatus"]:checked').value;
 
 
+
         formData.append("bannerId", bannerId);
         formData.append("bannerTitle", bannerTitle);
         formData.append("bannerDetail", bannerDetail);
@@ -145,7 +146,7 @@
         formData.append("bannerOrder", bannerOrder);
         formData.append("bannerStatus", bannerStatus);
 
-        $.ajax({
+        $.ajax({ // Ajax통신
           type: "post",
           url: '/cms/banner/' + bannerId + '/modify',
           data: formData,
@@ -159,8 +160,8 @@
                 console.log("실패...");
                 console.log(e);
             }
-        });
-      });
+        }); // Ajax통신
+      }); //FORM SUBMIT 클릭이벤트
     });
 
 </script>

@@ -6,6 +6,9 @@ import com.jpa4.pj1984.dto.BookCategoryForm;
 import com.jpa4.pj1984.repository.BookCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,13 +30,20 @@ public class BookCategoryService {
     }
 
     //목록조회
-    public List<BookCategoryDTO> findAll() {
-        List<BookCategory> all = bookCategoryRepository.findAll();
-        List<BookCategoryDTO> list = all.stream()
-                .map(b -> new BookCategoryDTO(b))
-                .collect(Collectors.toList());
+    public Page<BookCategoryDTO> findAll(Pageable pageable) {
+        Page<BookCategory> all = bookCategoryRepository.findAll(pageable);
+        Page<BookCategoryDTO> list = all.map(b -> new BookCategoryDTO(b));
         return list;
     }
+
+    //목록조회
+//    public List<BookCategoryDTO> findAll() {
+//        List<BookCategory> all = bookCategoryRepository.findAll();
+//        List<BookCategoryDTO> list = all.stream()
+//                .map(b -> new BookCategoryDTO(b))
+//                .collect(Collectors.toList());
+//        return list;
+//    }
 
     //조회(1개)
     public BookCategoryDTO findOne(Long id) {
