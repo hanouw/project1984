@@ -14,7 +14,6 @@ public class AnswerForm {
     private Long answerId;
     private String answerTitle;
     private String answerDetail;
-    //private Store store;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
 
@@ -24,8 +23,6 @@ public class AnswerForm {
         answer.setAnswerId(answerId);
         answer.setAnswerTitle(answerTitle);
         answer.setAnswerDetail(answerDetail);
-        //answer.setStore(store);
-
         return answer;
     }
 }

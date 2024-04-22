@@ -9,33 +9,60 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InquiryDTO { // 가져오는
+public class InquiryDTO {
 
     private Long inquiryId;
-    private Member member;
+    private String storeTitle;
     private String inquiryTitle;
     private String inquiryDetail;
-    private Store store;
-    private LocalDateTime createDate;
-    private LocalDateTime lastModifiedDate;
-    private Answer answer;
+    private String inquiryCreateDate;
+    private String inquiryLastModifiedDate;
+
+    private String userId;
+    private String userName;
+    private String userPhoneNum;
+
+    private Boolean answer;
+    private Long answerId;
+    private String answerTitle;
+    private String answerDetail;
+    private String answerCreateDate;
+    private String answerLastModifiedDate;
+    private String storeLoginId;
 
 
     // Entity -> DTO
     public InquiryDTO(Inquiry inquiry){
         this.inquiryId = inquiry.getInquiryId();
-        this.member = inquiry.getMember();
+        this.storeTitle = inquiry.getStore().getStoreTitle();
         this.inquiryTitle = inquiry.getInquiryTitle();
         this.inquiryDetail = inquiry.getInquiryDetail();
-        this.store = inquiry.getStore();
-        this.createDate = inquiry.getCreateDate();
-        this.lastModifiedDate = inquiry.getLastModifiedDate();
-        this.answer = inquiry.getAnswer();
+        this.inquiryCreateDate = displayTime(inquiry.getCreateDate());
+        this.inquiryLastModifiedDate = displayTime(inquiry.getLastModifiedDate());
 
+        this.userId = inquiry.getMember().getUserId();
+        this.userName = inquiry.getMember().getUserName();
+        this.userPhoneNum = inquiry.getMember().getUserPhoneNum();
+
+        this.answer = inquiry.getAnswer() != null;
+        if (answer) {
+            this.answerId = inquiry.getAnswer().getAnswerId();
+            this.answerTitle = inquiry.getAnswer().getAnswerTitle();
+            this.answerDetail = inquiry.getAnswer().getAnswerDetail();
+            this.answerCreateDate = displayTime(inquiry.getAnswer().getCreateDate());
+            this.answerLastModifiedDate = displayTime(inquiry.getAnswer().getLastModifiedDate());
+            this.storeLoginId = inquiry.getStore().getStoreLoginId();
+        }
+    }
+    public String displayTime(LocalDateTime createDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = createDate.format(formatter);
+        return formattedDate;
     }
 }
 

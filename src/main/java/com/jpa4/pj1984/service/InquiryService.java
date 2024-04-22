@@ -45,17 +45,14 @@ public class InquiryService{
     }
 
     // 답변 등록
-    public void save(Long inquiryId, Long store_id, AnswerForm answerForm){
+    public void save(Long inquiryId, Long storeId, AnswerForm answerForm){
         Inquiry inquiry = inquiryRepository.findById(inquiryId).orElse(null);
-        Store store = storeRepository.findById(store_id).orElse(null);
+        Store store = storeRepository.findById(storeId).orElse(null);
         Answer answer = answerForm.toEntity();
         answer.setInquiry(inquiry);
         answer.setStore(store);
         Answer saved = answerRepository.save(answer);
-
-        //Answer saveAnswer = AnswerRepository.save(answer);
     }
-    
 
     // 답변 수정
     public void updateOneAnswer(Long inquiryId, Answer answer){
@@ -65,7 +62,4 @@ public class InquiryService{
         findanswer.setAnswerTitle(answer.getAnswerTitle());
         findanswer.setAnswerDetail(answer.getAnswerDetail());
     }
-
-
-
 }

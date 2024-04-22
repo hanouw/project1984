@@ -45,20 +45,27 @@
             <th>문의내용</th>
             <th>수정일</th>
             <th>등록일</th>
+            <th>답변상태</th>
           </tr>
 
           <tr th:each="inquiryList : ${inquiryList}">
             <td th:text="${inquiryList.inquiryId}"></td>
-            <td th:text="${inquiryList.member.userId}"></td>
-            <td th:text="${inquiryList.member.userName}"></td>
-            <td th:text="${inquiryList.member.userPhoneNum}"></td>
-            <td th:text="${inquiryList.store.storeTitle}"></td>
+            <td th:text="${inquiryList.userId}"></td>
+            <td th:text="${inquiryList.userName}"></td>
+            <td th:text="${inquiryList.userPhoneNum}"></td>
+            <td th:text="${inquiryList.storeTitle}"></td>
             <td><a th:text="${inquiryList.inquiryTitle}"
                    th:href="@{/cms/inquiry/{inquiryId}(inquiryId=${inquiryList.inquiryId})}"></a></td>
             <td><a th:text="${inquiryList.inquiryDetail}"
                    th:href="@{/cms/inquiry/{inquiryId}(inquiryId=${inquiryList.inquiryId})}"></a></td>
-            <td th:text="${#temporals.format(inquiryList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${#temporals.format(inquiryList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${inquiryList.inquiryLastModifiedDate}"></td>
+            <td th:text="${inquiryList.inquiryCreateDate}"></td>
+            <th:block th:if="${inquiryList.answer}">
+              <td>답변완료</td>
+            </th:block>
+            <th:block th:unless="${inquiryList.answer}">
+              <td>미답변</td>
+            </th:block>
           </tr>
         </table>
       </div>
