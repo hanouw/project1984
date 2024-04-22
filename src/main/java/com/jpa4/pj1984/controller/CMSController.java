@@ -152,8 +152,8 @@ public class CMSController {
         List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(storeId, pageRequestDTO);
         model.addAttribute("orderList", orderList);
         Long count = cmsService.countHistoryList(storeId, pageRequestDTO);
-        PageResponseDTO pageResponseDTO = new PageResponseDTO(pageRequestDTO, count);
-        model.addAttribute("pageResponseDTO", pageResponseDTO);
+        BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
+        model.addAttribute("pageResponseDTO", bookPageResponseDTO);
         log.info("**************CmsController orderList:{}", orderList);
         return "backend/order/bookList";
     }

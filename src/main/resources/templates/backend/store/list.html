@@ -23,17 +23,26 @@
       <hr/>
       <div class="search_text_wrap">
         <div class="item">
-          <select name="" id="">
-            <option value="">전체</option>
-            <option value="">서점명</option>
+          <select name="searchType" id="searchType">
+            <option value="" th:selected="${pageResponseDTO.pageRequestDTO.searchType == null}">----</option>
+            <option value="storeId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeId'}">서점ID
+            </option>
+            <option value="storeTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeTitle'}">서점명
+            </option>
+            <option value="storeOwner" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeOwner'}">대표자명
+            </option>
           </select>
-          <input type="text" placeholder="검색어를 입력해주세요. "/>
-          <button class="black_btn">검색</button>
+          <input type="text" name="keyword" id="keyword" th:value="${pageResponseDTO.pageRequestDTO.keyword}"
+                 placeholder="검색어를 입력해주세요"/>
+          <button class="black_btn" type="submit" id="searchBtn">검색</button>
         </div>
         <div class="item">
-          <select name="" id="">
-            <option value="">최신순</option>
-            <option value="">이전순</option>
+          <select name="dateOrder" id="dateOrder">
+            <option value="desc"
+                    th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'desc' || pageResponseDTO.pageRequestDTO.dateOrder == null}">
+              최신순
+            </option>
+            <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
           </select>
         </div>
       </div>
@@ -71,6 +80,9 @@
           </tr>
         </table>
       </div>
+    </div>
+    <div class="paging_wrap">
+
     </div>
   </th:block>
 </th:block>
