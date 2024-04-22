@@ -66,7 +66,31 @@ public class BookService {
         return list;
     }
 
-    //목록조회
+    //--스토어만 구분--//
+    //목록조회(검색title)
+//    public Page<BookDTO> findByBookTitleContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
+//        Page<Book> all = bookRepository.findByBookTitleContainingAndStoreId(keyword, storeId, pageable);
+//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+//        return list;
+//    }
+//    //목록조회(검색isbn)
+//    public Page<BookDTO> findByIsbnContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
+//        Page<Book> all = bookRepository.findByIsbnContainingAndStoreId(keyword, storeId, pageable);
+//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+//        return list;
+//    }
+//
+//    //목록조회(일반)
+//    public Page<BookDTO> findAllByStoreId(Long storeId, Pageable pageable) {
+//        Page<Book> all = bookRepository.findAllByStoreId(storeId, pageable);
+//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+//        return list;
+//    }
+
+
+
+
+    //목록조회(LIST)
 //    public List<BookDTO> findAll() {
 //        List<Book> all = bookRepository.findAll();
 //        List<BookDTO> list = all.stream()

@@ -31,7 +31,7 @@ public class Book extends TimeEntity{
     @Column(nullable = false)
     private String bookWriter;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
@@ -42,7 +42,7 @@ public class Book extends TimeEntity{
     @Column(nullable = false)
     private String bookEbookPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "book_category_id")
     private BookCategory bookCategory;
 

@@ -74,26 +74,41 @@
   </th:block>
 </th:block>
 <script>
-    // 정렬 필터 (최신순, 이전순)
-    var selectedOption = 'desc'; // 기본값 설정
-    document.getElementById('sortOrder').addEventListener('change', function() {
-        selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
-        let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption;
-        window.location.href = url; // 페이지를 새 URL로 리다이렉트
-    });
+  // 정렬 필터 (최신순, 이전순)
+let selectedOption = 'desc'; // 기본값 설정
+document.getElementById('sortOrder').addEventListener('change', function() {
+    selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
+    let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption;
+    window.location.href = url; // 페이지를 새 URL로 리다이렉트
+});
 
-    // 검색 폼으로 전달
-    function movePage() {
-      let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.
-      let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.
-      let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
-      window.location.href = url; // 페이지를 새 URL로 리다이렉트합니다.
+// 검색 폼으로 전달
+function movePage() {
+  let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.
+  let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.
+  let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
+  window.location.href = url; // 페이지를 새 URL로 리다이렉트
 }
+</script>
+<script>
+ // 수정 사항 주석 처리
+  <!--    let userName = document.querySelector(".user_name").innerText();-->
 
-<!--      document.getElementById('sortOrder').addEventListener('change', function() {-->
-<!--          var selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')-->
-<!--          var url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption;-->
-<!--          window.location.href = url; // 페이지를 새 URL로 리다이렉트-->
-<!--      });-->
+  <!--    console.log(userName);-->
+  <!--    // 정렬 필터 (최신순, 이전순)-->
+  <!--    let selectedOption = 'desc'; // 기본값 설정-->
+  <!--    document.getElementById('sortOrder').addEventListener('change', function() {-->
+  <!--        selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')-->
+  <!--        let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption;-->
+  <!--        window.location.href = url; // 페이지를 새 URL로 리다이렉트-->
+  <!--    });-->
+
+  <!--    // 검색 폼으로 전달-->
+  <!--    function movePage() {-->
+  <!--      let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.-->
+  <!--      let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.-->
+  <!--      let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.-->
+  <!--      window.location.href = url; // 페이지를 새 URL로 리다이렉트-->
+  <!--}-->
 </script>
 </html>

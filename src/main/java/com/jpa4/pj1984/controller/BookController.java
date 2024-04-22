@@ -3,7 +3,9 @@ package com.jpa4.pj1984.controller;
 import com.jpa4.pj1984.domain.Book;
 import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.BookCategoryStatus;
+import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.dto.*;
+import com.jpa4.pj1984.security.domain.CustomCms;
 import com.jpa4.pj1984.service.BookCategoryService;
 import com.jpa4.pj1984.service.BookService;
 import com.jpa4.pj1984.service.FileUploadService;
@@ -15,6 +17,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +80,6 @@ public class BookController {
         bookService.save(bookForm);
         return "redirect:/cms/book/list";
     }
-
     //상품리스트
     @GetMapping("/book/list")
     public String bookList(Model model,
@@ -110,7 +113,61 @@ public class BookController {
         return "backend/book/list";
     }
 
-    //상품리스트
+    // 상품리스트(ADMIN/USER 다른 목록 노출 코드 체크 -> 필요)
+//    @GetMapping("/book/list")
+//    public String bookList(Model model,
+//                           @PageableDefault(page = 0, size = 10, sort = "bookId", direction = Sort.Direction.DESC)
+//                           Pageable pageable,
+//                           @AuthenticationPrincipal CustomCms customCms,
+//                           String keyword,
+//                           String selectOption
+//                           ) {
+//        log.info("--CMS--Book--List--Request--");
+//        Page<BookDTO> bookDTOList = null; // 초기화
+//        String username = customCms.getUsername();
+//        StoreDTO storeId = customCms.getStore();
+
+//        System.out.println("username = " + username);
+//        System.out.println("storeId = " + storeId);
+//        if(username.equals("admin")){
+//            System.out.println("admin으로 들어옴!");
+//            if(keyword == null || keyword.isEmpty()){
+//                bookDTOList = bookService.findAll(pageable);
+//            }else if("bookTitle".equals(selectOption)){
+//                bookDTOList = bookService.findByBookTitleContaining(keyword, pageable);
+//            }else if("isbn".equals(selectOption)){
+//                bookDTOList = bookService.findByIsbnContaining(keyword, pageable);
+//            }
+//        }
+//        else{
+//            System.out.println("user02로 들어옴");
+//            if(keyword == null || keyword.isEmpty()){
+//                bookDTOList = bookService.findAllByStoreId(storeId, pageable);
+//            }else if("bookTitle".equals(selectOption)){
+//                bookDTOList = bookService.findByBookTitleContainingAndStoreId(keyword, storeId, pageable);
+//            }else if("isbn".equals(selectOption)){
+//                bookDTOList = bookService.findByIsbnContainingAndStoreId(keyword, storeId, pageable);
+//            }
+//        }
+
+        // 페이징 처리 변수 지정
+//        int nowPage = bookDTOList.getPageable().getPageNumber() + 1;
+//        int prevPage = Math.max(nowPage -1, 1);
+//        int nextPage = Math.min(nowPage +1, bookDTOList.getTotalPages());
+//        int startPage = Math.max(nowPage - 4, 1);
+//        int endPage = Math.min(nowPage + 5, bookDTOList.getTotalPages());
+//
+//        // HTML VIEW 페이지로 데이터 전달
+//        model.addAttribute("bookList", bookDTOList);
+//        model.addAttribute("nowPage", nowPage);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//
+//        return "backend/book/list";
+//    }
+
+
+    //상품리스트(LIST)
 //    @GetMapping("/book/list")
 //    public String bookList(Model model){
 //        log.info("--CMS--Book--List--Request--");
