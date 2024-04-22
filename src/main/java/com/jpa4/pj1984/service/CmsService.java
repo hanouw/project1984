@@ -76,7 +76,7 @@ public class CmsService {
 
     // 주문관리 - 주문 목록 조회 판매자 ver
     public List<PaymentBookHistoryDTO> findHistoryList(PageRequestDTO pageRequestDTO) {
-        List<PaymentBookHistory> historyEntityList = paymentBookHistoryRepository.findBookListByStoreId(pageRequestDTO);
+        List<PaymentBookHistory> historyEntityList = paymentBookHistoryRepository.findBookList(pageRequestDTO);
         List<PaymentBookHistoryDTO> list = new ArrayList<>();
         for (PaymentBookHistory orderList : historyEntityList) {
             PaymentBookHistoryDTO paymentBookHistoryDTO = new PaymentBookHistoryDTO(orderList);
@@ -87,7 +87,7 @@ public class CmsService {
 
     // 주문관리 - 검색된 주문 개수 조회 판매자 ver
     public Long countHistoryList(PageRequestDTO pageRequestDTO) {
-        return paymentBookHistoryRepository.countBookListByStoreId(pageRequestDTO);
+        return paymentBookHistoryRepository.countBookList(pageRequestDTO);
     }
 
     // 주문관리 - 주문 상세페이지 조회
@@ -119,9 +119,9 @@ public class CmsService {
         }
     }
 
-    // 구독관리 - 구독내역 목록 조회 판매자 ver
+    // 구독관리 - 구독내역 목록 조회
     public List<PaymentMemDTO> findMembershipList(PageRequestDTO pageRequestDTO) {
-        List<PaymentMem> membershipEntityList = paymentMemRepository.findMembershipListByStoreId(pageRequestDTO);
+        List<PaymentMem> membershipEntityList = paymentMemRepository.findMembershipList(pageRequestDTO);
         List<PaymentMemDTO> list = new ArrayList<>();
         for (PaymentMem membershipList : membershipEntityList) {
             PaymentMemDTO paymentMemDTO = new PaymentMemDTO(membershipList);
@@ -130,9 +130,9 @@ public class CmsService {
         return list;
     }
 
-    // 구독관리 - 검색된 구독내역 개수 조회 판매자 ver
+    // 구독관리 - 검색된 구독내역 개수 조회
     public Long countMembershipList(PageRequestDTO pageRequestDTO) {
-        return paymentMemRepository.countMembershipListByStoreId(pageRequestDTO);
+        return paymentMemRepository.countMembershipList(pageRequestDTO);
     }
 
     // 구독관리 - 구독내역 상세페이지 조회

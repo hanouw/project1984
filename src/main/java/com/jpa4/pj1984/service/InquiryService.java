@@ -1,10 +1,7 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.*;
-import com.jpa4.pj1984.dto.AnswerForm;
-import com.jpa4.pj1984.dto.BookForm;
-import com.jpa4.pj1984.dto.InquiryDTO;
-import com.jpa4.pj1984.dto.InquiryForm;
+import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.repository.AnswerRepository;
 import com.jpa4.pj1984.repository.InquiryRepository;
 import com.jpa4.pj1984.repository.StoreRepository;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,15 +25,20 @@ public class InquiryService{
     private final AnswerRepository answerRepository;
     private final StoreRepository storeRepository;
 
-    // 문의리뷰 목록 조회
-    public List<InquiryDTO> findAll() {
-        List<Inquiry> all = inquiryRepository.findAll();
-        System.out.println("all = " + all);//all까지는 불러옴
-        List<InquiryDTO> list = all.stream()
-                .map(b -> new InquiryDTO(b))
-                .collect(Collectors.toList());
-        System.out.println("list = " + list);
+    // 문의 관리 - 목록 조회
+    public List<InquiryDTO> findInquiryList(PageRequestDTO pageRequestDTO) {
+        List<Inquiry> inquiryEntityList = inquiryRepository.findInquiryList(pageRequestDTO);
+        List<InquiryDTO> list = new ArrayList<>();
+        for (Inquiry inquiryList : inquiryEntityList) {
+            InquiryDTO inquiryDTO = new InquiryDTO(inquiryList);
+            list.add(inquiryDTO);
+        }
         return list;
+    }
+
+    // 문의 관리 - 목록 총 개수 조회
+    public Long countInquiryList(PageRequestDTO pageRequestDTO) {
+        return inquiryRepository.countInquiryList(pageRequestDTO);
     }
 
     // 댓글 상세 조회 (한개 조회)

@@ -10,14 +10,14 @@ import lombok.Setter;
 public class Inquiry extends TimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inquiryId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userNo")
     private Member member;
     @Column(nullable = false)
     private String inquiryTitle;
     @Column(nullable = false)
     private String inquiryDetail;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "storeId")
     private Store store;
     @OneToOne(mappedBy = "inquiry")

@@ -93,6 +93,8 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
+    //----------------------------------------------------------------------------------- 구독관리
+
     // 구독관리 - 구독권 수정 상세페이지 조회
     @GetMapping("/membership/modify")
     public String membershipModify(Model model) {
@@ -119,17 +121,10 @@ public class CMSController {
 
     // 구독 관리 - 목록 조회
     @GetMapping("/order/membershipList")
-    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
+    public String userMembershipList(@ModelAttribute("pageResponseDTO") PageResponseDTO pageResponseDTO,
+                                     PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
-        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
-            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, cmsService.countMembershipList(pageRequestDTO), cmsService.findMembershipList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        } else {
-            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, cmsService.countMembershipList(pageRequestDTO), cmsService.findMembershipList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        }
         return "backend/member/membershipList";
     }
 
@@ -155,19 +150,13 @@ public class CMSController {
         }
     }
 
+    //----------------------------------------------------------------------------------- 주문관리
+
     // 주문관리 - 주문 목록 조회
     @GetMapping("/order/bookList")
-    public String orderList(Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
+    public String orderList(@ModelAttribute("pageResponseDTO") PageResponseDTO pageResponseDTO, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
-        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
-            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, cmsService.countHistoryList(pageRequestDTO), cmsService.findHistoryList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        } else {
-            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, cmsService.countHistoryList(pageRequestDTO), cmsService.findHistoryList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        }
         return "backend/order/bookList";
     }
 
@@ -184,7 +173,7 @@ public class CMSController {
         } else {
             String storeTitle = customCms.getStore().getStoreTitle();
             List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(pageRequestDTO).stream()
-                    .filter(l -> l.getStoreTitle() == storeTitle)
+                    .filter(l -> l.getStoreTitle().equals(storeTitle))
                     .collect(Collectors.toList());
             Long count = orderList.stream().count();
             BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
