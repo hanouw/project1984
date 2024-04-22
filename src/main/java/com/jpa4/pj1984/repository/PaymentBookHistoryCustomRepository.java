@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PaymentBookHistoryCustomRepository {
     // storeId로 주문 목록 조회 판매자 ver
-    List<PaymentBookHistory> findBookListByStoreId(Long storeId, PageRequestDTO pageRequestDTO);
+    List<PaymentBookHistory> findBookListByStoreId(PageRequestDTO pageRequestDTO);
 
-    Long countBookListByStoreId(Long storeId, PageRequestDTO pageRequestDTO);
+    Long countBookListByStoreId(PageRequestDTO pageRequestDTO);
 
     String searchTypeMethod(PageRequestDTO pageRequestDTO);
 

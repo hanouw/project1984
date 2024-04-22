@@ -1,5 +1,6 @@
 package com.jpa4.pj1984.controller;
 
+import com.jpa4.pj1984.domain.StoreStatus;
 import com.jpa4.pj1984.dto.*;
 import com.jpa4.pj1984.security.domain.CustomCms;
 import com.jpa4.pj1984.service.CmsService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -107,33 +109,6 @@ public class CMSController {
         return "redirect:/cms/membership/modify";
     }
 
-    // 구독 관리 - 목록 조회
-    @GetMapping("/order/membershipList")
-    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
-        log.info("----CmsController userMemberShipList pageRequestDTO : {}", pageRequestDTO);
-        pageRequestDTO.setPage(1);
-        pageRequestDTO.setDateOrder("desc");
-        Long storeId = customCms.getStore().getStoreId();
-        List<PaymentMemDTO> orderList = cmsService.findMembershipList(storeId, pageRequestDTO);
-        model.addAttribute("orderList", orderList);
-        Long count = cmsService.countMembershipList(storeId, pageRequestDTO);
-        MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
-        model.addAttribute("pageResponseDTO", pageResponseDTO);
-        return "backend/member/membershipList";
-    }
-
-    // ajax 구독 관리 - 목록 조회
-    @GetMapping("/order/membershipList/ajax")
-    public ResponseEntity<MemPageResponseDTO> userMembershipListAjax(@AuthenticationPrincipal CustomCms customCms,PageRequestDTO pageRequestDTO) {
-        log.info("----CmsController userMembershipListAjax pageRequestDTO : {}", pageRequestDTO);
-        Long storeId = customCms.getStore().getStoreId();
-        List<PaymentMemDTO> orderList = cmsService.findMembershipList(storeId, pageRequestDTO);
-        Long count = cmsService.countMembershipList(storeId, pageRequestDTO);
-        MemPageResponseDTO memPageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
-        log.info("----CmsService orderListAjax memPageResponseDTO : {}", memPageResponseDTO);
-        return new ResponseEntity<>(memPageResponseDTO, HttpStatus.OK);
-    }
-
     // 구독관리 - 구독내역 상세페이지 조회
     @GetMapping("/order/membership/{orderMembershipNo}")
     public String membershipDetail(@PathVariable("orderMembershipNo") Long orderMembershipNo, Model model) {
@@ -142,32 +117,80 @@ public class CMSController {
         return "backend/member/membershipDetail";
     }
 
-    // 주문관리 - 주문 목록 조회 판매자 ver (관리자 ver 필요)
-    @GetMapping("/order/bookList")
-    public String orderList(Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
-        log.info("----CmsController pageRequestDTO : {}", pageRequestDTO);
+    // 구독 관리 - 목록 조회
+    @GetMapping("/order/membershipList")
+    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        Long storeId = customCms.getStore().getStoreId();
-        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(storeId, pageRequestDTO);
-        model.addAttribute("orderList", orderList);
-        Long count = cmsService.countHistoryList(storeId, pageRequestDTO);
-        BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
-        model.addAttribute("pageResponseDTO", bookPageResponseDTO);
-        log.info("**************CmsController orderList:{}", orderList);
+        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
+        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
+            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, cmsService.countMembershipList(pageRequestDTO), cmsService.findMembershipList(pageRequestDTO));
+            model.addAttribute("pageResponseDTO", pageResponseDTO);
+        } else {
+            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, cmsService.countMembershipList(pageRequestDTO), cmsService.findMembershipList(pageRequestDTO));
+            model.addAttribute("pageResponseDTO", pageResponseDTO);
+        }
+        return "backend/member/membershipList";
+    }
+
+    // ajax 구독 관리 - 목록 조회
+    @GetMapping("/order/membershipList/ajax")
+    public ResponseEntity<MemPageResponseDTO> userMembershipListAjax(@AuthenticationPrincipal CustomCms customCms,PageRequestDTO pageRequestDTO) {
+        log.info("----CmsController userMembershipListAjax pageRequestDTO : {}", pageRequestDTO);
+        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
+        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
+            List<PaymentMemDTO> membershipList = cmsService.findMembershipList(pageRequestDTO);
+            Long count = cmsService.countMembershipList(pageRequestDTO);
+            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, membershipList);
+            return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
+        } else {
+            Long storeId = customCms.getStore().getStoreId();
+            List<PaymentMemDTO> list = cmsService.findMembershipList(pageRequestDTO).stream()
+                    .filter(l -> l.getStoreId() == storeId)
+                    .collect(Collectors.toList());
+            long count= list.stream().count();
+            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, list);
+            log.info("----CmsService orderListAjax memPageResponseDTO : {}", pageResponseDTO);
+            return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
+        }
+    }
+
+    // 주문관리 - 주문 목록 조회
+    @GetMapping("/order/bookList")
+    public String orderList(Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
+        pageRequestDTO.setPage(1);
+        pageRequestDTO.setDateOrder("desc");
+        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
+        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
+            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, cmsService.countHistoryList(pageRequestDTO), cmsService.findHistoryList(pageRequestDTO));
+            model.addAttribute("pageResponseDTO", pageResponseDTO);
+        } else {
+            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, cmsService.countHistoryList(pageRequestDTO), cmsService.findHistoryList(pageRequestDTO));
+            model.addAttribute("pageResponseDTO", pageResponseDTO);
+        }
         return "backend/order/bookList";
     }
 
-    // ajax 주문관리 - 주문 목록 조회 판매자 ver
+    // ajax 주문관리 - 주문 목록 조회
     @GetMapping("/order/bookList/ajax")
     public ResponseEntity<BookPageResponseDTO> orderListAjax(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
         log.info("----CmsController orderListAjax pageRequestDTO : {}", pageRequestDTO);
-        Long storeId = customCms.getStore().getStoreId();
-        List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(storeId, pageRequestDTO);
-        Long count = cmsService.countHistoryList(storeId, pageRequestDTO);
-        BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
-        log.info("----CmsService orderListAjax pageResponseDTO : {}", bookPageResponseDTO);
-        return new ResponseEntity<>(bookPageResponseDTO, HttpStatus.OK);
+        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
+        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
+            List<PaymentBookHistoryDTO> list = cmsService.findHistoryList(pageRequestDTO);
+            Long count = cmsService.countHistoryList(pageRequestDTO);
+            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, list);
+            return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
+        } else {
+            String storeTitle = customCms.getStore().getStoreTitle();
+            List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(pageRequestDTO).stream()
+                    .filter(l -> l.getStoreTitle() == storeTitle)
+                    .collect(Collectors.toList());
+            Long count = orderList.stream().count();
+            BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);
+            log.info("----CmsService orderListAjax pageResponseDTO : {}", bookPageResponseDTO);
+            return new ResponseEntity<>(bookPageResponseDTO, HttpStatus.OK);
+        }
     }
 
     // 주문관리 - 주문 내역 상세페이지 조회
