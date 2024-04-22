@@ -4,8 +4,8 @@ package com.jpa4.pj1984.controller;
 
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
-import com.jpa4.pj1984.dto.StoreDTO;
-import com.jpa4.pj1984.dto.StoreForm;
+import com.jpa4.pj1984.dto.*;
+import com.jpa4.pj1984.security.domain.CustomCms;
 import com.jpa4.pj1984.service.FileUploadService;
 import com.jpa4.pj1984.service.StoreService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,17 +58,49 @@ public class StoreController {
         return bankList;
     }
 
+
+
     // 서점 목록 조회 요청
     @GetMapping("/list")
-    public String List(Model model) {
+    public String List(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
         log.info("******* StoreController list");
+        Long storeId = customCms.getStore().getStoreId();
         //DB에서 전체 게시글 데이터를 가져와서 List에 담아서 list.html로 전달
-        List<StoreDTO> storeList = storeService.findAll();
+        List<StoreDTO> storeList = storeService.findStoreList(storeId, pageRequestDTO);
         model.addAttribute("storeList", storeList);
-        System.out.println("storeList = " + storeList);
-
+//        System.out.println("storeList = " + storeList);
+        Long count = storeService.countStoreList(storeId, pageRequestDTO);
+//        MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, storeList);
+//        model.addAttribute("pageResponseDTO", pageResponseDTO);
         return "backend/store/list";
     }
+
+//    // 구독 관리 - 목록 조회
+//    @GetMapping("/order/membershipList")
+//    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
+//        log.info("----CmsController userMemberShipList pageRequestDTO : {}", pageRequestDTO);
+//        pageRequestDTO.setPage(1);
+//        pageRequestDTO.setDateOrder("desc");
+//        Long storeId = customCms.getStore().getStoreId();
+//        List<PaymentMemDTO> orderList = cmsService.findMembershipList(storeId, pageRequestDTO);
+//        model.addAttribute("orderList", orderList);
+//        Long count = cmsService.countMembershipList(storeId, pageRequestDTO);
+//        MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
+//        model.addAttribute("pageResponseDTO", pageResponseDTO);
+//        return "backend/member/membershipList";
+//    }
+//
+//    // ajax 구독 관리 - 목록 조회
+//    @GetMapping("/order/membershipList/ajax")
+//    public ResponseEntity<MemPageResponseDTO> userMembershipListAjax(@AuthenticationPrincipal CustomCms customCms, PageRequestDTO pageRequestDTO) {
+//        log.info("----CmsController userMembershipListAjax pageRequestDTO : {}", pageRequestDTO);
+//        Long storeId = customCms.getStore().getStoreId();
+//        List<PaymentMemDTO> orderList = cmsService.findMembershipList(storeId, pageRequestDTO);
+//        Long count = cmsService.countMembershipList(storeId, pageRequestDTO);
+//        MemPageResponseDTO memPageResponseDTO = new MemPageResponseDTO(pageRequestDTO, count, orderList);
+//        log.info("----CmsService orderListAjax memPageResponseDTO : {}", memPageResponseDTO);
+//        return new ResponseEntity<>(memPageResponseDTO, HttpStatus.OK);
+//    }
 
     // 서점 상세
     @GetMapping("/{storeId}")
@@ -105,5 +140,8 @@ public class StoreController {
 
         return new UrlResource("file:" + fileUploadService.getPath(fileName));
     }
+
+
+
 
 }
