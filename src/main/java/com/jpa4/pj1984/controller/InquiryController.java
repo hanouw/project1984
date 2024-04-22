@@ -51,13 +51,12 @@ public class InquiryController {
         log.info("******* InquiryController addForm");
         InquiryDTO inquiry = new InquiryDTO(inquiryService.getOneInquiry(inquiryId));
         model.addAttribute("inquiry", inquiry);
-
         return "backend/inquiry/add";
     }
     // 문의 답변 등록처리
     @PostMapping("/{inquiryId}/add")
-    public String addPro(@PathVariable("inquiryId") Long inquiryId, AnswerForm answerForm, @AuthenticationPrincipal CustomCms customCms) {
-
+    public String addPro(@PathVariable("inquiryId") Long inquiryId, AnswerForm answerForm,
+                         @AuthenticationPrincipal CustomCms customCms) {
         log.info("******* InquiryController addPro - answerForm : {}", answerForm);
         log.info("******* InquiryController addPro - customCms : {}", customCms);
 
@@ -70,18 +69,18 @@ public class InquiryController {
     public String modifyForm(@PathVariable("inquiryId") Long inquiryId, Model model) {
         log.info("******* InquiryController modifyForm");
         InquiryDTO inquiry = new InquiryDTO(inquiryService.getOneInquiry(inquiryId));
-        log.info("******* InquiryController modifyForm - inquiry.answer : {}", inquiry.getAnswer());
+        log.info("******* InquiryController modifyForm - inquiry.answer : {}", inquiry.getAnswerId());
         model.addAttribute("inquiry", inquiry);
 
         return "backend/inquiry/modify";
     }
     // 문의 답변 수정처리
     @PostMapping("/{inquiryId}/modify")
-    public String modifyPro(@PathVariable("inquiryId") Long inquiryId, InquiryForm inquiryForm) {
+    public String modifyPro(@PathVariable("inquiryId") Long inquiryId, AnswerForm answerForm) {
         log.info("******* InquiryController modifyPro");
-        log.info("******* InquiryController modifyPro - InquiryForm : {}", inquiryForm.getAnswer());
+        log.info("******* InquiryController modifyPro - InquiryForm : {}", answerForm);
 
-        inquiryService.updateOneAnswer(inquiryId, inquiryForm.getAnswer()); // 수정해~~
+        inquiryService.updateOneAnswer(inquiryId, answerForm.toEntity()); // 수정해~~
         return "redirect:/cms/inquiry/{inquiryId}";
     }
 

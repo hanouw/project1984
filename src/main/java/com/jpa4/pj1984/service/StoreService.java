@@ -1,8 +1,11 @@
 package com.jpa4.pj1984.service;
 
+import com.jpa4.pj1984.domain.PaymentMem;
 import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
+import com.jpa4.pj1984.dto.PageRequestDTO;
+import com.jpa4.pj1984.dto.PaymentMemDTO;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.repository.StoreRepository;
@@ -27,14 +30,19 @@ public class StoreService {
     private final FileUploadService fileUploadService;
 
     // 서점 목록 조회
-    public List<StoreDTO> findAll() {
-        List<Store> all = storeRepository.findAll();
-        System.out.println("all = " + all);//all까지는 불러옴
-        List<StoreDTO> list = all.stream()
-                .map(b -> new StoreDTO(b))
-                .collect(Collectors.toList());
-        System.out.println("list = " + list);
+    public List<StoreDTO> findStoreList(Long storeId, PageRequestDTO pageRequestDTO) {
+        List<Store> storeEntityList = storeRepository.findStoreListByStoreId(storeId, pageRequestDTO);
+        List<StoreDTO> list = new ArrayList<>();
+        for (Store storeList : storeEntityList) {
+            StoreDTO storeDTO = new StoreDTO(storeList);
+            list.add(storeDTO);
+        }
         return list;
+    }
+
+    // 주문관리 - 검색된 주문 개수 조회 판매자 ver
+    public Long countStoreList(Long storeId, PageRequestDTO pageRequestDTO) {
+        return storeRepository.countStoreListByStoreId(storeId, pageRequestDTO);
     }
 
     // 서점 상세 조회 (한개 조회)

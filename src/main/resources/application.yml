@@ -30,18 +30,15 @@ logging:
 server:
   port: 8082
   servlet:
-    encoding:
-      force-response: true
     session:
       tracking-modes: cookie
-
 
 iamport:
   key: 1438164817253007
   secret: BIbJ0zJL1smO9Kdbjmmf7epKUC6F0sM1swDVgzjfpJdwYXugBcgAjhE7LGZ976K14ZxK9tVY2cZx1PRv
 
 file:
-    dir: /Users/hoseonyoo/Documents/file/
-#  dir: C:\HJ\pj1984\
+  #  dir: /Users/hoseonyoo/Documents/file/
+  dir: C:\HJ\pj1984\
 #  dir: C:\thejoeun\dataCollection\
 
