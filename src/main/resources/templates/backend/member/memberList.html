@@ -23,8 +23,8 @@
                         <option value="userName">회원명</option>
                         <option value="userId">아이디</option>
                     </select>
-                    <input type="text" />
-                    <button class="black_btn">검색</button>
+                    <input type="text" name="keyword" placeholder="검색어를 입력해주세요." />
+                    <button class="black_btn" onclick="movePage();">검색</button>
                 </div>
                 <div class="item">
                     <select name="" id="sortOrder">
@@ -86,7 +86,7 @@
   let selectedOption = 'desc'; // 기본값 설정
   document.getElementById('sortOrder').addEventListener('change', function() {
       selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
-      let url = "/cms/userlist?page=0&size=10&sort=userNo," + selectedOption;
+      let url = "/cms/userList?page=0&size=10&sort=userNo," + selectedOption;
       window.location.href = url; // 페이지를 새 URL로 리다이렉트
   });
 
@@ -94,7 +94,7 @@
   function movePage() {
     let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.
     let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.
-    let url = "/cms/userlist?page=0&size=10&sort=userNo," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
+    let url = "/cms/userList?page=0&size=10&sort=userNo," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
     window.location.href = url; // 페이지를 새 URL로 리다이렉트
   }
 </script>
