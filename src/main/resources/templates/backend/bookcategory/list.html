@@ -7,23 +7,15 @@
                 <div class="item">
                     <h2>카테고리관리</h2>
                 </div>
-                <div class="item">
-                    <button class="grey_btn">오늘</button>
-                    <button class="grey_btn">일주일</button>
-                    <button class="grey_btn">한달</button>
-                    <input type="date" />
-                    <input type="date" />
-                    <button class="black_btn">조회</button>
-                </div>
             </div>
             <hr />
             <div class="search_text_wrap">
                 <div class="item">
-                    <select name="categoryName" id="selectCategory">
+                    <select name="categoryName" id="selectCategory" style="display:none;">
                         <option value="">전체</option>
                     </select>
-                    <input type="text" />
-                    <button class="black_btn">검색</button>
+                    <input type="text" name="keyword" placeholder="검색어를 입력해주세요." />
+                    <button class="black_btn" onclick="movePage();">검색</button>
                 </div>
                 <div class="item">
                     <select name="" id="sortOrder">
@@ -72,11 +64,21 @@
     </th:block>
 </th:block>
 <script>
-    //정렬필터(최신순,이전순)
-        document.getElementById('sortOrder').addEventListener('change', function() {
-            var selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
-            var url = "/cms/bookCategory/list?page=0&size=10&sort=bookCategoryId," + selectedOption;
-            window.location.href = url; // 페이지를 새 URL로 리다이렉트
-        });
+    // 정렬 필터 (최신순, 이전순)
+    var selectedOption = 'desc'; // 기본값 설정
+    document.getElementById('sortOrder').addEventListener('change', function() {
+        selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
+        var url = "/cms/bookCategory/list?page=0&size=10&sort=bookCategoryId," + selectedOption;
+        window.location.href = url; // 페이지를 새 URL로 리다이렉트
+    });
+
+    // 검색 폼으로 전달
+    function movePage() {
+        var keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.
+        var url = "/cms/bookCategory/list?page=0&size=10&sort=bookCategoryId," + selectedOption + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
+        window.location.href = url; // 페이지를 새 URL로 리다이렉트합니다.
+    }
+
+
 </script>
 </html>

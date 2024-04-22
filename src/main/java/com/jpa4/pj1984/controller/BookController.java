@@ -79,10 +79,20 @@ public class BookController {
 
     //상품리스트
     @GetMapping("/book/list")
-    public String bookList(Model model, @PageableDefault(page = 0, size = 10, sort = "bookId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String bookList(Model model,
+                           @PageableDefault(page = 0, size = 10, sort = "bookId", direction = Sort.Direction.DESC)
+                           Pageable pageable,
+                           String keyword,
+                           String selectOption) {
         log.info("--CMS--Book--List--Request--");
-        // DB에서 전체 게시글 데이터를 가져와서 bookCategoryList 변수에 저장
-        Page<BookDTO> bookDTOList = bookService.findAll(pageable);
+        Page<BookDTO> bookDTOList = null; // 초기화
+        if(keyword == null || keyword.isEmpty()){
+            bookDTOList = bookService.findAll(pageable);
+        }else if("bookTitle".equals(selectOption)){
+            bookDTOList = bookService.findByBookTitleContaining(keyword, pageable);
+        }else if("isbn".equals(selectOption)){
+            bookDTOList = bookService.findByIsbnContaining(keyword, pageable);
+        }
 
         // 페이징 처리 변수 지정
         int nowPage = bookDTOList.getPageable().getPageNumber() + 1;
@@ -152,10 +162,18 @@ public class BookController {
 
     //상품카테고리리스트
     @GetMapping("/bookCategory/list")
-    public String bookCategoryList(Model model, @PageableDefault(page = 0, size = 10, sort = "bookCategoryId", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String bookCategoryList(Model model,
+                                   @PageableDefault(page = 0, size = 10, sort = "bookCategoryId", direction = Sort.Direction.DESC)
+                                   Pageable pageable,
+                                   String keyword) {
         log.info("--CMS--Book--Category--List--Request--");
+        Page<BookCategoryDTO> bookCategoryDTOList = null;
          // DB에서 전체 게시글 데이터를 가져와서 bookCategoryList 변수에 저장
-        Page<BookCategoryDTO> bookCategoryDTOList = bookCategoryService.findAll(pageable);
+        if(keyword == null || keyword.isEmpty()){
+            bookCategoryDTOList = bookCategoryService.findAll(pageable);
+        }else{
+            bookCategoryDTOList = bookCategoryService.findByBookCategoryNameContaining(keyword, pageable);
+        }
 
         // 페이징 처리 변수 지정
         int nowPage = bookCategoryDTOList.getPageable().getPageNumber() + 1;

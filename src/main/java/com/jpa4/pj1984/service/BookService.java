@@ -46,7 +46,20 @@ public class BookService {
         Book bookSaved = bookRepository.save(entity);
     }
 
-    //목록조회
+    //목록조회(검색title)
+    public Page<BookDTO> findByBookTitleContaining(String keyword, Pageable pageable) {
+        Page<Book> all = bookRepository.findByBookTitleContaining(keyword, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
+    //목록조회(검색isbn)
+    public Page<BookDTO> findByIsbnContaining(String keyword, Pageable pageable) {
+        Page<Book> all = bookRepository.findByIsbnContaining(keyword, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
+
+    //목록조회(일반)
     public Page<BookDTO> findAll(Pageable pageable) {
         Page<Book> all = bookRepository.findAll(pageable);
         Page<BookDTO> list = all.map(b -> new BookDTO(b));
@@ -120,5 +133,4 @@ public class BookService {
         }
         return bookDTOList;
     }
-
 }

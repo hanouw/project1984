@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,14 @@ public class BookCategoryService {
         return bookCategorySaved.getBookCategoryId();
     }
 
-    //목록조회
+    //목록조회(검색)
+    public Page<BookCategoryDTO> findByBookCategoryNameContaining(String keyword, Pageable pageable) {
+        Page<BookCategory> all = bookCategoryRepository.findByBookCategoryNameContaining(keyword, pageable);
+        Page<BookCategoryDTO> list = all.map(b -> new BookCategoryDTO(b));
+        return list;
+    }
+
+    //목록조회(일반)
     public Page<BookCategoryDTO> findAll(Pageable pageable) {
         Page<BookCategory> all = bookCategoryRepository.findAll(pageable);
         Page<BookCategoryDTO> list = all.map(b -> new BookCategoryDTO(b));
