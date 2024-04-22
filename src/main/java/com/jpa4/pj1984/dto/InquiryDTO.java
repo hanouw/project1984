@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InquiryDTO { // 가져오는
+public class InquiryDTO {
 
     private Long inquiryId;
     private Member member;
