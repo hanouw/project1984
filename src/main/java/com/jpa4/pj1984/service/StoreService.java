@@ -10,6 +10,7 @@ import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,25 +25,24 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StoreService {
 
-
-
     private final StoreRepository storeRepository;
     private final FileUploadService fileUploadService;
+    @Qualifier("paymentBookHistoryCustomRepositoryImpl")
+
+    // 관리자 ver 서점 총 개수 조회
+    public Long countStoreList(PageRequestDTO pageRequestDTO) {
+        return storeRepository.countStoreList(pageRequestDTO);
+    }
 
     // 서점 목록 조회
-    public List<StoreDTO> findStoreList(Long storeId, PageRequestDTO pageRequestDTO) {
-        List<Store> storeEntityList = storeRepository.findStoreListByStoreId(storeId, pageRequestDTO);
+    public List<StoreDTO> findStoreList(PageRequestDTO pageRequestDTO) {
+        List<Store> storeEntityList = storeRepository.findStoreList(pageRequestDTO);
         List<StoreDTO> list = new ArrayList<>();
         for (Store storeList : storeEntityList) {
             StoreDTO storeDTO = new StoreDTO(storeList);
             list.add(storeDTO);
         }
         return list;
-    }
-
-    // 주문관리 - 검색된 주문 개수 조회 판매자 ver
-    public Long countStoreList(Long storeId, PageRequestDTO pageRequestDTO) {
-        return storeRepository.countStoreListByStoreId(storeId, pageRequestDTO);
     }
 
     // 서점 상세 조회 (한개 조회)
@@ -56,7 +56,7 @@ public class StoreService {
         }*/
         return store;
     }
-    
+
     // 서점 상세 수정
     public void updateOneBoard(StoreForm storeForm) throws IOException { // 사용자가 수정한 값이 StoreForm 으로 넘어옴
         Store findStore = storeRepository.findById(storeForm.getStoreId()).orElse(null);// DB에서 조회 (수정전상태)
@@ -93,7 +93,7 @@ public class StoreService {
         findStore.setStoreBankName(storeForm.getStoreBankName());
     }
 
-    // VIEW 목록 조회용
+    // @ModelAttribute 로 쓰는 메서드
     public List<StoreDTO> findStoreAllList(){
         List<Store> all = storeRepository.findAll();
         List<StoreDTO> storeDTOList = new ArrayList<>();
@@ -102,9 +102,6 @@ public class StoreService {
         }
         return storeDTOList;
     }
-
-
-
 
 }
 

@@ -75,8 +75,8 @@ public class CmsService {
 //    }
 
     // 주문관리 - 주문 목록 조회 판매자 ver
-    public List<PaymentBookHistoryDTO> findHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
-        List<PaymentBookHistory> historyEntityList = paymentBookHistoryRepository.findBookListByStoreId(storeId, pageRequestDTO);
+    public List<PaymentBookHistoryDTO> findHistoryList(PageRequestDTO pageRequestDTO) {
+        List<PaymentBookHistory> historyEntityList = paymentBookHistoryRepository.findBookListByStoreId(pageRequestDTO);
         List<PaymentBookHistoryDTO> list = new ArrayList<>();
         for (PaymentBookHistory orderList : historyEntityList) {
             PaymentBookHistoryDTO paymentBookHistoryDTO = new PaymentBookHistoryDTO(orderList);
@@ -86,8 +86,8 @@ public class CmsService {
     }
 
     // 주문관리 - 검색된 주문 개수 조회 판매자 ver
-    public Long countHistoryList(Long storeId, PageRequestDTO pageRequestDTO) {
-        return paymentBookHistoryRepository.countBookListByStoreId(storeId, pageRequestDTO);
+    public Long countHistoryList(PageRequestDTO pageRequestDTO) {
+        return paymentBookHistoryRepository.countBookListByStoreId(pageRequestDTO);
     }
 
     // 주문관리 - 주문 상세페이지 조회
@@ -120,8 +120,8 @@ public class CmsService {
     }
 
     // 구독관리 - 구독내역 목록 조회 판매자 ver
-    public List<PaymentMemDTO> findMembershipList(Long storeId, PageRequestDTO pageRequestDTO) {
-        List<PaymentMem> membershipEntityList = paymentMemRepository.findMembershipListByStoreId(storeId, pageRequestDTO);
+    public List<PaymentMemDTO> findMembershipList(PageRequestDTO pageRequestDTO) {
+        List<PaymentMem> membershipEntityList = paymentMemRepository.findMembershipListByStoreId(pageRequestDTO);
         List<PaymentMemDTO> list = new ArrayList<>();
         for (PaymentMem membershipList : membershipEntityList) {
             PaymentMemDTO paymentMemDTO = new PaymentMemDTO(membershipList);
@@ -131,8 +131,8 @@ public class CmsService {
     }
 
     // 구독관리 - 검색된 구독내역 개수 조회 판매자 ver
-    public Long countMembershipList(Long storeId, PageRequestDTO pageRequestDTO) {
-        return paymentMemRepository.countMembershipListByStoreId(storeId, pageRequestDTO);
+    public Long countMembershipList(PageRequestDTO pageRequestDTO) {
+        return paymentMemRepository.countMembershipListByStoreId(pageRequestDTO);
     }
 
     // 구독관리 - 구독내역 상세페이지 조회

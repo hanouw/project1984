@@ -29,7 +29,7 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
     private final PaymentBookHistoryCustomRepository paymentBookHistoryCustomRepository;
 
     @Override
-    public List<PaymentMem> findMembershipListByStoreId(Long storeId, PageRequestDTO pageRequestDTO) {
+    public List<PaymentMem> findMembershipListByStoreId(PageRequestDTO pageRequestDTO) {
         int offset = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         PageRequestDTO dto = paymentBookHistoryCustomRepository.bindingMethod(pageRequestDTO);
@@ -47,9 +47,7 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
         if (startDate == null && keyword == null ) { // 키워드 없음 + 기간 없음
             log.info("**************************키워드 없음 + 기간 없음");
             List<PaymentMem> historyList = em.createQuery("select p from PaymentMem p " +
-                            "where p.store.storeId = :storeId " +
                             "order by p.membershipStartDate "+ order +" ", PaymentMem.class)
-                    .setParameter("storeId", storeId)
                     .setFirstResult(offset)
                     .setMaxResults(pageRequestDTO.getSize())
                     .getResultList();
@@ -58,9 +56,8 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
         else if (keyword == null && startDate != null) { // 키워드 없음 + 기간 있음
             log.info("**************************키워드 없음 + 기간 있음");
             List<PaymentMem> historyList = em.createQuery("select p from PaymentMem p " +
-                            "where p.store.storeId = :storeId and p.membershipStartDate between :startDate And :endDate " +
+                            "where p.membershipStartDate between :startDate And :endDate " +
                             "order by p.membershipStartDate "+ order +" ", PaymentMem.class)
-                    .setParameter("storeId", storeId)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
                     .setFirstResult(offset)
@@ -70,12 +67,11 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
         }
         else if (startDate == null && keyword != null) { // 키워드 있음 + 기간 없음
             log.info("**************************키워드 있음 + 기간 없음");
-            String s = searchTypeMethod(pageRequestDTO);
+            String str = searchTypeMethod(pageRequestDTO);
             keyword = pageRequestDTO.getKeyword();
             List<PaymentMem> historyList = em.createQuery("select p from PaymentMem p " +
-                            "where p.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + str + " like concat('%', :keyword, '%') " +
                             "order by p.membershipStartDate "+ order +" ", PaymentMem.class)
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setFirstResult(offset)
                     .setMaxResults(pageRequestDTO.getSize())
@@ -84,13 +80,12 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
         }
         else { // 키워드 있음+ 기간 있음
             log.info("**************************키워드 있음 + 기간 있음");
-            String s = searchTypeMethod(pageRequestDTO);
+            String str = searchTypeMethod(pageRequestDTO);
             keyword = pageRequestDTO.getKeyword();
             List<PaymentMem> historySerachList = em.createQuery("select p from PaymentMem p " +
-                            "where p.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + str + " like concat('%', :keyword, '%') " +
                             "and p.membershipStartDate between :startDate And :endDate  " +
                             "order by p.membershipStartDate " + order + " ", PaymentMem.class)
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
@@ -103,7 +98,7 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
     }
 
     @Override
-    public Long countMembershipListByStoreId(Long storeId, PageRequestDTO pageRequestDTO) {
+    public Long countMembershipListByStoreId(PageRequestDTO pageRequestDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         PageRequestDTO dto = paymentBookHistoryCustomRepository.bindingMethod(pageRequestDTO);
@@ -120,9 +115,7 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
         if (startDate == null && keyword == null) {
         log.info("**************************키워드 없음 + 기간 없음");
             Long result = (Long) em.createQuery("select count(p) from PaymentMem p " +
-                            "where p.store.storeId = :storeId " +
                             "order by p.membershipStartDate "+ order +" ")
-                    .setParameter("storeId", storeId)
                     .getSingleResult();
             log.info("--PaymentRepo result : {}", result);
             return result;
@@ -130,9 +123,8 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
         else if (keyword == null && startDate != null) { // 키워드 없음 + 기간 있음
             log.info("**************************키워드 없음 + 기간 있음");
             Long result = (Long) em.createQuery("select count(p) from PaymentMem p " +
-                            "where p.store.storeId = :storeId and p.membershipStartDate between :startDate And :endDate " +
+                            "where p.membershipStartDate between :startDate And :endDate " +
                             "order by p.membershipStartDate "+ order +" ")
-                    .setParameter("storeId", storeId)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
                     .getSingleResult();
@@ -142,9 +134,8 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
             log.info("**************************키워드 있음 + 기간 없음");
             String s = searchTypeMethod(pageRequestDTO);
             Long result = (Long) em.createQuery("select count(p) from PaymentMem p " +
-                            "where p.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where and " + s + " like concat('%', :keyword, '%') " +
                             "order by p.membershipStartDate "+ order +" ")
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .getSingleResult();
             return result;
@@ -153,10 +144,9 @@ public class PaymentMemCustomRepositoryImpl implements PaymentMemCustomRepositor
             log.info("**************************키워드 있음 + 기간 있음");
             String s = searchTypeMethod(pageRequestDTO);
             Long result = (Long) em.createQuery("select count(p) from PaymentMem p " +
-                            "where p.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + s + " like concat('%', :keyword, '%') " +
                             "and p.membershipStartDate between :startDate And :endDate  " +
                             "order by p.membershipStartDate " + order + " ")
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)

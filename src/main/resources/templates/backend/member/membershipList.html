@@ -142,7 +142,7 @@
             let html = '';
             html += '<table class="list_table">';
             html += '<tr><th>NO</th><th>서점명</th><th>회원ID</th><th>회원명</th>';
-            html += '<th>연락처</th><th>이메일</th><th>결제방법</th><th>시작일</th><th>종료일</th>';
+            html += '<th>연락처</th><th>이메일</th><th>결제방법</th><th>시작일</th><th>종료일</th></tr>';
             $.each(response.paymentMemDTO, function(index, item) {
                 html += '<tr></tr><td><a class="detail" href="/cms/order/membership/'+ item.orderMembershipNo +'">' + item.orderMembershipNo + '</a></td>';
                 html += '<td>' + item.storeTitle + '</td>';
