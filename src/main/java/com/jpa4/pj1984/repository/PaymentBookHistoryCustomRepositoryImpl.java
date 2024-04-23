@@ -88,7 +88,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
     }
 
     @Override
-    public List<PaymentBookHistory> findBookListByStoreId(PageRequestDTO pageRequestDTO) {
+    public List<PaymentBookHistory> findBookList(PageRequestDTO pageRequestDTO) {
         int offset = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -157,7 +157,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
     }
 
     @Override
-    public Long countBookListByStoreId(PageRequestDTO pageRequestDTO) {
+    public Long countBookList(PageRequestDTO pageRequestDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         PageRequestDTO dto = bindingMethod(pageRequestDTO);

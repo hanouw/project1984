@@ -7,16 +7,16 @@
                 <div class="item">
                     <h2>주문관리</h2>
                 </div>
-                <input type="hidden" name="page" th:value="${pageResponseDTO.pageRequestDTO.page}"/>
-                <input type="hidden" name="size" th:value="${pageResponseDTO.pageRequestDTO.size}"/>
+                <input type="hidden" name="page" th:field="${pageResponseDTO.pageRequestDTO.page}"/>
+                <input type="hidden" name="size" th:field="${pageResponseDTO.pageRequestDTO.size}"/>
                 <div class="item">
                     <span><button id="todayBtn" class="grey_btn dateBtn" th:value="today">오늘</button></span>
                     <span><button id="oneWeekBtn" class="grey_btn dateBtn" th:value="oneWeek">일주일</button></span>
                     <span><button id="oneMonthBtn" class="grey_btn dateBtn" th:value="oneMonth">한달</button></span>
                     <input type="date" id="startDate"
-                           th:value="${pageResponseDTO.pageRequestDTO.startDate}"/>
+                           th:field="${pageResponseDTO.pageRequestDTO.startDate}"/>
                     <input type="date" id="endDate"
-                           th:value="${pageResponseDTO.pageRequestDTO.endDate}"/>
+                           th:field="${pageResponseDTO.pageRequestDTO.endDate}"/>
                     <button class="black_btn" type="button" id="dateSelectedBtn">조회</button>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <option value="status" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'status'}">주문상태</option>
                         <option value="method" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'method'}">결제방법</option>
                     </select>
-                    <input type="text" name="keyword" id="keyword" th:value="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" name="keyword" id="keyword" th:field="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
                     <button class="black_btn" type="submit" id="searchBtn">검색</button>
                 </div>
                 <div class="item">
@@ -146,7 +146,7 @@ $(document).ready(function () {
         html += '<th>bookId</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
         html += '<th>결제방법</th><th>구매일</th></tr>';
         $.each(response.orderList, function(index, item) {
-            html += '<tr></tr><td><a href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
+            html += '<tr><td><a href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
             html += '<td>' + item.orderBookId + '</td>';
             html += '<td>' + item.userId + '</td>';
             html += '<td>' + item.userName + '</td>';

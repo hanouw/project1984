@@ -16,15 +16,15 @@
                 <div class="add_form_wrap">
                     <div class="add_input_wrap">
                         <p>카테고리명</p>
-                        <input type="text" th:field="${bookCategory.bookCategoryName}" id="bookCategoryName" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${bookCategory.bookCategoryName}" id="bookCategoryName" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>수정일</p>
-                        <input type="text" th:field="${bookCategory.lastModifiedDate}" id="lastModifiedDate" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${bookCategory.lastModifiedDate}" id="lastModifiedDate" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>등록일</p>
-                        <input type="text" th:field="${bookCategory.createDate}" id="createDate" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${bookCategory.createDate}" id="createDate" readonly>
                     </div>
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>

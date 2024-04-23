@@ -23,7 +23,7 @@
             <option value="">전체</option>
             <option value="">도서명</option>
           </select>
-          <input type="text" placeholder="검색어를 입력해주세요. "/>
+          <input type="text" maxlength="40" oninput="checkLength(this)" placeholder="검색어를 입력해주세요. "/>
           <button class="black_btn">검색</button>
         </div>
         <div class="item">
@@ -46,8 +46,8 @@
           </tr>
           <tr th:each="bookReviewList : ${bookReviewList}">
             <td th:text="${bookReviewList.bookReviewId}"></td>
-            <td th:text="${bookReviewList.member.userId}"></td>
-            <td th:text="${bookReviewList.member.userName}"></td>
+            <td th:text="${bookReviewList.userId}"></td>
+            <td th:text="${bookReviewList.userName}"></td>
             <td><a th:text="${bookReviewList.bookReviewDetail}"
                    th:href="@{/cms/bookReview/{bookReviewId}(bookReviewId=${bookReviewList.bookReviewId})}"></a></td>
             <td>

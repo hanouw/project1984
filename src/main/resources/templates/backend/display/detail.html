@@ -19,23 +19,23 @@
                     <div id="drop_zone" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
                         <img id="image-preview" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg01Stored}|" style="transform:translateX(-20px);">
                     </div>
-                    <input type="text" th:field="${display.aboutImg01Org}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.aboutImg01Org}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_01</p>
-                    <textarea th:text="${display.aboutText01}" readonly></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:text="${display.aboutText01}" readonly></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_02</p>
-                    <textarea th:text="${display.aboutText02}" readonly></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:text="${display.aboutText02}" readonly></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_03</p>
-                    <textarea th:text="${display.aboutText03}" readonly></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:text="${display.aboutText03}" readonly></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_04</p>
-                    <textarea th:text="${display.aboutText04}" readonly></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:text="${display.aboutText04}" readonly></textarea>
                 </div>
                 <br>
 
@@ -44,61 +44,61 @@
                     <div id="drop_zone02" class="drag_img_form" style="background-color:#fff; border:0px solid #fff; background-image:none;">
                         <img id="image-preview" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg02Stored}|" style="transform:translateX(-20px);">
                     </div>
-                    <input type="text" th:field="${display.aboutImg02Org}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.aboutImg02Org}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_05</p>
-                    <textarea th:text="${display.aboutText05}" readonly></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:text="${display.aboutText05}" readonly></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_06</p>
-                    <textarea th:text="${display.aboutText06}" readonly></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:text="${display.aboutText06}" readonly></textarea>
                 </div>
                 <br>
 
                 <h3 class="input_wrap_h3">메인 서점 전시</h3>
                 <div class="add_input_wrap">
                     <p>서점 01</p>
-                    <input type="text" th:field="${display.mainStore01.storeTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainStore01.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 02</p>
-                    <input type="text" th:field="${display.mainStore02.storeTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainStore02.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 03</p>
-                    <input type="text" th:field="${display.mainStore03.storeTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainStore03.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 04</p>
-                    <input type="text" th:field="${display.mainStore04.storeTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainStore04.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>서점 05</p>
-                    <input type="text" th:field="${display.mainStore05.storeTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainStore05.storeTitle}" readonly>
                 </div>
                 <br>
 
                 <h3 class="input_wrap_h3">메인 도서 전시</h3>
                 <div class="add_input_wrap">
                     <p>도서 01</p>
-                    <input type="text" th:field="${display.mainBook01.bookTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainBook01.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 02</p>
-                    <input type="text" th:field="${display.mainBook02.bookTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainBook02.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 03</p>
-                    <input type="text" th:field="${display.mainBook03.bookTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainBook03.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 04</p>
-                    <input type="text" th:field="${display.mainBook04.bookTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainBook04.bookTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>도서 05</p>
-                    <input type="text" th:field="${display.mainBook05.bookTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${display.mainBook05.bookTitle}" readonly>
                 </div>
                 <br>
 

@@ -21,23 +21,23 @@
             <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored()}"
                  th:src="|/cms/store/images/${store.getStoreImageStored()}|"/> <br/>
           </div>
-          <input type="text" th:value="${store.getStoreImageOrigin()}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin()}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>서점명</p>
-          <input type="text" th:value="${store.storeTitle}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storeTitle}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>설명</p>
-          <textarea th:text="${store.storeText}" readonly></textarea>
+          <textarea maxlength="400" oninput="checkLengths(this)" th:text="${store.storeText}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>서점한줄평</p>
-          <input type="text" th:value="${store.storeOneReview}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storeOneReview}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>서점택태그</p>
-          <textarea th:text="${store.storeTag}" readonly></textarea>
+          <textarea maxlength="400" oninput="checkLengths(this)" th:text="${store.storeTag}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>서점 이미지</p>
@@ -45,44 +45,44 @@
             <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored01()}"
                  th:src="|/cms/store/images/${store.getStoreImageStored01()}|"/> <br/>
           </div>
-          <input type="text" th:value="${store.getStoreImageOrigin01()}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin01()}" readonly>
         </div>
         <div class="add_input_wrap">
           <div class="store_img_form store_img_div">
             <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored02()}"
                  th:src="|/cms/store/images/${store.getStoreImageStored02()}|"/> <br/>
           </div>
-          <input type="text" th:value="${store.getStoreImageOrigin02()}" readonly></div>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin02()}" readonly></div>
         <div class="add_input_wrap">
           <div class="store_img_form store_img_div">
             <img class="store_img_form store_img_tag" th:if="${store.getStoreImageStored03()}"
                  th:src="|/cms/store/images/${store.getStoreImageStored03()}|"/> <br/>
           </div>
-          <input type="text" th:value="${store.getStoreImageOrigin03()}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin03()}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>1984의 서점리뷰</p>
-          <textarea th:text="${store.storeReview}" readonly></textarea>
+          <textarea maxlength="400" oninput="checkLengths(this)" th:text="${store.storeReview}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>주소</p>
-          <textarea th:text="${store.storeAddress}" readonly></textarea>
+          <textarea maxlength="400" oninput="checkLengths(this)" th:text="${store.storeAddress}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>연락처</p>
-          <input type="text" th:value="${store.storePhoneNum}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storePhoneNum}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>운영시간</p>
-          <textarea th:text="${store.storeOperateTime}" readonly></textarea>
+          <textarea maxlength="400" oninput="checkLengths(this)" th:text="${store.storeOperateTime}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>대표자명</p>
-          <input type="text" th:value="${store.storeOwner}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storeOwner}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>아이디</p>
-          <input type="text" th:value="${store.storeLoginId}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storeLoginId}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>계좌번호</p>
@@ -93,11 +93,11 @@
                     th:text="${bank}"
                     th:selected="${bank == store.storeBankName}"></option>
           </select>
-          <input type="text" th:value="${store.storeAccount}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storeAccount}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>사업자 등록번호</p>
-          <input type="text" th:value="${store.storeCrn}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.storeCrn}" readonly>
         </div>
 
         <!-- 등록일 수정일 날짜형식 수정폼과 동일하게 변경 해야 함 -->
@@ -105,11 +105,11 @@
         <!--            <td th:text="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}"></td>-->
         <div class="add_input_wrap">
           <p>수정일</p>
-          <input type="text" th:value="${#temporals.format(store.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${#temporals.format(store.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>등록일</p>
-          <input type="text" th:value="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
         </div>
         <div class="add_checkbox_wrap">
           <p>활성화</p>

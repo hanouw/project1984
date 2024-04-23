@@ -40,24 +40,16 @@ public class StoreController {
 
     // 서점 목록 조회 요청
     @GetMapping("/list")
-    public String List(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
+    public String List(@ModelAttribute("pageResponseDTO") PageResponseDTO pageResponseDTO,
+                       PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
-        if (storeStatus.getValue().equals("STATUS_ADMIN") ) {
-            StorePageResponseDTO pageResponseDTO = new StorePageResponseDTO(pageRequestDTO, storeService.countStoreList(pageRequestDTO), storeService.findStoreList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-            return "backend/store/list";
-        } else {
-            StorePageResponseDTO pageResponseDTO = new StorePageResponseDTO(pageRequestDTO, storeService.countStoreList(pageRequestDTO), storeService.findStoreList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-            return "backend/store/list";
-        }
+        return "backend/store/list";
     }
 
     // ajax 서점 목록 조회 요청
     @GetMapping("/list/ajax")
-    public ResponseEntity<StorePageResponseDTO> ListAjax(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
+    public ResponseEntity<StorePageResponseDTO> ListAjax(@AuthenticationPrincipal CustomCms customCms, PageRequestDTO pageRequestDTO) {
         StoreStatus storeStatus = customCms.getStore().getStoreStatus();
         if (storeStatus.getValue().equals("STATUS_ADMIN")) {
             log.info("******* StoreController /store/list/ajax ADMIN 실행");

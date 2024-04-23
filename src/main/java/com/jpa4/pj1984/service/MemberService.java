@@ -6,6 +6,8 @@ import com.jpa4.pj1984.domain.Member;
 import com.jpa4.pj1984.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,25 @@ public class MemberService {
         memberForm.setUserPassword(PasswordEncoder.encode(memberForm.getUserPassword()));
         Member memberSaved = memberRepository.save(memberForm.toEntity());
         return memberSaved;
+    }
+
+    // 회원 목록 조회하기(Page) -> 전체
+    public Page<MemberDTO> findAllMember(Pageable pageable){
+        Page<Member> all = memberRepository.findAll(pageable);
+        Page<MemberDTO> list = all.map(b -> new MemberDTO(b));
+        return list;
+    }
+    // 회원 목록 조회하기(Page) -> 전체
+    public Page<MemberDTO> findByUserNameContaining(String keyword, Pageable pageable){
+        Page<Member> all = memberRepository.findByUserNameContaining(keyword, pageable);
+        Page<MemberDTO> list = all.map(b -> new MemberDTO(b));
+        return list;
+    }
+    // 회원 목록 조회하기(Page) -> 전체
+    public Page<MemberDTO> findByUserIdContaining(String keyword, Pageable pageable){
+        Page<Member> all = memberRepository.findByUserIdContaining(keyword, pageable);
+        Page<MemberDTO> list = all.map(b -> new MemberDTO(b));
+        return list;
     }
 
     // 회원 목록 조회하기

@@ -7,6 +7,10 @@ import com.jpa4.pj1984.service.CmsService;
 import com.jpa4.pj1984.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,12 +64,42 @@ public class CMSController {
     //----------------------------------------------------------------------------------- 회원(이용자)
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
-    public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
-        log.info("******* CMSController userList 호출");
-        List<MemberDTO> allMember = memberService.findAllMember();
-        model.addAttribute("allMember", allMember);
+    public String bookList(Model model,
+                           @PageableDefault(page = 0, size = 10, sort = "userNo", direction = Sort.Direction.DESC)
+                           Pageable pageable,
+                           String keyword,
+                           String selectOption) {
+        Page<MemberDTO> MemberDTOList = null;
+        if(keyword == null || keyword.isEmpty()){
+            MemberDTOList = memberService.findAllMember(pageable);
+        }else if("userName".equals(selectOption)){
+            MemberDTOList = memberService.findByUserNameContaining(keyword, pageable);
+        }else if("userId".equals(selectOption)){
+            MemberDTOList = memberService.findByUserIdContaining(keyword, pageable);
+        }
+        // 페이징 처리 변수 지정
+        int nowPage = MemberDTOList.getPageable().getPageNumber() + 1;
+        int prevPage = Math.max(nowPage -1, 1);
+        int nextPage = Math.min(nowPage +1, MemberDTOList.getTotalPages());
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, MemberDTOList.getTotalPages());
+
+        // HTML VIEW 페이지로 데이터 전달
+        model.addAttribute("allMember", MemberDTOList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "backend/member/memberList";
     }
+    // 회원관리 - 회원 목록 조회
+//    @GetMapping("/userList")
+//    public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
+//        log.info("******* CMSController userList 호출");
+//        List<MemberDTO> allMember = memberService.findAllMember();
+//        model.addAttribute("allMember", allMember);
+//        return "backend/member/memberList";
+//    }
 
     // 회원관리 - 회원 상세 정보 조회
     @GetMapping("/userDetail/{userNo}")
@@ -93,6 +127,8 @@ public class CMSController {
         return "redirect:/cms/userDetail/{userNo}";
     }
 
+    //----------------------------------------------------------------------------------- 구독관리
+
     // 구독관리 - 구독권 수정 상세페이지 조회
     @GetMapping("/membership/modify")
     public String membershipModify(Model model) {
@@ -119,17 +155,10 @@ public class CMSController {
 
     // 구독 관리 - 목록 조회
     @GetMapping("/order/membershipList")
-    public String userMembershipList(@AuthenticationPrincipal CustomCms customCms, Model model, PageRequestDTO pageRequestDTO) {
+    public String userMembershipList(@ModelAttribute("pageResponseDTO") PageResponseDTO pageResponseDTO,
+                                     PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
-        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
-            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, cmsService.countMembershipList(pageRequestDTO), cmsService.findMembershipList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        } else {
-            MemPageResponseDTO pageResponseDTO = new MemPageResponseDTO(pageRequestDTO, cmsService.countMembershipList(pageRequestDTO), cmsService.findMembershipList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        }
         return "backend/member/membershipList";
     }
 
@@ -155,19 +184,13 @@ public class CMSController {
         }
     }
 
+    //----------------------------------------------------------------------------------- 주문관리
+
     // 주문관리 - 주문 목록 조회
     @GetMapping("/order/bookList")
-    public String orderList(Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal CustomCms customCms) {
+    public String orderList(@ModelAttribute("pageResponseDTO") PageResponseDTO pageResponseDTO, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setPage(1);
         pageRequestDTO.setDateOrder("desc");
-        StoreStatus storeStatus = customCms.getStore().getStoreStatus();
-        if (storeStatus.getValue().equals("STATUS_ADMIN")) {
-            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, cmsService.countHistoryList(pageRequestDTO), cmsService.findHistoryList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        } else {
-            BookPageResponseDTO pageResponseDTO = new BookPageResponseDTO(pageRequestDTO, cmsService.countHistoryList(pageRequestDTO), cmsService.findHistoryList(pageRequestDTO));
-            model.addAttribute("pageResponseDTO", pageResponseDTO);
-        }
         return "backend/order/bookList";
     }
 
@@ -184,7 +207,7 @@ public class CMSController {
         } else {
             String storeTitle = customCms.getStore().getStoreTitle();
             List<PaymentBookHistoryDTO> orderList = cmsService.findHistoryList(pageRequestDTO).stream()
-                    .filter(l -> l.getStoreTitle() == storeTitle)
+                    .filter(l -> l.getStoreTitle().equals(storeTitle))
                     .collect(Collectors.toList());
             Long count = orderList.stream().count();
             BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO(pageRequestDTO, count, orderList);

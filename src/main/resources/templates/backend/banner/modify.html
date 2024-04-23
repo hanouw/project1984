@@ -17,7 +17,7 @@
 
                     <div class="add_input_wrap" style="display:none;">
                         <p>배너아이디</p>
-                        <input type="text" th:field="*{bannerId}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bannerId}" readonly>
                     </div>
 
                     <div class="add_input_wrap">
@@ -26,21 +26,21 @@
                             <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bannerimages/${banner.getBannerImgStored}|">
                         </div>
                         <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
-                        <input type="text" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
                     </div>
 
                     <div class="add_input_wrap">
                         <p>제목</p>
-                        <input type="text" th:field="${banner.bannerTitle}" placeholder="제목을 입력해주세요.">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${banner.bannerTitle}" placeholder="제목을 입력해주세요.">
                     </div>
                     <div class="add_input_wrap">
                         <p>설명</p>
-                        <textarea th:field="${banner.bannerDetail}" placeholder="설명을 입력해주세요."></textarea>
+                        <textarea maxlength="400" oninput="checkLengths(this)" th:field="${banner.bannerDetail}" placeholder="설명을 입력해주세요."></textarea>
                     </div>
                     <br>
                     <div class="add_input_wrap">
                         <p>링크</p>
-                        <input type="text" th:field="${banner.bannerLink}" placeholder="링크를 입력해주세요.">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${banner.bannerLink}" placeholder="링크를 입력해주세요.">
                     </div>
                     <div class="add_input_wrap">
                         <p>노출순서</p>

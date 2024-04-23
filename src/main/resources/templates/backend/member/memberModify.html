@@ -16,27 +16,27 @@
                 <div class="add_form_wrap">
                     <div class="add_input_wrap">
                         <p>아이디</p>
-                        <input type="text" th:field="*{userId}">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userId}">
                     </div>
                     <div class="add_input_wrap">
                         <p>이름</p>
-                        <input type="text" th:field="*{userName}">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userName}">
                     </div>
                     <div class="add_input_wrap">
                         <p>전화번호</p>
-                        <input type="text" th:field="*{userPhoneNum}">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userPhoneNum}">
                     </div>
                     <div class="add_input_wrap">
                         <p>이메일</p>
-                        <input type="text" th:field="*{userEmail}">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userEmail}">
                     </div>
                     <div class="add_input_wrap">
                         <p>회원가입일</p>
-                        <input type="text" th:field="*{createDate}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{createDate}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>회원정보수정일</p>
-                        <input type="text" th:field="*{lastModifiedDate}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{lastModifiedDate}" readonly>
                     </div>
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>

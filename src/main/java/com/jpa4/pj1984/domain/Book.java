@@ -49,8 +49,8 @@ public class Book extends TimeEntity{
     private String bookIndex;
     private String bookReview;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bookReviewId")
-    private List<BookReview> bookUserReviewList = new ArrayList<>();
+    @OneToMany(mappedBy = "bookReviewId")
+    private List<BookReview> bookUserReviews = new ArrayList<>();
 
     private String bookWriterProfile;
 

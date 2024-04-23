@@ -9,19 +9,18 @@ import java.time.LocalDateTime;
 public class BookReviewForm { // 뿌려주는
 
     private Long bookReviewId;
-    private Member member;
     private String bookReviewDetail;
-    private BookReviewStatus bookReviewStatus;
-    private LocalDateTime createDate;
-    private LocalDateTime lastModifiedDate;
+    private Long bookReviewPosition;
+    private Integer step;
+    private Long bookId;
 
     // DTO -> Entity
     public BookReview toEntity() {
         BookReview bookReview = new BookReview();
         bookReview.setBookReviewId(bookReviewId);
-        bookReview.setMember(member);
         bookReview.setBookReviewDetail(bookReviewDetail);
-        bookReview.setBookReviewStatus(bookReviewStatus);
+        bookReview.setBookReviewPosition(bookReviewPosition);
+        bookReview.setStep(step);
         return bookReview;
     }
 }

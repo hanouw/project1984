@@ -23,7 +23,7 @@
             <option value="">전체</option>
             <option value="">서점명</option>
           </select>
-          <input type="text" placeholder="검색어를 입력해주세요. "/>
+          <input type="text" maxlength="40" oninput="checkLength(this)" placeholder="검색어를 입력해주세요. "/>
           <button class="black_btn">검색</button>
         </div>
         <div class="item">
@@ -46,8 +46,8 @@
           </tr>
           <tr th:each="storeReviewList : ${storeReviewList}">
             <td th:text="${storeReviewList.storeReviewId}"></td>
-            <td th:text="${storeReviewList.member.userId}"></td>
-            <td th:text="${storeReviewList.member.userName}"></td>
+            <td th:text="${storeReviewList.userId}"></td>
+            <td th:text="${storeReviewList.userName}"></td>
             <td><a th:text="${storeReviewList.storeReviewDetail}"
                    th:href="@{/cms/storeReview/{storeReviewId}(storeReviewId=${storeReviewList.storeReviewId})}"></a></td>
             <td>
