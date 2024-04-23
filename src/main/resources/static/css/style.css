@@ -474,6 +474,32 @@ a.pageLink:hover{
     pointer-events: none;
     color: var(--pointcolor);
 }
+
+.pageble_wrap{
+    margin:0 auto;
+    margin-top:30px;
+    text-align :center;
+}
+a.pageNav_btn{
+    padding:10px 16px;
+    background-color:#fff;
+    color:#000;
+    border:1px solid #dcdcdc;
+    border-radius:4px;
+}
+a.pageNav_btn:hover{
+    color:var(--pointcolor);
+    background-color:var(--mainblack);
+    border:1px solid var(--mainblack);
+}
+a.nowPage_btn{
+    background-color: #000;
+    color: #fff;
+    border:1px solid #000;
+}
+
+
+
 .review_input_form{
     margin-top: 20px;
     width: 100%;

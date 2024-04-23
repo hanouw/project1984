@@ -46,8 +46,8 @@
           </tr>
           <tr th:each="bookReviewList : ${bookReviewList}">
             <td th:text="${bookReviewList.bookReviewId}"></td>
-            <td th:text="${bookReviewList.member.userId}"></td>
-            <td th:text="${bookReviewList.member.userName}"></td>
+            <td th:text="${bookReviewList.userId}"></td>
+            <td th:text="${bookReviewList.userName}"></td>
             <td><a th:text="${bookReviewList.bookReviewDetail}"
                    th:href="@{/cms/bookReview/{bookReviewId}(bookReviewId=${bookReviewList.bookReviewId})}"></a></td>
             <td>

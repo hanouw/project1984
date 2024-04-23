@@ -13,11 +13,11 @@ public class PaymentBookHistory extends TimeEntity{
     @Column(name = "order_book_history_id")
     private Long orderBookHistoryId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "order_book_no")
     private PaymentBook paymentBook;
 

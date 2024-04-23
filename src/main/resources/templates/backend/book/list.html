@@ -7,32 +7,30 @@
         <div class="item">
           <h2>상품관리</h2>
         </div>
-        <div class="item">
-          <button type="button" class="grey_btn">오늘</button>
-          <button type="button" class="grey_btn">일주일</button>
-          <button type="button" class="grey_btn">한달</button>
+        <div class="item" style="display:none;">
+          <button class="grey_btn">오늘</button>
+          <button class="grey_btn">일주일</button>
+          <button class="grey_btn">한달</button>
           <input type="date" />
           <input type="date" />
-          <button type="button" class="black_btn">조회</button>
+          <button class="black_btn">조회</button>
         </div>
       </div>
       <hr />
       <div class="search_text_wrap">
         <div class="item">
-          <select name="" id="">
-            <option value="">전체</option>
-            <option value="">인문</option>
-            <option value="">문학</option>
-            <option value="">경제</option>
-            <option value="">만화</option>
+          <select name="selectOption" id="selectOption">
+            <option value="bookTitle">도서명</option>
+            <option value="isbn">ISBN</option>
           </select>
-          <input type="text" />
-          <button type="button" class="black_btn">검색</button>
+          <input type="text" name="keyword" placeholder="검색어를 입력해주세요." />
+          <button class="black_btn" onclick="movePage();">검색</button>
         </div>
         <div class="item">
-          <select name="" id="">
-            <option value="">최신순</option>
-            <option value="">이전순</option>
+          <select name="" id="sortOrder">
+            <option value="desc" hidden="">정렬선택</option>
+            <option value="desc">최신순</option>
+            <option value="asc">이전순</option>
           </select>
           <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/bookCategory/list}'|">카테고리관리</button>
           <button type="button" class="black_btn" th:onclick="|location.href='@{/cms/book/add}'|">추가</button>
@@ -65,10 +63,60 @@
               <td th:text="${#temporals.format(book.createDate, 'yyyy-MM-dd HH:mm')}"></td>
           </tr>
         </table>
+
+        <!--페이징처리-->
+        <div class="pageble_wrap">
+          <div>
+            <a class="pageNav_btn" th:href="${nowPage != startPage} ? @{/cms/book/list(page = ${prevPage})} : '#'">Prev</a>
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+              <a class="pageNav_btn" th:if="${page != nowPage}" th:href="@{/cms/book/list(page = ${page -1})}" th:text="${page}"></a>
+              <a class="pageNav_btn nowPage_btn" th:if="${page == nowPage}" th:href="@{#}" th:text="${page}"></a>
+            </th:block>
+            <a class="pageNav_btn" th:href="${nowPage != endPage} ? @{/cms/book/list(page = ${nextPage})} : '#'">Next</a>
+          </div>
+        </div>
+        <!--페이징처리-->
+
       </div>
     </div>
   </th:block>
 </th:block>
 <script>
+  // 정렬 필터 (최신순, 이전순)
+let selectedOption = 'desc'; // 기본값 설정
+document.getElementById('sortOrder').addEventListener('change', function() {
+    selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
+    let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption;
+    window.location.href = url; // 페이지를 새 URL로 리다이렉트
+});
+
+// 검색 폼으로 전달
+function movePage() {
+  let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.
+  let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.
+  let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
+  window.location.href = url; // 페이지를 새 URL로 리다이렉트
+}
+</script>
+<script>
+ // 수정 사항 주석 처리
+  <!--    let userName = document.querySelector(".user_name").innerText();-->
+
+  <!--    console.log(userName);-->
+  <!--    // 정렬 필터 (최신순, 이전순)-->
+  <!--    let selectedOption = 'desc'; // 기본값 설정-->
+  <!--    document.getElementById('sortOrder').addEventListener('change', function() {-->
+  <!--        selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')-->
+  <!--        let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption;-->
+  <!--        window.location.href = url; // 페이지를 새 URL로 리다이렉트-->
+  <!--    });-->
+
+  <!--    // 검색 폼으로 전달-->
+  <!--    function movePage() {-->
+  <!--      let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.-->
+  <!--      let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.-->
+  <!--      let url = "/cms/book/list?page=0&size=10&sort=bookId," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.-->
+  <!--      window.location.href = url; // 페이지를 새 URL로 리다이렉트-->
+  <!--}-->
 </script>
 </html>

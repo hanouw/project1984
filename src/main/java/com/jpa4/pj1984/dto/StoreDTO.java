@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -42,7 +43,7 @@ public class StoreDTO { // 가져오는
     private String storeImageOrigin03;
     private String storeImageStored03;
 
-    private List<StoreReview> storeUserReviewList;
+    private List<StoreReviewDTO> storeUserReviewList;
     private String price;
 
     // sampleDTO 생성자의 매개변수는 entity
@@ -75,7 +76,7 @@ public class StoreDTO { // 가져오는
         this.storeImageOrigin03 = store.getStoreImageOrigin03();
         this.storeImageStored03 = store.getStoreImageStored03();
 
-        this.storeUserReviewList = store.getStoreUserReviewList();
+        this.storeUserReviewList = store.getStoreUserReviewList().stream().map(l -> new StoreReviewDTO(l)).toList();
         this.price = store.getMembership().getPrice();
     }
 }

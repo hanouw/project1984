@@ -88,7 +88,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
     }
 
     @Override
-    public List<PaymentBookHistory> findBookListByStoreId(Long storeId, PageRequestDTO pageRequestDTO) {
+    public List<PaymentBookHistory> findBookList(PageRequestDTO pageRequestDTO) {
         int offset = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -108,9 +108,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         if (startDate == null && keyword == null ) { // 키워드 없음 + 기간 없음
             log.info("**************************키워드 없음 + 기간 없음");
             List<PaymentBookHistory> historyList = em.createQuery("select p from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId " +
                             "order by p.createDate "+ order +" ", PaymentBookHistory.class)
-                    .setParameter("storeId", storeId)
                     .setFirstResult(offset)
                     .setMaxResults(pageRequestDTO.getSize())
                     .getResultList();
@@ -119,9 +117,8 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         else if (keyword == null && startDate != null) { // 키워드 없음 + 기간 있음
             log.info("**************************키워드 없음 + 기간 있음");
             List<PaymentBookHistory> historyList = em.createQuery("select p from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId and p.createDate between :startDate And :endDate " +
+                            "where p.createDate between :startDate And :endDate " +
                             "order by p.createDate "+ order +" ", PaymentBookHistory.class)
-                    .setParameter("storeId", storeId)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
                     .setFirstResult(offset)
@@ -131,11 +128,10 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         }
         else if (startDate == null && keyword != null) { // 키워드 있음 + 기간 없음
             log.info("**************************키워드 있음 + 기간 없음");
-            String s = searchTypeMethod(pageRequestDTO);
+            String str = searchTypeMethod(pageRequestDTO);
             List<PaymentBookHistory> historyList = em.createQuery("select p from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + str + " like concat('%', :keyword, '%') " +
                             "order by p.createDate "+ order +" ", PaymentBookHistory.class)
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setFirstResult(offset)
                     .setMaxResults(pageRequestDTO.getSize())
@@ -144,12 +140,11 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         }
         else { // 키워드 있음+ 기간 있음
             log.info("**************************키워드 있음 + 기간 있음");
-            String s = searchTypeMethod(pageRequestDTO);
+            String str = searchTypeMethod(pageRequestDTO);
             List<PaymentBookHistory> historySerachList = em.createQuery("select p from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + str + " like concat('%', :keyword, '%') " +
                             "and p.createDate between :startDate And :endDate  " +
                             "order by p.createDate " + order + " ", PaymentBookHistory.class)
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
@@ -162,7 +157,7 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
     }
 
     @Override
-    public Long countBookListByStoreId(Long storeId, PageRequestDTO pageRequestDTO) {
+    public Long countBookList(PageRequestDTO pageRequestDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         PageRequestDTO dto = bindingMethod(pageRequestDTO);
@@ -180,18 +175,15 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         if (startDate == null && keyword == null ) { // 키워드 없음 + 기간 없음
             log.info("**************************키워드 없음 + 기간 없음");
             Long result = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId " +
                             "order by p.createDate "+ order +" ")
-                    .setParameter("storeId", storeId)
                     .getSingleResult();
             return result;
         }
         else if (keyword == null && startDate != null) { // 키워드 없음 + 기간 있음
             log.info("**************************키워드 없음 + 기간 있음");
             Long result = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId and p.createDate between :startDate And :endDate " +
+                            "where p.createDate between :startDate And :endDate " +
                             "order by p.createDate "+ order +" ")
-                    .setParameter("storeId", storeId)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
                     .getSingleResult();
@@ -199,23 +191,21 @@ public class PaymentBookHistoryCustomRepositoryImpl implements PaymentBookHistor
         }
         else if (startDate == null && keyword != null) { // 키워드 있음 + 기간 없음
             log.info("**************************키워드 있음 + 기간 없음");
-            String s = searchTypeMethod(pageRequestDTO);
+            String str = searchTypeMethod(pageRequestDTO);
             Long result = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + str + " like concat('%', :keyword, '%') " +
                             "order by p.createDate "+ order +" ")
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .getSingleResult();
             return result;
         }
         else { // 키워드 있음+ 기간 있음
             log.info("**************************키워드 있음 + 기간 있음");
-            String s = searchTypeMethod(pageRequestDTO);
+            String str = searchTypeMethod(pageRequestDTO);
             Long result = (Long) em.createQuery("select count(p) from PaymentBookHistory p " +
-                            "where p.book.store.storeId = :storeId and " + s + " like concat('%', :keyword, '%') " +
+                            "where " + str + " like concat('%', :keyword, '%') " +
                             "and p.createDate between :startDate And :endDate  " +
                             "order by p.createDate " + order + " ")
-                    .setParameter("storeId", storeId)
                     .setParameter("keyword", keyword)
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)

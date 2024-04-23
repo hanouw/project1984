@@ -2,58 +2,102 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
-    <div class="search_bar_wrap">
-        <div class="search_date_wrap">
-            <div class="item">
-                <h2>회원관리</h2>
+        <div class="search_bar_wrap">
+            <div class="search_date_wrap">
+                <div class="item">
+                    <h2>회원관리</h2>
+                </div>
+                <div class="item" style="display:none;">
+                    <button class="grey_btn">오늘</button>
+                    <button class="grey_btn">일주일</button>
+                    <button class="grey_btn">한달</button>
+                    <input type="date" />
+                    <input type="date" />
+                    <button class="black_btn">조회</button>
+                </div>
             </div>
-            <input type="hidden" name="page" th:value="${userPageResponseDTO.getUserPageRequestDTO().page}"/>
-            <input type="hidden" name="size" th:value="${userPageResponseDTO.getUserPageRequestDTO().size}"/>
-            <div class="item">
-                <span><button id="todayBtn" class="grey_btn dateBtn" th:value="today">오늘</button></span>
-                <span><button id="oneWeekBtn" class="grey_btn dateBtn" th:value="oneWeek">일주일</button></span>
-                <span><button id="oneMonthBtn" class="grey_btn dateBtn" th:value="oneMonth">한달</button></span>
-                <input type="date" id="startDate" th:value="${userPageResponseDTO.getUserPageRequestDTO().startDate}"/>
-                <input type="date" id="endDate" th:value="${userPageResponseDTO.getUserPageRequestDTO().endDate}"/>
-                <button class="black_btn" type="button" id="dateSelectedBtn">조회</button>
+            <hr />
+            <div class="search_text_wrap">
+                <div class="item">
+                    <select name="selectOption" id="selectOption">
+                        <option value="userName">회원명</option>
+                        <option value="userId">아이디</option>
+                    </select>
+                    <input type="text" name="keyword" placeholder="검색어를 입력해주세요." />
+                    <button class="black_btn" onclick="movePage();">검색</button>
+                </div>
+                <div class="item">
+                    <select name="" id="sortOrder">
+                        <option value="desc" hidden="">정렬선택</option>
+                        <option value="desc">최신순</option>
+                        <option value="asc">이전순</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <hr />
-        <div class="search_text_wrap">
-            <div class="item">
-                <select name="" id="">
-                    <option value="" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == null}">전체</option>
-                    <option value="userNo" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userNo'}">NO</option>
-                    <option value="userId" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userId'}">회원ID</option>
-                    <option value="userName" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userName'}">회원명</option>
-                    <option value="userPhoneNum" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userPhoneNum'}">전화번호</option>
-                    <option value="userEmail" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userEmail'}">이메일</option>
-                    <option value="userOrder" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userOrder'}">주문수</option>
-                    <option value="userSubscribe" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userSubscribe'}">구독수</option>
-                    <option value="userStatus" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'userStatus'}">상태</option>
-                    <option value="createDate" th:selected="${userPageResponseDTO.userPageRequestDTO.searchType == 'createDate'}">가입일</option>
-                </select>
-                <input type="text" name="keyword" id="keyword" th:value="${userPageResponseDTO.userPageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
-                <button class="black_btn" type="submit" id="searchBtn">검색</button>
-            </div>
-            <div class="item">
-                <select name="createDate" id="createDate">
-                    <option value="desc" th:selected="${userPageResponseDTO.userPageRequestDTO.createDate == 'desc' || userPageResponseDTO.userPageRequestDTO.createDate == null}">
-                        최신순
-                    </option>
-                    <option value="asc" th:selected="${userPageResponseDTO.userPageRequestDTO.createDate == 'asc'}">이전순</option>
-                </select>
-            </div>
-        </div>
-        <div class="list_table_wrap">
+            <div class="list_table_wrap">
+                <table class="list_table">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>회원ID</th>
+                            <th>회원명</th>
+                            <th>전화번호</th>
+                            <th>이메일</th>
+                            <th>주문수</th>
+                            <th>구독수</th>
+                            <th>상태</th>
+                            <th>가입일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${allMember}">
+                            <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userNo}"></a></td>
+                            <td><a th:href="@{/cms/userDetail/{userNo}(userNo=${user.userNo})}" th:text="*{user.userId}"></a></td>
+                            <td th:text="*{user.userName}"></td>
+                            <td th:text="*{user.userPhoneNum}"></td>
+                            <td th:text="*{user.userEmail}"></td>
+                            <td th:text="*{user.userNo}"></td>
+                            <td th:text="*{user.userNo}"></td>
+                            <td th:text="*{user.userStatus}"></td>
+                            <td th:text="*{#temporals.format(user.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        </div>
-    </div>
-    <div class="paging_wrap">
+                <!--페이징처리-->
+                <div class="pageble_wrap">
+                    <div>
+                        <a class="pageNav_btn" th:href="${nowPage != startPage} ? @{/cms/userList(page = ${prevPage})} : '#'">Prev</a>
+                        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                            <a class="pageNav_btn" th:if="${page != nowPage}" th:href="@{/cms/userList(page = ${page -1})}" th:text="${page}"></a>
+                            <a class="pageNav_btn nowPage_btn" th:if="${page == nowPage}" th:href="@{#}" th:text="${page}"></a>
+                        </th:block>
+                        <a class="pageNav_btn" th:href="${nowPage != endPage} ? @{/cms/userList(page = ${nextPage})} : '#'">Next</a>
+                    </div>
+                </div>
+                <!--페이징처리-->
 
-    </div>
+            </div>
+        </div>
     </th:block>
 </th:block>
+<script>
+    // 정렬 필터 (최신순, 이전순)
+  let selectedOption = 'desc'; // 기본값 설정
+  document.getElementById('sortOrder').addEventListener('change', function() {
+      selectedOption = this.value; // 선택된 옵션 ('asc' 또는 'desc')
+      let url = "/cms/userList?page=0&size=10&sort=userNo," + selectedOption;
+      window.location.href = url; // 페이지를 새 URL로 리다이렉트
+  });
+
+  // 검색 폼으로 전달
+  function movePage() {
+    let selectOption = document.getElementsByName('selectOption')[0].value; // 'selectOption' 입력 필드의 값을 가져옵니다.
+    let keyword = document.getElementsByName('keyword')[0].value; // 'keyword' 입력 필드의 값을 가져옵니다.
+    let url = "/cms/userList?page=0&size=10&sort=userNo," + selectedOption + "&selectOption=" + encodeURIComponent(selectOption) + "&keyword=" + encodeURIComponent(keyword); // 새 URL을 생성합니다.
+    window.location.href = url; // 페이지를 새 URL로 리다이렉트
+  }
+</script>
 <script>
     $(document).ready(function () {
         let keyword = '';

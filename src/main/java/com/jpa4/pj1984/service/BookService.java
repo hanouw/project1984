@@ -1,12 +1,16 @@
 package com.jpa4.pj1984.service;
 
 import com.jpa4.pj1984.domain.Book;
+import com.jpa4.pj1984.domain.BookCategory;
 import com.jpa4.pj1984.domain.ProductFile;
+import com.jpa4.pj1984.dto.BookCategoryDTO;
 import com.jpa4.pj1984.dto.BookDTO;
 import com.jpa4.pj1984.dto.BookForm;
 import com.jpa4.pj1984.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,14 +46,58 @@ public class BookService {
         Book bookSaved = bookRepository.save(entity);
     }
 
-    //목록조회
-    public List<BookDTO> findAll() {
-        List<Book> all = bookRepository.findAll();
-        List<BookDTO> list = all.stream()
-                .map(b -> new BookDTO(b))
-                .collect(Collectors.toList());
+    //목록조회(검색title)
+    public Page<BookDTO> findByBookTitleContaining(String keyword, Pageable pageable) {
+        Page<Book> all = bookRepository.findByBookTitleContaining(keyword, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
         return list;
     }
+    //목록조회(검색isbn)
+    public Page<BookDTO> findByIsbnContaining(String keyword, Pageable pageable) {
+        Page<Book> all = bookRepository.findByIsbnContaining(keyword, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
+
+    //목록조회(일반)
+    public Page<BookDTO> findAll(Pageable pageable) {
+        Page<Book> all = bookRepository.findAll(pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
+
+    //--스토어만 구분--//
+    //목록조회(검색title)
+//    public Page<BookDTO> findByBookTitleContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
+//        Page<Book> all = bookRepository.findByBookTitleContainingAndStoreId(keyword, storeId, pageable);
+//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+//        return list;
+//    }
+//    //목록조회(검색isbn)
+//    public Page<BookDTO> findByIsbnContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
+//        Page<Book> all = bookRepository.findByIsbnContainingAndStoreId(keyword, storeId, pageable);
+//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+//        return list;
+//    }
+//
+//    //목록조회(일반)
+//    public Page<BookDTO> findAllByStoreId(Long storeId, Pageable pageable) {
+//        Page<Book> all = bookRepository.findAllByStoreId(storeId, pageable);
+//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+//        return list;
+//    }
+
+
+
+
+    //목록조회(LIST)
+//    public List<BookDTO> findAll() {
+//        List<Book> all = bookRepository.findAll();
+//        List<BookDTO> list = all.stream()
+//                .map(b -> new BookDTO(b))
+//                .collect(Collectors.toList());
+//        return list;
+//    }
 
     //조회(1개)
     public BookDTO findOne(Long id) {
@@ -109,5 +157,4 @@ public class BookService {
         }
         return bookDTOList;
     }
-
 }

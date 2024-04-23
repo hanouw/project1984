@@ -15,20 +15,29 @@ import java.time.LocalDateTime;
 public class BookReviewDTO { // 가져오는
 
     private Long bookReviewId;
-    private Member member;
+    private Long userNo;
+    private String userId;
+    private String userName;
     private String bookReviewDetail;
     private BookReviewStatus bookReviewStatus;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
+    private Long bookReviewPosition;
+    private Integer step;
+    private Long bookId;
 
     public BookReviewDTO(BookReview bookReview) {
         this.bookReviewId = bookReview.getBookReviewId();
-        this.member = bookReview.getMember();
+        this.userNo = bookReview.getMember().getUserNo();
+        this.userId = bookReview.getMember().getUserId();
+        this.userName = bookReview.getMember().getUserName();
         this.bookReviewDetail = bookReview.getBookReviewDetail();
         this.createDate = bookReview.getCreateDate();
         this.lastModifiedDate = bookReview.getLastModifiedDate();
         this.bookReviewStatus = bookReview.getBookReviewStatus();
-
+        this.bookReviewPosition = bookReview.getBookReviewPosition();
+        this.step = bookReview.getStep();
+        this.bookId = bookReview.getBook().getBookId();
     }
 
 }

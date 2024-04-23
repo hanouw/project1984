@@ -7,67 +7,230 @@
         <div class="item">
           <h2>서점관리</h2>
         </div>
+        <input type="hidden" name="page" th:field="${pageResponseDTO.pageRequestDTO.page}"/>
+        <input type="hidden" name="size" th:field="${pageResponseDTO.pageRequestDTO.size}"/>
         <div class="item">
-          <button id="todayBtn" class="grey_btn">오늘</button>
-          <button id="oneWeekBtn" class="grey_btn">일주일</button>
-          <button id="oneMonthBtn" class="grey_btn">한달</button>
-          <input type="date"/>
-          <input type="date"/>
-          <button class="black_btn">조회</button>
+          <span><button id="todayBtn" class="grey_btn dateBtn" th:value="today">오늘</button></span>
+          <span><button id="oneWeekBtn" class="grey_btn dateBtn" th:value="oneWeek">일주일</button></span>
+          <span><button id="oneMonthBtn" class="grey_btn dateBtn" th:value="oneMonth">한달</button></span>
+          <input type="date" id="startDate"
+                 th:field="${pageResponseDTO.pageRequestDTO.startDate}"/>
+          <input type="date" id="endDate"
+                 th:field="${pageResponseDTO.pageRequestDTO.endDate}"/>
+          <button class="black_btn" type="button" id="dateSelectedBtn">조회</button>
         </div>
       </div>
       <hr/>
       <div class="search_text_wrap">
         <div class="item">
-          <select name="" id="">
-            <option value="">전체</option>
-            <option value="">서점명</option>
+          <select name="searchType" id="searchType">
+            <option value="" th:selected="${pageResponseDTO.pageRequestDTO.searchType == null}">----</option>
+            <option value="storeId" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeId'}">서점ID
+            </option>
+            <option value="storeTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeTitle'}">서점명
+            </option>
+            <option value="storeOwner" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'storeOwner'}">대표자명
+            </option>
           </select>
-          <input type="text" placeholder="검색어를 입력해주세요. "/>
-          <button class="black_btn">검색</button>
+          <input type="text" name="keyword" id="keyword" th:field="${pageResponseDTO.pageRequestDTO.keyword}"
+                 placeholder="검색어를 입력해주세요"/>
+          <button class="black_btn" type="submit" id="searchBtn">검색</button>
         </div>
         <div class="item">
-          <select name="" id="">
-            <option value="">최신순</option>
-            <option value="">이전순</option>
+          <select name="dateOrder" id="dateOrder">
+            <option value="desc"
+                    th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'desc' || pageResponseDTO.pageRequestDTO.dateOrder == null}">
+              최신순
+            </option>
+            <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
           </select>
         </div>
       </div>
       <div class="list_table_wrap">
-        <table class="list_table">
-          <tr>
-            <th>NO</th>
-            <th>서점ID</th>
-            <th>서점명</th>
-            <th>대표자명</th>
-            <th>연락처</th>
-            <th>주소</th>
-            <th>사업자등록번호</th>
-            <th>활성화</th>
-            <th>수정일</th>
-            <th>등록일</th>
-          </tr>
-          <!--            <tr th:each="bookCategoryList : ${bookCategoryList}">-->
-          <tr th:each="storeList : ${storeList}">
-            <!--              NO	서점ID	서점명	대표자명	연락처	주소	사업자등록번호	활성화	수정일	등록일-->
-            <!--th:href="@{/store/{storeId}"-->
-            <td><a th:text="${storeList.storeId}"
-                   th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
-            <td><a th:text="${storeList.storeLoginId}"
-                   th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
-            <td><a th:text="${storeList.storeTitle}"
-                   th:href="@{/cms/store/{storeId}(storeId=${storeList.storeId})}"></a></td>
-            <td th:text="${storeList.storeOwner}"></td>
-            <td th:text="${storeList.storePhoneNum}"></td>
-            <td th:text="${storeList.storeAddress}"></td>
-            <td th:text="${storeList.storeCrn}"></td>
-            <td th:text="${storeList.storeStatus}"></td>
-            <td th:text="${#temporals.format(storeList.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${#temporals.format(storeList.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-          </tr>
-        </table>
+
       </div>
     </div>
+    <div class="paging_wrap">
+
+    </div>
+
   </th:block>
 </th:block>
+
+<script th:inline="javascript">
+  $(document).ready(function () {
+    let keyword = '';
+    let searchType = '';
+    let dateOrder = $("#dateOrder").val();
+    let datePeriodSelected = '';
+    let startDateSelected = '';
+    let endDateSelected = '';
+    let orderListDiv = $(".list_table_wrap");
+    let paginationDiv = $(".paging_wrap");
+    let currPage = 1;
+
+    getList(1);
+
+    // 목록 요청 함수 - 문서가 로딩되자마자 한번 실행되고, pageNum 누를때마다, 필터링을 할때마다 요청돼야함
+    function getList(page) { // page = 요청된 페이지 번호
+      currPage = page;
+      console.log(page);
+      startDateSelected = $("#startDate").val();
+      endDateSelected = $("#endDate").val();
+      keyword = $("#keyword").val();
+      searchType = $("#searchType").val();
+      $.ajax({
+        type: "GET",
+        url: "/cms/store/list/ajax",
+        data: {
+          page: currPage,
+          keyword: keyword,
+          searchType: searchType,
+          dateOrder: dateOrder,
+          datePeriod: datePeriodSelected,
+          startDate: startDateSelected,
+          endDate: endDateSelected
+        },
+        success: function (response) {
+          console.log(response);
+          printList(response);
+          printPagination(response)
+        },
+        error: function (e) {
+          console.error("목록 요청 실패");
+          console.log(e);
+        }
+      });
+    }
+
+    // 페이지네이션 출력
+    function printPagination(response) {
+      let html = '';
+      html += '<div class="paging_bar"><ul class="flex_between">';
+      if (response.prev) {
+        html += '<li>';
+      } else {
+        html += '<li class="disabled">';
+      }
+      html += '<a class="pageLink" href="' + (response.startPage - 1) + '">Previous</a></li>';
+      response.pageNumList.forEach(function (pageNum, i) {
+        if (pageNum == currPage) {
+          html += '<li class="active">';
+        } else {
+          html += '<li>';
+        }
+        html += ' <a class="pageLink" href="' + pageNum + '">' + pageNum + '</a></li>';
+      })
+      if (response.next) {
+        html += '<li>';
+      } else {
+        html += '<li class="disabled">';
+      }
+      html += '<a class="pageLink" href="' + (response.endPage + 1) + '">Next</a></li></ul></div>';
+
+      paginationDiv.html(html);
+    };
+
+    // 댓글 페이지 번호 클릭 이벤트 등록
+    paginationDiv.on("click", "a.pageLink", function (e) {
+      console.log("페이지번호 클릭");
+      e.preventDefault(); // a 태그의 기본 이벤트는 취소
+      let pageNum = $(this).attr("href");
+      console.log("pageNum : " + pageNum);
+      getList(pageNum);
+    });
+
+    // 목록 출력 함수
+    function printList(response) {
+      let html = '';
+      html += '<table class="list_table">';
+      html += '<tr><th>NO</th><th>서점ID</th><th>서점명</th><th>대표자명</th>';
+      html += '<th>연락처</th><th>주소</th><th>사업자등록번호</th><th>활성화</th>';
+      html += '<th>수정일</th><th>등록일</th></tr>';
+      $.each(response.storeList, function (index, item) {
+        html += '<tr><td>' + (index + 1) + '</td>';
+        html += '<td><a href="/cms/store/' + item.storeId + '">' + item.storeId + '</a></td>';
+        html += '<td>' + item.storeTitle + '</td>';
+        html += '<td>' + item.storeOwner + '</td>';
+        html += '<td>' + item.storePhoneNum + '</td>';
+        html += '<td>' + item.storeAddress + '</td>';
+        html += '<td>' + item.storeCrn + '</td>';
+        html += '<td>' + item.storeStatus + '</td>';
+        html += '<td>' + item.createDate + '</td>';
+        html += '<td>' + item.lastModifiedDate + '</td></tr>';
+      });
+      html += '</table>';
+      orderListDiv.html(html);
+      $('#keyword').val(response.pageRequestDTO.keyword);
+      $('#searchType').val(response.pageRequestDTO.searchType);
+      $('#dateOrder').val(response.pageRequestDTO.dateOrder);
+      $('#startDate').val(response.pageRequestDTO.startDate);
+      $('#endDate').val(response.pageRequestDTO.endDate);
+    };
+
+    // 최신순, 이전순 클릭시
+    $("#dateOrder").change(function () {
+      console.log("최신순 이전순 클릭")
+      if (valueCheck()) {
+        dateOrder = $(this).val();
+        getList(1);
+      }
+    });
+
+    // 오늘, 일주일, 한달 버튼 클릭시
+    $(".dateBtn").on("click", function (e) {
+      console.log("datePeriod 클릭")
+      if (valueCheck()) {
+        datePeriodSelected = $(this).val();
+        console.log(datePeriodSelected);
+        getList(1);
+      }
+    });
+
+    // 달력 조회버튼 클릭시
+    $("#dateSelectedBtn").on("click", function (e) {
+      console.log('달력 조회 클릭')
+      if (valueCheck()) {
+        datePeriodSelected = null;
+        getList(1);
+      }
+    });
+
+    // 키워드 검색 버튼 클릭시
+    $("#searchBtn").on("click", function (e) {
+      if (valueCheck()) {
+        getList(1);
+      }
+    });
+
+    function valueCheck() {
+      let keywordValue = $("#keyword").val().trim();
+      let searchTypeValue = $("#searchType").val();
+      let startValue = $("#startDate").val();
+      let endValue = $("#endDate").val();
+      if (keywordValue === '' && searchTypeValue === '' && startValue === '' && endValue === '') {
+        return true;
+      } else if (keywordValue !== '' && searchTypeValue !== '' && startValue !== '' && endValue !== '') {
+        return true;
+      } else if (keywordValue.length !== 0 && searchTypeValue !== '') {
+        if (startValue === '' && endValue === '') {
+          return true;
+        } else if (startValue === '' || endValue === '') {
+          return alert("조회 시작일과 종료일을 모두 입력해주세요.");
+        }
+      } else if (startValue !== '' && endValue !== '') {
+        if (keywordValue === '' && searchTypeValue === '') {
+          return true;
+        } else if (keywordValue.length === 0 || searchTypeValue === '') {
+          return alert("키워드와 검색조건을 모두 입력해주세요.");
+        }
+      }
+      return alert("조건에 알맞게 입력해주세요.");
+    }
+
+
+  });
+
+</script>
+
 </html>

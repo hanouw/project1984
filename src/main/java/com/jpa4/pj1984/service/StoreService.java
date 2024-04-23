@@ -1,12 +1,16 @@
 package com.jpa4.pj1984.service;
 
+import com.jpa4.pj1984.domain.PaymentMem;
 import com.jpa4.pj1984.domain.ProductFile;
 import com.jpa4.pj1984.domain.Store;
 import com.jpa4.pj1984.domain.StoreStatus;
+import com.jpa4.pj1984.dto.PageRequestDTO;
+import com.jpa4.pj1984.dto.PaymentMemDTO;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
 import com.jpa4.pj1984.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,19 +25,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StoreService {
 
-
-
     private final StoreRepository storeRepository;
     private final FileUploadService fileUploadService;
+    @Qualifier("paymentBookHistoryCustomRepositoryImpl")
+
+    // 관리자 ver 서점 총 개수 조회
+    public Long countStoreList(PageRequestDTO pageRequestDTO) {
+        return storeRepository.countStoreList(pageRequestDTO);
+    }
 
     // 서점 목록 조회
-    public List<StoreDTO> findAll() {
-        List<Store> all = storeRepository.findAll();
-        System.out.println("all = " + all);//all까지는 불러옴
-        List<StoreDTO> list = all.stream()
-                .map(b -> new StoreDTO(b))
-                .collect(Collectors.toList());
-        System.out.println("list = " + list);
+    public List<StoreDTO> findStoreList(PageRequestDTO pageRequestDTO) {
+        List<Store> storeEntityList = storeRepository.findStoreList(pageRequestDTO);
+        List<StoreDTO> list = new ArrayList<>();
+        for (Store storeList : storeEntityList) {
+            StoreDTO storeDTO = new StoreDTO(storeList);
+            list.add(storeDTO);
+        }
         return list;
     }
 
@@ -48,7 +56,7 @@ public class StoreService {
         }*/
         return store;
     }
-    
+
     // 서점 상세 수정
     public void updateOneBoard(StoreForm storeForm) throws IOException { // 사용자가 수정한 값이 StoreForm 으로 넘어옴
         Store findStore = storeRepository.findById(storeForm.getStoreId()).orElse(null);// DB에서 조회 (수정전상태)
@@ -85,7 +93,7 @@ public class StoreService {
         findStore.setStoreBankName(storeForm.getStoreBankName());
     }
 
-    // VIEW 목록 조회용
+    // @ModelAttribute 로 쓰는 메서드
     public List<StoreDTO> findStoreAllList(){
         List<Store> all = storeRepository.findAll();
         List<StoreDTO> storeDTOList = new ArrayList<>();
@@ -94,9 +102,6 @@ public class StoreService {
         }
         return storeDTOList;
     }
-
-
-
 
 }
 
