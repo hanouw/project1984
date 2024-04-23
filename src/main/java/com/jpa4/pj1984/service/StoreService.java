@@ -1,13 +1,11 @@
 package com.jpa4.pj1984.service;
 
-import com.jpa4.pj1984.domain.PaymentMem;
-import com.jpa4.pj1984.domain.ProductFile;
-import com.jpa4.pj1984.domain.Store;
-import com.jpa4.pj1984.domain.StoreStatus;
+import com.jpa4.pj1984.domain.*;
 import com.jpa4.pj1984.dto.PageRequestDTO;
 import com.jpa4.pj1984.dto.PaymentMemDTO;
 import com.jpa4.pj1984.dto.StoreDTO;
 import com.jpa4.pj1984.dto.StoreForm;
+import com.jpa4.pj1984.repository.BookRepository;
 import com.jpa4.pj1984.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +25,7 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final FileUploadService fileUploadService;
+    private final BookRepository bookRepository;
     @Qualifier("paymentBookHistoryCustomRepositoryImpl")
 
     // 관리자 ver 서점 총 개수 조회
@@ -91,6 +90,14 @@ public class StoreService {
         findStore.setStoreOperateTime(storeForm.getStoreOperateTime());
         findStore.setStoreAccount(storeForm.getStoreAccount());
         findStore.setStoreBankName(storeForm.getStoreBankName());
+
+        if (storeForm.getStoreStatus().getValue().equals("STATUS_QUIT")) {
+            findStore.setStoreStatus(StoreStatus.QUIT);
+            List<Book> bookList = bookRepository.findByStore_StoreId(findStore.getStoreId());
+            for (Book l : bookList) {
+                l.setBookStatus(BookStatus.OFF);
+            }
+        }
     }
 
     // @ModelAttribute 로 쓰는 메서드

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -58,6 +59,39 @@ public class CmsService {
             Store store = cmsCustomRepository.findByStoreLoginId(storeLoginId);
             return(new StoreDTO(store));
         } catch (Exception e){
+            return null;
+        }
+    }
+
+    public List<StoreDTO> findFilterStore(String filterType, String keyword){
+        try {
+            List<Store> storeList = cmsRepository.findAll();
+            List<StoreDTO> storeDTOList = null;
+            switch (filterType){
+                case "email":
+                    storeDTOList = storeList.stream()
+                            .filter(b -> b.getStoreEmail().toString().contains(keyword))
+                            .map(b -> new StoreDTO())
+                            .collect(Collectors.toList());
+                    log.info("******* email storeDTOList = {}", storeDTOList);
+                    break;
+                case "title":
+                    storeDTOList = storeList.stream()
+                            .filter(b -> b.getStoreTitle().toString().contains(keyword))
+                            .map(b -> new StoreDTO())
+                            .collect(Collectors.toList());
+                    log.info("******* title storeDTOList = {}", storeDTOList);
+                    break;
+                case "phoneNum":
+                    storeDTOList = storeList.stream()
+                            .filter(b -> b.getStorePhoneNum().toString().contains(keyword))
+                            .map(b -> new StoreDTO())
+                            .collect(Collectors.toList());
+                    log.info("******* phoneNum storeDTOList = {}", storeDTOList);
+                    break;
+            }
+            return storeDTOList;
+        }catch (Exception e){
             return null;
         }
     }

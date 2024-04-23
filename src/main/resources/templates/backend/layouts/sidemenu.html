@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="sidemenuFrg">
     <div class="side_menu item">
         <a th:href="@{/}">
@@ -42,13 +42,13 @@
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
-            <li class="menu_list">
-                <a th:href="@{/cms/banner/list}">
+            <li class="menu_list" sec:authorize="hasAnyAuthority('STATUS_ADMIN')">
+                <a th:href="@{/cms/banner/list}" >
                     <span>배너관리</span>
                     <div class="menu_arrow_icon"></div>
                 </a>
             </li>
-            <li class="menu_list">
+            <li class="menu_list" sec:authorize="hasAnyAuthority('STATUS_ADMIN')">
                 <a th:href="@{/cms/display/detail}">
                     <span>전시관리</span>
                     <div class="menu_arrow_icon"></div>

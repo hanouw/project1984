@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,13 +55,6 @@ public class CMSController {
         return "backend/member/login";
     }
 
-//    @PostMapping("/login")
-//    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
-//        log.info("******* CMSController loginPro");
-//        cmsService.login(storeLoginForm);
-//        return "redirect:/cms/home";
-//    }
-
     //----------------------------------------------------------------------------------- 회원(이용자)
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
@@ -89,17 +83,9 @@ public class CMSController {
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-
         return "backend/member/memberList";
     }
-    // 회원관리 - 회원 목록 조회
-//    @GetMapping("/userList")
-//    public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
-//        log.info("******* CMSController userList 호출");
-//        List<MemberDTO> allMember = memberService.findAllMember();
-//        model.addAttribute("allMember", allMember);
-//        return "backend/member/memberList";
-//    }
+
 
     // 회원관리 - 회원 상세 정보 조회
     @GetMapping("/userDetail/{userNo}")
@@ -241,41 +227,43 @@ public class CMSController {
         return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
     }
 
-//    @PostMapping("/ajaxEmailAvail")
-//    public ResponseEntity<Boolean> ajaxEmailAvail(String storeLoginId) {
-//        log.info("Controller /ajaxEmailAvail - storeId : {}", storeLoginId);
-//        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
-//        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
-//            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-//        }
-//
-//        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/ajaxTitleAvail")
-//    public ResponseEntity<String> ajaxTitleAvail(String storeLoginId) {
-//        log.info("Controller /ajaxTitleAvail - storeId : {}", storeLoginId);
-//        // username 사용 가능한지 DB 가서 체크
-//        String result = "이미 사용 중 입니다.";
-//        StoreDTO findMember = cmsService.findStoreById(storeLoginId);
-//        if(findMember==null){ // null -> DB에 없다 -> 사용 가능
-//            result = "사용 가능합니다.";
-//        }
-//        // 헤더정보 포함해서 응답 한글깨짐 방지
-//        HttpHeaders responseHeader = new HttpHeaders();
-//        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
-//
-//        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/ajaxUsernameAvail")
-//    public ResponseEntity<String> ajaxPhoneNumAvail(String storeLoginId) {
-//        String result = null;
-//        // 헤더정보 포함해서 응답 한글깨짐 방지
-//        HttpHeaders responseHeader = new HttpHeaders();
-//        responseHeader.add("Content-Type", "text/plain;charset=UTF-8");
-//
-//        return new ResponseEntity<String>(result, responseHeader, HttpStatus.OK);
-//    }
+    // Email 중복 확인
+    @PostMapping("/ajaxEmailAvail")
+    public ResponseEntity<Boolean> ajaxEmailAvail(String emailInput) {
+        log.info("Controller /ajaxEmailAvail - storeId : {}", emailInput);
+        List<StoreDTO> findMember = cmsService.findFilterStore("email", emailInput);
+        log.info("******* email findMember = {}", findMember);
+        if(findMember.isEmpty()){ // null -> DB에 없다 -> 사용 가능
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+    }
+
+    @PostMapping("/ajaxTitleAvail")
+    public ResponseEntity<Boolean> ajaxTitleAvail(String titleInput) {
+        log.info("Controller /ajaxTitleAvail - storeId : {}", titleInput);
+        List<StoreDTO> findMember = cmsService.findFilterStore("title", titleInput);
+        log.info("******* title findMember = {}", findMember);
+        if(findMember.isEmpty()){ // null -> DB에 없다 -> 사용 가능
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+    }
+
+    @PostMapping("/ajaxPhoneNumAvail")
+    public ResponseEntity<Boolean> ajaxPhoneNumAvail(String phoneNumInput) {
+        log.info("Controller /ajaxUserAvail - storeId : {}", phoneNumInput);
+        List<StoreDTO> findMember = cmsService.findFilterStore("phoneNum", phoneNumInput);
+        log.info("******* phoneNum findMember = {}", findMember);
+        log.info("******* phoneNum findMember size = {}", findMember.size());
+        log.info("******* phoneNum findMember size = {}", findMember.size());
+        if(findMember.isEmpty()){ // null -> DB에 없다 -> 사용 가능
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+    }
 }
 

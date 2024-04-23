@@ -29,18 +29,19 @@
                 </div>
                 <div class="input_form">
                     <span>비밀번호</span>
-                    <input type="password" maxlength="16" oninput="checkLength(this)"id="storePassword" name="storePassword" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
+                    <input type="password" maxlength="16" oninput="checkLength(this)" id="storePassword" name="storePassword" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>비밀번호 확인</span>
-                    <input type="password" maxlength="16" oninput="checkLength(this)"id="storePasswordCh" name="storePasswordCh" placeholder="비밀번호를 입력해주세요." />
+                    <input type="password" maxlength="16" oninput="checkLength(this)" id="storePasswordCh" name="storePasswordCh" placeholder="비밀번호를 입력해주세요." />
                     <span></span>
                 </div>
                 <br />
                 <div class="input_form">
                     <span>서점명</span>
-                    <input type="text" maxlength="40" oninput="checkLength(this)" placeholder="서점명을 입력해주세요." th:field="*{storeTitle}"/>
+                    <input type="text" id="storeTitle" maxlength="40" oninput="checkLength(this)" placeholder="서점명을 입력해주세요." th:field="*{storeTitle}"/>
+                    <input class="avail" id="titleAvailResult" name="alreadyUsedTitle"/>
                     <span></span>
                 </div>
                 <div class="input_form">
@@ -56,12 +57,14 @@
                 </div>
                 <div class="input_form">
                     <span>이메일</span>
-                    <input type="text" maxlength="40" oninput="checkLength(this)" id="storeEmail" placeholder="이메일을 입력해주세요." th:field="*{storeEmail}"/>
+                    <input type="text" id="storeEmail" maxlength="40" oninput="checkLength(this)" placeholder="이메일을 입력해주세요." th:field="*{storeEmail}"/>
+                    <input class="avail" id="emailAvailResult" name="alreadyUsedEmail" disabled/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>연락처</span>
-                    <input type="text" maxlength="40" oninput="checkLength(this)" id="storePhoneNum" placeholder="연락처를 입력해주세요." th:field="*{storePhoneNum}"/>
+                    <input type="text" id="storePhoneNum" maxlength="40" oninput="checkLength(this)" placeholder="연락처를 입력해주세요." th:field="*{storePhoneNum}"/>
+                    <input class="avail" id="phoneNumAvailResult" name="alreadyUsedPhoneNum" disabled />
                     <span></span>
                 </div>
                 <button class="btn_login" type="submit">회원가입</button>
@@ -72,8 +75,106 @@
     </div>
     <div class="login_img item"></div>
 </section>
-<script> // src="/js/storeSignup.js">
-    document.querySelector(".form").addEventListener("submit", function (event) {
+<script>
+$(document).ready(function() {
+    // id속성값이 username인 input태그에 change이벤트 등록
+    $("#storeLoginId").change(function () {
+        // 사용자가 작성한 값(username)이 DB에 존재하는지 확인
+        let storeLoginId = $(this).val(); // 사용자가 작성한 값 꺼내기
+        console.log("storeLoginId : " + storeLoginId);
+        $.ajax({
+            type: "post",
+            url: "/cms/ajaxUsernameAvail",
+            data: {storeLoginId: storeLoginId},
+            success: function (result) {
+                console.log("성공!");
+                console.log(result);
+                // availResult input태그에 결과 메세지 띄우기
+                $("#availResult").val(result);
+            },
+            error: function (e) {
+                console.log("실패...");
+                console.log(e);
+            }
+        });
+    });
+
+    $("#storeEmail").change(function () {
+        console.log("checkEmailAjax");
+        let emailInput = $(this).val(); // 사용자가 작성한 값 꺼내기
+        // 이메일 중복 확인
+        $.ajax({
+            type: "post",
+            url: "/cms/ajaxEmailAvail",
+            data: {
+                emailInput: emailInput
+            },
+            success: function (result) {
+                if(result){
+                    $("#emailAvailResult").val("사용가능합니다");
+                }else{
+                    $("#emailAvailResult").val("이미 사용중입니다");
+                }
+            },
+            error: function (e) {
+                console.log("실패...");
+                console.log(e);
+            }
+        });
+    })
+
+    $("#storeTitle").change(function () {
+        console.log("checkTitleAjax");
+        let titleInput = $(this).val(); // 사용자가 작성한 값 꺼내기
+        // 서점명 중복 확인
+        $.ajax({
+            type: "post",
+            url: "/cms/ajaxTitleAvail",
+            data: {
+                titleInput: titleInput
+            },
+            success: function (result) {
+                if(result){
+                    $("#titleAvailResult").val("사용가능합니다");
+                }else{
+                    $("#titleAvailResult").val("이미 사용중입니다");
+                }
+            },
+            error: function (e) {
+                console.log("실패...");
+                console.log(e);
+            }
+        });
+    })
+
+    $("#storePhoneNum").change(function () {
+        console.log("checkPhoneNumAjax");
+        let phoneNumInput = $(this).val(); // 사용자가 작성한 값 꺼내기
+        // 전화번호 중복 확인
+        $.ajax({
+            type: "post",
+            url: "/cms/ajaxPhoneNumAvail",
+            data: {
+                phoneNumInput: phoneNumInput
+            },
+            success: function (result) {
+                if(result){
+                    $("#phoneNumAvailResult").val("사용가능합니다");
+                }else{
+                    $("#phoneNumAvailResult").val("이미 사용중입니다");
+                }
+            },
+            error: function (e) {
+                console.log("실패...");
+                console.log(e);
+            }
+        });
+    })
+
+    // document.querySelector(".form").addEventListener("submit", function (event) {
+    $(".form").submit(function(event){
+
+
         event.preventDefault(); // 기본 제출 동작 막기
 
         // 필드 값 가져오기
@@ -87,8 +188,9 @@
         let crnInput = document.querySelector('input[name="storeCrn"]');
         let titleInput = document.querySelector('input[name="storeTitle"]');
 
-        // 오류 메시지 초기화
-        // let errorMessage = "";
+        let emailCheck = document.querySelector('input[name="alreadyUsedEmail"]');
+        let titleCheck = document.querySelector('input[name="alreadyUsedTitle"]');
+        let phoneNumCheck = document.querySelector('input[name="alreadyUsedPhoneNum"]');
 
         // 이름 필드 유효성 검사
         if (idInput.value.trim() === "") {
@@ -98,8 +200,8 @@
         }
 
         // 이름 필드 유효성 검사 - 이미 사용중인가?
-        if(alreadyUsed.value.trim() === "이미 사용 중 입니다."){
-            alert("이미 사용중입니다!!!!");
+        if (alreadyUsed.value.trim() === "이미 사용 중 입니다.") {
+            alert("이미 사용중인 아이디입니다.");
             return false;
         }
 
@@ -168,78 +270,24 @@
             return false;
         }
 
-        // // 이메일 중복 확인
-        // $.ajax({
-        //     type: "post",
-        //     url: "/cms/ajaxEmailAvail",
-        //     data: {emailInput: emailInput},
-        //     success: function(result){
-        //         if(result == null){
-        //             return false;
-        //         }
-        //     },
-        //     error: function(e) {
-        //         console.log("실패...");
-        //         console.log(e);
-        //     }
-        // });
-        //
-        // // 서점명 중복 확인
-        // $.ajax({
-        //     type: "post",
-        //     url: "/cms/ajaxTitleAvail",
-        //     data: {titleInput: titleInput},
-        //     success: function(result){
-        //         console.log("성공!");
-        //         console.log(result);
-        //     },
-        //     error: function(e) {
-        //         console.log("실패...");
-        //         console.log(e);
-        //     }
-        // });
-        //
-        // // 전화번호 중복 확인
-        // $.ajax({
-        //     type: "post",
-        //     url: "/cms/ajaxPhoneNumAvail",
-        //     data: {phoneNumInput: phoneNumInput},
-        //     success: function(result){
-        //         console.log("성공!");
-        //         console.log(result);
-        //     },
-        //     error: function(e) {
-        //         console.log("실패...");
-        //         console.log(e);
-        //     }
-        // });
+        if (titleCheck.value !== "사용가능합니다") {
+            alert("이미 사용중인 서점명 입니다.");
+            return false;
+        }
+        if (emailCheck.value !== "사용가능합니다") {
+            alert("이미 사용중인 이메일입니다.");
+            return false;
+        }
+        if (phoneNumCheck.value !== "사용가능합니다") {
+            alert("이미 사용중인 전화번호 입니다.");
+            return false;
+        }
+
 
         // 유효성 검사 통과 시 회원가입 폼 제출
         event.target.submit();
     });
 
-    $(document).ready(function(){
-        // id속성값이 username인 input태그에 change이벤트 등록
-        $("#storeLoginId").change(function(){
-            // 사용자가 작성한 값(username)이 DB에 존재하는지 확인
-            let storeLoginId = $(this).val(); // 사용자가 작성한 값 꺼내기
-            console.log("storeLoginId : " + storeLoginId);
-            $.ajax({
-                type: "post",
-                url: "/cms/ajaxUsernameAvail",
-                data: {storeLoginId: storeLoginId},
-                success: function(result){
-                    console.log("성공!");
-                    console.log(result);
-                    // availResult input태그에 결과 메세지 띄우기
-                    $("#availResult").val(result);
-                },
-                error: function(e) {
-                    console.log("실패...");
-                    console.log(e);
-                }
-            });
-        });
-    });
+});
 </script>
 </html>
