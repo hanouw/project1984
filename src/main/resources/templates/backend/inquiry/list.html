@@ -32,7 +32,7 @@
             <option value="storeTitle" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'inquiryTitle'}">문의제목</option>
             <option value="status" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'inquiryDetail'}">문의내용</option>
           </select>
-          <input type="text" name="keyword" id="keyword" th:field="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
+          <input type="text" maxlength="40" oninput="checkLength(this)" name="keyword" id="keyword" th:field="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
           <button class="black_btn" type="submit" id="searchBtn">검색</button>
         </div>
         <div class="item">

@@ -22,48 +22,48 @@
                 <h2>관리자 회원가입</h2>
                 <div class="input_form">
                     <span>아이디</span>
-                    <input type="text" id="storeLoginId" name="storeLoginId" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" id="storeLoginId" name="storeLoginId" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
                     <label for="availResult">사용가능여부</label>
                     <input class="avail" type="text" id="availResult" name="alreadyUsed" disabled />
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>비밀번호</span>
-                    <input type="password" id="storePassword" name="storePassword" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
+                    <input type="password" maxlength="16" oninput="checkLength(this)"id="storePassword" name="storePassword" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>비밀번호 확인</span>
-                    <input type="password" id="storePasswordCh" name="storePasswordCh" placeholder="비밀번호를 입력해주세요." />
+                    <input type="password" maxlength="16" oninput="checkLength(this)"id="storePasswordCh" name="storePasswordCh" placeholder="비밀번호를 입력해주세요." />
                     <span></span>
                 </div>
                 <br />
                 <div class="input_form">
                     <span>서점명</span>
-                    <input type="text" id="storeTitle" placeholder="서점명을 입력해주세요." th:field="*{storeTitle}"/>
+                    <input type="text" id="storeTitle" maxlength="40" oninput="checkLength(this)" placeholder="서점명을 입력해주세요." th:field="*{storeTitle}"/>
                     <input class="avail" id="titleAvailResult" name="alreadyUsedTitle"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>사업자등록번호</span>
-                    <input type="text" id="storeCrn" placeholder="사업자등록번호를 입력해주세요." th:field="*{storeCrn}"/>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" id="storeCrn" placeholder="사업자등록번호를 입력해주세요." th:field="*{storeCrn}"/>
                     <span></span>
                 </div>
                 <br />
                 <div class="input_form">
                     <span>대표자명</span>
-                    <input type="text" placeholder="대표자명을 입력해주세요." th:field="*{storeOwner}"/>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" placeholder="대표자명을 입력해주세요." th:field="*{storeOwner}"/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>이메일</span>
-                    <input type="text" id="storeEmail" placeholder="이메일을 입력해주세요." th:field="*{storeEmail}"/>
+                    <input type="text" id="storeEmail" maxlength="40" oninput="checkLength(this)" placeholder="이메일을 입력해주세요." th:field="*{storeEmail}"/>
                     <input class="avail" id="emailAvailResult" name="alreadyUsedEmail" disabled/>
                     <span></span>
                 </div>
                 <div class="input_form">
                     <span>연락처</span>
-                    <input type="text" id="storePhoneNum" placeholder="연락처를 입력해주세요." th:field="*{storePhoneNum}"/>
+                    <input type="text" id="storePhoneNum" maxlength="40" oninput="checkLength(this)" placeholder="연락처를 입력해주세요." th:field="*{storePhoneNum}"/>
                     <input class="avail" id="phoneNumAvailResult" name="alreadyUsedPhoneNum" disabled />
                     <span></span>
                 </div>

@@ -31,7 +31,7 @@
                         <option value="userName" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'userEmail'}">이메일</option>
                         <option value="userName" th:selected="${pageResponseDTO.pageRequestDTO.searchType == 'orderMembershipMethod'}">결제방법</option>
                     </select>
-                    <input type="text" name="keyword" id="keyword" th:field="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" name="keyword" id="keyword" th:field="${pageResponseDTO.pageRequestDTO.keyword}" placeholder="검색어를 입력해주세요"/>
                     <button class="black_btn" type="submit" id="searchBtn">검색</button>
                 </div>
                 <div class="item">

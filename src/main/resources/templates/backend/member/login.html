@@ -24,12 +24,12 @@
         <h2>관리자 로그인</h2>
         <div class="input_form">
           <span>아이디</span>
-          <input type="text" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
+          <input type="text" maxlength="40" oninput="checkLength(this)" placeholder="아이디를 입력해주세요." th:field="*{storeLoginId}"/>
           <span></span>
         </div>
         <div class="input_form">
           <span>비밀번호</span>
-          <input type="password" placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
+          <input type="password" maxlength="16" oninput="checkLength(this)"placeholder="비밀번호를 입력해주세요." th:field="*{storePassword}"/>
           <span></span>
         </div>
         <div class="check_box">

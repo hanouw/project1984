@@ -14,39 +14,39 @@
             <div class="add_form_wrap">
                 <div class="add_input_wrap">
                     <p>서점명</p>
-                    <input type="text" th:value="${order.storeTitle}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.storeTitle}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>회원ID</p>
-                    <input type="text" th:value="${order.userId}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.userId}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>회원명</p>
-                    <input type="text" th:value="${order.userName}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.userName}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>연락처</p>
-                    <input type="text" th:value="${order.userPhoneNum}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.userPhoneNum}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>이메일</p>
-                    <input type="text" th:value="${order.userEmail}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.userEmail}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>결제방법</p>
-                    <input type="text" th:value="${order.orderMembershipMethod}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.orderMembershipMethod}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>결제금액</p>
-                    <input type="text"  readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)"  readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>구독 시작일</p>
-                    <input type="text" th:value="${order.membershipStartDate}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.membershipStartDate}" readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>구독 종료일</p>
-                    <input type="text" th:value="${order.membershipEndDate}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${order.membershipEndDate}" readonly>
                 </div>
             </div>
         </div>

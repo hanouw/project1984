@@ -16,7 +16,7 @@
         <div class="add_form_wrap">
           <div class="add_input_wrap" style="display:none;">
             <p>상품아이디</p>
-            <input type="text" th:field="*{bookId}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookId}" readonly>
           </div>
 
           <div class="add_input_wrap">
@@ -32,7 +32,7 @@
 
           <div class="add_input_wrap">
             <p>ISBN</p>
-            <input type="text" th:field="*{isbn}" placeholder="ISBN을 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{isbn}" placeholder="ISBN을 입력해주세요.">
           </div>
 
           <div class="add_input_wrap">
@@ -41,35 +41,35 @@
               <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bookimages/${book.getBookImgStored}|">
             </div>
             <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
-            <input type="text" th:field="${book.bookImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${book.bookImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
 
           </div>
 
           <div class="add_input_wrap">
             <p>도서명</p>
-            <input type="text" th:field="*{bookTitle}" placeholder="도서명을 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookTitle}" placeholder="도서명을 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>목차</p>
-            <textarea th:field="*{bookIndex}" placeholder="목차를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{bookIndex}" placeholder="목차를 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>도서소개</p>
-            <textarea th:field="*{bookIntro}" placeholder="도서소개를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{bookIntro}" placeholder="도서소개를 입력해주세요."></textarea>
           </div>
           <br>
           <div class="add_input_wrap">
             <p>저자</p>
-            <input type="text" th:field="*{bookWriter}" placeholder="저자를 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookWriter}" placeholder="저자를 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>저자소개</p>
-            <textarea th:field="*{bookWriterProfile}" placeholder="저자소개를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{bookWriterProfile}" placeholder="저자소개를 입력해주세요."></textarea>
           </div>
           <br>
           <div class="add_input_wrap">
             <p>출판사</p>
-            <input type="text" th:field="*{bookPub}" placeholder="출판사를 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookPub}" placeholder="출판사를 입력해주세요.">
           </div>
 
           <div class="add_input_wrap">
@@ -85,33 +85,33 @@
 
           <div class="add_input_wrap">
             <p>독립서점 리뷰</p>
-            <textarea th:field="*{bookReview}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{bookReview}" placeholder="독립서점의 리뷰를 입력해주세요."></textarea>
           </div>
           <br>
 
           <div class="add_input_wrap">
             <p>책파일</p>
-            <input type="text" class="BookFileName" th:value="${book.getBookFileOrg()}" placeholder="*PDF 파일만 첨부가 가능합니다." readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" class="BookFileName" th:value="${book.getBookFileOrg()}" placeholder="*PDF 파일만 첨부가 가능합니다." readonly>
             <input type="file" id="bookFile" value="" placeholder="*PDF 파일만 첨부가 가능합니다." class="text_drag">
             <span class="drop_zone_ph" style="transform:translateY(6px);">수정하시려면 새로운 파일을 추가해주세요.</span>
           </div>
 
           <div class="add_input_wrap">
             <p>전자도서 판매가</p>
-            <input type="text" th:field="*{bookEbookPrice}" placeholder="전자도서 판매가를 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookEbookPrice}" placeholder="전자도서 판매가를 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>일반도서 판매가</p>
-            <input type="text" th:field="*{bookPaperPrice}" placeholder="일반도서 판매가를 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookPaperPrice}" placeholder="일반도서 판매가를 입력해주세요.">
           </div>
 
           <div class="add_input_wrap">
             <p>수정일</p>
-            <input type="text" th:field="*{lastModifiedDate}" id="lastModifiedDate" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{lastModifiedDate}" id="lastModifiedDate" readonly>
           </div>
           <div class="add_input_wrap">
             <p>등록일</p>
-            <input type="text" th:field="*{createDate}" id="createDate" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{createDate}" id="createDate" readonly>
           </div>
           <div class="add_checkbox_wrap">
             <p>활성화</p>

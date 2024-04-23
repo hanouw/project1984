@@ -17,7 +17,7 @@
 
                 <div class="add_input_wrap" style="display:none;">
                     <p>전시아이디</p>
-                    <input type="text" th:field="*{displayId}" readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{displayId}" readonly>
                 </div>
 
                 <div class="add_input_wrap">
@@ -26,23 +26,23 @@
                         <img id="image-preview01" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg01Stored}|">
                     </div>
                     <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
-                    <input type="text" th:value="${display.aboutImg01Org}" class="image-input-form display-img-01" placeholder="이미지를 첨부해주세요." readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${display.aboutImg01Org}" class="image-input-form display-img-01" placeholder="이미지를 첨부해주세요." readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_01</p>
-                    <textarea th:field="*{aboutText01}"></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{aboutText01}"></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_02</p>
-                    <textarea th:field="*{aboutText02}"></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{aboutText02}"></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_03</p>
-                    <textarea th:field="*{aboutText03}"></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{aboutText03}"></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_04</p>
-                    <textarea th:field="*{aboutText04}"></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{aboutText04}"></textarea>
                 </div>
                 <br>
 
@@ -52,15 +52,15 @@
                         <img id="image-preview02" class="preview-img" alt="" th:src="|/cms/displayimages/${display.getAboutImg02Stored}|">
                     </div>
                     <span class="drop_zone_ph">수정하시려면 영역 안으로 이미지를 추가해주세요.</span>
-                    <input type="text" th:value="${display.aboutImg02Org}" class="image-input-form display-img-02" placeholder="이미지를 첨부해주세요." readonly>
+                    <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${display.aboutImg02Org}" class="image-input-form display-img-02" placeholder="이미지를 첨부해주세요." readonly>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_05</p>
-                    <textarea th:field="*{aboutText05}"></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{aboutText05}"></textarea>
                 </div>
                 <div class="add_input_wrap">
                     <p>소개텍스트_06</p>
-                    <textarea th:field="*{aboutText06}"></textarea>
+                    <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{aboutText06}"></textarea>
                 </div>
                 <br>
 

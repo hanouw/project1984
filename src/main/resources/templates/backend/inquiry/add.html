@@ -17,35 +17,35 @@
         <div class="add_form_wrap">
           <div class="add_input_wrap">
             <p>회원ID</p>
-            <input type="text" th:field="*{userId}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userId}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>회원명</p>
-            <input type="text" th:field="*{userName}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userName}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>연락처</p>
-            <input type="text" th:field="*{userPhoneNum}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userPhoneNum}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>서점명</p>
-            <input type="text" th:field="*{storeTitle}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeTitle}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>문의제목</p>
-            <input type="text" th:field="*{inquiryTitle}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{inquiryTitle}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>문의내용</p>
-            <textarea th:field="*{inquiryDetail}" readonly></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{inquiryDetail}" readonly></textarea>
           </div>
           <div class="add_input_wrap">
             <p>수정일</p>
-            <input type="text" th:field="*{inquiryCreateDate}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{inquiryCreateDate}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>등록일</p>
-            <input type="text" th:field="*{inquiryLastModifiedDate}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{inquiryLastModifiedDate}" readonly>
           </div>
         </div>
         <div class="search_bar_wrap">
@@ -58,11 +58,11 @@
         <div class="add_form_wrap">
           <div class="add_input_wrap">
             <p>답변제목</p>
-            <input type="text" name="answerTitle" placeholder="답변제목을 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" name="answerTitle" placeholder="답변제목을 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>답변내용</p>
-            <textarea name="answerDetail" placeholder="답변내용을 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" name="answerDetail" placeholder="답변내용을 입력해주세요."></textarea>
           </div>
         </div>
       </div>

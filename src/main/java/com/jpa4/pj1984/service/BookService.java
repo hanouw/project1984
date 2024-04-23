@@ -68,24 +68,24 @@ public class BookService {
 
     //--스토어만 구분--//
     //목록조회(검색title)
-//    public Page<BookDTO> findByBookTitleContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
-//        Page<Book> all = bookRepository.findByBookTitleContainingAndStoreId(keyword, storeId, pageable);
-//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
-//        return list;
-//    }
+    public Page<BookDTO> findByBookTitleContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
+        Page<Book> all = bookRepository.findByBookTitleWithAndStoreId(keyword, storeId, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
 //    //목록조회(검색isbn)
-//    public Page<BookDTO> findByIsbnContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
-//        Page<Book> all = bookRepository.findByIsbnContainingAndStoreId(keyword, storeId, pageable);
-//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
-//        return list;
-//    }
+    public Page<BookDTO> findByIsbnContainingAndStoreId(String keyword, Long storeId, Pageable pageable) {
+        Page<Book> all = bookRepository.findByIsbnWithAndStoreId(keyword, storeId, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
 //
 //    //목록조회(일반)
-//    public Page<BookDTO> findAllByStoreId(Long storeId, Pageable pageable) {
-//        Page<Book> all = bookRepository.findAllByStoreId(storeId, pageable);
-//        Page<BookDTO> list = all.map(b -> new BookDTO(b));
-//        return list;
-//    }
+    public Page<BookDTO> findAllByStoreId(Long storeId, Pageable pageable) {
+        Page<Book> all = bookRepository.findAllWithStoreId(storeId, pageable);
+        Page<BookDTO> list = all.map(b -> new BookDTO(b));
+        return list;
+    }
 
 
 

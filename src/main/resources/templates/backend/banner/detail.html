@@ -21,21 +21,21 @@
                             <img id="image-preview" class="preview-img" alt="" th:src="|/cms/bannerimages/${banner.getBannerImgStored}|" style="transform:translateX(-20px);">
                             <button type="button" class="img_delete_btn" onclick="clickdelete()"></button>
                         </div>
-                        <input type="text" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${banner.bannerImgOrg}" class="image-input-form" placeholder="이미지를 첨부해주세요." readonly>
                     </div>
 
                     <div class="add_input_wrap">
                         <p>제목</p>
-                        <input type="text" th:field="${banner.bannerTitle}" placeholder="제목을 입력해주세요." readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${banner.bannerTitle}" placeholder="제목을 입력해주세요." readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>설명</p>
-                        <textarea th:field="${banner.bannerDetail}" placeholder="설명을 입력해주세요." readonly></textarea>
+                        <textarea maxlength="400" oninput="checkLengths(this)" th:field="${banner.bannerDetail}" placeholder="설명을 입력해주세요." readonly></textarea>
                     </div>
                     <br>
                     <div class="add_input_wrap">
                         <p>링크</p>
-                        <input type="text" th:field="${banner.bannerLink}" placeholder="링크를 입력해주세요." readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${banner.bannerLink}" placeholder="링크를 입력해주세요." readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>노출순서</p>

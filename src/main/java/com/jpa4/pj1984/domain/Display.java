@@ -10,26 +10,16 @@ import lombok.Setter;
 public class Display {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long displayId;
-    @Column
     private String aboutImg01Org;
-    @Column
     private String aboutImg01Stored;
-    @Column
     private String aboutText01;
-    @Column
     private String aboutText02;
-    @Column
     private String aboutText03;
-    @Column
     private String aboutText04;
 
-    @Column
     private String aboutImg02Org;
-    @Column
     private String aboutImg02Stored;
-    @Column
     private String aboutText05;
-    @Column
     private String aboutText06;
 
     @ManyToOne
