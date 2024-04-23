@@ -3,6 +3,7 @@ package com.jpa4.pj1984.service;
 import com.jpa4.pj1984.dto.MemberDTO;
 import com.jpa4.pj1984.dto.MemberForm;
 import com.jpa4.pj1984.domain.Member;
+import com.jpa4.pj1984.dto.UserPageRequestDTO;
 import com.jpa4.pj1984.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -41,6 +40,88 @@ public class MemberService {
         return memberFromList;
     }
 
+    // 회원 필터링해서 가져오기
+    public List<MemberDTO> searchMember(UserPageRequestDTO userPageRequestDTO) {
+        int page = userPageRequestDTO.getPage();
+        List<Member> allMember = memberRepository.findAll();
+        List<MemberDTO> list = null;
+        String keyword = userPageRequestDTO.getKeyword();
+        try{
+            switch (userPageRequestDTO.getSearchType()){
+                case "userNo" :
+                    list = allMember.stream()
+                            .filter(b -> b.getUserNo().toString().contains(keyword))
+                            .map(b -> new MemberDTO())
+    //                        .limit(2)
+                            .collect(Collectors.toList());
+                    break;
+                case "userId" :
+                    list = allMember.stream()
+                            .filter(b -> b.getUserId().contains(keyword))
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                case "userName":
+                    list = allMember.stream()
+                            .filter(b -> b.getUserName().contains(keyword))
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                case "userPhoneNum":
+                    list = allMember.stream()
+                            .filter(b -> b.getUserPhoneNum().contains(keyword))
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                case "userEmail":
+                    list = allMember.stream()
+                            .filter(b -> b.getUserEmail().contains(keyword))
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                case "userOrder":
+                    try{
+                        int intKeyword =  Integer.parseInt(keyword);
+                        list = allMember.stream() // todo 회원에 주문 수를 추가해야할듯함...
+    //                            .filter(b -> (b.getUserOrder > intKeyword))
+                                .map(b -> new MemberDTO())
+                                .collect(Collectors.toList());
+                    }catch (Exception e){
+                        log.info("it's not int");
+                    }
+                    break;
+                case "userSubscribe":
+                    list = allMember.stream()
+    //                        .filter(b -> b.getUserSubscribe().contains(keyword)) // todo 회원에 구독수도 추가해야할듯함...
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                case "userStatus":
+                    list = allMember.stream()
+                            .filter(b -> b.getUserStatus().getValue().equals(keyword))
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                case "createDate":
+                    list = allMember.stream()
+                            .filter(b -> b.getCreateDate().toString().contains(keyword))
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+                default:
+                    list = allMember.stream()
+                            .map(b -> new MemberDTO())
+                            .collect(Collectors.toList());
+                    break;
+            }
+        }catch (Exception e){
+            list = allMember.stream()
+                    .map(MemberDTO::new)
+                    .collect(Collectors.toList());;
+        }
+        return list;
+    }
+
     // No로 회원 하나 데이터 찾기
     public MemberDTO findMemberById(Long userNo){
         Optional<Member> member = memberRepository.findById(userNo);
@@ -61,19 +142,6 @@ public class MemberService {
         member.setUserPhoneNum(memberDTO.getUserPhoneNum());
         member.setUserEmail(memberDTO.getUserEmail());
         member.setUserStatus(memberDTO.getUserStatus());
-
-//        log.info("******* memberDTO = {}", memberDTO.getUserId());
-//        Member member = memberRepository.findById(memberDTO.getUserNo())
-//                .map(m -> {
-//                    m.setUserId(memberDTO.getUserId());
-//                    m.setUserName(memberDTO.getUserName()); // Likely meant userName here
-//                    m.setUserPhoneNum(memberDTO.getUserPhoneNum());
-//                    m.setUserEmail(memberDTO.getUserEmail());
-//                    m.setUserStatus(memberDTO.getUserStatus());
-//                    return m;
-//                })
-//                .orElse(null);
-//        log.info("******* member = {}", member.getUserId());
     }
 
     // 로그인

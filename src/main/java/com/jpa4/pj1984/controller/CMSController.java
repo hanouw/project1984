@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -58,12 +59,44 @@ public class CMSController {
     //----------------------------------------------------------------------------------- 회원(이용자)
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
-    public String userList(@ModelAttribute MemberDTO memberDTO, Model model) {
+    public String userListWithAjax(UserPageRequestDTO userPageRequestDTO, Model model) {
         log.info("******* CMSController userList 호출");
         List<MemberDTO> allMember = memberService.findAllMember();
-        model.addAttribute("allMember", allMember);
+        UserPageResponseDTO userPageResponseDTO = new UserPageResponseDTO();
+        userPageResponseDTO.setTotalCount((long) allMember.size());
+        userPageRequestDTO.setPage(1);
+        userPageRequestDTO.setCreateDate("desc");
+
+        userPageResponseDTO.setUserPageRequestDTO(userPageRequestDTO);
+
+        if(allMember.size()>10){
+            allMember = allMember.subList(0, 10);
+        }
+
+        model.addAttribute("members", allMember);
+        model.addAttribute("userPageResponseDTO", userPageResponseDTO);
         return "backend/member/memberList";
     }
+
+
+//     회원관리 페이지 이동 or 필터링 ajax
+    @GetMapping("/userList/ajax")
+    public ResponseEntity<List<MemberDTO>> userListAjax(UserPageRequestDTO userPageRequestDTO) {
+
+        List<MemberDTO> list = memberService.searchMember(userPageRequestDTO);
+        UserPageResponseDTO userPageResponseDTO = new UserPageResponseDTO();
+        int page = userPageRequestDTO.getPage();
+        long total = list.size();
+        userPageResponseDTO.setTotalCount(total);
+        try{
+            list = list.subList((page-1) * 10, page + 9);
+        }catch (NullPointerException e){
+            log.info("******* e = {}", e.toString());
+        }
+        log.info("********** userList Ajax 실행됨");
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 
     // 회원관리 - 회원 상세 정보 조회
     @GetMapping("/userDetail/{userNo}")
