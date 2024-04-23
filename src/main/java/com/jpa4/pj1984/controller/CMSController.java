@@ -55,13 +55,6 @@ public class CMSController {
         return "backend/member/login";
     }
 
-//    @PostMapping("/login")
-//    public String loginPro(StoreLoginForm storeLoginForm, HttpSession httpSession){
-//        log.info("******* CMSController loginPro");
-//        cmsService.login(storeLoginForm);
-//        return "redirect:/cms/home";
-//    }
-
     //----------------------------------------------------------------------------------- 회원(이용자)
     // 회원관리 - 회원 목록 조회
     @GetMapping("/userList")
@@ -90,43 +83,7 @@ public class CMSController {
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-// ---------------------------------------------------------------------------------------------------------------------------
-    public String userListWithAjax(UserPageRequestDTO userPageRequestDTO, Model model) {
-        log.info("******* CMSController userList 호출");
-        List<MemberDTO> allMember = memberService.findAllMember();
-        UserPageResponseDTO userPageResponseDTO = new UserPageResponseDTO();
-        userPageResponseDTO.setTotalCount((long) allMember.size());
-        userPageRequestDTO.setPage(1);
-        userPageRequestDTO.setCreateDate("desc");
-
-        userPageResponseDTO.setUserPageRequestDTO(userPageRequestDTO);
-
-        if(allMember.size()>10){
-            allMember = allMember.subList(0, 10);
-        }
-
-        model.addAttribute("members", allMember);
-        model.addAttribute("userPageResponseDTO", userPageResponseDTO);
         return "backend/member/memberList";
-    }
-
-
-//     회원관리 페이지 이동 or 필터링 ajax !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    @GetMapping("/userList/ajax")
-    public ResponseEntity<List<MemberDTO>> userListAjax(UserPageRequestDTO userPageRequestDTO) {
-
-        List<MemberDTO> list = memberService.searchMember(userPageRequestDTO);
-        UserPageResponseDTO userPageResponseDTO = new UserPageResponseDTO();
-        int page = userPageRequestDTO.getPage();
-        long total = list.size();
-        userPageResponseDTO.setTotalCount(total);
-        try{
-            list = list.subList((page-1) * 10, page + 9);
-        }catch (NullPointerException e){
-            log.info("******* e = {}", e.toString());
-        }
-        log.info("********** userList Ajax 실행됨");
-        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 
