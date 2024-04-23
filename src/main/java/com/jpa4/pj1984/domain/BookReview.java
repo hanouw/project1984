@@ -12,18 +12,19 @@ public class BookReview extends TimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookReviewId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userNo")
     private Member member;
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false)
     private String bookReviewDetail;
-    @Column(nullable = false, length = 200)
-    private Long bookReviewPosition;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookReviewStatus bookReviewStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    private Long bookReviewPosition; // grouping = id
+    private Integer step; // 댓글 순서
+
+    @ManyToOne
     @JoinColumn(name = "bookId")
     private Book book;
 }

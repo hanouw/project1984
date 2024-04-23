@@ -31,32 +31,27 @@ public class Book extends TimeEntity{
     @Column(nullable = false)
     private String bookWriter;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Column(nullable = false)
     private String bookPub;
-    @Column
     private String bookPaperPrice;
     @Column(nullable = false)
     private String bookEbookPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "book_category_id")
     private BookCategory bookCategory;
 
-    @Column
     private String bookIntro;
-    @Column
     private String bookIndex;
-    @Column
     private String bookReview;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bookReviewId")
-    private List<BookReview> bookUserReviews = new ArrayList<>();
+    private List<BookReview> bookUserReviewList = new ArrayList<>();
 
-    @Column
     private String bookWriterProfile;
 
     @Enumerated(EnumType.STRING)
