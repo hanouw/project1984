@@ -68,6 +68,7 @@ $(document).ready(function () {
     let currPage = 1;
 
     getList(1);
+
     // 목록 요청 함수 - 문서가 로딩되자마자 한번 실행되고, pageNum 누를때마다, 필터링을 할때마다 요청돼야함
     function getList(page) { // page = 요청된 페이지 번호
         currPage = page;
@@ -89,12 +90,12 @@ $(document).ready(function () {
                 startDate: startDateSelected,
                 endDate: endDateSelected
             },
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 printList(response);
                 printPagination(response)
             },
-            error: function(e){
+            error: function (e) {
                 console.error("요청 실패");
                 console.log(e);
             }
@@ -145,8 +146,8 @@ $(document).ready(function () {
         html += '<tr><th>NO</th><th>주문번호</th><th>회원ID</th><th>회원명</th>';
         html += '<th>bookId</th><th>도서명</th><th>서점명</th><th>주문상태</th>';
         html += '<th>결제방법</th><th>구매일</th></tr>';
-        $.each(response.orderList, function(index, item) {
-            html += '<tr><td><a href="/cms/order/book/'+ item.orderBookHistoryId +'">' + item.orderBookHistoryId + '</a></td>';
+        $.each(response.orderList, function (index, item) {
+            html += '<tr><td><a href="/cms/order/book/' + item.orderBookHistoryId + '">' + item.orderBookHistoryId + '</a></td>';
             html += '<td>' + item.orderBookId + '</td>';
             html += '<td>' + item.userId + '</td>';
             html += '<td>' + item.userName + '</td>';
@@ -188,7 +189,7 @@ $(document).ready(function () {
     // 달력 조회버튼 클릭시
     $("#dateSelectedBtn").on("click", function (e) {
         console.log('달력 조회 클릭')
-        if(valueCheck()){
+        if (valueCheck()) {
             datePeriodSelected = null;
             getList(1);
         }
@@ -196,7 +197,7 @@ $(document).ready(function () {
 
     // 키워드 검색 버튼 클릭시
     $("#searchBtn").on("click", function (e) {
-        if(valueCheck()) {
+        if (valueCheck()) {
             getList(1);
         }
     });
@@ -208,23 +209,18 @@ $(document).ready(function () {
         let endValue = $("#endDate").val();
         if (keywordValue === '' && searchTypeValue === '' && startValue === '' && endValue === '') {
             return true;
-        }
-        else if (keywordValue !== '' && searchTypeValue !== '' && startValue !== '' && endValue !== '') {
+        } else if (keywordValue !== '' && searchTypeValue !== '' && startValue !== '' && endValue !== '') {
             return true;
-        }
-        else if (keywordValue.length !== 0 && searchTypeValue !== '') {
+        } else if (keywordValue.length !== 0 && searchTypeValue !== '') {
             if (startValue === '' && endValue === '') {
                 return true;
-            }
-            else if (startValue === '' || endValue === '') {
+            } else if (startValue === '' || endValue === '') {
                 return alert("조회 시작일과 종료일을 모두 입력해주세요.");
             }
-        }
-        else if (startValue !== '' && endValue !== '') {
+        } else if (startValue !== '' && endValue !== '') {
             if (keywordValue === '' && searchTypeValue === '') {
                 return true;
-            }
-            else if (keywordValue.length === 0 || searchTypeValue === '') {
+            } else if (keywordValue.length === 0 || searchTypeValue === '') {
                 return alert("키워드와 검색조건을 모두 입력해주세요.");
             }
         }

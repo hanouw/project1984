@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface BookRepository extends JpaRepository<Book, Long> {
     Page<Book> findByBookTitleContaining(String keyword, Pageable pageable);
     Page<Book> findByIsbnContaining(String keyword, Pageable pageable);
@@ -21,5 +23,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("select b from Book b where b.store.storeId = :storeId")
     Page<Book> findAllWithStoreId(@Param("storeId") Long storeId, Pageable pageable);
+
+    List<Book> findByStore_StoreId(Long storeID);
 
 }

@@ -53,7 +53,6 @@ public class Store extends TimeEntity{
 
     // 찢어야 함 String
     private String storeImageOrigin;
-    @Column
     private String storeImageStored;
     private String storeImageOrigin01;
     private String storeImageStored01;

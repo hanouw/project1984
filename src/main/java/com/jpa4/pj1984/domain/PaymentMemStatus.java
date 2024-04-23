@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum PaymentMemStatus {
-    COMPLETE("STATUS_ON"), CANCEL("STATUS_OFF");
+    COMPLETE("STATUS_ON"), OFF("STATUS_OFF");
     private final String value;
 }
