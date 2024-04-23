@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">]
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
   <th:block th:fragment="content">
     <div class="search_bar_wrap">
@@ -12,7 +12,7 @@
           <button th:onclick="|location.href='@{/cms/inquiry/list}'|" class="grey_btn">목록</button>
           <button th:if="${!inquiry.answer}"
                   th:onclick="|location.href='@{/cms/inquiry/{id}/add(id=${inquiry.inquiryId})}'|" class="black_btn">답변등록</button>
-<!--          <button th:unless="${inquiry.answer}"-->
+<!--          <button th:if="${inquiry.answer}"-->
 <!--                  th:onclick="|location.href='@{/cms/inquiry/{id}/modify(id=${inquiry.inquiryId})}'|" class="black_btn">답변수정</button>-->
         </div>
       </div>
