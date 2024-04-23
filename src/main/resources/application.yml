@@ -1,11 +1,12 @@
 # DB setting
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
-#    username: pj1984
-#    password: pj1984!!
-    username: root
-    password: 1234
+    url: jdbc:mysql://192.168.100.49:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
+#   url: jdbc:mysql://localhost:3306/pj1984?useUnicode=true&characterEncoding=UTF-8&characterSetResult=UTF-8&useSSL=true
+    username: pj1984
+    password: pj1984!!
+#   username: root
+#   password: 1234
   servlet:
     multipart:
       max-file-size: 10MB
@@ -38,7 +39,9 @@ iamport:
   secret: BIbJ0zJL1smO9Kdbjmmf7epKUC6F0sM1swDVgzjfpJdwYXugBcgAjhE7LGZ976K14ZxK9tVY2cZx1PRv
 
 file:
-#   dir: /Users/hoseonyoo/Documents/file/
-    dir: C:\HJ\pj1984\
+  dir: C:/pj1984/images/
+
+#  dir: /Users/hoseonyoo/Documents/file/
+#  dir: C:\HJ\pj1984\
 #  dir: C:\thejoeun\dataCollection\
 
