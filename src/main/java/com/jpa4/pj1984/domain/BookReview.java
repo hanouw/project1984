@@ -15,15 +15,14 @@ public class BookReview extends TimeEntity{
     @ManyToOne
     @JoinColumn(name = "userNo")
     private Member member;
-    @Column(nullable = false, length = 100)
-    private String bookReviewDetail;
-    @Column(nullable = false, length = 200)
-    private Long bookReviewPosition;
     @Column(nullable = false)
-    private Integer step;
+    private String bookReviewDetail;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookReviewStatus bookReviewStatus;
+
+    private Long bookReviewPosition; // grouping = id
+    private Integer step; // 댓글 순서
 
     @ManyToOne
     @JoinColumn(name = "bookId")
