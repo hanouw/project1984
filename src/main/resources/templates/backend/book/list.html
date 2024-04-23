@@ -23,7 +23,7 @@
             <option value="bookTitle">도서명</option>
             <option value="isbn">ISBN</option>
           </select>
-          <input type="text" name="keyword" placeholder="검색어를 입력해주세요." />
+          <input type="text" maxlength="40" oninput="checkLength(this)" name="keyword" placeholder="검색어를 입력해주세요." />
           <button class="black_btn" onclick="movePage();">검색</button>
         </div>
         <div class="item">

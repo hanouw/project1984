@@ -16,7 +16,7 @@
                 <div class="add_form_wrap">
                     <div class="add_input_wrap">
                         <p>카테고리명</p>
-                        <input type="text" th:field="*{bookCategoryName}" id="bookCategoryName" placeholder="카테고리명을 입력해주세요.">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{bookCategoryName}" id="bookCategoryName" placeholder="카테고리명을 입력해주세요.">
                     </div>
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>

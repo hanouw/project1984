@@ -9,6 +9,23 @@
             <link th:href="@{/css/style_reset.css}" rel="stylesheet">
             <link th:href="@{/css/style.css}" rel="stylesheet">
             <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <script>
+                function checkLength(input) {
+                    let maxLength = input.getAttribute('maxlength');
+                    if (input.value.length > maxLength) {
+                        alert('입력 길이가 ' + maxLength + '를 초과하였습니다!');
+                        input.value = input.value.slice(0, maxLength);  // 초과된 부분을 잘라냅니다.
+                    }
+                }
+                function checkLengths(textarea) {
+                    let maxLengths = textarea.getAttribute('maxlength');
+                    if (textarea.value.length > maxLengths) {
+                        alert('입력 길이가 ' + maxLengths + '를 초과하였습니다!');
+                        textarea.value = textarea.value.slice(0, maxLengths);  // 초과된 부분을 잘라냅니다.
+                    }
+                }
+            </script>
+
         </head>
     </th:block>
 </html>

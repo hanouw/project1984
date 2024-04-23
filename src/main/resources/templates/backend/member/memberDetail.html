@@ -15,27 +15,27 @@
                 <div class="add_form_wrap" th:object="${memberForm}">
                     <div class="add_input_wrap">
                         <p>아이디</p>
-                        <input type="text" id="userId" th:field="*{userId}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" id="userId" th:field="*{userId}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>이름</p>
-                        <input type="text" th:field="*{userName}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userName}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>전화번호</p>
-                        <input type="text" th:field="*{userPhoneNum}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userPhoneNum}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>이메일</p>
-                        <input type="text" th:field="*{userEmail}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{userEmail}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>회원가입일</p>
-                        <input type="text" th:field="*{createDate}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{createDate}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>회원정보수정일</p>
-                        <input type="text" th:field="*{lastModifiedDate}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{lastModifiedDate}" readonly>
                     </div>
                     <div class="add_checkbox_wrap">
                         <p>활성화</p>

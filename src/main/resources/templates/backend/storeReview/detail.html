@@ -15,23 +15,23 @@
       <div class="add_form_wrap">
         <div class="add_input_wrap">
           <p>회원ID</p>
-          <input type="text" th:value="${storeReview.member.userId}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${storeReview.member.userId}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>회원명</p>
-          <input type="text" th:value="${storeReview.member.userName}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${storeReview.member.userName}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>리뷰내용</p>
-          <textarea th:text="${storeReview.storeReviewDetail}" readonly></textarea>
+          <textarea maxlength="400" oninput="checkLengths(this)" th:text="${storeReview.storeReviewDetail}" readonly></textarea>
         </div>
         <div class="add_input_wrap">
           <p>수정일</p>
-          <input type="text" th:value="${#temporals.format(storeReview.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${#temporals.format(storeReview.lastModifiedDate, 'yyyy-MM-dd HH:mm')}" readonly>
         </div>
         <div class="add_input_wrap">
           <p>등록일</p>
-          <input type="text" th:value="${#temporals.format(storeReview.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
+          <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${#temporals.format(storeReview.createDate, 'yyyy-MM-dd HH:mm')}" readonly>
         </div>
         <div class="add_checkbox_wrap">
           <p>활성화</p>

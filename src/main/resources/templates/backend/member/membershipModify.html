@@ -16,15 +16,15 @@
                 <div class="add_form_wrap">
                     <div class="add_input_wrap">
                         <p>구독권 금액</p>
-                        <input type="text" th:field="${membershipPrice.price}">
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${membershipPrice.price}">
                     </div>
                     <div class="add_input_wrap">
                         <p>수정일</p>
-                        <input type="text" th:field="${membershipPrice.lastModifiedDate}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${membershipPrice.lastModifiedDate}" readonly>
                     </div>
                     <div class="add_input_wrap">
                         <p>등록일</p>
-                        <input type="text" th:field="${membershipPrice.createDate}" readonly>
+                        <input type="text" maxlength="40" oninput="checkLength(this)" th:field="${membershipPrice.createDate}" readonly>
                     </div>
                 </div>
             </form>

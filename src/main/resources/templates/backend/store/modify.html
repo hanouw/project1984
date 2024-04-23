@@ -19,70 +19,70 @@
             <div class="store_img_form store_img_div" >
               <img class="store_img_form store_img_tag" th:src="|/cms/store/images/${store.getStoreImageStored()}|"/> <br/>
             </div>
-            <input type="text" th:value="${store.getStoreImageOrigin()}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin()}" readonly>
             <input type="file" th:name="newStoreImage">
           </div>
           <div class="add_input_wrap">
             <p>서점명</p>
-            <input type="text" th:field="*{storeTitle}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeTitle}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>설명</p>
-            <textarea th:field="*{storeText}" placeholder="설명을 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{storeText}" placeholder="설명을 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>서점한줄평</p>
-            <input type="text" th:field="*{storeOneReview}" placeholder="서점한줄평을 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeOneReview}" placeholder="서점한줄평을 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>서점택태그</p>
-            <textarea th:field="*{storeTag}" placeholder="서점택태그를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{storeTag}" placeholder="서점택태그를 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>서점 이미지</p>
             <div class="store_img_form store_img_div" >
               <img class="store_img_form store_img_tag" th:src="|/cms/store/images/${store.getStoreImageStored01()}|"/> <br/>
             </div>
-            <input type="text" th:value="${store.getStoreImageOrigin01()}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin01()}" readonly>
             <input type="file" th:name="newStoreImage01" th:value="${store.getStoreImageOrigin01()}">
           </div>
           <div class="add_input_wrap">
             <div class="store_img_form store_img_div" >
               <img class="store_img_form store_img_tag" th:src="|/cms/store/images/${store.getStoreImageStored02()}|"/><br/>
             </div>
-            <input type="text" th:value="${store.getStoreImageOrigin02()}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin02()}" readonly>
             <input type="file" th:name="newStoreImage02" th:value="${store.getStoreImageOrigin02()}">
           </div>
           <div class="add_input_wrap">
             <div class="store_img_form store_img_div" >
               <img class="store_img_form store_img_tag" th:src="|/cms/store/images/${store.getStoreImageStored03()}|"/> <br/>
             </div>
-            <input type="text" th:value="${store.getStoreImageOrigin03()}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:value="${store.getStoreImageOrigin03()}" readonly>
             <input type="file" th:name="newStoreImage03" th:value="${store.getStoreImageOrigin03()}">
           </div>
           <div class="add_input_wrap">
             <p>1984의 서점리뷰</p>
-            <textarea th:field="*{storeReview}" placeholder="서점리뷰를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{storeReview}" placeholder="서점리뷰를 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>주소</p>
-            <textarea th:field="*{storeAddress}" placeholder="주소를 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{storeAddress}" placeholder="주소를 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>연락처</p>
-            <input type="text" th:field="*{storePhoneNum}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storePhoneNum}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>운영시간</p>
-            <textarea th:field="*{storeOperateTime}" placeholder="운영시간을 입력해주세요."></textarea>
+            <textarea maxlength="400" oninput="checkLengths(this)" th:field="*{storeOperateTime}" placeholder="운영시간을 입력해주세요."></textarea>
           </div>
           <div class="add_input_wrap">
             <p>대표자명</p>
-            <input type="text" th:field="*{storeOwner}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeOwner}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>아이디</p>
-            <input type="text" th:field="*{storeLoginId}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeLoginId}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>계좌번호</p>
@@ -91,19 +91,19 @@
               <option value="placeholder" th:selected>은행명</option>
               <option th:each="bank : ${bankList}" th:value="${bank}" th:text="${bank}"></option>
             </select>
-            <input type="text" th:field="*{storeAccount}" placeholder="계좌번호를 입력해주세요.">
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeAccount}" placeholder="계좌번호를 입력해주세요.">
           </div>
           <div class="add_input_wrap">
             <p>사업자등록번호</p>
-            <input type="text" th:field="*{storeCrn}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{storeCrn}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>수정일</p>
-            <input type="text" th:field="*{lastModifiedDate}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{lastModifiedDate}" readonly>
           </div>
           <div class="add_input_wrap">
             <p>등록일</p>
-            <input type="text" th:field="*{createDate}" readonly>
+            <input type="text" maxlength="40" oninput="checkLength(this)" th:field="*{createDate}" readonly>
           </div>
           <div class="add_checkbox_wrap">
             <p>활성화</p>
