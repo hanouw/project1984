@@ -6,5 +6,11 @@
 
 2024.03.29 ~ 2024.04.24
 
-Front Page
+### Front Page
 https://github.com/hanouw/user1984
+### CMS Page
+https://github.com/hanouw/project1984
+
+![image](https://github.com/hanouw/project1984/assets/132257897/6b79fabd-ff72-4994-b05f-326667089103)
+
+
