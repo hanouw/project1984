@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:replace="~{backend/layouts/base :: base(~{this::content})}">
     <th:block th:fragment="content">
         <div class="search_bar_wrap">
@@ -41,7 +41,7 @@
                         </option>
                         <option value="asc" th:selected="${pageResponseDTO.pageRequestDTO.dateOrder == 'asc'}">이전순</option>
                     </select>
-                    <button class="black_btn" th:onclick="|location.href='@{/cms/membership/modify}'|">구독권수정</button>
+                    <button class="black_btn" th:onclick="|location.href='@{/cms/membership/modify}'|" sec:authorize="hasAnyAuthority('STATUS_ADMIN')">구독권수정</button>
                 </div>
             </div>
             <div class="list_table_wrap">
